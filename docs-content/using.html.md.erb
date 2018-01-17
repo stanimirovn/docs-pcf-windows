@@ -11,7 +11,7 @@ This topic describes how to push .NET apps to Windows cells.
 
 After operators install and configure the Pivotal Application Service (PAS) for Windows tile, developers can push .NET apps to the Windows cell. For documentation about installing the PAS for Windows tile, see the [Installing and Configuring PAS for Windows](installing.html) topic. Developers can push both [OWIN](http://owin.org/) and non-OWIN apps, and can push apps that are served by [Hostable Web Core](#push) or [self-hosted](#self-hosted).
 
-Operators must also install the Cloud Foundry Command Line Interface (cf CLI) to run the commands on this topic. For information about installing the cf CLI, see the [Installing the cf CLI](../cf-cli/install-go-cli.html) topic.
+Operators must also install the Cloud Foundry Command Line Interface (cf CLI) to run the commands on this topic. For information about installing the cf CLI, see the [Installing the cf CLI](https://docs.pivotal.io/pivotalcf/cf-cli/install-go-cli.html) topic.
 
 If you have upgraded to PAS for Windows and have apps that you want to migrate, see the [Upgrading Cells](upgrade-windows.html) topic.
 
@@ -108,7 +108,7 @@ Examine the following portion of an example WSDL file:
 - </wsdl:service>
 ```
 
-The WSDL file provides the port number for the SOAP web service as `62492`. This is the port that the web service listens on in the [Garden container](../concepts/container-security.html#mechanics), but external applications cannot access the service on this port. Instead, external applications must use port `80`, and the [Gorouter](../concepts/architecture/router.html) routes requests to the web service in the container.
+The WSDL file provides the port number for the SOAP web service as `62492`. This is the port that the web service listens on in the [Garden container](https://docs.pivotal.io/pivotalcf/concepts/container-security.html#mechanics), but external applications cannot access the service on this port. Instead, external applications must use port `80`, and the [Gorouter](https://docs.pivotal.io/pivotalcf/concepts/architecture/router.html) routes requests to the web service in the container.
 
 The URL of the web service in the WSDL file must be modified to remove `62492`. With no port number, the URL defaults to port `80`. In the example above, the modified URL would be `http://webservice.example.com/WebService1.asmx`.
 

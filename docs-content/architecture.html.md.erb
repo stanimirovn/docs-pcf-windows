@@ -17,20 +17,20 @@ Once the Windows cell is running, developers can specify a Windows stack when pu
 
 ## <a id="cells"></a> About Windows Cells
 
-App instances in PCF run inside containers. [Garden](../concepts/architecture/garden.html) is the API that creates and manages these containers, and Garden Windows implements Garden on Windows.
+App instances in PCF run inside containers. [Garden](https://docs.pivotal.io/pivotalcf/concepts/architecture/garden.html) is the API that creates and manages these containers, and Garden Windows implements Garden on Windows.
 
-By installing the [PAS for Windows](installing.html) tile, operators create a Windows [cell](../concepts/architecture/index.html#diego-cell) from a [stemcell](https://bosh.io/docs/stemcell.html) that contains the Windows Server operating system. Because Windows does not natively support Linux-style containers, Garden Windows uses an open-source library called IronFrame to implement containerization on Windows. IronFrame uses features of the Windows kernel to isolate resources that would otherwise be shared, creating containers comparable to those that exist on Linux.
+By installing the [PAS for Windows](installing.html) tile, operators create a Windows [cell](https://docs.pivotal.io/pivotalcf/concepts/architecture/index.html#diego-cell) from a [stemcell](https://bosh.io/docs/stemcell.html) that contains the Windows Server operating system. Because Windows does not natively support Linux-style containers, Garden Windows uses an open-source library called IronFrame to implement containerization on Windows. IronFrame uses features of the Windows kernel to isolate resources that would otherwise be shared, creating containers comparable to those that exist on Linux.
 
 ### <a id="components"></a> Components
 
 A Windows cell includes the following components:
 
-* Garden Windows: Implements the [Garden](../concepts/architecture/garden.html) API on Windows
+* Garden Windows: Implements the [Garden](https://docs.pivotal.io/pivotalcf/concepts/architecture/garden.html) API on Windows
 * Containerizer: Creates and manages Windows containers, using the IronFrame library
-* [Metron Agent](../concepts/diego/diego-architecture.html#metron-agent): Forwards app logs, errors, and metrics to the [Loggregator](../loggregator/architecture.html) system
+* [Metron Agent](https://docs.pivotal.io/pivotalcf/concepts/diego/diego-architecture.html#metron-agent): Forwards app logs, errors, and metrics to the [Loggregator](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html) system
 * [BOSH Agent](https://bosh.io/docs/bosh-components.html#agent): Executes instructions from the BOSH Director
-* [Consul Client](../concepts/diego/diego-architecture.html#consul): Registers the cell as a service in a Consul cluster
-* [Cell Rep](../concepts/diego/diego-architecture.html#rep): Runs and manages [Tasks and Long Running Processes](../concepts/diego/diego-auction.html#processes)
+* [Consul Client](https://docs.pivotal.io/pivotalcf/concepts/diego/diego-architecture.html#consul): Registers the cell as a service in a Consul cluster
+* [Cell Rep](https://docs.pivotal.io/pivotalcf/concepts/diego/diego-architecture.html#rep): Runs and manages [Tasks and Long Running Processes](https://docs.pivotal.io/pivotalcf/concepts/diego/diego-auction.html#processes)
 
 The following diagram illustrates the architecture of a Windows cell:
 
