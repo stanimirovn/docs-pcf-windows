@@ -37,37 +37,16 @@ The following diagram illustrates the architecture of a Windows cell:
 
 ### <a id="components"></a> Container Isolation
 
-Garden Windows achieves container isolation in the following ways:
+Garden Windows builds on [Windows Containers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/about/) to isolate container filesystems, provide network namespace, and limit memory and CPU usage.
 
-* [Filesystem Isolation](#filesystem)
-* [Disk Usage](#disk-usage)
-* [Network Isolation](#network-isolation)
-* [Memory Usage](#memory-usage)
+To limit container disk usage, Garden Windows enforces disk usage limits with NTFS [disk quotas](https://technet.microsoft.com/en-us/library/cc938945.aspx#XSLTsection128121120120), which work on a per-user, per-volume basis. The disk quotas apply to the isolated volume provided by Windows Containers, which by default is the `C:\` volume.
 
-####<a id='filesystem'></a> Filesystem Isolation
-
-Garden Windows creates a unique temporary user for each container, and uses [Access Control Lists](https://msdn.microsoft.com/en-us/library/windows/desktop/aa374872(v=vs.85).aspx) (ACLs) to render a "containerized" directory visible only to the user who owns the container. The temporary user can also read much of the host cell's filesystem, such as system DLLs and `C:\Program Files`. 
-
-<p class="note"><strong>Note</strong>: Because the temporary user who owns the container can view much of the host filesystem, operators should avoid placing sensitive or confidential information in system directories that would be accessible by standard users on a Windows workstation.</p> 
-
-####<a id='disk-usage'></a> Disk Usage
-
-Garden Windows enforces disk usage limits with NTFS [disk quotas](https://technet.microsoft.com/en-us/library/cc938945.aspx#XSLTsection128121120120), which work on a per-user, per-volume basis. The disk quotas apply to the temporary user who owns the container, on the volume that contains the containerized directory, which is `C:\` by default. Because quotas are transparent to the user, the temporary user who owns the container can only see the disk resources available within the assigned quota.
-
-####<a id='network-isolation'></a> Network Isolation
-
-Apps launched inside a Garden Windows container bind directly to the external IP address of the cell. For apps that utilize the port mapping functions of the Garden API, Garden Windows maps internal container ports to external ports. 
-
-####<a id='memory-usage'></a> Memory Usage
-
-Garden Windows uses [job objects](https://msdn.microsoft.com/en-us/library/windows/desktop/ms684161.aspx) to enforce limits on memory usage by an app inside a container. A job object is a Windows kernel object that enables the control of multiple processes as a single group. Garden Windows assigns the processes inside a container to a job object and sets an upper limit on memory utilization by this job object, which is enforced by the kernel. 
-
-Additionally, an IronFrame component called the Guard helps enforce memory limits. The Guard polls for app memory usage and ensures that no app has mapped more memory than allowed. If an app exceeds its memory limit, the Guard kills the job object. If a process attempts to escape a job object, the Guard stops this behavior and kills the process if necessary.
+Because quotas are transparent to the user, the temporary user who owns the container can only see the disk resources available within the assigned quota.
 
 ## <a id="stemcells"></a> About Windows Stemcells
 
-A "stemcell" is a customized operating system image containing the filesystem for BOSH-managed virtual machines. When deployed, it includes a process, the _BOSH Agent_, which is pre-configured to communicate with the orchestrating VM, the _BOSH Director_.
-The BOSH Agent is responsible for executing and monitoring "jobs" on the VM.
+A "stemcell" is a customized operating system image containing the filesystem for BOSH-managed virtual machines. When deployed, the operating system includes the _BOSH Agent_ process, which is dedicated to communicating with the orchestrating VM, the _BOSH Director_.
+The BOSH Agent executes and monitors BOSH jobs on its VM.
 
 Deployments of Windows Server on PCF currently use a stemcell containing Windows Server 2016.
 
