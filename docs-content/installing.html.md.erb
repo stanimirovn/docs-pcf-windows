@@ -60,6 +60,8 @@ There are two settings in the PAS tile that affect the Windows cells installed b
 
 1. (Optional) To deploy your PAS for Windows application workloads to an isolation segment, click **Application Containers** and perform the steps in the [Assign a Tile to an Isolation Segment](#assign-isolation) section below.
 
+1. (Optional) If an antivirus scanner runs on your VMs, configure the scanner to let the BOSH agent download and uncompress files. See [Configure Antivirus for Windows Cells](#antivirus) for details.
+
 1. (Optional) To configure Windows cells to send Windows Event logs to an external syslog server, click **System Logging** and perform the steps in the [Send Cell Logs to a Syslog Server](./troubleshooting.html#syslog) section.
 
 1. Click **Errands**. Pivotal recommends that you set the **Install HWC Buildpack Errand** to **On**. This ensures that you receive the most up-to-date HWC Buildpack.
@@ -97,6 +99,16 @@ See [Replicate a Tile](#replicate) for how to create multiple copies of the PAS 
 See [Assign a Tile to an Isolation Segment](#assign-isolation) for how to associate a PAS for Windows tile with an isolation segment, so that its cells run in that segment. 
 
 See the [Create an Isolation Segment](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html#create-an-is) section of the <em>Managing Isolation Segments</em> topic for how to add an isolation segment to the CCDB.
+
+###<a id='antivirus'></a> Configure Antivirus for Windows Cells
+
+Diego cell VMs routinely download and uncompress files, while antivirus scanners scan files once they are downloaded or uncompressed. When an antivirus scanner program runs in a directory that BOSH is actively downloading or compressing into, scanner actions can block BOSH processes and cause hard-to-debug “Access is denied” errors.
+
+To prevent these errors, configure your antivirus scanner to disable **on-access scanning** for the following directories on your Windows cell:
+
+* `C:\bosh`
+* `C:\var\vcap`
+* `C:\containerizer`
 
 ###<a id='replicate'></a> Replicate a Tile
 
