@@ -41,9 +41,7 @@ Garden Windows uses the following plugins to create and manage [Windows Containe
 
 - Container plugin `winc`: Creates [OCI](https://www.opencontainers.org)-compliant containers, executes processes in the containers, and sets their CPU and RAM limits.
 - Network plugin `winc-network`: Creates a network compartment for the container, applies its DNS settings, and defines its inbound/outbound network access rules.
-- Rootfs image plugin `winc-image`: Sets up the container filesystem volume and defines its disk quotas.
-
-Container disk quotas limit usage on a per-user, per-volume basis. Users can see their available disk space only within their assigned quota on any container that they currently own.
+- Rootfs image plugin `winc-image`: Sets up the container filesystem volume and uses the [FSRM](https://docs.microsoft.com/en-us/windows-server/storage/fsrm/fsrm-overview) API to define its disk usage quotas.
 
 ## <a id="stemcells"></a> About Windows Stemcells
 
