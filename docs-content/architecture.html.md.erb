@@ -35,13 +35,15 @@ The following diagram illustrates the architecture of a Windows cell:
 
 <%= image_tag('windows-cell.png') %>
 
-### <a id="components"></a> Container Isolation
+### <a id="container"></a> Container Isolation
 
-Garden Windows builds on [Windows Containers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/about/) to isolate container filesystems, provide network namespace, and limit memory and CPU usage.
+Garden Windows uses the following plugins to create and manage [Windows Containers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/about/) for PAS:
 
-To limit container disk usage, Garden Windows enforces disk usage limits with NTFS [disk quotas](https://technet.microsoft.com/en-us/library/cc938945.aspx#XSLTsection128121120120), which work on a per-user, per-volume basis. The disk quotas apply to the isolated volume provided by Windows Containers, which by default is the `C:\` volume.
+- Container plugin `winc`: Creates [OCI](https://www.opencontainers.org)-compliant containers, executes processes in the containers, and sets their CPU and RAM limits.
+- Network plugin `winc-network`: Creates a network compartment for the container, applies its DNS settings, and defines its inbound/outbound network access rules.
+- Rootfs image plugin `winc-image`: Sets up the container filesystem volume and defines its disk quotas.
 
-Because quotas are transparent to the user, the temporary user who owns the container can only see the disk resources available within the assigned quota.
+Container disk quotas limit usage on a per-user, per-volume basis. Users can see their available disk space only within their assigned quota on any container that they currently own.
 
 ## <a id="stemcells"></a> About Windows Stemcells
 
