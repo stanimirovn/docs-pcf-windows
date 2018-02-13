@@ -7,6 +7,28 @@ owner: Greenhouse
 
 This topic describes how to troubleshoot Windows Diego cells deployed by Pivotal Application Service (PAS) for Windows.
 
+##<a id='issues'></a> Installation Issues
+
+###<a id='no-os'></a> Missing OS
+
+#### Symptom
+
+You click the **+** icon in Ops Manager to add the PAS for Windows tile to the Installation Dashboard, and you see the error `is invalid: has an invalid release 'windows2016fs' specified for job type 'Windows Diego Cell'`.
+
+#### Explanation
+
+The product file you are trying to upload does not contain the Windows Server 2016 OS image.
+
+#### Solution
+
+1. Delete the product file listing from Ops Manager by clicking its trash can icon under **Import a Product**.
+
+1. Follow the PAS for Windows [installation instructions](./installing.html#install) to run the `winfs-injector` tool locally on the product file. This step requires internet access, can take up to 20 minutes, and adds Windows Server 2016 to the product file.
+
+1. Click **Import a Product** to upload the "injected" product file.
+
+1. Click the **+** icon next to the product listing to add the PAS for Windows tile to the Installation Dashboard.
+
 ##<a id='log-types'></a> Windows Cell Log Types
 
 Windows cells generate two types of logs:
