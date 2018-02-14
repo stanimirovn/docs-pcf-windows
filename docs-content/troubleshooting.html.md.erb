@@ -17,13 +17,13 @@ You click the **+** icon in Ops Manager to add the PAS for Windows tile to the I
 
 #### Explanation
 
-The product file you are trying to upload does not contain the Windows Server 2016 OS image.
+The product file you are trying to upload does not contain the Windows Server container base image.
 
 #### Solution
 
 1. Delete the product file listing from Ops Manager by clicking its trash can icon under **Import a Product**.
 
-1. Follow the PAS for Windows [installation instructions](./installing.html#install) to run the `winfs-injector` tool locally on the product file. This step requires internet access, can take up to 20 minutes, and adds Windows Server 2016 to the product file.
+1. Follow the PAS for Windows [installation instructions](./installing.html#install) to run the `winfs-injector` tool locally on the product file. This step requires internet access, can take up to 20 minutes, and adds the Windows Server container base image to the product file.
 
 1. Click **Import a Product** to upload the "injected" product file.
 
