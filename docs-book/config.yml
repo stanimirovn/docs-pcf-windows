@@ -16,6 +16,7 @@ public_host: hello
 sections:
   - repository:
       name: docs-content
+      at_path: common
     directory: pas-windows
     subnav_template: windows_subnav.erb       
 
