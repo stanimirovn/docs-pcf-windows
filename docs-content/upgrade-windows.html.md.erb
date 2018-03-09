@@ -27,22 +27,17 @@ To upgrade PAS for Windows:
 
 ##<a id='upgrade-stemcell'></a> Upgrade the Windows Stemcell
 
-1. Navigate to the **Ops Manager Installation Dashboard**.
-
 1. Retrieve the stemcell by following the steps below for your IaaS:
     * For vSphere, you must [build your own stemcell](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/wiki/Creating-a-vSphere-Stemcell-by-Hand).
     * For AWS, GCP, and Azure, navigate to the **Stemcells for PCF (Windows Server)** section of [Pivotal Network](https://network.pivotal.io/products/stemcells-windows-server).
 
-1. Click the **PAS for Windows** tile.
+1. Navigate to **Stemcell Library** in the **Installation Dashboard**.
 
-1. Within the **Settings** tab, click **Stemcell** on the left-hand navigation.
+1. Click **Import Stemcell** to import the stemcell file.
 
-1. Click **Import Stemcell**.
+1. When prompted, enable the Ops Manager product checkbox to stage your stemcell.
 
-1. Select the previously acquired stemcell and click **Open**.
+1. Click **Apply Stemcell to Products**.
 
-1. Click **Installation Dashboard** to navigate back to the **Ops Manager Installation Dashboard**.
+For more information about Windows stemcells, see [Using Windows Stemcells](./about-windows-stemcells.html).
 
-1. Click **Apply Changes**.
-
-For more information about Windows stemcells, see [Downloading or Creating Windows Stemcells](./stemcells.html).
