@@ -18,6 +18,7 @@ For more information about how PAS for Windows works, see the [Product Architect
 
 For the PAS for Windows release notes, see the [Release Notes](release-notes.html) topic.
 
+
 ## <a id='reqs'></a> Requirements
 
 To install the PAS for Windows tile, you must have:
@@ -28,7 +29,7 @@ To install the PAS for Windows tile, you must have:
 
 * A Windows Server 2016 (v1709) stemcell, which you can obtain by following the directions in [Downloading or Creating Windows Stemcells](./stemcells.html). Note that PAS for Windows uses _Windows Server 2016, Server Core, version 1709._
 
-The minimum recommended resource requirements for each Windows cell are the following:
+The minimum recommended resource requirements for each Windows cell are:
 
 - Disk size: 64GB
 - Memory: 16GB
@@ -39,14 +40,15 @@ Due to Microsoft’s licensing requirements, operators must bring their own lice
 
 ## <a id='from-2012r2'></a>Upgrading from PAS for Windows 2012R2
 
-As of PCF 2.1, PAS for Windows is a new product offering that uses a new base OS version for its required stemcell. Thus, there is no direct upgrade path from PAS for Windows 2012R2. To upgrade with no downtime for applications, operators must install both PAS for Windows 2.1 and PAS for Windows 2012R2 2.1 and use a blue/green deployment to achieve a zero-downtime upgrade for applications. See [Migrating Apps to PAS for Windows](./migrating.html) for details.
+As of PCF v2.1, PAS for Windows is a new product offering that uses a new base OS version for its required stemcell. Thus, there is no direct upgrade path from PAS for Windows 2012R2. To upgrade with no downtime for applications, operators must install both PAS for Windows v2.1 and PAS for Windows 2012R2 v2.1 and use a blue/green deployment to achieve a zero-downtime upgrade for applications. See [Migrating Apps to PAS for Windows](./migrating.html) for details.
 
 
-## <a id='understand'></a>Understanding PAS for Windows ##
+## <a id='understand'></a>Understanding PAS for Windows
 
 * <a href="architecture.html" class="subnav">Product Architecture</a>
 
 * <a href="windows-security.html" class="subnav">Windows Stemcell Hardening</a>
+
 
 ## <a id='install'></a>Installation Guide
 
@@ -55,6 +57,7 @@ As of PCF 2.1, PAS for Windows is a new product offering that uses a new base OS
 * <a href="installing.html" class="subnav">Installing and Configuring PAS for Windows</a>
 
 * <a href="migrating.html" class="subnav">Migrating Apps to PAS for Windows</a>
+
 
 ## <a id='admin'></a>Admin Guide
 
@@ -75,7 +78,7 @@ PAS for Windows has the following limitations:
 * Container-to-container networking is not yet available for Windows-hosted applications.
 * Volume Services are not yet available for Windows-hosted applications.
 * OpenStack is currently not supported for PASW. Contact your Pivotal representative for information on OpenStack deployments.
-* Currently, _AWS does not provide the version of Windows Server required by PAS for Windows_, Windows Server version 1709. Contact your AWS representative for information regarding the availability of this OS version.
+* Currently, AWS does not provide the version of Windows Server required by PAS for Windows, Windows Server version 1709. Contact your AWS representative for information regarding the availability of this OS version.
 
 * The following Windows technologies are not supported by PAS for Windows 2012R2:
 
@@ -84,11 +87,12 @@ PAS for Windows has the following limitations:
 
 These limitations will be addressed in subsequent versions of the product.
 
+
 ## <a id='issues'></a>Known Issues
 
 PAS for Windows has the following known issues:
 
-* In the PAS for Windows tile **Credentials** tab, the `vcap` credentials that appear when you click **VM Credentials** > **Link to Credential** do not apply to Windows cells, since they do not yet have a vcap user on the Windows host. To establish access for an `Administrator` user, please see the **VM Options** tab to specify a password for that user.
+* In the PAS for Windows tile **Credentials** tab, the `vcap` credentials that appear when you click **VM Credentials > Link to Credential** do not apply to Windows cells, since they do not yet have a vcap user on the Windows host. To establish access for an `Administrator` user, please see the **VM Options** tab to specify a password for that user.
 
 * The controls in the **Advanced Features** pane have no effect.
 
