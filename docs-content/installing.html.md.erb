@@ -75,36 +75,39 @@ There are two settings in the **Pivotal Application Service** tile that affect t
 
 ##<a id='resources'></a> Step 4: Configure Tile Resources
 
-The size of the Windows stemcell's disk determines the minimum disk size of any Windows VM that the BOSH Director can create from that stemcell. The relationship between a stemcell's disk size and the disk size of the Windows cells depends on your IaaS as shown in the table below.
+<p class='note'><strong>Note</strong>: Root disk sizing has been disabled and the default disk size for Windows cells has been increased. Future releases will provide ephemeral disk support to allow you to configure the size of your Windows cell.</p>
+
+The size of the root disk of a stemcell determines the minimum root disk size of any Windows VM that the BOSH Director can create from that stemcell. The relationship between the disk size of the stemcell and the root disk size of the Windows cells depends on your IaaS, as shown in the table below.
 
 <table id='disk-sizes' border="1" class="nice" >
   <tr>
     <th>IaaS</th>
-    <th>Stemcell disk size</th>
-    <th>Possible disk sizes for Windows cells</th>
+    <th>Windows Stemcell 1200.17+ disk size</th>
+    <th>Windows Stemcell 1709.5+ disk size</th>
   </tr>
   <tr>
     <th>Azure</th>
     <td>127 GB</td>
-    <td>127 GB</td>
+    <td>30 GB</td>
   </tr>
   <tr>
     <th>AWS</th>
-    <td>30 GB</td>
-    <td>30 GB or larger</td>
+    <td>128 GB</td>
+    <td>128 GB</td>
   </tr>
   <tr>
     <th>GCP</th>
-    <td>50 GB</td>
-    <td>50 GB or larger</td>
+    <td>100 GB</td>
+    <td>100 GB</td>
   </tr>
   <tr>
     <th>vSphere</th>
     <td>Recommended 128 GB+<sup>*</sup></td>
-    <td>Same as stemcell minimum root disk size</td>
+    <td>Recommended 128 GB+<sup>*</sup></td>
   </tr>
 </table>
 
+If you're using a Stemcell version before 1200.17 or before 1709.5, please refer to [Using Windows Stemcells](https://docs.pivotal.io/pivotalcf/2-1/windows/about-windows-stemcells.html)
 <sup>\*</sup>Because you create your own stemcell on vSphere, you can control its root disk size. See [Creating a vSphere Stemcell by Hand](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/wiki/Creating-a-vSphere-Stemcell-by-Hand) for more information.
 
 ### Select Diego Cell disk sizes
