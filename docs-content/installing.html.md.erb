@@ -62,7 +62,7 @@ There are two settings in the **Pivotal Application Service** tile that affect t
 
     ![The enable KMS text fields: host and port](enable-kms.png)
 
-1. (Optional) To deploy your PAS for Windows application workloads to an isolation segment, click **Application Containers** and perform the steps in the [Assign a Tile to an Isolation Segment](#assign-isolation) section below.
+1. (Optional) To deploy your PAS for Windows application workloads to an isolation segment, click **Application Containers** and perform the steps in the [Assign a Tile to an Isolation Segment](./isolation.html#assign-isolation) section below.
 
 1. (Optional) To configure Windows cells to send Windows Event logs to an external syslog server, click **System Logging** and perform the steps in the [Send Cell Logs to a Syslog Server](./troubleshooting.html#syslog) section.
 
@@ -107,8 +107,9 @@ The size of the root disk of a stemcell determines the minimum root disk size of
   </tr>
 </table>
 
-If you're using a Stemcell version before 1200.17 or before 1709.5, please refer to [Using Windows Stemcells](https://docs.pivotal.io/pivotalcf/2-1/windows/about-windows-stemcells.html)
-<sup>\*</sup>Because you create your own stemcell on vSphere, you can control its root disk size. See [Creating a vSphere Stemcell by Hand](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/wiki/Creating-a-vSphere-Stemcell-by-Hand) for more information.
+Because you create your own stemcell on vSphere, you can control its root disk size. See [Creating a vSphere Stemcell by Hand](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/wiki/Creating-a-vSphere-Stemcell-by-Hand) for more information.
+
+If you're using a Stemcell version before 1200.17 or before 1709.5, please refer to [Using Windows Stemcells](https://docs.pivotal.io/pivotalcf/2-1/windows/about-windows-stemcells.html) in the PAS for Windows 2012R2 documentation.
 
 ### Select Diego Cell disk sizes
 
@@ -151,56 +152,4 @@ When you deploy or upgrade PAS for Windows, configure the resources of the BOSH 
 
 ##<a id='copy'></a> Step 7: (Optional) Create More Tiles
 
-If you want to run Windows cells in multiple isolation segments, you must create and configure additional PAS for Windows tiles. See [Windows Cells in Isolation Segments](#isolation) below for how to do this.
-
-
-##<a id='isolation'></a> Windows Cells in Isolation Segments
-
-Isolation segments are compartmentalized resource pools for Diego cells. The cells in one isolation segment share routing, computing, and logging resources with other cells in the same segment, and do not use resources from other isolation segments.
-
-To run Windows cells in multiple isolation segments, you need to create and install multiple PAS for Windows tiles and configure each to run in a different isolation segment.
-
-If the isolation segments do not already exist in the Cloud Controller Database (CCDB), you need to create them there.
-
-See [Replicate a Tile](#replicate) for how to create multiple copies of the PAS for Windows tile.
-
-See [Assign a Tile to an Isolation Segment](#assign-isolation) for how to associate a PAS for Windows tile with an isolation segment, so that its cells run in that segment.
-
-See the [Create an Isolation Segment](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html#create-an-is) section of the <em>Managing Isolation Segments</em> topic for how to add an isolation segment to the CCDB.
-
-###<a id='replicate'></a> Replicate a Tile
-
-To make multiple copies of the **PAS for Windows** tile that you can assign to different isolation segments, use the Replicator tool as follows:
-
-1. Download the Replicator tool from the **Pivotal Cloud Foundry Runtime for Windows** section of [Pivotal Network](https://network.pivotal.io/products/pas-windows).
-
-1. Navigate to the directory where you downloaded the Replicator tool.
-
-1. Replicate the tile:
-    <pre class="terminal">
-    ./replicator \
-        -name "YOUR-NAME" \
-        -path /PATH/TO/ORIGINAL.pivotal \
-        -output /PATH/TO/COPY.pivotal
-    </pre>
-
-    Replace the values above with the following:
-    * `YOUR-NAME`: Provide a unique name for the new PAS for Windows tile. The name must be ten characters or less and only contain alphanumeric characters, dashes, underscores, and spaces.
-    * `/PATH/TO/ORIGINAL`: Provide the absolute path to the original PAS for Windows tile you downloaded from Pivotal Network.
-    * `/PATH/TO/COPY`: Provide the absolute path for the copy of the PAS for Windows tile that the Replicator tool produces.
-
-1. Install and configure the Windows isolation segment, using the new `.pivotal` file and following the procedures in this topic, starting with the **Import a Product** step of [Step 2: Install the Tile](#install).
-
-###<a id='assign-isolation'></a> Assign a Tile to an Isolation Segment
-
-To assign a PAS for Windows tile to an isolation segment, perform the following steps:
-
-1. Open the **Application Containers** pane.
-
-    <%= image_tag('app_containers_segment_name.png') %>
-1. Under **Segment Name**, enter the name for the isolation segment to associate the tile with. If you are creating a new isolation segment, ensure that this name is unique across your PCF deployment.
-
-1. Click **Save**.
-
-1. If you are creating a new isolation segment, follow the steps in the [Create an Isolation Segment](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html#create-an-is) section of the <em>Managing Isolation Segments</em> topic to add the isolation segment to the CCDB.
-
+If you want to run Windows cells in multiple isolation segments, you must create and configure additional PAS for Windows tiles. See [Windows Cells in Isolation Segments](./isolation.html) for how to do this.
