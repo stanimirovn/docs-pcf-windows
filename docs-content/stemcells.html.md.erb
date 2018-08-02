@@ -5,19 +5,17 @@ owner: Windows
 
 This topic describes how to download or create the stemcell that Pivotal Application Service (PAS) for Windows needs to create VMs on an infrastructure.
 
-
 ## <a id="stemcell"></a> Windows Stemcells
 
 BOSH needs a stemcell to supply the basic operating system for any new Windows Server 2016 VMs it creates. Depending on your IaaS, you can create or download a stemcell as follows:
 
 * **Azure**: [See instructions below](#azure) on how to activate and download the Azure Windows Stemcell.
 
-* **GCP**: Download the **GCP light Stemcell for Windows 2016 Server Version 1709** from the **Stemcells for PCF (Windows Server)** section of [Pivotal Network](https://network.pivotal.io/products/stemcells-windows-server).
+* **Google Cloud Platform (GCP)**: Download the **GCP light Stemcell for Windows 2016 Server Version 1709** from the **Stemcells for PCF (Windows Server)** section of [Pivotal Network](https://network.pivotal.io/products/stemcells-windows-server).
 
 * **vSphere**: Create a stemcell by following the directions in [Creating a vSphere Stemcell by Hand](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/wiki/Creating-a-vSphere-Stemcell-by-Hand).
 
-* **AWS**: Currently, _AWS does not provide the version of Windows required by PAS for Windows_, Windows Server version 1709. Contact your AWS representative for information regarding the availability of this OS version.
-
+* **Amazon Web Services (AWS)**: Download the **AWS light Stemcell for Windows 2016 Server Version 1709** from the **Stemcells for PCF (Windows Server)** section of [Pivotal Network](https://network.pivotal.io/products/stemcells-windows-server).
 
 ## <a id="azure"></a> Configuring the Azure Light Stemcell
 
@@ -45,6 +43,5 @@ To download the Azure light stemcell for use in Ops Manager, perform the followi
 
 1. Navigate to [Pivotal Network](https://network.pivotal.io/products/stemcells-windows-server).
 2. Select **Azure Light Stemcell for Windows 2016 Server Version 1709** from the **Release Download Files** section of the Stemcells for PCF (Windows) page.
-
 
 For information about how to deploy and configure the PAS for Windows tile, see [Installing and Configuring PAS for Windows](./installing.html).
