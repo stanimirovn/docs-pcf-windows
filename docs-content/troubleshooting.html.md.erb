@@ -11,7 +11,7 @@ This topic describes how to troubleshoot Windows Diego cells deployed by Pivotal
 
 Here are some issues and resolutions that one may run into during the installation process.
 
-###<a id='winfs-injector-issues'></a>PAS for Windows File System Injector Troubleshooting
+###<a id='missing-certs-winfs-issues'></a>Missing local certificates for Windows File System Injector
 
 **Symptom**
 
@@ -27,6 +27,23 @@ Local certificates are needed to communicate with Dockerhub.
 **Solution**
 
 Install necessary certificates on your local machine (on Ubuntu, this can be done via the `ca-certificates` package).
+
+###<a id='outdated-version-winfs-issues'></a>Outdated version for Windows File System Injector
+
+**Symptom**
+
+You run the `winfs-injector` and see an error about missing file or directory
+```
+open ...windows2016fs-release/VERSION: no such file or directory
+```
+
+**Explanation**
+
+Outdated version of the `winfs-injector` has been used.
+
+**Solution**
+
+Install the recommended version of the `Windows FS Injector` for the tile.
 
 ###<a id='no-os'></a>Missing Container Image
 
