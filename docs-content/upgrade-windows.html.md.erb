@@ -13,17 +13,22 @@ For how developers can migrate apps to PAS for Windows from either PAS for Windo
 
 The PAS tile handles all of the credentials for PAS for Windows.
 
-To rotate your credentials in PAS for Windows, re-deploy PAS and PAS for Windows by navigating to the Ops Manager Installation Dashboard and clicking **Apply Changes**.
+To rotate your credentials in PAS for Windows, re-deploy PAS and PAS for Windows following the steps below:
+
+1. Navigate to the Ops Manager Installation Dashboard.
+1. Click **Review Pending Changes**.
+1. Select the PAS and PAS for Windows tiles and review the changes. For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/2-3/customizing/review-pending-changes.html).
+1. Click **Apply Changes**.
 
 ##<a id='upgrade-tile'></a> Upgrade PAS for Windows
 
 To upgrade PAS for Windows:
 
 1. Follow the instructions [Upgrading PCF Products](https://docs.pivotal.io/pivotalcf/customizing/upgrading-products.html#other-products) with the latest PAS for Windows product download from [Pivotal Network](https://network.pivotal.io/products/pas-windows).
-
 1. If necessary, configure the product. For more information about configuring PAS for Windows, see the [Installing and Configuring PAS for Windows](./installing.html) topic.
-
-1. Locate the **Pending Changes** section on the right-hand side of the screen and click **Apply Changes**.
+1. Click **Review Pending Changes**.
+1. Select the PAS for Windows tile and review the changes. For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/2-3/customizing/review-pending-changes.html).
+1. Click **Apply Changes**.
 
 ##<a id='upgrade-stemcell'></a> Upgrade the Windows Stemcell
 
@@ -40,4 +45,3 @@ To upgrade PAS for Windows:
 1. Click **Apply Stemcell to Products**.
 
 For more information about Windows stemcells, see [Downloading or Creating Windows Stemcells](stemcells.html).
-
