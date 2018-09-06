@@ -9,24 +9,45 @@ This topic describes how to troubleshoot Windows Diego cells deployed by Pivotal
 
 ##<a id='issues'></a> Installation Issues
 
-Here are some issues and resolutions that one may run into during the installation process.
+This section describes issues that may occur during the installation process.
 
-###<a id='winfs-injector-issues'></a>PAS for Windows File System Injector Troubleshooting
+###<a id='missing-certs-winfs-issues'></a>Missing Local Certificates for Windows File System Injector
 
 **Symptom**
 
-You run the `winfs-injector` and see an error about certificates.
-```
-Get https://auth.docker.io/token?service=registry.docker.io&scope=repository:cloudfoundry/windows2016fs:pull: x509: failed to load system roots and no roots provided
-```
+You run the `winfs-injector` and see the following error about certificates:
+
+<pre class="terminal">
+Get https://auth.docker.io/token?service=registry.docker.io&
+scope=repository:cloudfoundry/windows2016fs:pull: x509: 
+failed to load system roots and no roots provided
+</pre>
 
 **Explanation**
 
-Local certificates are needed to communicate with Dockerhub.
+Local certificates are needed to communicate with Docker Hub.
 
 **Solution**
 
-Install necessary certificates on your local machine (on Ubuntu, this can be done via the `ca-certificates` package).
+Install the necessary certificates on your local machine. On Ubuntu, you can install certificates with the `ca-certificates` package.
+
+###<a id='outdated-version-winfs-issues'></a>Outdated Version for Windows File System Injector
+
+**Symptom**
+
+You run the `winfs-injector` and see the following error about a missing file or directory:
+
+<pre class="terminal">
+open ...windows2016fs-release/VERSION: no such file or directory
+</pre>
+
+**Explanation**
+
+You are using an outdated version of the `winfs-injector`.
+
+**Solution**
+
+From [Pivotal Network](https://network.pivotal.io/products/pas-windows), download the recommended version of **PAS for Windows File System Injector tool** for the tile.
 
 ###<a id='no-os'></a>Missing Container Image
 
