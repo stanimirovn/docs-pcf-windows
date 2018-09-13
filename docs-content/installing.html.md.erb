@@ -53,7 +53,7 @@ The Injector tool, `winfs-injector`, is an executable binary that adds the Windo
 
 1. Specify your selection for **Manage Administrator Password**.
   * **Use the Windows default password** randomizes the administrator password. With this selection, the administrator password is not retrievable by an operator. This is the default selection.
-  * **Set the password** sets the same administrator password every Windows cell. As a result, this password can be used to access any Windows cell, including, for example, Remote Desktop Protocol (RDP) sessions.
+  * **Set the password** sets the same administrator password for every Windows cell. As a result, this password can be used to access any Windows cell, including, for example, Remote Desktop Protocol (RDP) sessions.
 
 1. (Optional) Select the **BETA: Enable BOSH-native SSH support on all VMs** checkbox to start the Microsoft beta port of the OpenSSH daemon on port 22 on all VMs. Users will be able to SSH onto Windows VMs with the `bosh ssh` command, and enter a CMD terminal as an administrator user. They can then run `powershell.exe` to start a PowerShell session.
 
