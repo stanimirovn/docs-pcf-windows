@@ -5,7 +5,7 @@ owner: Windows
 
 This topic describes how to create the stemcell that Pivotal Application Service (PAS) for Windows needs to create VMs on vSphere.
 
-**The stemcell is based on Windows Server 2016, Server Core, version 1709.**
+**The stemcell is based on Windows Server version 1709.**
 
 ##<a id='overview'></a> Overview
 
@@ -13,13 +13,13 @@ To create a Windows stemcell for vSphere, you create a base Windows VM from a vo
 
 The VM with security updates will serve as the base for all future stemcells, produced from clones of that base VM. This enables you to build new stemcells without having to run Windows Updates from scratch each time. You can also use a "snapshot" feature to maintain an updated Windows image that does not contain the BOSH dependencies.
 
-You can determine if your image needs updates by creating a VM with the image and then navigating to the control panel. Pivotal recommends installing any available critical updates, and then rebuilding the stemcell from a clone of the original VM.
+Pivotal recommends installing any available critical updates, and then rebuilding the stemcell from a clone of the original VM.
 
 ## <a id='prerequisites'></a> Prerequisites
 
 You need the following to perform the procedures in this topic:
 
-* A Windows Server 1709 ISO, from MSDN or VLSC. You can use an evaluation copy for testing, but Pivotal does not recommend this for production, as the licensing expires.
+* A Windows Server 1709 ISO, from MSDN or VLSC. You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production, as the licensing expires.
 	<p class="note"><strong>Note</strong>: Pivotal recommends maintaining a separate, updated Windows VM based on this ISO to serve as the basis for the installation steps below. This enables you to apply Windows Updates and create new stemcells without having to reinstall all updates from scratch.</p>
 * Access to a vSphere account.
 
@@ -60,7 +60,7 @@ Perform the following steps to create and customize a new VM:
 1. For **Guest OS Family**, select **Windows**.
 1. For **Guest OS version**, select **Windows Server 2016**.
 1. In **Customize hardware**, perform the following steps:
-	- Under **New Hard disk**, specify a size of 32GB or greater.
+	- Under **New Hard disk**, specify a size of 30GB or greater.
 	- Under **New CD\DVD Drive**, perform the following steps:
 		1. Select **Datastore ISO File**.
 		1. Expand the menu and select **Connect At Power On**.
@@ -81,11 +81,10 @@ Perform the following steps to install Windows Server on the base VM:
 
 Ensure you are using the correct the OS version by running the following PowerShell command on the Windows VM:
 
-	```
-	Get-CimInstance Win32_OperatingSystem | Select-Object 
-	Caption, Version, ServicePackMajorVersion, 
-	OSArchitecture, CSName, WindowsDirectory
-	```
+```
+Get-CimInstance Win32_OperatingSystem | Select-Object 
+Caption, Version, ServicePackMajorVersion, OSArchitecture, CSName, WindowsDirectory
+```
 
 The output should include `Version: 10.0.16299`.
 
@@ -100,9 +99,11 @@ Perform the following steps to install VMware Tools on the base VM:
 
 ##<a id='install-windows-updates'></a> Step 2: Install Windows Updates
 
-###<a id='run-windows-updates'></a> Run Windows Updates
+###<a id='run-windows-updates'></a> Install Windows Updates
 
-Perform the following steps to install Windows updates:
+Install Windows updates on the Windows VM using your preferred procedure.
+
+One way to install Windows updates on the Windows VM is by using the **SConfig** utility. Perform the following steps:
 
 1. On the Windows VM, run the **SConfig** utility.
 1. Select option number 6, **Download and Install Updates**.
@@ -113,9 +114,9 @@ You may need to reboot the Windows VM while installing updates.
 
 ###<a id='enable-meltdown-mitigation'></a> Enable Meltdown Mitigation
 
-Windows Server version 1709 should receive the update containing the Meltdown mitigation automatically by running Windows Updates.
+Windows Server version 1709 should receive the update containing the Meltdown mitigation automatically when you install Windows updates.
 
-Ensure the following registry keys are set to enable Meltdown mitigation:
+After installing Windows update, ensure that the following registry keys are set to enable Meltdown mitigation:
 
 ```
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" 
@@ -143,7 +144,9 @@ Perform the following steps:
 
 ##<a id='install-required-software'></a> Step 4: Install Required Software
 
-You may need to run the PowerShell commands in this step by specifying an explicit execution policy. 
+You may need to specify an explicit execution policy for all of the PowerShell commands in the *Step 4: Install Required Software* section. 
+You specify an execution policy with the `-ExecutionPolicy` flag.
+
 For example:
 
 <pre class="terminal">
@@ -155,7 +158,8 @@ powershell -ExecutionPolicy Bypass -Command "Install-CFFeatures"
 Perform the following steps to install the BOSH PS Modules: 
 
 1. Locate the [BOSH PS Modules](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/releases) download for the 1709 stemcell version you want to build, such as 1709.12. 
-1. Transfer the `bosh-psmodules.zip` file to your Windows VM. You may want to use folder sharing to move the BOSH PSModules to your VM.
+1. Transfer the `bosh-psmodules.zip` file to your Windows VM. 
+	<p class="note"><strong>Note</strong>: Use your preferred procedure for transferring files to your Windows VM. You may want to use folder sharing.</p>
 1. Start PowerShell in the Windows VM and run the following command: 
 
 	```
@@ -174,17 +178,27 @@ Perform the following steps to install the BOSH PS Modules:
 
 Perform the following steps to install the Cloud Foundry Diego Cell requirements:
 
-1. On your Windows VM, start `PowerShell`, and run `Install-CFFeatures`. The machine will restart automatically.
-1. Apply the recommended ingress and service configuration by running `Protect-CFCell`.
+1. Start PowerShell in the Windows VM and run the following command: 
+
+	```
+	Install-CFFeatures
+	```
+
+	The machine will restart automatically.
+
+1. Apply the recommended ingress and service configuration with the following command: 
+
+	```
+	Protect-CFCell
+	```
 
 ###<a id='bosh-agent'></a>Install the BOSH Agent
 
 Perform the following steps to install the BOSH Agent:
 
 1. Locate the [BOSH Agent](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/releases) download for the 1709 stemcell version you want to build, such as 1709.12. 
-1. Transfer `agent.zip` to your Windows VM.
-1. On your Windows VM, start `PowerShell`.
-1. Run the following command: 
+1. Transfer the `agent.zip` file to your Windows VM.
+1. Start PowerShell in the Windows VM and run the following command: 
 
 	```
 	Unblock-File PATH-TO-AGENT.ZIP
@@ -192,7 +206,7 @@ Perform the following steps to install the BOSH Agent:
 
 	Where `PATH-TO-AGENT.ZIP` is the full path to the location of the `agent.zip` file on your Windows VM.
 
-1. Run the following command: 
+1. Install the BOSH Agent with the following command:
 
 	```
 	Install-Agent -IaaS vsphere -agentZipPath PATH-TO-AGENT.ZIP
@@ -204,15 +218,14 @@ You can use the `bosh ssh` command on BOSH-deployed Windows VMs if you install t
 
 Perform the following steps to install OpenSSH:
 
-1. Transfer [`OpenSSH-Win64.zip`](https://github.com/PowerShell/Win32-OpenSSH/releases/tag/v7.7.2.0p1-Beta) to the Windows VM at `C:\provision\OpenSSH-Win64.zip`.
-1. On your Windows VM, start `PowerShell`.
-1. Run the following command: 
+1. Transfer the [`OpenSSH-Win64.zip`](https://github.com/PowerShell/Win32-OpenSSH/releases/tag/v7.7.2.0p1-Beta) file to the Windows VM and place it in `C:\provision`.
+1. Start PowerShell in the Windows VM and run the following command: 
 
 	```
 	Unblock-File 'C:\provision\OpenSSH-Win64.zip'
 	```
 
-1. Run the following command: 
+1. Install OpenSSH with the following command: 
 
 	```
 	Install-SSHD -SSHZipFile 'C:\provision\OpenSSH-Win64.zip'
@@ -227,7 +240,7 @@ Perform the following steps to install OpenSSH:
 Perform the following steps to reduce the stemcell size:
 
 1. Restart the VM.
-1. In PowerShell, run the following command to use `dism` to clear unnecessary files:
+1. Start PowerShell in the Windows VM and run the following command to use `dism` to clear unnecessary files:
 
 	```
     Optimize-Disk
@@ -248,26 +261,27 @@ The included policies help ensure the uptime and secure operations of the stemce
 
 Perform the following steps:
 
-1. Transfer [`LGPO.ZIP`](https://www.microsoft.com/en-us/download/details.aspx?id=55319) to the Windows VM.
-1. Unzip the archive with the following command:
+1. Transfer the [`LGPO.ZIP`](https://www.microsoft.com/en-us/download/details.aspx?id=55319) file to the Windows VM.
+1. Start PowerShell in the Windows VM and run the following command:
 
 	```
 	Expand-Archive PATH-TO-LGPO.ZIP C:\Windows
 	```
-1. On your Windows VM, start `PowerShell`.
-1. Run the following command:
+1. Run the following command to sysrep the system:
 
 	```
 	Invoke-Sysprep -IaaS vsphere 
-	[-NewPassword PASSWORD] [-ProductKey PRODUCT-KEY] 
-	-Owner OWNER -Organization ORGANIZATION
+	[-NewPassword PASSWORD]  
+	[-Owner OWNER] [-Organization ORGANIZATION]
 	```
+
+	<p class="note"><strong>Note</strong>: All of the flags of <code>Invoke-Sysprep</code> except for <code>-IaaS</code> are optional.</p>
 
 	Where:
 	* `PASSWORD` is an optional flag that enables you to set a password of your choice. Do not use any special character in the password other than `!`. For example, `Example12!` is permitted but `Example#12` is not. This is a known issue that will be fixed in future versions.
 	* `OWNER` and `ORGANIZATION` are optional flags. Set them if your organization requires it.
-
-The sysrep command powers off the VM. 
+	<br><br>
+	The sysrep command powers off the VM. 
 
 <p class="note warning"><strong>WARNING</strong>: Do not turn the VM back on before completing the procedure in <a href="#export-vmdk">Step 6: Export the VMDK File</a>.</p>
 
@@ -279,7 +293,7 @@ Perform the following steps to export the .VMDK file associated with the VM you 
 1. Download the OVA to your local machine. 
 You do not need to include files in the floppy or CD Drive. 
 	<p class="note"><strong>Note</strong>: You can also download the standalone vSphere client and select <strong>File > Export > Export OVF Template</strong>.</p>
-1. Rename the OVA you download to have a `.tar` extension. 
+1. Rename the downloaded OVA file to have a `.tar` extension. 
 1. Expand the TAR archive and locate the VMDK file.
 
 ##<a id='convert-vmdk'></a> Step 7: Convert the VMDK File to a BOSH Stemcell
