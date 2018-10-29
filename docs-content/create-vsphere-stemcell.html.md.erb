@@ -372,6 +372,10 @@ As a result, the platform mistakenly removes your routing rules for the first ap
 
 **Solution**
 
-To resolve this issue, apply Microsoft’s
+To resolve this issue, install Microsoft’s
 [KB4074588](https://support.microsoft.com/en-us/help/4074588/windows-10-update-kb4074588) updates
-or later to your Windows stemcell and deploy the updated stemcell.
+or later on your base Windows VM as described in [Step 2: Install Windows Updates](#install-windows-updates).
+
+Once you install the updates and create your Windows stemcell for vSphere following the instructions in
+[Step 3: Clone the VM](#clone-vm) through [Step 7: Convert the VMDK File to a BOSH Stemcell](#convert-vmdk),
+deploy the stemcell with PASW.
