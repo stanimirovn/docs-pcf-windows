@@ -355,3 +355,23 @@ Run the following commands in PowerShell on your Windows VM to verify whether `I
 Get-WindowsFeature "Containers" | Where InstallState -Eq "Installed"
 Get-WindowsFeature "Windows-Defender-Features" | Where InstallState -Eq "Removed"
 ```
+
+### <a id='502-error'></a> Gorouter Returns a 502 Error When Accessing an App
+
+**Symptom**
+
+You cannot access a .NET app externally.
+When you attempt to access your app, Gorouter returns an HTTP 502 response status code.
+The app does not crash and is still running inside of its container.
+
+**Explanation**
+
+A race condition occurs when one app is deployed to a Diego cell and before it receives
+any traffic, a second app is deployed to the same Diego cell.
+As a result, the platform mistakenly removes your routing rules for the first app.
+
+**Solution**
+
+To resolve this issue, apply Microsoft’s
+[KB4074588](https://support.microsoft.com/en-us/help/4074588/windows-10-update-kb4074588) updates
+or later to your Windows stemcell and deploy the updated stemcell.
