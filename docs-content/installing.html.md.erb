@@ -68,9 +68,30 @@ The Injector tool, `winfs-injector`, is an executable binary that adds the Windo
 
     ![The enable KMS text fields: host and port](enable-kms.png)
 
+1. Click **Save**.
+
 1. (Optional) To deploy your PAS for Windows application workloads to an isolation segment, click **Application Containers** and perform the steps in the [Assign a Tile to an Isolation Segment](./isolation.html#assign-isolation) section below.
 
 1. (Optional) To configure Windows cells to send Windows Event logs to an external syslog server, click **System Logging** and perform the steps in the [Send Cell Logs to a Syslog Server](./troubleshooting.html#syslog) section.
+
+1. (Optional) To enable advanced features in PAS for Windows,
+click **Advanced Features** and perform the following steps:
+
+  1. To configure memory and disk overcommit for your Windows Diego cells,
+  follow the steps below:
+
+      1. Enter the total desired amount of Diego cell memory in the **Cell Memory Capacity (MB)** field.
+      For the current cell memory capacity settings, refer to the Windows Diego Cell row
+      on the **Resource Config** pane.
+
+      1. Enter the total desired amount of Diego cell disk capacity in the **Cell Disk Capacity (MB)** field.
+      For the current cell disk capacity settings, refer to the Windows Diego Cell row
+      on the **Resource Config** pane.
+      <p class='note'><strong>Note:</strong> Due to the risk of app failure and the deployment-specific nature of disk and memory use,
+      Pivotal has no recommendation about how much, if any, memory or disk space to overcommit.</p>
+      <%= image_tag("images/advanced-features.png") %>
+
+  1. Click **Save**.
 
 1. Click **Errands**. Pivotal recommends that you set the **Install HWC Buildpack Errand** to **On**. This ensures that you receive the most up-to-date HWC Buildpack.
 
