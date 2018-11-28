@@ -9,29 +9,31 @@ For general information about app deployment, see [Deploy an Application](../dev
 
 ## <a id='dotnet-core'></a>.NET Core Buildpack
 
-[.NET Core Buildpack](../buildpacks/dotnet-core/index.html) describes how to push Cloud Foundry
-apps using the .NET Core buildpack. For supported ASP.NET Core versions, see
+[.NET Core Buildpack](../buildpacks/dotnet-core/index.html) describes how to push .NET Core apps to
+Linux cells on Cloud Foundry using the .NET Core buildpack. For supported ASP.NET Core versions, see
 [.NET Core buildpack release notes](https://github.com/cloudfoundry/dotnet-core-buildpack/releases)
 in GitHub.
 
 ## <a id='hwc'></a>HWC Buildpack
 
-[HWC Buildpack](../buildpacks/hwc/index.html) describes how to configure your .NET Framework apps
-for use with the HWC buildpack and how to push your .NET Framework apps to
-<%= vars.product_windows_full %>.
+[HWC Buildpack](../buildpacks/hwc/index.html) describes how to push .NET Framework apps to Pivotal
+Application Service for Windows (PASW) using the HWC buildpack. It also describes what features of
+IIS (Internet Information Services) and HWC (Hostable Web Core) are supported, and how to configure
+your .NET Framework apps to run on PASW.
 
 ## <a id='binary'></a>Binary Buildpack
 
-[Binary Buildpack](../buildpacks/binary/index.html) describes how to deploy .NET Core apps to a Windows stack using the binary buildpack.
+[Binary Buildpack](../buildpacks/binary/index.html) describes how to push compiled .NET Core apps
+to Windows cells on PASW using the binary buildpack.
 
 [Console Applications](https://dotnet-cookbook.cfapps.io/headless/console_app/) in the
-_.NET Cookbook_ provides information about pushing .NET Console apps using the binary buildpack.
+_.NET Cookbook_ provides information about pushing compiled .NET Framework Console apps to PASW
+using the binary buildpack.
 
 ## <a id='tips'></a>Other Resources
 
-[Tips for .NET Developers](./using.html) lists resources for developing .NET apps that run on
-Pivotal Application Service (PAS) for Windows, and describes how to push .NET apps to PAS for
-Windows cells.
+[Tips for .NET Developers](./using.html) describes common errors and challenges faced when pushing
+.NET Framework apps to PASW.
 
-[.Net Cookbook](https://dotnet-cookbook.cfapps.io/intro/) provides guidelines, samples, and
-procedures, including tips and recipes for developing .NET apps to run on PAS for Windows.
+The [.Net Cookbook](https://dotnet-cookbook.cfapps.io/intro/) provides code samples, guidelines,
+tips, and other recipes for making changes to both new and existing .NET Framework and .NET Core apps to run successfully on PASW.
