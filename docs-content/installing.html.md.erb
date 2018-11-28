@@ -3,14 +3,14 @@ title: Installing and Configuring PAS for Windows
 owner: Windows
 ---
 
-This topic describes how to install and configure the Pivotal Application Service (PAS) for Windows tile. The PAS for Windows tile installs Windows Diego cells on your PCF deployment.
+This topic describes how to install and configure the Pivotal Application Service (PAS) for Windows tile. The PAS for Windows tile installs Windows cells on your PCF deployment.
 
 ## <a id='ert'></a> Step 1: Confirm Shared PAS Tile Settings
 
-There are two settings in the **Pivotal Application Service** tile that affect the Windows Diego cells installed by the **PAS for Windows** tile. Configure these settings as desired:
+There are two settings in the **Pivotal Application Service** tile that affect the Windows cells installed by the **PAS for Windows** tile. Configure these settings as desired:
 
-* In the **Networking** section, if you select the **Disable SSL certificate verification for this environment** checkbox, SSL certificate verification is disabled for Windows Diego cells.
-* In the **System Logging** section, if you configure an external syslog aggregator, logs are drained from Windows Diego cells as well as non-Windows Diego cells.
+* In the **Networking** section, if you select the **Disable SSL certificate verification for this environment** checkbox, SSL certificate verification is disabled for Windows cells.
+* In the **System Logging** section, if you configure an external syslog aggregator, logs are drained from Windows cells as well as non-Windows cells.
 
 ##<a id='install'></a> Step 2: Install the Tile
 
@@ -53,7 +53,7 @@ The Injector tool, `winfs-injector`, is an executable binary that adds the Windo
 
 1. Specify your selection for **Manage Administrator Password**.
   * **Use the Windows default password** randomizes the administrator password. With this selection, the administrator password is not retrievable by an operator. This is the default selection.
-  * **Set the password** sets the same administrator password for every Windows Diego cell. As a result, this password can be used to access any Windows Diego cell, including, for example, Remote Desktop Protocol (RDP) sessions.
+  * **Set the password** sets the same administrator password for every Windows cell. As a result, this password can be used to access any Windows cell, including, for example, Remote Desktop Protocol (RDP) sessions.
 
 1. (Optional) Select the **BETA: Enable BOSH-native SSH support on all VMs** checkbox to start the Microsoft beta port of the OpenSSH daemon on port 22 on all VMs. Users will be able to SSH onto Windows VMs with the `bosh ssh` command, and enter a CMD terminal as an administrator user. They can then run `powershell.exe` to start a PowerShell session.
 
@@ -61,7 +61,7 @@ The Injector tool, `winfs-injector`, is an executable binary that adds the Windo
 
 1. (Optional) If you want all VMs to support connection through Remote Desktop Protocol (RDP), click **Enable Remote Desktop Protocol**.
 
-1. (Optional) If you want to configure a Key Management Service (KMS) that your volume-licensed Windows Diego cell can register with, perform the following steps:
+1. (Optional) If you want to configure a Key Management Service (KMS) that your volume-licensed Windows cell can register with, perform the following steps:
     1. Click **Enable**
     2. For the **Host** field, enter the KMS hostname.
     3. For the **Port** field, enter the port number. The default port number is `1688`.
@@ -70,7 +70,7 @@ The Injector tool, `winfs-injector`, is an executable binary that adds the Windo
 
 1. (Optional) To deploy your PAS for Windows application workloads to an isolation segment, click **Application Containers** and perform the steps in the [Assign a Tile to an Isolation Segment](./isolation.html#assign-isolation) section below.
 
-1. (Optional) To configure Windows Diego cells to send Windows Event logs to an external syslog server, click **System Logging** and perform the steps in the [Send Cell Logs to a Syslog Server](./troubleshooting.html#syslog) section.
+1. (Optional) To configure Windows cells to send Windows Event logs to an external syslog server, click **System Logging** and perform the steps in the [Send Cell Logs to a Syslog Server](./troubleshooting.html#syslog) section.
 
 1. Click **Errands**. Pivotal recommends that you set the **Install HWC Buildpack Errand** to **On**. This ensures that you receive the most up-to-date HWC Buildpack.
 
@@ -80,100 +80,25 @@ The Injector tool, `winfs-injector`, is an executable binary that adds the Windo
 
 ##<a id='resources'></a> Step 4: Configure Tile Resources
 
-To configure your tile resources, navigate to the **Resource Config** pane of the PAS for Windows tile and
-use the drop-down menus for each job.
+To configure your tile resources, navigate to the **Resource Config** pane of the PAS for Windows tile and use the drop-down menus for each job.
 
-The minimum disk size requirements for your Windows Diego cells and the Ops Manager compilation VM
-depend on the version of Windows stemcell that you use:
+For information about configuring the disk size of your Windows cells, see [Windows Stemcells v1709.13 and Later](#1709-13) and [Windows Stemcells v1709.5-v1709.12](#1709-5).
 
-* **Windows stemcell v1709.13 and later**. These stemcells support ephemeral disks.
-To configure the disk size of your Windows Diego cells and the Ops Manager compilation VM:
-  1. Review the recommended minimum resource requirements in
-  [Resource Requirements for Deployments Based on Windows Stemcell v1709.13 and Later](#1709-13).
-  1. Follow the instructions in [Select Windows Diego Cell Disk Size](#cell-disk) and [Select Master Compilation Job Disk Size](#compilation-job-disk).
-* **Windows stemcell v1709.5 through v1709.12**. These stemcells do not support ephemeral disks.
-To configure the disk size of your Windows Diego cells and the Ops Manager compilation VM:
-  1. Review the recommended minimum resource requirements
-  in [Resource Requirements for Deployments Based on Windows Stemcell v1709.5 through v1709.12](#1709-5).
-  1. Follow the instructions in [Select Windows Diego Cell Disk Size](#cell-disk) and [Select Master Compilation Job Disk Size](#compilation-job-disk).
+### <a name="1709-13"></a> Windows Stemcells v1709.13 and Later
 
-### <a name="1709-13"></a> Resource Requirements for Deployments Based on Windows Stemcell v1709.13 and Later
+Windows stemcells v1709.13 and later in the 1709 line support ephemeral disks.
+If you use one of these stemcells,
+you can configure the disk size of your Windows cells in the PAS for Windows tile.
 
-For each Windows Diego cell configured in the **Resource Config** pane of the PAS for Windows tile,
-the recommended minimum resource requirements are as follows:
-
-<table>
-<tr>
-    <th>Windows Diego Cell</th>
-    <th>AWS</th>
-    <th>Azure</th>
-    <th>GCP</th>
-    <th>vSphere</th>
-</tr>
-<tr>
-    <td>Ephemeral disk</td>
-    <td>100 GB</td>
-    <td>150 GB</td>
-    <td>150 GB</td>
-    <td>100 GB</td>
-</tr>
-<tr>
-    <td>Memory</td>
-    <td>8 GB</td>
-    <td>8 GB</td>
-    <td>8 GB</td>
-    <td>8 GB</td>
-</tr>
-<tr>
-    <td>CPU</td>
-    <td>2 cores</td>
-    <td>2 cores</td>
-    <td>2 cores</td>
-    <td>2 cores</td>
-</tr>
-</table>
-
-For the Master Compilation Job configured in the **Resource Config** pane of the BOSH Director tile,
-the recommended minimum resource requirements are as follows:
-
-<table>
-<tr>
-    <th>Master Compilation Job</th>
-    <th>AWS</th>
-    <th>Azure</th>
-    <th>GCP</th>
-    <th>vSphere</th>
-</tr>
-<tr>
-    <td>Ephemeral disk</td>
-    <td>100 GB</td>
-    <td>100 GB</td>
-    <td>100 GB</td>
-    <td>100 GB</td>
-</tr>
-<tr>
-    <td>Memory</td>
-    <td>8 GB</td>
-    <td>8 GB</td>
-    <td>8 GB</td>
-    <td>8 GB</td>
-</tr>
-<tr>
-    <td>CPU</td>
-    <td>2 cores</td>
-    <td>2 cores</td>
-    <td>2 cores</td>
-    <td>2 cores</td>
-</tr>
-</table>
-
-<p class='note'><strong>Note:</strong>
+<p class='note'><strong>Note:</strong> The default root disk size of Windows stemcell v1709.13 and later in the 1709 line is 30 GB.
 If you use vSphere, you must create your own stemcell. Pivotal recommends setting the root disk size of your Windows stemcell for vSphere to 30 GB.
 For more information, see <a href="create-vsphere-stemcell.html">Creating a vSphere Windows Stemcell</a>.</p>
 
-### <a name="1709-5"></a> Resource Requirements for Deployments Based on Windows Stemcell v1709.5 Through v1709.12
+### <a name="1709-5"></a> Windows Stemcells v1709.5-v1709.12
 
-Windows stemcells v1709.5 through v1709.12 do not support ephemeral disks.
+Windows stemcells v1709.5-v1709.12 do not support ephemeral disks.
+If you use one of these stemcells,
+you cannot control the disk size of your Windows cells in the PAS for Windows tile.
 The size of the root disk of your stemcell determines
 the minimum root disk size of any Windows VM that the BOSH Director can create from that stemcell.
 
@@ -202,32 +127,32 @@ For more information, see the table below:
   </tr>
 </table>
 
-<sup>*</sup> Because you create your own stemcell on vSphere, you can control its root disk size.
-For more information, see [Creating a vSphere Windows Stemcell](create-vsphere-stemcell.html).
+<sup>*</sup> Because you create your own stemcell on vSphere, you can control its root disk size. See [Creating a vSphere Windows Stemcell](create-vsphere-stemcell.html) for more information.
 
-### <a name="cell-disk"></a> Select Windows Diego Cell Disk Size
+#### Select Diego Cell Disk Size
+
+When you deploy or upgrade PAS for Windows, configure the resources of the BOSH Director and PAS for Windows as follows:
 
 1. On the Ops Manager Installation Dashboard, select **Pivotal Application Service for Windows**.
 
 1. In the **Settings** tab, select **Resource Config**.
 
-1. In the **VM Type** field, ensure that **Windows Diego Cell** has a minimum disk size
-according to the recommended minimum resource requirements for your Windows stemcell provided above and your IaaS.
+1. In the **VM Type** field, ensure that **Windows Diego Cell** has a minimum disk size according to the table above and your IaaS.
 
 1. Click **Save**.
 
-### <a name="compilation-job-disk"></a> Select Master Compilation Job Disk Size
+#### Select Master Compilation VM Disk Size
 
-1. On the Ops Manager Installation Dashboard, select the BOSH Director tile.
+1. On the Ops Manager Installation Dashboard, select the BOSH Director tile (usually the first tile).
 
 1. In the **Settings** tab, select **Resource Config**.
 
-1. In the **VM Type** field, ensure that the Master Compilation Job has a minimum disk size
-according to the recommended minimum resource requirements for your Windows stemcell provided above and your IaaS.
+1. In the **VM Type** field, ensure that the Ops Manager compilation VM has a minimum disk size according to the table above and your IaaS.
 
 	<%= image_tag('ops-man-resources.png') %>
 
 1. Click **Save**.
+
 
 ##<a id='stemcells'></a> Step 5: Upload the Stemcell
 
@@ -245,4 +170,4 @@ according to the recommended minimum resource requirements for your Windows stem
 
 ##<a id='copy'></a> Step 7: (Optional) Create More Tiles
 
-To run Windows Diego cells in multiple isolation segments, you must create and configure additional PAS for Windows tiles. For more information, see [Windows Cells in Isolation Segments](./isolation.html).
+To run Windows cells in multiple isolation segments, you must create and configure additional PAS for Windows tiles. For more information, see [Windows Cells in Isolation Segments](./isolation.html).
