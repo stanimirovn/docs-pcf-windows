@@ -74,79 +74,77 @@ There are two settings in the **Pivotal Application Service** tile that affect t
 
 ##<a id='resources'></a> Step 4: Configure Tile Resources
 
-To configure your tile resources, navigate to the **Resource Config** pane of the PAS for Windows tile and use the drop-down menus for each job.
+To configure your tile resources, perform the following steps:
 
-For information about configuring the disk size of your Windows cells, see [Windows Stemcells v1709.13 and Later](#1709-13) and [Windows Stemcells v1709.5-v1709.12](#1709-5).
+1. Navigate to the **Resource Config** pane of the PAS for Windows tile.
+1. Use the drop-down menus to configure **Windows Diego Cell**.
+For more information, see [Disk Size of Windows Diego Cells](#disk).
+1. Click **Save**.
 
-### <a name="1709-13"></a> Windows Stemcells v1709.13 and Later
+### <a name='disk'></a> Disk Size of Windows Diego Cells
 
-Windows stemcells v1709.13 and later in the 1709 line support ephemeral disks.
-If you use one of these stemcells,
-you can configure the disk size of your Windows cells in the PAS for Windows tile.
+Before configuring the disk size of your Windows Diego cells,
+review the information below:
 
-<p class='note'><strong>Note:</strong> The default root disk size of Windows stemcell v1709.13 and later in the 1709 line is 30 GB.
-If you use vSphere, you must create your own stemcell. Pivotal recommends setting the root disk size of your Windows stemcell for vSphere to 30 GB.
-For more information, see <a href="create-vsphere-stemcell.html">Creating a vSphere Windows Stemcell</a>.</p>
+* **Windows stemcells v1709.13 and later in the 1709 line** support ephemeral disks.
+If your PAS for Windows deployment is based on one of these stemcells,
+the recommended disk size for your Windows Diego cells is as follows:
+  <table>
+    <tr>
+      <th>IaaS</th>
+      <th>Disk size of Windows Diego cell</th>
+    </tr>
+    <tr>
+      <th>AWS</th>
+      <td>100 GB</td>
+    </tr>
+    <tr>
+      <th>Azure</th>
+      <td>150 GB</td>
+    </tr>
+    <tr>
+      <th>GCP</th>
+      <td>150 GB</td>
+    </tr>
+    <tr>
+      <th>vSphere</th>
+      <td>100 GB</td>
+    </tr>
+  </table>
+  <p class='note'><strong>Note:</strong> If you use vSphere, you must create your own stemcell.
+  The default root disk size of Windows stemcell v1709.13 and later in the 1709 line is 30 GB.
+  Pivotal recommends setting the root disk size of your Windows stemcell for vSphere to 30 GB.
+  For more information, see <a href="create-vsphere-stemcell.html">Creating a vSphere Windows Stemcell</a>.</p>
 
-### <a name="1709-5"></a> Windows Stemcells v1709.5-v1709.12
-
-Windows stemcells v1709.5-v1709.12 do not support ephemeral disks.
-If you use one of these stemcells,
-you cannot control the disk size of your Windows cells in the PAS for Windows tile.
+* **Windows stemcells v1709.5 through v1709.12** do not support ephemeral disks.
 The size of the root disk of your stemcell determines
 the minimum root disk size of any Windows VM that the BOSH Director can create from that stemcell.
+If your PAS for Windows deployment is based on one of these stemcells,
+ensure that **Windows Diego Cell** has a minimum disk size according to the table below.
+  <table id='disk-sizes' border="1" class="nice" >
+    <tr>
+      <th>IaaS</th>
+      <th>Disk size of Windows stemcell v1709.5-v1709.12</th>
+    <tr>
+      <th>AWS</th>
+      <td>128 GB</td>
+    </tr>
+    <tr>
+      <th>Azure</th>
+      <td>30 GB</td>
+    </tr>
+    <tr>
+      <th>GCP</th>
+      <td>100 GB</td>
+    </tr>
+    <tr>
+      <th>vSphere</th>
+      <td>Recommended 128 GB+</td>
+    </tr>
+  </table>
 
-For more information, see the table below:
-
-<table id='disk-sizes' border="1" class="nice" >
-  <tr>
-    <th>IaaS</th>
-    <th>Windows stemcell v1709.5-v1709.12 disk size</th>
-  </tr>
-  <tr>
-    <th>Azure</th>
-    <td>30 GB</td>
-  </tr>
-  <tr>
-    <th>AWS</th>
-    <td>128 GB</td>
-  </tr>
-  <tr>
-    <th>GCP</th>
-    <td>100 GB</td>
-  </tr>
-  <tr>
-    <th>vSphere</th>
-    <td>Recommended 128 GB+<sup>*</sup></td>
-  </tr>
-</table>
-
-<sup>*</sup> Because you create your own stemcell on vSphere, you can control its root disk size. See [Creating a vSphere Windows Stemcell](create-vsphere-stemcell.html) for more information.
-
-#### Select Diego Cell Disk Size
-
-When you deploy or upgrade PAS for Windows, configure the resources of the BOSH Director and PAS for Windows as follows:
-
-1. On the Ops Manager Installation Dashboard, select **Pivotal Application Service for Windows**.
-
-1. In the **Settings** tab, select **Resource Config**.
-
-1. In the **VM Type** field, ensure that **Windows Diego Cell** has a minimum disk size according to the table above and your IaaS.
-
-1. Click **Save**.
-
-#### Select Master Compilation VM Disk Size
-
-1. On the Ops Manager Installation Dashboard, select the BOSH Director tile (usually the first tile).
-
-1. In the **Settings** tab, select **Resource Config**.
-
-1. In the **VM Type** field, ensure that the Ops Manager compilation VM has a minimum disk size according to the table above and your IaaS.
-
-	<%= image_tag('ops-man-resources.png') %>
-
-1. Click **Save**.
-
+    <p class='note'><strong>Note:</strong> Because you create your own stemcell on vSphere,
+    you can control its root disk size.</p>
 
 ##<a id='stemcells'></a> Step 5: Upload the Stemcell
 
