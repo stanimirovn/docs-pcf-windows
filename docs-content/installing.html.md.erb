@@ -103,16 +103,44 @@ click **Advanced Features** and perform the following steps:
 
 ##<a id='resources'></a> Step 4: Configure Tile Resources
 
-To configure your tile resources,
-navigate to the **Resource Config** pane of the PAS for Windows tile
-and use the drop-down menus for each job.
+To configure your tile resources, perform the following steps:
 
-<p class='note'><strong>Note:</strong> Support for ephemeral disks is available in Windows stemcell v1803.2 and later in the 1803 line. This enables you to configure the size of your Windows cells in the PAS for Windows tile.</p>
+1. Navigate to the **Resource Config** pane of the PAS for Windows tile.
+1. Use the drop-down menus to configure **Windows Diego Cell**.
+For more information, see [Disk Size of Windows Diego Cells](#disk).
+1. Click **Save**.
 
-<p class='note'><strong>Note:</strong> The default root disk size of Windows stemcells v1803.2 and later in the 1803 line is 30 GB.
-If you use vSphere, you must create your own stemcell.
-Pivotal recommends setting the root disk size of your Windows stemcell for vSphere to 30 GB.
-For more information, see <a href="create-vsphere-stemcell.html">Creating a vSphere Windows Stemcell</a>.</p>
+### <a name='disk'></a> Disk Size of Windows Diego Cells
+
+Windows stemcells v1803.2 and later in the 1803 line support ephemeral disks.
+If your PAS for Windows deployment is based on one of these stemcells,
+the recommended disk size for your Windows Diego cells is as follows:
+  <table>
+    <tr>
+      <th>IaaS</th>
+      <th>Disk size of Windows Diego cell</th>
+    </tr>
+    <tr>
+      <th>AWS</th>
+      <td>100 GB</td>
+    </tr>
+    <tr>
+      <th>Azure</th>
+      <td>150 GB</td>
+    </tr>
+    <tr>
+      <th>GCP</th>
+      <td>150 GB</td>
+    </tr>
+    <tr>
+      <th>vSphere</th>
+      <td>100 GB</td>
+    </tr>
+  </table>
+  <p class='note'><strong>Note:</strong> If you use vSphere, you must create your own stemcell.
+  The default root disk size of Windows stemcells v1803.2 and later in the 1803 line is 30 GB.
+  Pivotal recommends setting the root disk size of your Windows stemcell for vSphere to 30 GB.
+  For more information, see <a href="create-vsphere-stemcell.html">Creating a vSphere Windows Stemcell</a>.</p>
 
 ##<a id='stemcells'></a> Step 5: Upload the Stemcell
 
