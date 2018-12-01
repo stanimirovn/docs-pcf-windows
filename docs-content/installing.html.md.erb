@@ -99,9 +99,12 @@ click **Advanced Features** and perform the following steps:
     name</strong> checkbox only if it is required for backward compatibility with previous versions of PCF.</p>
   1. Click **Save**.
 
-1. Click **Errands**. Pivotal recommends that you set the **Install HWC Buildpack Errand** to **On**. This ensures that you receive the most up-to-date HWC Buildpack.
+1. Click **Errands**. 
+  1. Pivotal recommends that you set the **Install HWC Buildpack Errand** to **On**. This ensures that you receive the most up-to-date HWC Buildpack.
+  1. Enabling the **Smoke Test Errand** ensures that a smoke test is run against your Application Service installation.
 
-    <%= image_tag('errands-hwc.png') %>
+
+    <%= image_tag('post-deploy-errands.png') %>
 
 1. Click **Save**.
 
