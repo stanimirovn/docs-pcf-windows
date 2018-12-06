@@ -27,11 +27,11 @@ Perform the following steps to redeploy a running app with zero downtime using t
 
 1. Run `cf apps` to find the name of the app, ORIGINAL\_APP\_NAME, that you are migrating from PAS for Windows 2012R2 to PAS for Windows. Create a new name for the app to replace it. Pivotal recommends you append `-green` to your app name, APP_NAME-green.
 
-1. Run `cf push` to push the renamed app APP_NAME-green, passing in `-s windows2016`, `--no-route`, and `--no-start`.
-<pre class="terminal">$ cf push APP\_NAME-green -s windows2016 -b BUILDPACK -n HOSTNAME --no-start --no-route</pre>
+1. Run `cf push` to push the renamed app APP_NAME-green, passing in `-s windows`, `--no-route`, and `--no-start`.
+<pre class="terminal">$ cf push APP\_NAME-green -s windows -b BUILDPACK -n HOSTNAME --no-start --no-route</pre>
   * For **BUILDPACK**, enter your custom buildpack by name or Git URL with an optional branch or tag.
   * For **HOSTNAME**, enter the subdomain name you are pushing to.
-  * `-s windows2016` runs the app in a Windows Diego cell.
+  * `-s windows` runs the app in a Windows Diego cell.
   * `--no-start` creates the instance VMs but does not start the app.
   * `--no-route` prevents the push command from automatically mapping a route to the app.
   * For more command options, see [cf push](http://cli.cloudfoundry.org/en-US/cf/push.html).
