@@ -312,12 +312,12 @@ Perform the following steps to convert the VMDK file to a BOSH stemcell:
 1. Build the stemcell with the following command:
 
 	```
-	stembuild -vmdk "PATH-TO-VMDK" -version YOUR-STEMCELL-VERSION -os 1803
+	stembuild package -vmdk <path-to-vmdk> -stemcellVersion <stemcell stemcellVersion> -os 1803
 	```
 
 	Where:
 	* `PATH-TO-VMDK` is the path to the VMDK file.
-	* `YOUR-STEMCELL-VERSION` is the 1803 stemcell version you want to build. 
+	* `STEMCELL-VERSION` is the 1803 stemcell version you want to build. 
 	For example, if you downloaded the [BOSH PS Modules and BOSH Agent](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/releases) for the 1803.2 release, then specify `1803.2`.
 
 	`stembuild` will create the stemcell in the directory where you execute it. The file has a `.tgz` extension and a name similar to `bosh-stemcell-1803.2-vsphere-esxi-windows2016-go_agent.tgz `.
