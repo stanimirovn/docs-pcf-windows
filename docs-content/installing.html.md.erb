@@ -101,16 +101,27 @@ click **Advanced Features** and perform the following steps:
 
 1. Click **Save**.
 
-##<a id='resources'></a> Step 4: Configure Tile Resources
+##<a id='resources'></a> Step 4: Configure Resources
 
-To configure your tile resources, perform the following steps:
+Follow the steps in the sections below to configure resources in BOSH Director and the PAS for Windows tile.
 
-1. Navigate to the **Resource Config** pane of the PAS for Windows tile.
-1. Use the drop-down menus to configure **Windows Diego Cell**.
+### Configure BOSH Director Resources
+
+1. On the Ops Manager Installation Dashboard, click the BOSH Director tile.
+1. Select the **Resource Config** pane.
+1. Use the dropdown menu to provision the **Master Compilation Job** with at least 100&nbsp;GB of
+disk space.
+1. Click **Save**.
+
+### Configure PAS for Windows Tile Resources
+
+1. On the Ops Manager Installation Dashboard, click the PAS for Windows tile.
+1. Select the **Resource Config** pane.
+1. Use the dropdown menus to configure **Windows Diego Cell**.
 For more information, see [Disk Size of Windows Diego Cells](#disk).
 1. Click **Save**.
 
-### <a name='disk'></a> Disk Size of Windows Diego Cells
+#### <a name='disk'></a> Disk Size of Windows Diego Cells
 
 Windows stemcells v1803.2 and later in the 1803 line support ephemeral disks.
 If your PAS for Windows deployment is based on one of these stemcells,
