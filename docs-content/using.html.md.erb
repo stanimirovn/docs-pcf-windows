@@ -9,11 +9,18 @@ This topic lists resources for developing .NET apps that run on Pivotal Applicat
 
 For how to develop .NET microservices for .NET apps using Steeltoe, see the [Steeltoe documentation](http://steeltoe.io/docs/).
 
+## <a id='prerequisites'></a>Prerequisites
+
+The PAS for Windows tile must be installed and configured. For documentation about installing the PAS for Windows tile, 
+see the [Installing and Configuring PAS for Windows](installing.html) topic. 
+
+Operators must also install the Cloud Foundry Command Line Interface (cf CLI) to run the commands on this topic. 
+For information about installing the cf CLI, see the [Installing the cf CLI](https://docs.pivotal.io/pivotalcf/cf-cli/install-go-cli.html) topic.
+
 ## <a id='overview'></a> Overview
 
-After operators install and configure the PAS for Windows tile, developers can push .NET apps to the Windows cell. For documentation about installing the PAS for Windows tile, see the [Installing and Configuring PAS for Windows](installing.html) topic. Developers can push both [OWIN](http://owin.org/) and non-OWIN apps, and can push apps that are served by [Hostable Web Core](#push) or [self-hosted](#self-hosted).
-
-Operators must also install the Cloud Foundry Command Line Interface (cf CLI) to run the commands on this topic. For information about installing the cf CLI, see the [Installing the cf CLI](https://docs.pivotal.io/pivotalcf/cf-cli/install-go-cli.html) topic.
+After operators install and configure the PAS for Windows tile, developers can push .NET apps to the Windows cell. 
+Developers can push both [OWIN](http://owin.org/) and non-OWIN apps, and can push apps that are served by [Hostable Web Core](#push) or [self-hosted](#self-hosted).
 
 If you have upgraded to PAS for Windows and have apps that you want to migrate, see the [Upgrading Cells](upgrade-windows.html) topic.
 
@@ -29,42 +36,55 @@ By default, PCF serves .NET apps with Hostable Web Core (HWC). HWC is a lighter 
 
 Perform the following steps to push a .NET app to a Windows cell:
 
-1. Run `cf api api.YOUR-SYSTEM-DOMAIN` to target the Cloud Controller of your PCF deployment:
-    <pre class="terminal">
-    $ cf api api.YOUR-SYSTEM-DOMAIN
-    </pre>
+1. To target the Cloud Controller of your PCF deployment, run the following command:  
+
+    ```
+    cf api api.APP-DOMAIN
+    ```
+    Where `APP-DOMAIN` is your application's domain name, for example: `example.com`.
 
 1. Run one of the following commands to deploy your .NET app, replacing `APP-NAME` with the name of your app.
-    <br><br>
-    * If you want to deploy a .NET Framework app, run `cf push APP-NAME -s windows2016 -b hwc_buildpack`:
-    <pre class="terminal">
-    $ cf push APP-NAME -s windows2016 -b hwc_buildpack
-    </pre>
-    * If you want to deploy an app with <code>.bat</code> or <code>.exe</code> files, run `cf push -s windows2016 -b binary_buildpack`:
-    <pre class="terminal">$ cf push -s windows2016 -b binary_buildpack</pre>
-    <br>
-    The `-s windows2016` option instructs PCF to run the app in the Windows cell. If you are not pushing your app from its directory, use the `-p` option and specify the path to the directory that contains the app.
+    *  To deploy a .NET Framework app, run the following command:  
+
+    ```
+    cf push APP-NAME -s windows -b hwc_buildpack
+    ```
+    * To deploy an app with `.bat` or `.exe` files, run the following command:
+
+    ```
+    cf push -s STEMCELL-NAME -b binary_buildpack
+    ```
+
+    Where:  
+    * `STEMCELL-NAME` is the name of your stemcell, typically 'windows2016'.  
+
+    If you are not pushing your app from its directory, use the `-p` option and specify the path to the directory that contains the app.
 
 1. Wait for your app to stage and start. If you see an error message, refer to the [Troubleshoot App Errors](#troubleshoot) section of this topic.
 
 ###<a id='context-routing'></a>Context Path Routing Support for ASP.NET Apps</a>
 
-ASP.NET developers can host applications under a route path. 
+Context path routing enables multiple applications to share the same route hostname, 
+such as `app1.example.com/app2`. ASP.NET developers can host applications under a route path. 
 Within Windows cells, you can have multiple routes to an app, but those routes cannot have different context paths.
 
-For example, if you would like to route `APP-NAME-TWO` under `APP-NAME-ONE`, in order to create the `APP-NAME-ONE.example-domain.com/APP-NAME-TWO` path:
+Making an application accessible under another app's URL requires a series of commands. 
+To define a context path route, such as `app1.example.com/app2`, run the following commands:
 
-1. Run `cf push APP-NAME-ONE` to push the primary app.</br>
-    <pre class="terminal">
-    $ cf push APP-NAME-ONE
-    </pre>
+1. To push the primary app, run the following command:
+    ```
+    cf push APP-NAME-ONE
+    ```
+1. To push the secondary app to the default domain, run the following command:
 
-1. Run `cf push APP-NAME-TWO --hostname APP-NAME-ONE --route-path APP-NAME-TWO` to map the route of the secondary app under the primary app.
-    <pre class="terminal">
-    $ cf push APP-NAME-TWO --hostname APP-NAME-ONE --route-path APP-NAME-TWO
-    </pre>
+    ```
+    cf push APP-NAME-TWO --hostname APP-NAME-ONE --route-path APP-NAME-TWO
+    ```
+1. To push the secondary app to a non-default domain, run the following command:
 
-If you need to use a non-default domain, add the domain option (`-d`) followed by your chosen domain address to the `cf-push` command from Step 2.
+    ```
+    cf push APP-NAME-TWO -d DOMAIN-ADDRESS --hostname APP-NAME-ONE --route-path APP-NAME-TWO
+    ```
 
 ##<a id='self-hosted'></a> Push a Self-Hosted App
 
@@ -72,16 +92,22 @@ Developers can choose to push a self-hosted app instead of using Hostable Web Co
 
 Perform the following steps to push a self-hosted app:
 
-1. Run `cf api api.YOUR-SYSTEM-DOMAIN` to target the Cloud Controller of your PCF deployment:
-    <pre class="terminal">
-    $ cf api api.YOUR-SYSTEM-DOMAIN
-    </pre>
+1. To target the Cloud Controller of your PCF deployment, run the following command:
 
-1. Run `cf push APP-NAME -s windows2016 -b binary_buildpack -c PATH-TO-BINARY` to push your .NET app from the app root. Replace `APP-NAME` with the name of your app and `PATH-TO-BINARY` with the path to your executable.
+    ```
+    cf api api.APP-DOMAIN
+    ```
 
-    <pre class="terminal">
-    $ cf push APP-NAME -s windows2016 -b binary_buildpack -c PATH-TO-BINARY
-    </pre>
+1. To push your .NET app from the app root, run the following command:
+
+    ```
+    cf push APP-NAME -s STEMCELL-NAME -b binary_buildpack -c PATH-TO-BINARY
+    ```
+
+    Where:
+    * `APP-NAME` is the name of your application. 
+    * `PATH-TO-BINARY` is the path to your executable. 
+    * `STEMCELL-NAME` is the name of your stemcell, typically 'windows2016'.  
 
 1. Wait for your app to stage and start. If you see an error message, refer to the [Troubleshoot App Errors](#troubleshoot) section of this topic.
 
@@ -95,20 +121,28 @@ Perform the following steps to deploy a SOAP web service:
 
 1. Develop the service as an ASMX web service in Microsoft Visual Studio.
 1. Publish the service to your local file system.
-1. Run `cf push SERVICE-NAME -s windows2016 -b hwc_buildpack -u none` to push your service from the directory containing the published web service. Replace `SERVICE-NAME` with the name of your service:
-    <pre class="terminal">
-    $ cf push SERVICE-NAME -s windows2016 -b hwc_buildpack -u none
-    </pre>
-    <br>
-    The push command must include the `-s` flag to specify the stack as `windows2016`, which instructs PCF to run the app in the Windows cell.
-    <br><br>
+1. Open a command line to the directory containing the published web service.
+1. To push your service, run the following command:
+
+    ```
+    cf push SERVICE-NAME -s STEMCELL-NAME -b hwc_buildpack -u none
+    ```
+    
+    Where:
+    * `SERVICE-NAME` is the name of your service. 
+    * `STEMCELL-NAME` is the name of your stemcell, typically 'windows2016'.
+
+    <p class="note"><strong>Note</strong>: The push command must include the `-s` flag to specify the stack, which instructs PCF to run the app in the Windows cell.</p>
+
     The push command can include the following optional flags:
     * If you are not pushing your service from the directory containing the published web service, use the `-p` flag to specify the path to the directory that contains the published web service.
     * If you do not have a route serving `/`, use the `-u none` flag to disable the health check.
 
-1. Locate the section of the terminal output that displays the URL of the web service:
+    For example:
 
     <pre class='terminal'>
+    $ cf push SERVICE-NAME -s STEMCELL-NAME -b hwc_buildpack -u none
+
     requested state: started
     instances: 1/1
     usage: 1G x 1 instances
@@ -117,6 +151,8 @@ Perform the following steps to deploy a SOAP web service:
     stack: windows2016
     buildpack: hwc_buildpack
     </pre>
+  
+1. Confirm your service is running by finding your service's URL in the push command output and browse to it. In the example above, `YOUR-WEB-SERVICE.YOUR-DOMAIN` is the URL of your service. 
 
 ###<a id='correct-wsdl'></a> Step 2: Modify the WSDL File
 
