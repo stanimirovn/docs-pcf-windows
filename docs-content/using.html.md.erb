@@ -55,10 +55,12 @@ Perform the following steps to push a .NET app to a Windows cell:
     cf push -s STEMCELL-NAME -b binary_buildpack
     ```
 
-    Where:  
-    * `APP-NAME` is the name of your application.  
-    * `STEMCELL-NAME` is the name of your stemcell, typically `windows2016`.
-<br><br>
+    Where:
+    <ul>
+        <li>`APP-NAME` is the name of your application.</li>
+        <li>`STEMCELL-NAME` is the name of your stemcell, typically `windows2016`.</li>
+    </ul>
+
     If you are not pushing your app from its directory, use the `-p` option and specify the path to the directory that contains the app.
 
 1. Wait for your app to stage and start. If you see an error message, refer to the [Troubleshoot App Errors](#troubleshoot) section of this topic.
@@ -164,7 +166,7 @@ Perform the following steps to deploy a SOAP web service:
 1. Confirm your service is running by finding your service's URL in the push command output and browse to it. In the example above, the URL for the service would be:
 
      ```
-     SERVICE-NAME.YOUR-DOMAIN
+     http://SERVICE-NAME.YOUR-DOMAIN
      ```
 
 ###<a id='correct-wsdl'></a> Step 2: Modify the WSDL File
@@ -223,9 +225,10 @@ Developers of external applications that consume the SOAP web service can perfor
 1. Edit the WSDL file to eliminate the container port, as described in the [Modify the WSDL File](#correct-wsdl) section of this topic.
 1. In Microsoft Visual Studio, right-click on your application in the **Solution Explorer** and select **Add** > **Service Reference**.
 1. Under **Address**, enter the local path to the modified WSDL file.  
+<br>
+    For example: 
+    <pre class="terminal">C:\Users\example\wsdl.xml</pre>
 
-For example: 
-<pre class="terminal">C:\Users\example\wsdl.xml</pre>
 1. Click **OK**. Microsoft Visual Studio generates a client from the WSDL file that you can use in your codebase.
 
 ####<a id='context-routing-soap'></a>Context Path Routing Support for SOAP Web Services
