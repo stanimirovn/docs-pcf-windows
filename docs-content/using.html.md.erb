@@ -49,17 +49,14 @@ Perform the following steps to push a .NET app to a Windows cell:
     ```
     cf push APP-NAME -s windows -b hwc_buildpack
     ```
+
+    Where: `APP-NAME` is the name of your application.
+
     * To deploy an app with `.bat` or `.exe` files, run the following command:
 
     ```
-    cf push -s STEMCELL-NAME -b binary_buildpack
+    cf push -s windows -b binary_buildpack
     ```
-
-    Where:
-    <ul>
-        <li>`APP-NAME` is the name of your application.</li>
-        <li>`STEMCELL-NAME` is the name of your stemcell, typically `windows2016`.</li>
-    </ul>
 
     If you are not pushing your app from its directory, use the `-p` option and specify the path to the directory that contains the app.
 
@@ -105,6 +102,9 @@ Perform the following steps to push a self-hosted app:
     cf api api.APP-DOMAIN
     ```
 
+    Where:
+    * `APP-DOMAIN` is your site's public domain name. 
+
 1. To push your .NET app from the app root, run the following command:
 
     ```
@@ -112,10 +112,9 @@ Perform the following steps to push a self-hosted app:
     ```
 
     Where:
-    * `APP-NAME` is the name of your application. 
-    * `APP-DOMAIN` is your site's public domain name. 
+    * `APP-NAME` is the name of your app. 
     * `PATH-TO-BINARY` is the path to your executable. 
-    * `STEMCELL-NAME` is the name of your stemcell, typically `windows2016`.  
+    * `STEMCELL-NAME` is the name of your stemcell, typically `windows`.  
 
 1. Wait for your app to stage and start. If you see an error message, refer to the [Troubleshoot App Errors](#troubleshoot) section of this topic.
 
@@ -144,8 +143,8 @@ Perform the following steps to deploy a SOAP web service:
 
     The push command can include the following optional flags:
     <ul>
-        <li>`-p`: If you are not pushing your service from the directory containing the published web service, use the `-p` flag to specify the path to the directory that contains the published web service.</li>
-        <li>`-u`: If you do not have a route serving `/`, use the `-u none` flag to disable the health check.</li>
+        <li>`-p`: To specify the path to the directory that contains the published web service, when pushing your service from a directory that does not contain the published web service, use the `-p` flag.</li>
+        <li>`-u`: To disable the health check when you do not have a route serving `/`, use the `-u none` flag.</li>
     </ul>
 
     For example:
@@ -212,7 +211,7 @@ Developers of external applications that consume the SOAP web service can perfor
     Where:  
     * `APP-NAME` is the name of your application.  
     * `APP-DOMAIN` is your site's public domain name.  
-    * `ASMX-FILE` is the name of your asmx file.  
+    * `ASMX-FILE` is the filename of your asmx file.  
 
     For example:
 
