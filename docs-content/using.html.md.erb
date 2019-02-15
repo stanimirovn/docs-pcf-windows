@@ -63,7 +63,7 @@ Perform the following steps to push a .NET app to a Windows cell:
 
     If you are not pushing your app from its directory, use the `-p` option and specify the path to the directory that contains the app.
 
-1. Wait for your app to stage and start. If you see an error message, refer to the [Troubleshoot App Errors](#troubleshoot) section of this topic.
+1. Wait for your app to stage and start. If you see an error message, see the [Troubleshoot App Errors](#troubleshoot) section of this topic.
 
 ###<a id='context-routing'></a>Context Path Routing Support for ASP.NET Apps</a>
 
@@ -118,7 +118,7 @@ Perform the following steps to push a self-hosted app:
     * `STEMCELL-NAME` is the name of your stemcell, typically `windows2016`.  
 
 
-1. Wait for your app to stage and start. If you see an error message, refer to the [Troubleshoot App Errors](#troubleshoot) section of this topic.
+1. Wait for your app to stage and start. If you see an error message, see the [Troubleshoot App Errors](#troubleshoot) section of this topic.
 
 ##<a id='soap'></a> Push a SOAP Service
 
@@ -171,7 +171,7 @@ Perform the following steps to deploy a SOAP web service:
 
 ###<a id='correct-wsdl'></a> Step 2: Modify the WSDL File
 
-Your SOAP web service is now deployed on PCF, but the service's WSDL file contains the incorrect port information. Before an application can consume your web service, either you or the application developer must modify the WSDL file.
+Your SOAP web service is now deployed on PCF, but the service's WSDL file contains the incorrect port information. Before an application can consume your web service, either you or the app developer must modify the WSDL file.
 
 Examine the following portion of an example WSDL file:
 
