@@ -43,22 +43,21 @@ Perform the following steps to push a .NET app to a Windows cell:
     ```
     Where `APP-DOMAIN` is your application's domain name, for example: `example.com`.
 
-1. Run one of the following commands to deploy your .NET app, replacing `APP-NAME` with the name of your app.
-    *  To deploy a .NET Framework app, run the following command:  
+1. Run one of the following commands to deploy your .NET app:
+    *  To deploy a .NET Framework app, run the following command:
 
     ```
-    cf push APP-NAME -s windows -b hwc_buildpack
-    ```
-
-    Where: `APP-NAME` is the name of your application.
-
+    cf push APP-NAME -s windows -b hwc_buildpack.
+    ``` 
     * To deploy an app with `.bat` or `.exe` files, run the following command:
 
     ```
     cf push -s windows -b binary_buildpack
     ```
 
-    If you are not pushing your app from its directory, use the `-p` option and specify the path to the directory that contains the app.
+    Where `APP-NAME` is the name of your application.  
+    
+    <p class="note"><strong>Note</strong>: If you are not pushing your app from its directory, use the <code>-p</code> option and specify the path to the directory that contains the app. </p>
 
 1. Wait for your app to stage and start. If you see an error message, see the [Troubleshoot App Errors](#troubleshoot) section of this topic.
 
@@ -140,12 +139,12 @@ Perform the following steps to deploy a SOAP web service:
     * `SERVICE-NAME` is the name of your service. 
     * `STEMCELL-NAME` is the name of your stemcell, typically 'windows2016'.
 
-    <p class="note"><strong>Note</strong>: The push command must include the `-s` flag to specify the stack, which instructs PCF to run the app in the Windows cell.</p>
+    <p class="note"><strong>Note</strong>: The push command must include the <code>-s</code> flag to specify the stack, which instructs PCF to run the app in the Windows cell.</p>
 
     The push command can include the following optional flags:
     <ul>
-        <li>`-p`: To specify the path to the directory that contains the published web service, when pushing your service from a directory that does not contain the published web service, use the `-p` flag.</li>
-        <li>`-u`: To disable the health check when you do not have a route serving `/`, use the `-u none` flag.</li>
+        <li>`-p WEB-SERVICE-DIRECTORY`: Specify the path to the directory containing the published web service using the <code>-p</code> flag. Needed only when pushing your service from a directory that does not contain the published web service.</li>
+        <li>`-u none`: Disable the health check when you do not have a route serving `/` by using the <code>-u none</code> flag.</li>
     </ul>
 
     For example:
@@ -174,24 +173,25 @@ Your SOAP web service is now deployed on PCF, but the service's WSDL file contai
 
 Examine the following portion of an example WSDL file:
 
-```
-- <wsdl:service name="WebService1">
-  - <wsdl:port name="WebService1Soap" binding="tns:WebService1Soap">
-      <soap:address location="http://webservice.example.com:62492/WebService1.asmx"/>
-    </wsdl:port>
-  - <wsdl:port name="WebService1Soap12" binding="tns:WebService1Soap12">
-      <soap12:address location="http://webservice.example.com:62492/WebService1.asmx"/>
-    </wsdl:port>
-- </wsdl:service>
-```
+<pre class="terminal">
+- &lt;wsdl:service name="WebService1"&gt;
+  - &lt;wsdl:port name="WebService1Soap" binding="tns:WebService1Soap"&gt;
+      &lt;soap:address location="http://webservice.example.com:62492/WebService1.asmx"/&gt;
+    &lt;/wsdl:port&gt;
+  - &lt;wsdl:port name="WebService1Soap12" binding="tns:WebService1Soap12"&gt;
+      &lt;soap12:address location="http://webservice.example.com:62492/WebService1.asmx"/&gt;
+    &lt;/wsdl:port&gt;
+- &lt;/wsdl:service&gt;
+</pre>
 
 The WSDL file provides the port number for the SOAP web service as `62492`. This is the port that the web service listens on in the [Garden container](https://docs.pivotal.io/pivotalcf/concepts/container-security.html#mechanics), but external applications cannot access the service on this port. Instead, external applications must use port `80`, and the [Gorouter](https://docs.pivotal.io/pivotalcf/concepts/architecture/router.html) routes requests to the web service in the container.
 
-The URL of the web service in the WSDL file must be modified to remove `62492`. With no port number, the URL defaults to port `80`. In the example above, the modified URL would be:
+The URL of the web service in the WSDL file must be modified to remove `62492`. With no port number, the URL defaults to port `80`. 
+In the example above, the modified URL would be:
 
-```
+<pre class="terminal">
 http://webservice.example.com/WebService1.asmx
-```
+</pre>
 
 SOAP web service developers can resolve this problem in one of two ways:
 
@@ -216,9 +216,9 @@ Developers of external applications that consume the SOAP web service can perfor
 
     For example:
 
-    ```
+    <pre class="terminal">
     https://webservice.example.com/WebService1.asmx?wsdl
-    ```
+    </pre>
 
 1. Download the WSDL file to your local machine.
 1. Edit the WSDL file to eliminate the container port, as described in the [Modify the WSDL File](#correct-wsdl) section of this topic.
