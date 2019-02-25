@@ -3,6 +3,8 @@ title: Creating a vSphere Windows Stemcell
 owner: Windows
 ---
 
+<strong><%= modified_date %></strong>
+
 This topic describes how to create the stemcell that Pivotal Application Service for Windows (PASW) needs to create VMs on vSphere.
 
 **The stemcell is based on Windows Server, version 1709.**
@@ -46,6 +48,9 @@ As part of completing the procedures in this topic, you download the following f
 	<p class="note"><strong>Note</strong>: You must choose a stemcell version to build. Stemcells are versioned as MAJOR.MINOR, such as 1709.12. For more information about 1709 stemcells, see the <a href="https://docs.pivotal.io/pivotalcf/stemcells/windows-stemcell-v1709x.html">Stemcell v1709.x (Windows Server, version 1709) Release Notes</a>.</p>
 
 ##<a id='create-base-vm'></a> Step 1: Create Base VM for Stemcell
+
+This section describes how to create, configure, and verify a base Windows VM
+from a volume-licensed ISO.
 
 ###<a id='upload-windows-iso'></a>Upload the Windows ISO
 
@@ -104,6 +109,8 @@ Perform the following steps to install VMware Tools on the base VM:
 1. Restart the VM as required to finish the install.
 
 ##<a id='install-windows-updates'></a> Step 2: Install Windows Updates
+
+This section describes how to install Windows updates on your base Windows VM.
 
 ###<a id='run-windows-updates'></a> Install Windows Updates
 
