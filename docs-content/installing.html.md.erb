@@ -1,15 +1,15 @@
 ---
-title: Installing and Configuring PAS for Windows
+title: Installing and Configuring PASW
 owner: Windows
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to install and configure the Pivotal Application Service (PAS) for Windows tile. The PAS for Windows tile installs Windows cells on your PCF deployment.
+This topic describes how to install and configure the Pivotal Application Service for Windows (PASW) tile. The PASW tile installs Windows cells in your Pivotal Cloud Foundry (PCF) deployment.
 
 ## <a id='ert'></a> Step 1: Confirm Shared PAS Tile Settings
 
-There are two settings in the **Pivotal Application Service** tile that affect the Windows cells installed by the **PAS for Windows** tile. Configure these settings as desired:
+There are two settings in the **Pivotal Application Service** tile that affect the Windows cells installed by the **Pivotal Application Service for Windows** tile. Configure these settings as desired:
 
 * In the **Networking** section, if you select the **Disable SSL certificate verification for this environment** checkbox, SSL certificate verification is disabled for Windows cells.
 * In the **System Logging** section, if you configure an external syslog aggregator, logs are drained from Windows cells as well as non-Windows cells.
@@ -18,15 +18,15 @@ There are two settings in the **Pivotal Application Service** tile that affect t
 
 1. Download the **Pivotal Application Service for Windows** product file from the product page of [Pivotal Network](https://network.pivotal.io/products/pas-windows).
 
-1. From the same [Pivotal Network](https://network.pivotal.io/products/pas-windows) page, download the **PAS for Windows File System Injector** tool for your workstation OS.
+1. From the same [Pivotal Network](https://network.pivotal.io/products/pas-windows) page, download the **Windows FS Injector** tool for your workstation OS.
 </br>
 </br>
 The Injector tool, `winfs-injector`, is an executable binary that adds the Windows Server container base image into the product file. This step requires internet access and can take up to 20 minutes.
 </br>
- <p class="note"><strong>Note</strong>: You need the `git` and `tar` (BSD) executables on your `%PATH%` in order to run the `winfs-injector` bin. For example, to use  `winfs-injector.exe`, `tar.exe` must be copied to a folder in your `%PATH%`.
+ <p class="note"><strong>Note</strong>: You need the `git` and `tar` (BSD) executables on your `%PATH%` to run the `winfs-injector` bin. For example, to use `winfs-injector.exe`, `tar.exe` must be copied to a directory in your `%PATH%`.
  </p>
 
-1. Run `winfs-injector` with the following options, replacing `PAS-WINDOWS-DOWNLOADED.pivotal` with the path to the downloaded **PAS for Windows** product file and `PAS-WINDOWS-INJECTED.pivotal` with a desired output path for the importable product file:
+1. Run `winfs-injector` with the following options, replacing `PAS-WINDOWS-DOWNLOADED.pivotal` with the path to the downloaded **PASW** product file and `PAS-WINDOWS-INJECTED.pivotal` with a desired output path for the importable product file:
     <pre class="terminal">
     $ winfs-injector --input-tile PAS-WINDOWS-DOWNLOADED.pivotal \
     --output-tile PAS-WINDOWS-INJECTED.pivotal
@@ -35,13 +35,13 @@ The Injector tool, `winfs-injector`, is an executable binary that adds the Windo
 
 1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product**.
 
-1. Select the importable `PAS-WINDOWS-INJECTED.pivotal` file on your workstation. **PAS for Windows** appears in the product list under **Import a Product**.
+1. Select the importable `PAS-WINDOWS-INJECTED.pivotal` file on your workstation. **PASW** appears in the product list under **Import a Product**.
 
-1. Click **+** under the **PAS for Windows** product listing to add it to your staging area.
+1. Click **+** under the **PASW** product listing to add it to your staging area.
 
 ##<a id='config'></a> Step 3: Configure the Tile
 
-1. Click the newly added **PAS for Windows** tile.
+1. Click the newly added **PASW** tile.
 
     <%= image_tag('pcf-windows-tile-orange.png') %>
 
@@ -54,10 +54,10 @@ The Injector tool, `winfs-injector`, is an executable binary that adds the Windo
     <%= image_tag('vm-options.png') %>
 
 1. Specify your selection for **Manage Administrator Password**.
-  * **Use the Windows default password** randomizes the administrator password. With this selection, the administrator password is not retrievable by an operator. This is the default selection.
-  * **Set the password** sets the same administrator password for every Windows cell. As a result, this password can be used to access any Windows cell, including, for example, Remote Desktop Protocol (RDP) sessions.
+  * **Use the Windows default password** randomizes the admin password. With this selection, the admin password is not retrievable by an operator. This is the default selection.
+  * **Set the password** sets the same admin password for every Windows cell. As a result, this password can be used to access any Windows cell, including, for example, Remote Desktop Protocol (RDP) sessions.
 
-1. (Optional) Select the **BETA: Enable BOSH-native SSH support on all VMs** checkbox to start the Microsoft beta port of the OpenSSH daemon on port 22 on all VMs. Users will be able to SSH onto Windows VMs with the `bosh ssh` command, and enter a CMD terminal as an administrator user. They can then run `powershell.exe` to start a PowerShell session.
+1. (Optional) Select the **BETA: Enable BOSH-native SSH support on all VMs** checkbox to start the Microsoft beta port of the OpenSSH daemon on port 22 on all VMs. Users can SSH onto Windows VMs with the `bosh ssh` command, and enter a CMD terminal as an admin user. They can then run `powershell.exe` to start a PowerShell session.
 
     <p class="note"><strong>Note</strong>: This feature is beta and not considered production-ready.</p>
 
@@ -72,7 +72,7 @@ The Injector tool, `winfs-injector`, is an executable binary that adds the Windo
 
 1. Click **Save**.
 
-1. (Optional) To deploy your PAS for Windows application workloads to an isolation segment, click **Application Containers** and perform the steps in the [Assign a Tile to an Isolation Segment](./isolation.html#assign-isolation) section below.
+1. (Optional) To deploy your PASW application workloads to an isolation segment, click **Application Containers** and perform the steps in the [Assign a Tile to an Isolation Segment](./isolation.html#assign-isolation) section below.
 
 1. (Optional) To configure Windows cells to send Windows Event logs to an external syslog server, click **System Logging** and perform the steps in the [Send Cell Logs to a Syslog Server](./troubleshooting.html#syslog) section.
 
@@ -80,38 +80,38 @@ The Injector tool, `winfs-injector`, is an executable binary that adds the Windo
 ![The smoke tests radio buttons: Temporary space within the system organization and Specified org and space](smoke-tests.png)
 
 
-1. Choose an organization and space where your smoke tests can run.
-  * Choosing **Temporary space within the system organization**  deletes the organization after smoke tests finish.
+1. Choose an org and space where your smoke tests can run.
+  * Choosing **Temporary space within the system organization**  deletes the org after smoke tests finish.
   * Choosing **Specified org and space** requires a domain available for routing and that domain must be accessible to the organization.
-      * In the **Organization** field, enter the Application Service organization to use when running tests.
+      * In the **Organization** field, enter the Application Service org to use when running tests.
       * In the **Space** field, enter the Application Service space to use when running tests.
-      * In the **Domain** field, enter the domain that the organization has access to for running smoke tests.
+      * In the **Domain** field, enter the domain that the org has access to for running smoke tests.
 
 
-1. (Optional) To enable advanced features in PAS for Windows,
+1. (Optional) To enable advanced features in PASW,
 click **Advanced Features** and perform the following steps:
 
   1. To configure memory and disk overcommit for your Windows Diego cells,
   follow the steps below:
 
       1. Enter the total desired amount of Diego cell memory in the **Cell Memory Capacity (MB)** field.
-      For the current cell memory capacity settings, refer to the Windows Diego Cell row
+      For the current cell memory capacity settings, see the Windows Diego cell row
       on the **Resource Config** pane.
 
       1. Enter the total desired amount of Diego cell disk capacity in the **Cell Disk Capacity (MB)** field.
-      For the current cell disk capacity settings, refer to the Windows Diego Cell row
+      For the current cell disk capacity settings, see the Windows Diego cell row
       on the **Resource Config** pane.
       <p class='note'><strong>Note:</strong> Due to the risk of app failure and the deployment-specific nature of disk and memory use,
       Pivotal has no recommendation about how much, if any, memory or disk space to overcommit.</p>
       <%= image_tag("images/advanced-features.png") %>
-  1. To use the `cf` tag as the deployment name in your PAS for Windows metrics,
+  1. To use the `cf` tag as the deployment name in your PASW metrics,
   enable the **Use "cf" as deployment name in emitted metrics instead of unique name** checkbox.
-  By default, this checkbox is disabled, and the metrics are emitted with the BOSH deployment name of your PAS for Windows tile.
+  By default, this checkbox is disabled, and the metrics are emitted with the BOSH deployment name of your PASW tile.
     <p class='note'><strong>Note:</strong> Enable the <strong>Use "cf" as deployment name in emitted metrics instead of unique
     name</strong> checkbox only if it is required for backward compatibility with previous versions of PCF.</p>
   1. Click **Save**.
 
-1. Click **Errands**. 
+1. Click **Errands**.
   1. Pivotal recommends that you set the **Install HWC Buildpack Errand** to **On**. This ensures that you receive the most up-to-date HWC Buildpack.
   1. Enabling the **Smoke Test Errand** ensures that a smoke test is run against your Application Service installation.
 
@@ -124,8 +124,8 @@ click **Advanced Features** and perform the following steps:
 
 To configure your tile resources, perform the following steps:
 
-1. Navigate to the **Resource Config** pane of the PAS for Windows tile.
-1. Use the drop-down menus to configure **Windows Diego Cell**.
+1. Navigate to the **Resource Config** pane of the PASW tile.
+1. Use the dropdown menus to configure **Windows Diego Cell**.
 For more information, see [Disk Size of Windows Diego Cells](#disk).
 1. Click **Save**.
 
@@ -134,7 +134,7 @@ For more information, see [Disk Size of Windows Diego Cells](#disk).
 ### <a name='disk'></a> Disk Size of Windows Diego Cells
 
 Windows stemcells v1803.2 and later in the 1803 line support ephemeral disks.
-If your PAS for Windows deployment is based on one of these stemcells,
+If your PASW deployment is based on one of these stemcells,
 the recommended disk size for your Windows Diego cells is as follows:
   <table>
     <tr>
@@ -175,9 +175,9 @@ the recommended disk size for your Windows Diego cells is as follows:
 
 1. Return to the Ops Manager Installation Dashboard.
 1. Click **Review Pending Changes**.
-1. Select the PAS for Windows tile and review the changes. For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/2-3/customizing/review-pending-changes.html).
-1. Click **Apply Changes** to install the **PAS for Windows** tile.
+1. Select the PASW tile and review the changes. For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/2-3/customizing/review-pending-changes.html).
+1. Click **Apply Changes** to install the **PASW** tile.
 
 ##<a id='copy'></a> Step 7: (Optional) Create More Tiles
 
-To run Windows cells in multiple isolation segments, you must create and configure additional PAS for Windows tiles. For more information, see [Windows Cells in Isolation Segments](./isolation.html).
+To run Windows cells in multiple isolation segments, you must create and configure additional PASW tiles. For more information, see [Windows Cells in Isolation Segments](./isolation.html).
