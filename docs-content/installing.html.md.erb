@@ -88,22 +88,20 @@ The Injector tool, `winfs-injector`, is an executable binary that adds the Windo
       * In the **Domain** field, enter the domain that the org has access to for running smoke tests.
 
 
-1. (Optional) To enable advanced features in PASW,
+1. (Optional) To configure memory and disk overcommit for your Windows Diego cells,
 click **Advanced Features** and perform the following steps:
 
-  1. To configure memory and disk overcommit for your Windows Diego cells,
-  follow the steps below:
+  1. Enter the total desired amount of Diego cell memory in the **Cell Memory Capacity (MB)** field.
+  For the current cell memory capacity settings, see the Windows Diego cell row
+  on the **Resource Config** pane.
 
-      1. Enter the total desired amount of Diego cell memory in the **Cell Memory Capacity (MB)** field.
-      For the current cell memory capacity settings, see the Windows Diego cell row
-      on the **Resource Config** pane.
+  1. Enter the total desired amount of Diego cell disk capacity in the **Cell Disk Capacity (MB)** field.
+  For the current cell disk capacity settings, see the Windows Diego cell row
+  on the **Resource Config** pane.
+  <p class='note'><strong>Note:</strong> Due to the risk of app failure and the deployment-specific nature of disk and memory use,
+  Pivotal has no recommendation about how much, if any, memory or disk space to overcommit.</p>
+  <%= image_tag("images/advanced-features.png") %>
 
-      1. Enter the total desired amount of Diego cell disk capacity in the **Cell Disk Capacity (MB)** field.
-      For the current cell disk capacity settings, see the Windows Diego cell row
-      on the **Resource Config** pane.
-      <p class='note'><strong>Note:</strong> Due to the risk of app failure and the deployment-specific nature of disk and memory use,
-      Pivotal has no recommendation about how much, if any, memory or disk space to overcommit.</p>
-      <%= image_tag("images/advanced-features.png") %>
   1. Click **Save**.
 
 1. Click **Errands**.
