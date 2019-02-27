@@ -66,16 +66,31 @@ Perform the following steps to upload the Windows ISO:
 
 Perform the following steps to create and customize a new VM:
 
-1. If you are using an existing template, select the creation type **Deploy from template** and select a template.
-1. In **Select compatibility**, select **ESXi 6.0 and later**.
-1. For **Guest OS Family**, select **Windows**.
-1. For **Guest OS version**, select **Windows Server 2016**.
-1. In **Customize hardware**, perform the following steps:
-	- Under **New Hard disk**, specify a size of 30GB or greater.
-	- Under **New CD\DVD Drive**, perform the following steps:
+1. In the vSphere client, click the **VMs and Templates** view to display the inventory objects.
+1. Right-click an object and select **New Virtual Machine** > **New Virtual Machine...**.
+1. On the **Select a creation type** page, select **Create a new virtual machine** and click **Next**.
+1. On the **Select a name and folder** page, perform the following steps:
+  1. Enter a name for the VM.
+  1. Select a location for the VM.
+  1. Click **Next**.
+1. On the **Select a compute resource** page, select a compute resource to run the VM and click **Next**.
+1. On the **Select storage** page, perform the following steps:
+  1. Select a **VM Storage Policy**.
+  1. Select the destination datastore for the VM configuration files and virtual disks.
+  1. Click **Next**.
+1. On the **Select compatibility** page, for the **Compatible with** configuration setting, select **ESXi 6.0 and later** and click **Next**.
+1. On the **Select a guest OS** page, perform the following steps:
+  1. For **Guest OS Family**, select **Windows**.
+  1. For **Guest OS Version**, select **Microsoft Windows Server 2016**.
+  1. Click **Next**.
+1. On the **Customize hardware** page, configure the VM hardware and click **Next**.
+When configuring the VM hardware, select the following settings for **New Hard disk** and **New CD\DVD Drive**:
+  1. For **New Hard disk**, specify 30 GB or greater.
+  1. For **New CD\DVD Drive**, perform the following steps:
 		1. Select **Datastore ISO File**.
-		1. Expand the menu and select **Connect At Power On**.
-		1. Click **Browse** and select the ISO you uploaded to your datastore.
+		1. Select the ISO file you uploaded to your datastore and click **OK**.
+		1. Enable the **Connect At Power On** checkbox.
+1. Review the configuration settings on the **Ready to complete** page and click **Finish**.
 
 ###<a id='install-windows-server'></a>Install Windows Server
 
