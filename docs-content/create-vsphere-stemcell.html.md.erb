@@ -7,13 +7,13 @@ owner: Windows
 
 This topic describes how to create the stemcell that Pivotal Application Service for Windows (PASW) needs to create VMs on vSphere.
 
-**The stemcell is based on Windows Server, version 1709.**
-
 <p class="note"><strong>Note:</strong> The instructions in this topic are based on vSphere 6.0 using vSphere Web Client.</p>
 
 ##<a id='overview'></a> Overview
 
 To create a Windows stemcell for vSphere, you create a base Windows VM from a volume-licensed ISO and subsequently maintain that base template with all Windows recommended security updates, but without the BOSH dependencies.
+
+<p class="note"><strong>Note:</strong> The stemcell you create in this topic is based on Windows Server, version 1709.</p>
 
 The VM with security updates serves as the base for all future stemcells, produced from clones of that base VM. This enables you to build new stemcells without having to run Windows Updates from scratch each time. You can also use a "snapshot" feature to maintain an updated Windows image that does not contain the BOSH dependencies.
 
