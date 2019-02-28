@@ -5,7 +5,7 @@ owner: Greenhouse
 
 <strong><%= modified_date %></strong>
 
-This topic lists resources for developing .NET apps that run on Pivotal Application Service (PAS) for Windows, and describes how to push .NET apps to PAS for Windows cells.
+This topic describes how to push .NET apps to Pivotal Application Service (PAS) for Windows cells.
 
 For how to develop .NET microservices for .NET apps using Steeltoe, see the [Steeltoe documentation](http://steeltoe.io/docs/).
 
@@ -41,53 +41,56 @@ Perform the following steps to push a .NET app to a Windows cell:
     ```
     cf api api.APP-DOMAIN
     ```
-    Where `APP-DOMAIN` is your application's domain name, for example: `example.com`.
+    Where `APP-DOMAIN` is your application's public domain name, for example: `example.com`.
 
-1. Run one of the following commands to deploy your .NET app:
-    *  To deploy a .NET Framework app, run the following command:
-
-    ```
-    cf push APP-NAME -s windows -b hwc_buildpack.
-    ``` 
-    * To deploy an app with `.bat` or `.exe` files, run the following command:
+1. Run one of the following commands to deploy your .NET app:  
+    * To deploy an app with `.bat` or `.exe` files, run the following command:  
 
     ```
     cf push -s windows -b binary_buildpack
     ```
+    *  To deploy a .NET Framework app, run the following command:  
 
-    Where `APP-NAME` is the name of your application.  
+    ```
+    cf push APP-NAME -s windows -b hwc_buildpack  
+    ``` 
     
-    <p class="note"><strong>Note</strong>: If you are not pushing your app from its directory, use the <code>-p</code> option and specify the path to the directory that contains the app. </p>
+    Where `APP-NAME` is the name of your application.  
+ 
+    <p class="note"><strong>Note</strong>: The <code>-s windows</code> option instructs PCF to run the app in the Windows cell.</p>
+    <p class="note"><strong>Note</strong>: If you are not pushing your app from its directory, use the <code>-p</code> option and specify the path to the directory that contains the app.</p>
 
 1. Wait for your app to stage and start. If you see an error message, see the [Troubleshoot App Errors](#troubleshoot) section of this topic.
 
 ###<a id='context-routing'></a>Context Path Routing Support for ASP.NET Apps</a>
 
-Context path routing enables multiple applications to share the same route hostname, 
-such as `app1.example.com/app2`. ASP.NET developers can host applications under a route path. 
+Context path routing enables multiple apps to share the same route hostname, 
+such as `app1.example.com/app2`. ASP.NET developers can host apps under a route path. 
 Within Windows cells, you can have multiple routes to an app, but those routes cannot have different context paths.
 
-Making an application accessible under another app's URL requires a series of commands. 
+Making an app accessible under another app's URL requires a pair of commands. 
 To define a context path route, such as `app1.example.com/app2`, run the following commands:
 
-1. To push the primary app, run the following command:
-    ```
-    cf push APP-NAME-ONE
-    ```
-1. To push the secondary app to the default domain, run the following command:
+1. To push the top-level app, run the following command:
 
     ```
-    cf push APP-NAME-TWO --hostname APP-NAME-ONE --route-path APP-NAME-TWO
+    cf push TOP-LEVEL-APP-NAME
     ```
-1. To push the secondary app to a non-default domain, run the following command:
+
+    Where `TOP-LEVEL-APP-NAME` is the name of your  top-level app. 
+
+1. To push the lower-level app, run the following command:
 
     ```
-    cf push APP-NAME-TWO -d APP-DOMAIN --hostname APP-NAME-ONE --route-path APP-NAME-TWO
+    cf push LOWER-LEVEL-APP-NAME -d APP-DOMAIN --hostname TOP-LEVEL-APP-NAME --route-path LOWER-LEVEL-APP-NAME
     ```
 
     Where:
-    * `APP-NAME` is the name of your application. 
-    * `APP-DOMAIN` is your site's public domain name. 
+    * `TOP-LEVEL-APP-NAME` is the name of your  top-level app. 
+    * `LOWER-LEVEL-APP-NAME` is the name of your  lower-level app.
+    * `APP-DOMAIN` is your application's public domain name, for example: `example.com`.
+
+    <p class="note"><strong>Note</strong>: The <code>-d</code> parameter is only needed when pushing an app to a non-default domain.</p>
 
 ##<a id='self-hosted'></a> Push a Self-Hosted App
 
@@ -101,20 +104,17 @@ Perform the following steps to push a self-hosted app:
     cf api api.APP-DOMAIN
     ```
 
-    Where:
-    * `APP-DOMAIN` is your site's public domain name. 
+    Where `APP-DOMAIN` is your application's public domain name, for example: `example.com`.  
 
 1. To push your .NET app from the app root, run the following command:
 
     ```
-    cf push APP-NAME -s STEMCELL-NAME -b binary_buildpack -c PATH-TO-BINARY
+    cf push APP-NAME -s windows -b binary_buildpack -c PATH-TO-BINARY
     ```
 
     Where:
     * `APP-NAME` is the name of your app. 
-    * `PATH-TO-BINARY` is the path to your executable. 
-    * `STEMCELL-NAME` is the name of your stemcell, typically `windows`.  
-
+    * `PATH-TO-BINARY` is the path to your executable.   
 
 1. Wait for your app to stage and start. If you see an error message, see the [Troubleshoot App Errors](#troubleshoot) section of this topic.
 
@@ -132,44 +132,37 @@ Perform the following steps to deploy a SOAP web service:
 1. To push your service, run the following command:
 
     ```
-    cf push SERVICE-NAME -s STEMCELL-NAME -b hwc_buildpack -u none
+    cf push SOAP-SERVICE-NAME -s windows -b hwc_buildpack -p WEB-SERVICE-DIRECTORY -u none
     ```
     
-    Where:
-    * `SERVICE-NAME` is the name of your service. 
-    * `STEMCELL-NAME` is the name of your stemcell, typically 'windows2016'.
-
-    <p class="note"><strong>Note</strong>: The push command must include the <code>-s</code> flag to specify the stack, which instructs PCF to run the app in the Windows cell.</p>
-
-    The push command can include the following optional flags:
-    <ul>
-        <li>`-p WEB-SERVICE-DIRECTORY`: Specify the path to the directory containing the published web service using the <code>-p</code> flag. Needed only when pushing your service from a directory that does not contain the published web service.</li>
-        <li>`-u none`: Disable the health check when you do not have a route serving `/` by using the <code>-u none</code> flag.</li>
-    </ul>
+    Where 
+    * `SOAP-SERVICE-NAME` is the name of your service. 
+    * `WEB-SERVICE-DIRECTORY` is the path to the directory containing the published web service.
 
     For example:
 
     <pre class='terminal'>
-    $ cf push SERVICE-NAME -s STEMCELL-NAME -b hwc_buildpack -u none
+    $ cf push webservice -s windows -b hwc_buildpack -u none
 
     requested state: started
     instances: 1/1
     usage: 1G x 1 instances
-    urls: SERVICE-NAME.YOUR-DOMAIN
+    urls: webservice.example.com
     last uploaded: Thu Nov 17 19:18:19 UTC 2016
     stack: windows2016
     buildpack: hwc_buildpack
     </pre>
-  
-1. Confirm your service is running by finding your service's URL in the push command output and browse to it. In the example above, the URL for the service would be:
 
-     ```
-     http://SERVICE-NAME.YOUR-DOMAIN
-     ```
+    <p class="note"><strong>Note</strong>: The push command must include the <code>-s</code> flag to specify the stack, which instructs PCF to run the app in the Windows cell.</p>
+    <p class="note"><strong>Note</strong>: The <code>-p</code> and <code>-u </code> parameters are optional parameters. The <code>-p</code> parameter is needed only when pushing your service from a directory that does not contain the published web service. 
+        The <code>-u</code> parameter is needed only when disabling the health check when you do not have a route serving `/`.</p>
+
+1. Confirm your service is running by finding your service's URL in the push command's output and browsing to it. In the example above, the URL for the service would be: `http://webservice.example.com`.
 
 ###<a id='correct-wsdl'></a> Step 2: Modify the WSDL File
 
-Your SOAP web service is now deployed on PCF, but the service's WSDL file contains the incorrect port information. Before an application can consume your web service, either you or the app developer must modify the WSDL file.
+Your SOAP web service is now deployed on PCF, but the service's WSDL file contains incorrect port information. 
+The WSDL file must be modified to enable an app to consume your web service. Either you or the service developer can perform the needed modification.
 
 Examine the following portion of an example WSDL file:
 
@@ -206,11 +199,11 @@ Developers of external applications that consume the SOAP web service can perfor
 1. In a browser, navigate to the WSDL file of the web service, using the following URL:
 
      ```
-    https://APP-NAME.APP-DOMAIN/ASMX-FILE?wsdl
+    https://SOAP-SERVICE-NAME.APP-DOMAIN/ASMX-FILE?wsdl
     ```
 
     Where:  
-    * `APP-NAME` is the name of your application.  
+    * `SOAP-SERVICE-NAME` is the name of your service. 
     * `APP-DOMAIN` is your site's public domain name.  
     * `ASMX-FILE` is the filename of your asmx file.  
 
