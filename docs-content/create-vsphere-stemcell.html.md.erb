@@ -100,6 +100,7 @@ When configuring the VM hardware, select the following settings for **New Hard d
 Perform the following steps to install Windows Server on the base VM:
 
 1. After creating the VM, click **Power On** in the **Actions** tab for your VM.
+  <%= image_tag('power-on.png') %>
 1. Select **Windows Server Standard**.
 1. Select **Custom installation**.
 1. Complete the installation process, and enter a password for the Administrator user. BOSH later randomizes this password.
@@ -171,8 +172,9 @@ Clone the VM that has the Windows updates installed. Save the original VM so tha
 
 Perform the following steps:
 
-1. In vCenter, right-click the current Windows VM.
-1. Select **Clone to Virtual Machine**.
+1. In the vSphere client, right-click the current Windows VM.
+1. Select **Clone** > **Clone to Virtual Machine...**.
+  <%= image_tag('clone-vm.png') %>
 1. Ensure that you can create the VM that can be used to create a stemcell for the next Patch Tuesday Monthly Updates.
 
 ##<a id='install-required-software'></a> Step 4: Install Required Software
