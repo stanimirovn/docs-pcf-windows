@@ -1,4 +1,4 @@
----
+-
 title: Creating a vSphere Windows Stemcell
 owner: Windows
 ---
@@ -190,12 +190,12 @@ powershell -ExecutionPolicy Bypass -Command "Install-CFFeatures"
 
 ###<a id='transfer-files'></a>Transfer Files to a Windows VM
 
-Some of the software installation instructions described in the sections below require that you
-transfer files to a Windows VM. Many different methods exist to transfer files to a Windows VM,
-such as folder sharing or the Powershell `Invoke-WebRequest` cmdlet. Use whatever method that you
+Some of the procedures described in the sections below require 
+transferring files to a Windows VM. Many different methods exist to transfer files to a Windows VM,
+such as folder sharing or the PowerShell `Invoke-WebRequest` cmdlet. Use whatever method that you
 prefer.
 
-As an example, the following Powershell `Invoke-WebRequest` command uses TLS 1.2 to transfer
+As an example, the following PowerShell `Invoke-WebRequest` command uses TLS v1.2 to transfer
 **filename.zip** from `EXAMPLE-URL` to the current location on the Windows VM:
 
 ```
@@ -210,7 +210,6 @@ Perform the following steps to install the BOSH PS Modules:
 
 1. Locate the [BOSH PS Modules](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/releases) download for the 1709 stemcell version you want to build, such as 1709.12.
 1. Transfer the `bosh-psmodules.zip` file to your Windows VM.
-	<p class="note"><strong>Note</strong>: Use your preferred procedure for transferring files to your Windows VM. You can use folder sharing.</p>
 1. Start PowerShell in the Windows VM and run the following command:
 
 	```
