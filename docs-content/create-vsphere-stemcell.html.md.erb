@@ -188,6 +188,21 @@ For example:
 powershell -ExecutionPolicy Bypass -Command "Install-CFFeatures"
 </pre>
 
+###<a id='transfer-files'></a>Transfer Files to a Windows VM
+
+Some of the software installation instructions described in the sections below require that you
+transfer files to a Windows VM. Many different methods exist to transfer files to a Windows VM,
+such as folder sharing or the Powershell `Invoke-WebRequest` cmdlet. Use whatever method that you
+prefer.
+
+As an example, the following Powershell `Invoke-WebRequest` command uses TLS 1.2 to transfer
+**filename.zip** from `EXAMPLE-URL` to the current location on the Windows VM:
+
+```
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+Invoke-WebRequest -Uri "EXAMPLE-URL/filename.zip" -OutFile ".\filename.zip"
+```
+
 ###<a id='bosh-ps-modules'></a>Install the BOSH PS Modules
 
 Perform the following steps to install the BOSH PS Modules:
