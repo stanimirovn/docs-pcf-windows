@@ -38,7 +38,7 @@ Perform the following steps to push a .NET app to a Windows cell:
 
 1. To target the Cloud Controller of your PCF deployment, run the following command:  
 
-    ```
+    ```shell
     cf api api.APP-DOMAIN
     ```
     Where `APP-DOMAIN` is your application's public domain name, for example: `example.com`.
@@ -46,12 +46,12 @@ Perform the following steps to push a .NET app to a Windows cell:
 1. Run one of the following commands to deploy your .NET app:  
     * To deploy an app with `.bat` or `.exe` files, run the following command:  
 
-    ```
+    ```shell
     cf push -s windows -b binary_buildpack
     ```
     *  To deploy a .NET Framework app, run the following command:  
 
-    ```
+    ```shell
     cf push APP-NAME -s windows -b hwc_buildpack  
     ``` 
     
@@ -73,7 +73,7 @@ To define a context path route, such as `app1.example.com/app2`, run the followi
 
 1. To push the top-level app, run the following command:
 
-    ```
+    ```shell
     cf push TOP-LEVEL-APP-NAME
     ```
 
@@ -81,7 +81,7 @@ To define a context path route, such as `app1.example.com/app2`, run the followi
 
 1. To push the lower-level app, run the following command:
 
-    ```
+    ```shell
     cf push LOWER-LEVEL-APP-NAME -d APP-DOMAIN --hostname TOP-LEVEL-APP-NAME --route-path LOWER-LEVEL-APP-NAME
     ```
 
@@ -100,7 +100,7 @@ Perform the following steps to push a self-hosted app:
 
 1. To target the Cloud Controller of your PCF deployment, run the following command:
 
-    ```
+    ```shell
     cf api api.APP-DOMAIN
     ```
 
@@ -108,7 +108,7 @@ Perform the following steps to push a self-hosted app:
 
 1. To push your .NET app from the app root, run the following command:
 
-    ```
+    ```shell
     cf push APP-NAME -s windows -b binary_buildpack -c PATH-TO-BINARY
     ```
 
@@ -131,7 +131,7 @@ Perform the following steps to deploy a SOAP web service:
 1. Open a command line to the directory containing the published web service.
 1. To push your service, run the following command:
 
-    ```
+    ```shell
     cf push SOAP-SERVICE-NAME -s windows -b hwc_buildpack -p WEB-SERVICE-DIRECTORY -u none
     ```
     
@@ -166,25 +166,25 @@ The WSDL file must be modified to enable an app to consume your web service. Eit
 
 Examine the following portion of an example WSDL file:
 
-<pre class="terminal">
-- &lt;wsdl:service name="WebService1"&gt;
-  - &lt;wsdl:port name="WebService1Soap" binding="tns:WebService1Soap"&gt;
-      &lt;soap:address location="http://webservice.example.com:62492/WebService1.asmx"/&gt;
-    &lt;/wsdl:port&gt;
-  - &lt;wsdl:port name="WebService1Soap12" binding="tns:WebService1Soap12"&gt;
-      &lt;soap12:address location="http://webservice.example.com:62492/WebService1.asmx"/&gt;
-    &lt;/wsdl:port&gt;
-- &lt;/wsdl:service&gt;
-</pre>
+```xml
+- <wsdl:service name="WebService1">
+  - <wsdl:port name="WebService1Soap" binding="tns:WebService1Soap">
+      <soap:address location="http://webservice.example.com:62492/WebService1.asmx"/>
+    </wsdl:port>
+  - <wsdl:port name="WebService1Soap12" binding="tns:WebService1Soap12">
+      <soap12:address location="http://webservice.example.com:62492/WebService1.asmx"/>
+    </wsdl:port>
+- </wsdl:service>
+```
 
 The WSDL file provides the port number for the SOAP web service as `62492`. This is the port that the web service listens on in the [Garden container](https://docs.pivotal.io/pivotalcf/concepts/container-security.html#mechanics), but external applications cannot access the service on this port. Instead, external applications must use port `80`, and the [Gorouter](https://docs.pivotal.io/pivotalcf/concepts/architecture/router.html) routes requests to the web service in the container.
 
 The URL of the web service in the WSDL file must be modified to remove `62492`. With no port number, the URL defaults to port `80`. 
 In the example above, the modified URL would be:
 
-<pre class="terminal">
+```
 http://webservice.example.com/WebService1.asmx
-</pre>
+```
 
 SOAP web service developers can resolve this problem in one of two ways:
 
@@ -209,9 +209,9 @@ Developers of external applications that consume the SOAP web service can perfor
 
     For example:
 
-    <pre class="terminal">
+    ```
     https://webservice.example.com/WebService1.asmx?wsdl
-    </pre>
+    ```
 
 1. Download the WSDL file to your local machine.
 1. Edit the WSDL file to eliminate the container port, as described in the [Modify the WSDL File](#correct-wsdl) section of this topic.
@@ -219,7 +219,10 @@ Developers of external applications that consume the SOAP web service can perfor
 1. Under **Address**, enter the local path to the modified WSDL file.  
 <br>
     For example: 
-    <pre class="terminal">C:\Users\example\wsdl.xml</pre>
+
+    ```shell
+    C:\Users\example\wsdl.xml
+    ```
 
 1. Click **OK**. Microsoft Visual Studio generates a client from the WSDL file that you can use in your codebase.
 
