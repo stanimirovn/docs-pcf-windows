@@ -19,22 +19,53 @@ To install and deploy the PAS for Windows tile, follow steps 1 and 2 of [Install
 
 Perform the following steps to redeploy a running app with zero downtime using the blue-green method:
 
-1. Run `cf login` to log in to the Cloud Foundry Command Line Interface (cf CLI).
+1. To log in to the Cloud Foundry Command Line Interface (cf CLI), run the following command:
+
+    ```
+    cf login
+    ```
 
 1. Choose your org and space.
 
 1. Navigate to the location of your app.
 
-1. Run `cf apps` to find the name of the app, ORIGINAL\_APP\_NAME, that you are migrating from PAS for Windows 2012R2 to PAS for Windows. Create a new name for the app to replace it. Pivotal recommends you append `-green` to your app name, APP_NAME-green.
+1. To find the name of the existing PAS for Windows 2012R2 app you are migrating to PAS for Windows, run the following command:
 
-1. Run `cf push` to push the renamed app APP_NAME-green, passing in `-s windows`, `--no-route`, and `--no-start`.
-<pre class="terminal">$ cf push APP\_NAME-green -s windows -b BUILDPACK -n HOSTNAME --no-start --no-route</pre>
-  * For **BUILDPACK**, enter your custom buildpack by name or Git URL with an optional branch or tag.
-  * For **HOSTNAME**, enter the subdomain name you are pushing to.
-  * `-s windows` runs the app in a Windows Diego cell.
-  * `--no-start` creates the instance VMs but does not start the app.
-  * `--no-route` prevents the push command from automatically mapping a route to the app.
-  * For more command options, see [cf push](http://cli.cloudfoundry.org/en-US/cf/push.html).
+    ```
+    cf apps
+    ```
+
+1. Create a new name for the app to replace it. Pivotal recommends you append `-green` to your app name, using the following format:
+
+    ```
+    APP-NAME-green
+    ```
+
+    Where `APP-NAME` is the PAS for Windows app name.
+
+1. To push the app renamed as APP-NAME-green to a Windows Diego cell, run the following command:
+
+    ```
+    cf push APP-NAME-green -s windows -b BUILDPACK -n HOSTNAME --no-start --no-route 
+    ```
+
+    Where:
+    * `BUILDPACK` is your custom buildpack. Specify buildpack either by name or Git URL with an optional branch or tag.
+    * `HOSTNAME` is the subdomain name you are pushing to.
+
+    For example:
+
+    <pre class="terminal">
+    $ cf push ExampleApp-green -s windows -b https://github.com/cloudfoundry/binary-buildpack.git -n example.com --no-start --no-route
+    </pre>
+
+    <p class="note"><strong>Note</strong>: The <code>--no-start</code> and <code>--no-route</code> parameters included in this <code>cf push</code> command are required for the this procedure:  
+        <ul>
+    	    <li><code>--no-start</code> creates the instance VMs but does not start the app.</li>
+            <li><code>--no-route</code> prevents the push command from automatically mapping a route to the app.</li>
+        </ul>
+    
+    For more additional <code>cf push</code> command options, see <a href="http://cli.cloudfoundry.org/en-US/cf/push.html">cf push</a>.</p>
 
 1. Switch the router so all incoming requests go to ORIGINAL\_APP\_NAME and APP\_NAME-green using the [cf map-route](http://cli.cloudfoundry.org/en-US/cf/map-route.html) command. The command requires you enter your domain name after the app name. For example, `example.com`.
 <pre class="terminal">
