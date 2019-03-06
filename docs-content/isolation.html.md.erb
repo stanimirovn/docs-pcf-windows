@@ -9,17 +9,20 @@ This topic explains how to run Windows cells in isolation segments, which are co
 
 Cells in one isolation segment share routing, computing, and logging resources with other cells in the same segment, and do not use resources from other isolation segments.
 
+## <a id='prerequisites'></a> Prerequisites
+
+To run a Windows cell in a particular isolation segment, the isolation segment must first already exist in the Cloud Controller Database (CCDB) before the Windows cell can be assigned to it.
+
+To create an isolation segment in the CCDB, see: [Create an Isolation Segment](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html#create-an-is) 
+section of the _Managing Isolation Segments_ topic.
+
 ##<a id='overview'></a> Overview
 
 To run Windows cells in multiple isolation segments, you need to create and install multiple PAS for Windows tiles and configure each to run in a different isolation segment.
 
-If the isolation segments do not already exist in the Cloud Controller Database (CCDB), you need to create them there.
-
 See [Replicate a Tile](#replicate) for how to create multiple copies of the PAS for Windows tile.
 
 See [Assign a Tile to an Isolation Segment](#assign-isolation) for how to associate a PAS for Windows tile with an isolation segment, so that its cells run in that segment.
-
-See the [Create an Isolation Segment](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html#create-an-is) section of the _Managing Isolation Segments_ topic for instruction about adding an isolation segment to the CCDB.
 
 ##<a id='replicate'></a> Replicate a Tile
 
@@ -29,18 +32,21 @@ To make multiple copies of the **PAS for Windows** tile that you can assign to d
 
 1. Navigate to the directory where you downloaded the Replicator tool.
 
-1. Replicate the tile:
-    <pre class="terminal">
-    ./replicator \
-        -name "YOUR-NAME" \
-        -path /PATH/TO/ORIGINAL.pivotal \
-        -output /PATH/TO/COPY.pivotal
-    </pre>
+1. To replicate the tile, run the following command:
 
-    Replace the values above with the following:
-    * `YOUR-NAME`: Provide a unique name for the new PAS for Windows tile. The name must be ten characters or less and only contain alphanumeric characters, dashes, underscores, and spaces.
-    * `/PATH/TO/ORIGINAL`: Provide the absolute path to the original PAS for Windows tile you downloaded from Pivotal Network.
-    * `/PATH/TO/COPY`: Provide the absolute path for the copy of the PAS for Windows tile that the Replicator tool produces.
+    ```
+    replicator-windows -name "TILE-NAME" -path PATH-TO-ORIGINAL -output PATH-TO-COPY
+    ```
+
+    Where:
+    * `TILE-NAME` is a unique name for the new PAS for Windows tile. The name must be ten or fewer characters in length and contain only alphanumeric characters, dashes, underscores, and spaces.
+    * `PATH-TO-ORIGINAL` is the absolute path to the original `.pivotal` PAS for Windows tile you downloaded from Pivotal Network.
+    * `PATH-TO-COPY` is the absolute path for the copy of the `.pivotal` PAS for Windows tile that the Replicator tool produces.
+    
+    For example:
+    <pre class="terminal">
+    replicator-windows -name "Shiny Tile" -path c:\downloads\TileOriginal.pivotal -output c:\temp\TileCopy.pivotal
+    </pre>
 
 1. Install and configure the Windows isolation segment, using the new `.pivotal` file and following the procedures in this topic, starting with the **Import a Product** step of [Step 2: Install the Tile](#install).
 
@@ -54,5 +60,3 @@ To assign a PAS for Windows tile to an isolation segment, perform the following 
 1. Under **Segment Name**, enter the name for the isolation segment to associate the tile with. If you are creating a new isolation segment, ensure that this name is unique across your PCF deployment.
 
 1. Click **Save**.
-
-1. If you are creating a new isolation segment, follow the steps in the [Create an Isolation Segment](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html#create-an-is) section of the _Managing Isolation Segments_ topic to add the isolation segment to the CCDB.
