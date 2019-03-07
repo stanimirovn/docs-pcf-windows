@@ -17,7 +17,7 @@ This section describes issues that may occur during the installation process.
 
 You run the `winfs-injector` and see the following error about certificates:
 
-```
+```text
 Get https://auth.docker.io/token?service=registry.docker.io&
 scope=repository:cloudfoundry/windows2016fs:pull: x509: 
 failed to load system roots and no roots provided
@@ -37,7 +37,7 @@ Install the necessary certificates on your local machine. On Ubuntu, you can ins
 
 You run the `winfs-injector` and see the following error about a missing file or directory:
 
-```
+```text
 open ...windows2016fs-release/VERSION: no such file or directory
 ```
 
@@ -140,7 +140,7 @@ your PCF deployment uses internal authentication or an external user store.
 
 1. To retrieve the IP address of your Windows cell using the BOSH CLI, run the following command:
     
-    ```
+    ```shell
     bosh -e ENV-NAME -d DEPLOYMENT-NAME
     ```
 
@@ -190,7 +190,7 @@ Perform the following steps to use the Consul CLI on your Windows cell to diagno
 1. In your RDP session, open a PowerShell window.
 1. To change to the directory containing the Consul CLI binary, run the following:
 
-    ```
+    ```shell
     cd CONSUL-CLI-DIR\bin
     ```
 
@@ -202,7 +202,7 @@ Perform the following steps to use the Consul CLI on your Windows cell to diagno
 	</pre>
 1. To list the members of your Consul cluster, run the following:
 
-    ```
+    ```shell
     consul.exe members
     ```
 
