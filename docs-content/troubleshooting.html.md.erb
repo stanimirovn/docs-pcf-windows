@@ -17,11 +17,11 @@ This section describes issues that may occur during the installation process.
 
 You run the `winfs-injector` and see the following error about certificates:
 
-<pre class="terminal">
+```
 Get https://auth.docker.io/token?service=registry.docker.io&
 scope=repository:cloudfoundry/windows2016fs:pull: x509: 
 failed to load system roots and no roots provided
-</pre>
+```
 
 **Explanation**
 
@@ -37,9 +37,9 @@ Install the necessary certificates on your local machine. On Ubuntu, you can ins
 
 You run the `winfs-injector` and see the following error about a missing file or directory:
 
-<pre class="terminal">
+```
 open ...windows2016fs-release/VERSION: no such file or directory
-</pre>
+```
 
 **Explanation**
 
@@ -134,12 +134,24 @@ Perform the following steps to connect to a Windows cell to run diagnostics:
 	* For Windows, download the Microsoft Remote Desktop app from [Microsoft](https://www.microsoft.com/en-us/store/p/microsoft-remote-desktop/9wzdncrfj3ps).
 	* For Linux/UNIX, download a RDP client like [rdesktop](http://www.rdesktop.org/).
 
-1. Follow the steps in the [Log into BOSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#log-in) section of the <em>Advanced Troubleshooting with the BOSH CLI</em> topic to log in to your BOSH Director. The steps vary slightly depending on whether your PCF deployment uses internal authentication or an external user store.
+1. Follow the steps in the [Log into BOSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#log-in) section of the 
+<em>Advanced Troubleshooting with the BOSH CLI</em> topic to log in to your BOSH Director. The steps vary slightly depending on whether 
+your PCF deployment uses internal authentication or an external user store.
 
-1. Retrieve the IP address of your Windows cell using the BOSH CLI. Run the following command, replacing `MY-ENV` with the alias you assigned to your BOSH Director:
+1. To retrieve the IP address of your Windows cell using the BOSH CLI, run the following command:
+    
+    ```
+    bosh -e ENV-NAME -d DEPLOYMENT-NAME
+    ```
+
+    Where:
+    * `ENV-NAME` is the alias you assigned to your BOSH Director.
+    * `DEPLOYMENT-NAME` is your deployment's name.
+
+    For example:
     <pre class="terminal">
-    $ bosh -e MY-ENV -d garden-windows
-    Using environment 'DIRECTOR-IP' as client 'admin'
+    c:\Users\admin\> bosh -e my-environ -d garden-windows
+    Using environment '192.0.2.6' as client 'admin'
 
     Name               Release(s)       Stemcell(s)    Team(s)  Cloud Config
     garden-windows     ...              ...            -        latest
@@ -176,13 +188,27 @@ Perform the following steps to connect to a Windows cell to run diagnostics:
 Perform the following steps to use the Consul CLI on your Windows cell to diagnose problems with your Consul cluster:
 
 1. In your RDP session, open a PowerShell window.
-1. Change into the directory that contains the Consul CLI binary:
+1. To change to the directory containing the Consul CLI binary, run the following:
+
+    ```
+    cd CONSUL-CLI-DIR\bin
+    ```
+
+    Where `CONSUL-CLI-DIR` is the Consul CLI package's directory path.  
+<br>
+    For example:
 	<pre class="terminal">
-	PS C:\Users\Administrator> cd C:\var\vcap\packages\consul-windows\bin\
+	PS C:\Users\admin\> cd C:\var\vcap\packages\consul-windows\bin\
 	</pre>
-1. Use the Consul CLI to list the members of your Consul cluster:
+1. To list the members of your Consul cluster, run the following:
+
+    ```
+    consul.exe members
+    ```
+
+    For example:
 	<pre class="terminal">
-	PS C:\Users\Administrator\var\vcap\packages\consul-windows\bin\> .\consul.exe members
+	PS C:\var\vcap\packages\consul-windows\bin\> consul.exe members
 	Node                       Address          Status  Type    Build  Protocol  DC
 	cell-windows-0             10.0.0.111:8301  alive   client  0.6.4  2         dc1
 	cloud-controller-0         10.0.0.94:8301   alive   client  0.6.4  2         dc1
