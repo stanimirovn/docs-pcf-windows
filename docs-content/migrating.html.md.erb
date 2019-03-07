@@ -43,21 +43,21 @@ Perform the following steps to redeploy a running app with zero downtime using t
 
     Where `APP-NAME` is the existing PAS for Windows 2012R2 app's name.
 
-1. To push your app, renamed as `APP-NAME-green`, to a PAS for Windows Diego cell, run the following command:
+1. To push your app to a PAS for Windows Diego cell, using your newly created name, run the following command:
 
     ```shell
-    cf push APP-NAME-green -s windows -b BUILDPACK -n HOSTNAME --no-start --no-route 
+    cf push APP-NAME-GREEN -s windows -b BUILDPACK -n HOSTNAME --no-start --no-route 
     ```
 
     Where:
-    * `APP-NAME-green` is the name of the new 'green' version of your app.
+    * `APP-NAME-GREEN` is the newly created 'green' name for your app.
     * `BUILDPACK` is your custom buildpack. Specify buildpack either by name or Git URL with an optional branch or tag.
-    * `HOSTNAME` is the name of the subdomain you are pushing your app to. For example, if "example.com" is your domain and you want the URL to you app to be: `http://my-app.example.com`, specify "my-app" as HOSTNAME. 
+    * `HOSTNAME` is the name of the subdomain you are pushing your app to. For example, if "example.com" is your domain and you want the URL to your app to be: `http://my-app.example.com`, specify "my-app" as HOSTNAME. 
 
     For example:
 
     <pre class="terminal">
-    $ cf push ExampleApp-green -s windows -b https://github.com/cloudfoundry/binary-buildpack.git -n my-app --no-start --no-route
+    C:\Users\admin\> cf push ExampleApp-green -s windows -b https://github.com/cloudfoundry/binary-buildpack.git -n my-app --no-start --no-route
     </pre>
 
     <p class="note"><strong>Note</strong>: The <code>--no-start</code> and <code>--no-route</code> parameters included in this <code>cf push</code> command are required for the this procedure: 
@@ -73,7 +73,7 @@ Perform the following steps to redeploy a running app with zero downtime using t
     Where:
     * `APP-NAME-green` is the name of the new 'green' version of your app.
     * `DOMAIN` is your domain name, for example, `example.com`.
-    * `HOSTNAME` is the name of your app's subdomain. For example, if "example.com" is your domain and you want the URL to you app to be: `http://my-app.example.com`, specify "my-app" as HOSTNAME.  
+    * `HOSTNAME` is the name of your app's subdomain. For example, if "example.com" is your domain and you want the URL to your app to be: `http://my-app.example.com`, specify "my-app" as HOSTNAME.  
 
     <p class="note"><strong>Note</strong>: The command requires you specify domain name after specifying app name.</p>
 

@@ -30,19 +30,19 @@ The Injector tool, `winfs-injector`, is an executable binary that adds the Windo
  <p class="note"><strong>Note</strong>: You need the `git` and `tar` (BSD) executables on your `%PATH%` to run the `winfs-injector` bin. For example, to use `winfs-injector.exe`, `tar.exe` must be copied to a directory in your `%PATH%`.
  </p>
 
-1. To add the Windows Server container base image into the product file, run the following command:
+1. To add the Windows Server container base image to the product file, run the following command:
 
     ```shell
     winfs-injector --input-tile PASW-DOWNLOAD-PATH --output-tile PASW-IMPORTABLE-PATH
     ``` 
 
     Where:
-    * `PASW-DOWNLOAD-PATH` is the path and filename to the downloaded **PASW** product file. 
+    * `PASW-DOWNLOAD-PATH` is the path and filename to the downloaded PASW product file. 
     * `PASW-IMPORTABLE-PATH` is the desired output path for the importable product file.
 
     For example:
     <pre class="terminal">
-    $ winfs-injector --input-tile c:\temp\pas-windows-2.6.0-build.1.pivotal --output-tile c:\temp\pas-windows-2.6.0-build.1-INJECTED.pivotal
+    C:\Users\admin\> winfs-injector --input-tile c:\temp\pas-windows-2.6.0-build.1.pivotal --output-tile c:\temp\pas-windows-2.6.0-build.1-INJECTED.pivotal
     </pre>
 
     For troubleshooting the `winfs-injector`, see [Missing Local Certificates for Windows File System Injector](./troubleshooting.html#missing-certs-winfs-issues).
