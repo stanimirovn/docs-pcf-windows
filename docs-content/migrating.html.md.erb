@@ -50,14 +50,17 @@ Perform the following steps to redeploy a running app with zero downtime using t
     ```
 
     Where:
-    * `APP-NAME-GREEN` is the newly created 'green' name for your app.
-    * `BUILDPACK` is your custom buildpack. Specify buildpack either by name or Git URL with an optional branch or tag.
-    * `HOSTNAME` is the name of the subdomain you are pushing your app to. For example, if "example.com" is your domain and you want the URL to your app to be: `http://my-app.example.com`, specify "my-app" as HOSTNAME. 
+    * `APP-NAME-GREEN` is the newly created "green" name for your app.
+    * `BUILDPACK` is your custom buildpack. Specify the buildpack either by name or GitHub URL with an optional branch or tag.
+    * `HOSTNAME` is the name of your app's subdomain. For example, if `example.com` is your domain and 
+    you want the URL to your app to be `http://my-app.example.com`, then specify `my-app` as the `HOSTNAME`.
 
     For example:
 
     <pre class="terminal">
-    C:\Users\admin\> cf push ExampleApp-green -s windows -b https://github.com/cloudfoundry/binary-buildpack.git -n my-app --no-start --no-route
+    C:\Users\admin\> cf push ExampleApp-green -s windows ^
+    -b https://github.com/cloudfoundry/binary-buildpack.git ^
+    -n my-app --no-start --no-route
     </pre>
 
     <p class="note"><strong>Note</strong>: The <code>--no-start</code> and <code>--no-route</code> parameters included in this <code>cf push</code> command are required for the this procedure: 
@@ -71,13 +74,14 @@ Perform the following steps to redeploy a running app with zero downtime using t
     ```
 
     Where:
-    * `APP-NAME-green` is the name of the new 'green' version of your app.
+    * `APP-NAME-green` is the name of the new "green" version of your app.
     * `DOMAIN` is your domain name, for example, `example.com`.
-    * `HOSTNAME` is the name of your app's subdomain. For example, if "example.com" is your domain and you want the URL to your app to be: `http://my-app.example.com`, specify "my-app" as HOSTNAME.  
+    * `HOSTNAME` is the name of your app's subdomain. For example, if `example.com` is your domain and 
+    you want the URL to your app to be `http://my-app.example.com`, then specify `my-app` as the `HOSTNAME`.  
 
-    <p class="note"><strong>Note</strong>: The command requires you specify domain name after specifying app name.</p>
+    <p class="note"><strong>Note</strong>: When using the <code>cf map-route</code> command, you must specify domain name after specifying app name.</p>
 
-    For additional information on `cf map-route`, see: [cf map-route](http://cli.cloudfoundry.org/en-US/cf/map-route.html).
+    For additional information on `cf map-route`, see [cf map-route](http://cli.cloudfoundry.org/en-US/cf/map-route.html).
 
 1. To start the green app, run the following command:
 
@@ -85,7 +89,7 @@ Perform the following steps to redeploy a running app with zero downtime using t
 	cf start APP-NAME-green
     ```
 
-    Where `APP-NAME-green` is the name of the new 'green' version of your app.
+    Where `APP-NAME-green` is the name of the new "green" version of your app.
 
 1. To confirm that both your `APP-NAME` and `APP-NAME-green` apps are running, run the following command: 
 
@@ -95,18 +99,19 @@ Perform the following steps to redeploy a running app with zero downtime using t
 
     If you experience a problem, see [Troubleshooting Application Deployment and Health](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/troubleshoot-app-health.html).
 
-1. To, unmap the original app's route, run the following command:
+1. To unmap the original app's route, run the following command:
 
     ```shell
     cf unmap-route APP-NAME DOMAIN -n HOSTNAME
     ```
 
     Where:
-    * `APP-NAME` is the name of the existing version of your app you'd like to replace with APP-NAME-green.
+    * `APP-NAME` is the name of the existing version of your app you want to replace with `APP-NAME-green`.
     * `DOMAIN` is your domain name, for example, `example.com`.
-    * `HOSTNAME` is the app's existing hostname, the subdomain name currently used to access the app's specific URL.  For example, if "example.com" is your domain and the existing app is currently accessed using the URL `http://my-app.example.com`, then "my-app" is the app's existing HOSTNAME. 
+    * `HOSTNAME` is the name of your app's subdomain. For example, if `example.com` is your domain and the existing app is 
+    currently accessed using the URL `http://my-app.example.com`, then specify `my-app` as the `HOSTNAME`. 
 
-    For additional information on `cf-unmap-route` see: [cf unmap-route](http://cli.cloudfoundry.org/en-US/cf/unmap-route.html).
+    For additional information on `cf-unmap-route`, see [cf unmap-route](http://cli.cloudfoundry.org/en-US/cf/unmap-route.html).
 
 ## <a id="delete-app"></a> Step 3: Delete App from Windows 2012R2 Server Cells
 
@@ -116,11 +121,11 @@ Perform the following steps to redeploy a running app with zero downtime using t
     cf delete APP-NAME
     ```
 
-    Where `APP-NAME` is the name of the existing version of your app you'd like to replace with APP-NAME-green.
+    Where `APP-NAME` is the name of the app that you have replaced with `APP-NAME-green`.
 
-    <p class="note"><strong>Note</strong>: To also delete any mapped routes, run the command with the `-r` flag.</p>
+    <p class="note"><strong>Note</strong>: To also delete any mapped routes, run the command with the <code>-r</code> flag.</p>
 
-    For additional information on `cf delete`, see: [cf delete](http://cli.cloudfoundry.org/en-US/cf/delete.html).
+    For additional information on `cf delete`, see [cf delete](http://cli.cloudfoundry.org/en-US/cf/delete.html).
 
 
 ## <a id="uninstall-old-tile"></a> Step 4: (Optional) Uninstall Old Tile
