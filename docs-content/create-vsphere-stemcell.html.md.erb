@@ -13,7 +13,7 @@ This topic describes how to create the stemcell that Pivotal Application Service
 
 To create a Windows stemcell for vSphere, you create a base Windows VM from a volume-licensed ISO and subsequently maintain that base template with all Windows recommended security updates, but without the BOSH dependencies.
 
-<p class="note"><strong>Note:</strong> The stemcell you create in this topic is based on Windows Server, version 1803.</p>
+<p class="note"><strong>Note:</strong> The stemcell you create in this topic is based on Windows Server 2019.</p>
 
 The VM with security updates serves as the base for all future stemcells, produced from clones of that base VM. This enables you to build new stemcells without having to run Windows Updates from scratch each time. You can also use a "snapshot" feature to maintain an updated Windows image that does not contain the BOSH dependencies.
 
@@ -23,7 +23,7 @@ Pivotal recommends installing any available critical updates, and then rebuildin
 
 Before you create a vSphere Windows stemcell, you must have the following:
 
-* A Windows Server, version 1803 ISO, from [Microsoft Developer Network (MSDN)](https://msdn.microsoft.com/en-us) or [Volume Licensing Service Center (VLSC)](https://www.microsoft.com/Licensing/servicecenter/default.aspx). You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production, as the licensing expires.
+* A Windows Server 2019 ISO, from [Microsoft Developer Network (MSDN)](https://msdn.microsoft.com/en-us) or [Volume Licensing Service Center (VLSC)](https://www.microsoft.com/Licensing/servicecenter/default.aspx). You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production, as the licensing expires.
 	<p class="note"><strong>Note</strong>: Pivotal recommends maintaining a separate, updated Windows VM based on this ISO to serve as the basis for the installation steps below. This enables you to apply Windows Updates and create new stemcells without having to reinstall all updates from scratch.</p>
 * A vSphere/vCenter account granted sufficient permissions to perform all of the following tasks:
 	- Create a VM.
@@ -46,8 +46,8 @@ As part of completing the procedures in this topic, you download the following f
 
 * [lgpo.exe](https://www.microsoft.com/en-us/download/details.aspx?id=55319) from the Microsoft Security Toolkit.
 * [OpenSSH v7.7.2.0p1](https://github.com/PowerShell/Win32-OpenSSH/releases/tag/v7.7.2.0p1-Beta).
-* The [BOSH PS Modules and BOSH Agent](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/releases) for the 1803 stemcell version you want to build.
-	<p class="note"><strong>Note</strong>: You must choose a stemcell version to build. Stemcells are versioned as MAJOR.MINOR, such as 1803.2. For more information about 1803 stemcells, see the <a href="https://docs.pivotal.io/pivotalcf/stemcells/windows-stemcell-v1803x.html">Stemcell v1803.x (Windows Server, version 1803) Release Notes</a>.</p>
+* The [BOSH PS Modules and BOSH Agent](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/releases) for the 2019 stemcell version you want to build.
+	<p class="note"><strong>Note</strong>: You must choose a stemcell version to build. Stemcells are versioned as MAJOR.MINOR, such as 2019.2. For more information about 2019 stemcells, see the <a href="https://docs.pivotal.io/pivotalcf/stemcells/windows-stemcell-v2019x.html">Stemcell v2019.x (Windows Server 2019) Release Notes</a>.</p>
 
 ##<a id='create-base-vm'></a> Step 1: Create Base VM for Stemcell
 
@@ -116,7 +116,7 @@ Get-CimInstance Win32_OperatingSystem | Select-Object
 Caption, Version, ServicePackMajorVersion, OSArchitecture, CSName, WindowsDirectory
 ```
 
-The output includes `Version: 10.0.17134`.
+The output includes `Version: 10.0.17763`.
 
 ###<a id='install-vmware-tools'></a>Install VMware Tools
 
@@ -148,7 +148,7 @@ You might need to restart the Windows VM while installing updates.
 
 <p class="note warning"><strong>WARNING</strong>: You must enable Meltdown mitigation. Not enabling Meltdown mitigation can lead to timeout issues while deploying the PASW tile.</p>
 
-Windows Server, version 1803 should receive the update containing the Meltdown mitigation automatically when you install Windows updates.
+Windows Server 2019 should receive the update containing the Meltdown mitigation automatically when you install Windows updates.
 
 After installing Windows update, ensure that the following registry keys are set to enable Meltdown mitigation:
 
@@ -207,7 +207,7 @@ Invoke-WebRequest -Uri "EXAMPLE-URL/filename.zip" -OutFile ".\filename.zip"
 
 Perform the following steps to install the BOSH PS Modules:
 
-1. Locate the [BOSH PS Modules](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/releases) download for the 1803 stemcell version you want to build, such as 1803.2.
+1. Locate the [BOSH PS Modules](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/releases) download for the 2019 stemcell version you want to build, such as 2019.2.
 1. Transfer the `bosh-psmodules.zip` file to your Windows VM.
 1. Start PowerShell in the Windows VM and run the following command:
 
@@ -245,7 +245,7 @@ Perform the following steps to install the Cloud Foundry Diego cell requirements
 
 Perform the following steps to install the BOSH Agent:
 
-1. Locate the [BOSH Agent](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/releases) download for the 1803 stemcell version you want to build, such as 1803.2.
+1. Locate the [BOSH Agent](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/releases) download for the 2019 stemcell version you want to build, such as 2019.2.
 1. Transfer the `agent.zip` file to your Windows VM.
 1. Start PowerShell in the Windows VM and run the following command:
 
@@ -359,15 +359,15 @@ Perform the following steps to convert the VMDK file to a BOSH stemcell:
 1. Build the stemcell with the following command:
 
 	```
-	stembuild package -vmdk PATH-TO-VDMK -stemcell-version STEMCELL-VERSION -os 1803
+	stembuild package -vmdk PATH-TO-VDMK -stemcell-version STEMCELL-VERSION -os 2019
 	```
 
 	Where:
 	* `PATH-TO-VMDK` is the path to the VMDK file.
-	* `STEMCELL-VERSION` is the 1803 stemcell version you want to build.
-	For example, if you downloaded the [BOSH PS Modules and BOSH Agent](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/releases) for the 1803.2 release, then specify `1803.2`.
+	* `STEMCELL-VERSION` is the 2019 stemcell version you want to build.
+	For example, if you downloaded the [BOSH PS Modules and BOSH Agent](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/releases) for the 2019.2 release, then specify `2019.2`.
 
-	`stembuild` creates the stemcell in the directory where you execute it. The file has a `.tgz` extension and a name similar to `bosh-stemcell-1803.2-vsphere-esxi-windows2016-go_agent.tgz `.
+	`stembuild` creates the stemcell in the directory where you execute it. The file has a `.tgz` extension and a name similar to `bosh-stemcell-2019.2-vsphere-esxi-windows2019-go_agent.tgz `.
 	<br><br>
 	The stemcell is ready for use in conjunction with your BOSH deployment.
 
@@ -381,7 +381,7 @@ On Patch Tuesday, run Windows Updates on the base image, and then repeat [Step 3
 
 **Symptom**
 
-You see the following error in your `garden-windows` job while deploying Windows 1803:
+You see the following error in your `garden-windows` job while deploying Windows Server 2019:
 
 <pre class="terminal">
 Missing required Windows Features:
