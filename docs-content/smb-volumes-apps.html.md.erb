@@ -1,0 +1,190 @@
+---
+title: Using SMB Volumes in .NET Apps
+owner: Windows
+---
+
+<strong><%= modified_date %></strong>
+
+This topic describes how to use Server Message Block (SMB) Volumes in a .NET Application. In this example, we create an application that reads and writes to a <code>note.txt</code> file within an SMB Volume share with an FQDN paths.
+
+
+## <a id='prerequisites'></a>Prerequisites 
+
+The following is required to utilize SMB Volumes:
+
+<ul>
+<li>Visual Studio</li>
+<li>An Azure account</li>
+<li>An accessible SMB Volume in Azure Cloud with a UNC path</li>
+    <ul>
+	<li>If you do not have an accessible SMB Volume, refer to Create a file share in Azure Files in the <a href="http://localhost:4567/pivotalcf/2-2/windows/%E2%80%9Dhttps://docs.microsoft.com/en-us/azure/storage/files/storage-how-to-create-file-share%E2%80%9D">Azure documentation</a>.</li>
+    </ul>
+<li>SMB Username</li>
+<li>SMB Password</li>
+<li>Windows 1803.x or Windows 1709.x Stemcell</li>
+</ul>
+
+### <a id='steeltoe'></a> Using SMB Volumes in .NET Apps with Steeltoe
+
+Steeltoe is a set of libraries that help your team write cloud native applications. Steeltoe contains functionality for mounting SMB Volumes. Using Steeltoe requires modifying your application code. For more information, see the <a href="https://steeltoe.io/docs/">Steeltoe Documentation</a>.
+</br>
+</br>
+If you are using Steeltoe, add the following environment variables to your Config Server Provider
+:
+<ul>
+<li><code>SMB\_PATH</code></li>
+<li><code>SMB\_USERNAME</code></li>
+<li><code>SMB\_PASSWORD</code></li>
+</ul>
+    Where:
+    <ul>
+    <li><code>SMB\_PATH</code> is the UNC path to your SMB.
+    <ul>
+    <li>If you are using the Windows 1709 Stemcell, your UNC is the IP of the machine you are using.</li>
+    <li>If you are using the Windows 1803 Stemcell, your UNC is the FQDN of the machine you are using.</li>
+    </ul>
+    <li><code>SMB\_USERNAME</code> is your Azure account username.</li>
+    <li><code>SMB\_PASSWORD</code> is  is your Azure account password.</li>
+    </ul>
+
+For more information on adding environment variables to your Config Server Provider, see <a href="https://steeltoe.io/docs/steeltoe-configuration/#2-0-config-server-provider">Config Server Provider</a> in the Steeltoe documentation.
+
+### <a id='steeltoe'></a> Using SMB Volumes in .NET Apps with Your Batch Profile
+
+If you do not wish to modify your application code, you can utilize SMB Mounting without Steeltoe.
+
+If you are not using Steeltoe, add the following command to your <code>.profile.bat</code> file:
+</br>
+</br>
+<code>net use z: %SMB-PATH% %SMB-PASSWORD% /USER:SMB-USERNAME%</code>
+
+## <a id='smb-mounting'></a>SMB Mounting
+<ol>
+<li>Using CF CLI or Apps Manager, add <code>SMB_PATH</code>, <code>SMB_USERNAME</code>, and <code>SMB_PASSWORD</code>  as environment variables to your local computer or the computer you are deploying using for deploying your application. 
+
+<p class="note"><strong>Note:</strong> If Visual Studio does not detect these new environment variables, restart Visual Studio.
+</p>
+<li> In Visual Studio, create a new file in your solution named <code>SMBConfiguration.cs</code>. This file is the single representation of your SMB Volume configuration and reads the connection data from the environment variables you established in the previous step.
+
+<pre>
+// SMBConfiguration.cs
+using System;
+
+namespace NetFrameworkApp.Controllers
+{
+    public class SMBConfiguration
+    {
+        public String GetSharePath()
+        {
+            return Environment.GetEnvironmentVariable("SMB_PATH");
+        }
+
+        public String GetUserName()
+        {
+            return Environment.GetEnvironmentVariable("SMB_USERNAME");
+        }
+
+        public String GetPassword()
+        {
+            return Environment.GetEnvironmentVariable("SMB_PASSWORD");
+        }
+    }
+}
+</pre>
+<li> In Visual studio, create a new MVC Controller named <code>NoteController</code>. This file creates a controller endpoint that reads a the example note file. For more information on creating a controller, see <a href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/adding-controller?view=aspnetcore-2.2&tabs=visual-studio">Add a controller to an ASP.NET Core MVC app</a> in the Microsoft Documentation.</li>
+<li> In the command line, add <code>Steeltoe.Common</code> and <code>Steeltoe.Common.Net</code> to your application with a Package Manager of your choice. If you are not using Steeltoe, ignore this step.</li>
+<li> Edit <code>NoteController.cs</code> to read from a file named <code>note.txt</code>, which does not exist yet but the<code>FileMode.OpenOrCreate</code> method creates that file. Refer to the example code snippet below, which reads the contents of the note file and stashes the <code>note.txt</code> content in the Viewbag. If you are not using Steeltoe, ignore the reference to <code>Steeltoe.Common.Net</code>in the following code snippet.</li> 
+<pre>
+// NoteController.cs
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using Steeltoe.Common.Net;
+
+namespace NetFrameworkApp.Controllers
+{
+    public class NoteController : Controller
+    {
+        SMBConfiguration configuration = new SMBConfiguration();
+        public ActionResult Index()
+        {
+
+            var credential = new NetworkCredential(configuration.GetUserName(), configuration.GetPassword());
+
+            using (var share = new WindowsNetworkFileShare(configuration.GetSharePath(), credential))
+            using (var inputStream = new FileStream(Path.Combine(configuration.GetSharePath(), "note.txt"), FileMode.OpenOrCreate))
+            using (var streamReader = new StreamReader(inputStream))
+            {
+	    // Never display raw user input as HTML. Do not do this in production code.
+                ViewBag.Note = streamReader.ReadToEnd();
+            }
+
+
+            return View();
+        }
+    }
+}
+</pre>
+<li> In Visual Studio, create a subdirectory in <b>Views</b> named <code>Note</code>.</li>
+<li> In Visual Studio, create a new View named <code>Index</code>. For more information on Views, see <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/overview?view=aspnetcore-2.2">Views in ASP.NET Core MVC</a> and <a href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/adding-view?view=aspnetcore-2.2&tabs=visual-studio">Add a view to an ASP.NET Core MVC app</a> in the Microsoft Documentation.</li>
+<li>In Visual Studio, create a <code>Index.cshtml</code> file that contains the following:</li>
+<pre>
+// Index.cshtml
+
+@ViewBag.Note
+</pre>
+Running the application now would show an empty page with no errors.
+</br>
+</br>
+<li>Modify the <code>Index.cshtml</code> file to contain a form. This form posts to a yet to be created update endpoint and also displays our note inside a text area.</li>
+<pre>
+<big>
+<xmp>
+// Index.cshtml
+...
+<form action="/note/update" method="post">    
+    <textarea name="note">@ViewBag.Note</textarea>    
+    <div>
+        <button type="submit">Update</button>
+    </div>
+</form>
+</xmp>
+</big>
+</pre>
+
+<li>Modify the <code>NoteController.cs</code> to have an update endpoint. This endpoint saves the data posted to the endpoint back into the <code>note.txt</code>. Refer to the example code snippet in the following step.
+</li>
+<li>Modify the <code>NoteController.cs</code> to include the ControllerBase class <code>RedirectToAction</code> method, which redirects to the index page so the user can see what was just saved. For more information on the ControllerBase class, see the <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.redirecttoaction?view=aspnetcore-2.2">Microsoft .NET API Browser Documentation</a>. 
+</br>
+</br>
+Refer to the example code snippet below.</li>
+<pre>
+// NoteController.cs
+namespace NetFrameworkApp.Controllers
+{
+    public class NoteController : Controller
+    {
+      ...
+
+        [HttpPost]
+        public ActionResult Update(String note)
+        {
+            var credential = new NetworkCredential(configuration.GetUserName(), configuration.GetPassword());
+
+            using (var share = new WindowsNetworkFileShare(configuration.GetSharePath(), credential))
+            using (var outputStream = new FileStream(Path.Combine(configuration.GetSharePath(), "note.txt"), FileMode.Create))
+            using (var streamWriter = new StreamWriter(outputStream))
+            {
+                streamWriter.Write(note);
+            }
+
+            return RedirectToAction("Index");
+        }
+    }
+}
+</pre>
+</ol>
