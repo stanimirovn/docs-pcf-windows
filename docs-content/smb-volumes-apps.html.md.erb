@@ -5,20 +5,22 @@ owner: Windows
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to use Server Message Block (SMB) Volumes in a .NET Application. In this example, we create an application that reads and writes to a <code>note.txt</code> file within an SMB Volume share with an FQDN paths.
+This topic describes how to use Server Message Block (SMB) Volumes in a .NET Application. In this example, we create an application that reads and writes to a <code>note.txt</code> file within an SMB Volume share.
 
 
 ## <a id='prerequisites'></a>Prerequisites 
 
-The following is required to utilize SMB Volumes:
+The following is required to use SMB Volumes in your .NET App:
 
 <ul>
 <li>Visual Studio</li>
 <li>An Azure account</li>
+<li>Pivotal Application Service for Windows (PASW)</li>
 <li>An accessible SMB Volume in Azure Cloud with a UNC path</li>
     <ul>
-	<li>If you do not have an accessible SMB Volume, refer to Create a file share in Azure Files in the <a href="http://localhost:4567/pivotalcf/2-2/windows/%E2%80%9Dhttps://docs.microsoft.com/en-us/azure/storage/files/storage-how-to-create-file-share%E2%80%9D">Azure documentation</a>.</li>
+	<li>If you do not have an accessible SMB Volume, refer to <i>Create a file share in Azure Files</i> in the <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-how-to-create-file-share">Azure documentation</a>.</li>
     </ul>
+<li> An existing .NET Framework application </li>
 <li>SMB Username</li>
 <li>SMB Password</li>
 <li>Windows 1803.x or Windows 1709.x Stemcell</li>
@@ -49,22 +51,39 @@ If you are using Steeltoe, add the following environment variables to your Confi
 
 For more information on adding environment variables to your Config Server Provider, see <a href="https://steeltoe.io/docs/steeltoe-configuration/#2-0-config-server-provider">Config Server Provider</a> in the Steeltoe documentation.
 
+After adding your environment variables to your Config Server Provider, proceed to [SMB Mounting](smb-volumes-apps.html#smb-mounting).
+
 ### <a id='steeltoe'></a> Using SMB Volumes in .NET Apps with Your Batch Profile
 
-If you do not wish to modify your application code to include Steeltoe, you can utilize SMB Mounting without Steeltoe.
+If you do not want to modify your application code to include Steeltoe, you can utilize SMB Mounting without Steeltoe. 
 
-If you are not using Steeltoe, add the following command to your <code>.profile.bat</code> file:
+1. Retrieve the UNC of your existing SMB share.
+    1. If you are using the Windows 1709.x Stemcell, your UNC is your machine's IP address.
+        1. To look up your machine's IP address, you can run the `nslookup` command. For more information, see [nslookup](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/nslookup) in Microsoft's _Commands by Server Role_ Documentation.
+    1. If you are using the Windows 1803 Stemcell, your UNC is your machine's FQDN.
+1. Create a `.profile.bat` file in your .NET app's root directory.
+1. Use Apps Manager or the Cloud Foundry Command Line Interface (cf CLI) to set the following environment variables:
+<ul>
+<li><code>SMB\_PATH</code></li>
+<li><code>SMB\_USERNAME</code></li>
+<li><code>SMB\_PASSWORD</code></li>
+</ul>
+1. Add the following command to your <code>.profile.bat</code> file:
 </br>
 </br>
 <code>net use z: %SMB-PATH% %SMB-PASSWORD% /USER:SMB-USERNAME%</code>
+1. Proceed to [SMB Mounting](smb-volumes-apps.html#smb-mounting).
 
 ## <a id='smb-mounting'></a>SMB Mounting
 <ol>
 <li>Using CF CLI or Apps Manager, add <code>SMB_PATH</code>, <code>SMB_USERNAME</code>, and <code>SMB_PASSWORD</code>  as environment variables to your local computer or the computer you are deploying using for deploying your application. 
+    <ul>
+    <li>If you are using SMB Volumes with your batch profile and have already added these environment variables, ignore this step.</li>
+    </ul>
 
 <p class="note"><strong>Note:</strong> If Visual Studio does not detect these new environment variables, restart Visual Studio.
 </p>
-<li> In Visual Studio, create a new file in your solution named <code>SMBConfiguration.cs</code>. This file is the single representation of your SMB Volume configuration and reads the connection data from the environment variables you established in the previous step.
+<li> In Visual Studio, create a new file in your solution named <code>SMBConfiguration.cs</code>. This file is the single representation of your SMB Volume configuration and reads the connection data from the environment variables you established previously.
 
 <pre>
 // SMBConfiguration.cs
@@ -188,3 +207,9 @@ namespace NetFrameworkApp.Controllers
 }
 </pre>
 </ol>
+
+## <a id='known-issue'></a>Known Issue
+
+### <a id='cannont-find-path'></a>Inability to SSH Into App Instance
+
+Despite an SMB mapping being successfully created, trying to `cf ssh` into that app instance to access the created mapping results in an an unspecified path error. 
