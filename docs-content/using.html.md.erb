@@ -1,13 +1,13 @@
 ---
-title: Tips for .NET Developers
+title: Tips for .NET Framework Developers
 owner: Greenhouse
 ---
 
+<strong><%= modified_date %></strong>
 
+This topic describes how to push .NET Framework apps to Pivotal Application Service (PAS) for Windows cells.
 
-This topic describes how to push .NET apps to Pivotal Application Service (PAS) for Windows cells.
-
-For how to develop .NET microservices for .NET apps using Steeltoe, see the [Steeltoe documentation](http://steeltoe.io/docs/).
+For how to develop microservices for .NET Framework and .NET Core using Steeltoe, see the [Steeltoe documentation](http://steeltoe.io/docs/).
 
 ## <a id='prerequisites'></a>Prerequisites
 
@@ -19,22 +19,22 @@ For information about installing the cf CLI, see the [Installing the cf CLI](htt
 
 ## <a id='overview'></a> Overview
 
-After operators install and configure the PAS for Windows tile, developers can push .NET apps to the Windows cell. 
+After operators install and configure the PAS for Windows tile, developers can push .NET Framework apps to the Windows cell.
 Developers can push both [OWIN](http://owin.org/) and non-OWIN apps, and can push apps that are served by [Hostable Web Core](#push) or [self-hosted](#self-hosted).
 
 If you have upgraded to PAS for Windows and have apps that you want to migrate, see the [Upgrading Cells](upgrade-windows.html) topic.
 
-##<a id='develop'></a> Develop .NET Apps
+##<a id='develop'></a> Develop .NET Framework Apps
 
 ###<a id='cookbook'></a> .NET on PCF Cookbook
 
-The [.NET Cookbook](https://dotnet-cookbook.cfapps.io/intro/) has useful tips and recipes for developing .NET apps to run on PAS for Windows.
+The [.NET Cookbook](https://dotnet-cookbook.cfapps.io/intro/) has useful tips and recipes for migrating and developing .NET Framework apps to run on PAS for Windows.
 
-##<a id='push'></a> Push a .NET App
+##<a id='push'></a> Push a .NET Framework App
 
-By default, PCF serves .NET apps with Hostable Web Core (HWC). HWC is a lighter version of the Internet Information Services (IIS) server that contains the core IIS functionality.
+By default, PCF serves .NET Framework apps with Hostable Web Core (HWC). HWC is a lighter version of the Internet Information Services (IIS) server that contains the core IIS functionality.
 
-Perform the following steps to push a .NET app to a Windows cell:
+Perform the following steps to push a .NET Framework app to a Windows cell:
 
 1. To target the Cloud Controller of your PCF deployment, run the following command:  
 
