@@ -3,7 +3,7 @@ title: Creating a Windows Stemcell for vSphere Using stembuild (Beta)
 owner: Windows
 ---
 
-This topic describes how to create a BOSH stemcell for Pivotal Application Service (PAS) for Windows on VMware vSphere.
+This topic describes how to create a BOSH stemcell for Pivotal Application Service (PAS) for Windows on VMware vSphere using `stembuild`.
 
 ##<a id='overview'></a> Overview
 
@@ -26,8 +26,8 @@ see [Monthly Stemcell Upgrades](#upgrade-stemcell).
 
 * A vSphere environment
 * A Windows Server, version 1709 ISO
-* `stembuild` from a release in [Stemcells for PCF (Windows)](https://network.pivotal.io/products/stemcells-windows-server) on Pivotal Network that corresponds to the operating system of your local host and the stemcell version that you want to build
-* Microsoft [Local Group Policy Object Utility (LGPO)](https://www.microsoft.com/en-us/download/details.aspx?id=55319) downloaded to the same folder as your `stembuild`
+* The `stembuild` command line interface (CLI) from a release in [Stemcells for PCF (Windows)](https://network.pivotal.io/products/stemcells-windows-server) on Pivotal Network that corresponds to the operating system of your local host and the stemcell version that you want to build
+* Microsoft [Local Group Policy Object Utility (LGPO)](https://www.microsoft.com/en-us/download/details.aspx?id=55319) downloaded to the same folder as your `stembuild` CLI
 
 ##<a id='create-base-vm'></a>Step 1: Create a Base VM for the BOSH Stemcell
 
