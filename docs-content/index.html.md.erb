@@ -23,7 +23,7 @@ To install the PAS for Windows tile, you must have the following:
 
 * Ops Manager v2.3 and PAS v2.3 deployed to vSphere, Amazon Web Services (AWS), Google Cloud Platform (GCP), or Microsoft Azure.
 
-* A Windows stemcell, which you can obtain by following the directions in [Downloading or Creating Windows Stemcells](./stemcells.html).
+* A Windows stemcell, which you can obtain by following the directions in [Downloading or Creating Windows Stemcells](./stemcells.html)
 
 The minimum resource requirements for each Windows cell are as follows:
 
@@ -64,13 +64,12 @@ The minimum resource requirements for each Windows cell are as follows:
 
 * <a href="using.html" class="subnav">Tips for .NET Developers</a>
 
-
 ## <a id='limitations'></a> Limitations
 
 PAS for Windows has the following limitations:
 
 * Developers cannot push Docker or other OCI-compatible images to Windows Diego cells.
-* Container-to-container networking is not yet available for Windows-hosted applications.
-* Volume Services are not yet available for Windows-hosted applications.
-* OpenStack is currently not supported for PASW. Contact your Pivotal representative for information on OpenStack deployments.
-* Due to a [known issue](https://github.com/Microsoft/hcsshim/issues/244) in Windows Server OS, applications hosted on PAS for Windows cannot route traffic when deployed with the IPsec add-on for PCF.
+* Container-to-container networking is not available for Windows-hosted applications.
+* OpenStack is currently not supported for PAS for Windows. Contact your Pivotal representative for information about OpenStack deployments.
+* SMB is supported, but the Volume Services tile is not supported.
+* Due to [Known Issue #244](https://github.com/Microsoft/hcsshim/issues/244) in Windows Server OS, applications hosted on PAS for Windows cannot route traffic when deployed with the IPsec add-on for PCF.
