@@ -49,7 +49,7 @@ If you are using Steeltoe, add the following environment variables to your Confi
     <li><code>SMB\_PASSWORD</code> is  is your Azure account password.</li>
     </ul>
 
-For more information on adding environment variables to your Config Server Provider, see <a href="https://steeltoe.io/docs/steeltoe-configuration/#2-0-config-server-provider">Config Server Provider</a> in the Steeltoe documentation.
+For more information about adding environment variables to your Config Server Provider, see <a href="https://steeltoe.io/docs/steeltoe-configuration/#2-0-config-server-provider">Config Server Provider</a> in the Steeltoe documentation.
 
 After adding your environment variables to your Config Server Provider, proceed to [SMB Mounting](smb-volumes-apps.html#smb-mounting).
 
@@ -110,7 +110,7 @@ namespace NetFrameworkApp.Controllers
     }
 }
 </pre>
-<li> In Visual studio, create a new MVC Controller named <code>NoteController</code>. This file creates a controller endpoint that reads a the example note file. For more information on creating a controller, see <a href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/adding-controller?view=aspnetcore-2.2&tabs=visual-studio">Add a controller to an ASP.NET Core MVC app</a> in the Microsoft Documentation.</li>
+<li> In Visual studio, create a new MVC Controller named <code>NoteController</code>. This file creates a controller endpoint that reads a the example note file. For more information about creating a controller, see <a href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/adding-controller?view=aspnetcore-2.2&tabs=visual-studio">Add a controller to an ASP.NET Core MVC app</a> in the Microsoft Documentation.</li>
 <li> In the command line, add <code>Steeltoe.Common</code> and <code>Steeltoe.Common.Net</code> to your application with a Package Manager of your choice. If you are not using Steeltoe, ignore this step.</li>
 <li> Edit <code>NoteController.cs</code> to read from a file named <code>note.txt</code>, which does not exist yet but the<code>FileMode.OpenOrCreate</code> method creates that file. Refer to the example code snippet below, which reads the contents of the note file and stashes the <code>note.txt</code> content in the Viewbag. If you are not using Steeltoe, ignore the reference to <code>Steeltoe.Common.Net</code>in the following code snippet.</li> 
 <pre>
@@ -149,7 +149,7 @@ namespace NetFrameworkApp.Controllers
 }
 </pre>
 <li> In Visual Studio, create a subdirectory in <b>Views</b> named <code>Note</code>.</li>
-<li> In Visual Studio, create a new View named <code>Index</code>. For more information on Views, see <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/overview?view=aspnetcore-2.2">Views in ASP.NET Core MVC</a> and <a href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/adding-view?view=aspnetcore-2.2&tabs=visual-studio">Add a view to an ASP.NET Core MVC app</a> in the Microsoft Documentation.</li>
+<li> In Visual Studio, create a new View named <code>Index</code>. For more information about Views, see <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/overview?view=aspnetcore-2.2">Views in ASP.NET Core MVC</a> and <a href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/adding-view?view=aspnetcore-2.2&tabs=visual-studio">Add a view to an ASP.NET Core MVC app</a> in the Microsoft Documentation.</li>
 <li>In Visual Studio, create a <code>Index.cshtml</code> file that contains the following:</li>
 <pre>
 // Index.cshtml
@@ -177,7 +177,7 @@ Running the application now would show an empty page with no errors.
 
 <li>Modify the <code>NoteController.cs</code> to have an update endpoint. This endpoint saves the data posted to the endpoint back into the <code>note.txt</code>. Refer to the example code snippet in the following step.
 </li>
-<li>Modify the <code>NoteController.cs</code> to include the ControllerBase class <code>RedirectToAction</code> method, which redirects to the index page so the user can see what was just saved. For more information on the ControllerBase class, see the <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.redirecttoaction?view=aspnetcore-2.2">Microsoft .NET API Browser Documentation</a>. 
+<li>Modify the <code>NoteController.cs</code> to include the ControllerBase class <code>RedirectToAction</code> method, which redirects to the index page so the user can see what was just saved. For more information about the ControllerBase class, see the <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.redirecttoaction?view=aspnetcore-2.2">Microsoft .NET API Browser Documentation</a>. 
 </br>
 </br>
 Refer to the example code snippet below.</li>
