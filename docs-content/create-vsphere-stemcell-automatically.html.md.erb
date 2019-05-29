@@ -228,3 +228,32 @@ To upgrade your BOSH stemcell, do the following:
 1. [Package the BOSH Stemcell](#package-stemcell).
 1. Replace the existing stemcell in the Ops Manager stemcell library with this new stemcell.
 1. Deploy the PAS for Windows tile.
+
+##<a id='known-issues'></a>Known Issues
+
+###<a id='special-characters'></a>Authentication Error with Special Characters in stembuild Commands
+
+**Symptom**
+
+```
+./out/stembuild: ServerFaultCode: Cannot complete login due to an incorrect user name or password.
+vcenter_client - unable to validate url: vcenter.example.com
+```
+
+**Explanation**
+
+`stembuild` uses govc libraries. These libraries cannot parse the special characters
+`/`, `#`, and `:`. This results in errors when authenticating with vCenter.
+
+**Workaround**
+
+If your vCenter username or password contains `/`, `#`, or `:`, set the following environment variables:
+
+```
+export GOVC_USERNAME=VCENTER-USERNAME
+export GOVC_PASSWORD=VCENTER-PASSWORD
+```
+Where:
+
+- `VCENTER-USERNAME` is your vCenter account username. For example, `johndoe`.
+- `VCENTER-PASSWORD` is your vCenter account password. For example, `pass#word`.
