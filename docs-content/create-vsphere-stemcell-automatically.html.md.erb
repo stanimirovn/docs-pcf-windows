@@ -160,7 +160,7 @@ Before constructing the BOSH stemcell, collect the following information:
 To construct the BOSH stemcell, run the following command from your local host:
 
 ```
-./STEMBUILD-BINARY construct -vm-ip 'TARGET-VM-IP' -vm-username 'TARGET-USERNAME' -vm-password 'TARGET-VM-PASSWORD' -vcenter-url 'VCENTER-URL' -vcenter-username 'VCENTER-USERNAME' -vcenter-password 'VCENTER-PASSWORD' -vm-inventory-path 'INVENTORY-PATH'
+./STEMBUILD-BINARY construct -vm-ip TARGET-VM-IP -vm-username TARGET-USERNAME -vm-password TARGET-VM-PASSWORD -vcenter-url VCENTER-URL -vcenter-username VCENTER-USERNAME -vcenter-password VCENTER-PASSWORD -vm-inventory-path INVENTORY-PATH
 ```
 
 Where:
@@ -204,7 +204,7 @@ Before packaging the BOSH stemcell, collect the following information:
 To package the BOSH stemcell, run the following command from your local host:
 
 ```
-./STEMBUILD-BINARY package -vcenter-url 'VCENTER-URL' -vcenter-username 'VCENTER-USERNAME' -vcenter-password 'VCENTER-PASSWORD' -vm-inventory-path 'INVENTORY-PATH'
+./STEMBUILD-BINARY package -vcenter-url VCENTER-URL -vcenter-username VCENTER-USERNAME -vcenter-password VCENTER-PASSWORD -vm-inventory-path INVENTORY-PATH
 ```
 
 Where:
@@ -269,3 +269,10 @@ Where:
 
 - `VCENTER-USERNAME` is your vCenter account username. For example, `johndoe`.
 - `VCENTER-PASSWORD` is your vCenter account password. For example, `pass#word`.
+
+If you are using other special characters, ensure to provide single quotes around the input parameters. So for example
+
+```
+./STEMBUILD-BINARY package -vcenter-url VCENTER-URL -vcenter-username 'admin@' -vcenter-password VCENTER-PASSWORD -vm-inventory-path INVENTORY-PATH
+```
+
