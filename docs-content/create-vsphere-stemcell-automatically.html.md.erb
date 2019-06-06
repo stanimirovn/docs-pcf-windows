@@ -28,6 +28,18 @@ see [Monthly Stemcell Upgrades](#upgrade-stemcell).
 * A Windows Server, version 1803 ISO
 * The `stembuild` command line interface (CLI) from a release in [Stemcells for PCF (Windows)](https://network.pivotal.io/products/stemcells-windows-server) on Pivotal Network that corresponds to the operating system of your local host and the stemcell version that you want to build
 * Microsoft [Local Group Policy Object Utility (LGPO)](https://www.microsoft.com/en-us/download/details.aspx?id=55319) downloaded to the same folder as your `stembuild` CLI
+* The minimum vCenter user permissions required to use stembuild for vSphere stemcells, specifically:
+    * `VirtualMachine.GuestOperations.Modify`
+    * `VirtualMachine.GuestOperations.Execute`
+    * `VirtualMachine.GuestOperations.Query`
+    * `VirtualMachine.Config.AddRemoveDevice`
+    * `VirtualMachine.Interact.SetCDMedia`
+    * `VApp.Export`
+    * `System.Anonymous`*
+    * `System.Read`*
+    * `System.View`*
+
+Permissions marked with an `*` are generated upon creating a new user in vCenter and cannot be set within the vCenter UI.
 
 ##<a id='create-base-vm'></a>Step 1: Create a Base VM for the BOSH Stemcell
 
