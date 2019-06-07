@@ -11,10 +11,10 @@ This topic describes how to install and configure the Pivotal Application Servic
 
 Windows cells installed by the **Pivotal Application Service for Windows** tile are affected by two settings in the **Pivotal Application Service** tile. Configure these **Pivotal Application Service** tile settings as desired:
 
-* **System Logging**: In the **System Logging** pane, if you configure an external syslog aggregator, logs are drained from Windows cells as well as non-Windows cells.
-See [Logging and Metrics](../../../pivotalcf/<%= vars.current_major_version.sub('.', '-') %>/loggregator/index.html) for additional information.
-* **Disable SSL certificate verification for this environment**: In the **Networking** pane, if you select the **Disable SSL certificate verification for this environment** checkbox,
-SSL certificate verification is disabled for Windows cells. See [Procedure: Terminate SSL/TLS at HAProxy](../../../pivotalcf/<%= vars.current_major_version.sub('.', '-') %>/opsguide/ssl-term-haproxy.html#haproxy) for additional information.
+* **System Logging**: In the **System Logging** pane, if you configure an external syslog aggregator, logs are drained from Windows cells as well as non-Windows cells. 
+See [Logging and Metrics](../loggregator/index.html) for additional information.
+* **Disable SSL certificate verification for this environment**: In the **Networking** pane, if you select the **Disable SSL certificate verification for this environment** checkbox, 
+SSL certificate verification is disabled for Windows cells. See [Procedure: Terminate SSL/TLS at HAProxy](../opsguide/ssl-term-haproxy.html#haproxy) for additional information.
 
  <p class="note"><strong>Note</strong>: Only disable SSL certificate verification for development and testing environments. Do not select **Disable SSL certificate verification for this environment** for production environments.</p>
 
@@ -34,10 +34,10 @@ The Injector tool, `winfs-injector`, is an executable binary that adds the Windo
 
     ```shell
     winfs-injector --input-tile PASW-DOWNLOAD-PATH --output-tile PASW-IMPORTABLE-PATH
-    ```
+    ``` 
 
     Where:
-    * `PASW-DOWNLOAD-PATH` is the path and filename to the downloaded PASW product file.
+    * `PASW-DOWNLOAD-PATH` is the path and filename to the downloaded PASW product file. 
     * `PASW-IMPORTABLE-PATH` is the desired output path for the importable product file.
 
     For example:
@@ -92,7 +92,7 @@ The Injector tool, `winfs-injector`, is an executable binary that adds the Windo
 
 1. (Optional) To configure Windows cells to send Windows Event logs to an external syslog server, click **System Logging** and perform the steps in the [Send Cell Logs to a Syslog Server](./troubleshooting.html#syslog) section.
 
-1. (Optional) To configure Windows cells to emit system-level metrics about each VM in your deployment, select **Enable System Metrics**. For a list of the VM metrics that the System Metric Agent emits, see [VM Metrics](https://github.com/cloudfoundry/loggregator-agent-release#vm-metrics) in GitHub.
+1. (Optional) To configure Windows cells to emit system-level metrics about each VM in your deployment, select **Enable System Metrics**. For a list of the VM metrics that the System Metric Agent emits, see [VM Metrics](https://github.com/cloudfoundry/loggregator-agent-release#vm-metrics) in GitHub. 
 
 1. Click **Smoke Tests**.
 ![The smoke tests radio buttons: Temporary space within the system organization and Specified org and space](smoke-tests.png)
