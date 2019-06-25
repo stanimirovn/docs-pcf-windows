@@ -149,13 +149,18 @@ To clone the base VM, do the following in the vSphere Web Client:
 
 To configure networking on the base VM, do the following:
 
-1. From the vSphere Web Client, open a shell for the base VM.
+1. From the vSphere Web Client, right-click the base VM and select **Open Console**.
 1. On the command line, run `sconfig`.
-1. Follow the prompts in the `sconfig` tool to configure network settings.
-1. In the network adapter settings menu, select your network adapter.
-1. Select the option to set the network adapter address, then select the static IP option.
-1. Enter a static IP address.
-1. From the vSphere Web Client, edit the VM settings.
+1. On the **Server Configuration** page, enter `8` for **Network Settings**.
+1. On the **Network Settings** page, do the following:
+  1. Under **Available Network Adapters**, enter the number that corresponds to your network adapter.
+  1. Enter `1` to set the network adapter address.
+  1. Enter `S` to set a static IP address.
+  1. Enter a static IP address.
+  1. Enter a subnet mask, or leave the field blank to use the default value.
+  1. Enter the default gateway.
+  1. Enter `13` to exit to the command line.
+1. From the vSphere Web Client, select **Actions > Edit Settings**.
 1. In the **CD/DVD drive 1** row, clear the **Connected** checkbox to remove the CD drive.
 1. Restart the VM.
 1. After the VM restarts, verify that you can ping the IP address you assigned to the base VM.
