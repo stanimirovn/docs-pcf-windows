@@ -9,31 +9,43 @@ This topic describes the changes in functionality associated with moving from Pi
 
 ## <a id='overview'></a> Overview
 
-Pivotal Application Service for Windows (PASW) v2.1 and later offers a containerized runtime based on true Windows Server Containers. In this containerized runtime, Windows Diego cells on PAS are using Microsoft’s Windows containers and related features.
+PASW v2.1 and later offers a containerized runtime based on true Windows Server containers. In this containerized runtime, Windows Diego cells on PAS use Microsoft's Windows containers and related features.
 
-As a result, functionality leveraged in the Pivotal Application Service for Windows 2012 R2 (PASW 2012 R2) shared-host container model must be adjusted. In PASW v2.1 and later, Windows containers feature an isolated file system and a more defined role on their host, increasing security and enabling container networking.
+As a result, functionality leveraged in the PASW 2012 R2 shared-host container model must be adjusted. In PASW v2.1 and later, Windows containers feature an isolated file system and a more defined role on their host, increasing security and enabling container networking.
 
 ### <a id='principles'></a> Guiding Principles  
-In this containerized runtime it is important to remember that:
+In this containerized runtime it is important to remember the following:
 
 + Applications within a Windows container have their own file systems and registries.
-+ In general, the dependencies in PASW 2012 R2 that were originally made available on the host, should now be provided within the container. 
-+ Developers can create similar PASW 2012 R2 app environments by creating bin deployable dependencies and extension buildpacks. For more informtion on extension buildpacks, see [Creating an Extension Buildpack for .NET Apps](https://docs.pivotal.io/pivotalcf/2-5/buildpacks/hwc/extension-buildpack.html).
++ In general, the dependencies in PASW 2012 R2 that were originally made available on the host should now be provided within the container.
++ Developers can create similar PASW 2012 R2 app environments by creating bin-deployable dependencies and extension buildpacks. For more information about extension buildpacks, see [Creating an Extension Buildpack for .NET Apps](https://docs.pivotal.io/pivotalcf/buildpacks/hwc/extension-buildpack.html).
 
 
 ### <a id='upgrading'></a> Upgrading to PASW
 
 To upgrade, operators must install the new PASW tile alongside the existing PASW 2012 R2 tile. After installation, developers can choose which stack to target in their manifests.
 
-For more information on installing the PASW tile, see [Installing and Configuring PASW](https://docs.pivotal.io/pivotalcf/windows/installing.html).
+For more information about installing the PASW tile, see [Installing and Configuring PASW](https://docs.pivotal.io/pivotalcf/windows/installing.html).
 
 
 <p class="note"><strong>Note: </strong>
-PASW v2.3 is the last version compatible with the PASW 2012 R2 release. The deprecation date for PASW 2012 R2 is December 31, 2019. Contact your Pivotal account team for more information on migration and upgrade options.
+PASW v2.3 is the last version compatible with the PASW 2012 R2 release. The deprecation date for PASW 2012 R2 is December 31, 2019. Contact your Pivotal account team for more information about migration and upgrade options.
 </p>
 
 ## <a id='msi'></a>  MSI-installed Drivers Previously Installed with BOSH add-ons
 
-## <a id='apm'></a> Pushing .NET Apps with Application Performance Monitoring (APM) Tools
+## <a id='apm'></a> Pushing .NET Apps with APM Tools
+
+Both PASW and PASW 2012 R2 support pushing .NET apps with Application Performance
+Monitoring (APM) tools. Developers and operators can use third-party APM tools to
+measure app performance and resource usage.
+
+To push a .NET app with APM tools in PASW 2012 R2, operators installed APM software
+using BOSH Add-ons. For more information, see [Deploying BOSH Add-Ons](https://docs.pivotal.io/pivotalcf/customizing/add-ons.html).
+
+To push a .NET app with APM tools in PASW, operators download an extension buildpack
+for the APM software, and then push their .NET app with the extension buildpack.
+APM software vendors, including New Relic and AppDynamics, provide extension buildpacks
+for their APM tools on [Pivotal Network](https://network.pivotal.io).
 
 ## <a id='windows-stack'></a> PASW Windows Stack
