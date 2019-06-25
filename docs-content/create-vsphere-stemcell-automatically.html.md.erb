@@ -15,6 +15,7 @@ To create a BOSH stemcell for Windows on vSphere, do the following:
 1. [Create a Base VM for the BOSH Stemcell](#create-base-vm)
 1. [Install Windows Updates](#install-windows-updates)
 1. [Clone the Base VM](#clone-vm)
+1. [Configure Networking on the Base VM](#configure-network)
 1. [Construct the BOSH Stemcell](#construct-stemcell)
 1. [Package the BOSH Stemcell](#package-stemcell)
 1. [Upload the BOSH Stemcell to Ops Manager](#upload-stemcell)
@@ -144,7 +145,22 @@ To clone the base VM, do the following in the vSphere Web Client:
   <%= image_tag('clone-vm.png') %>
 1. Save the base VM. You will run Windows updates on this VM for future stemcells.
 
-##<a id='construct-stemcell'></a>Step 4: Construct the BOSH Stemcell
+##<a id='configure-network'></a>Step 4: Configure Networking on the Base VM
+
+To configure networking on the base VM, do the following:
+
+1. From the vSphere Web Client, open a shell for the base VM.
+1. On the command line, run `sconfig`.
+1. Follow the prompts in the `sconfig` tool to configure network settings.
+1. In the network adapter settings menu, select your network adapter.
+1. Select the option to set the network adapter address, then select the static IP option.
+1. Enter a static IP address.
+1. From the vSphere Web Client, edit the VM settings.
+1. In the **CD/DVD drive 1** row, clear the **Connected** checkbox to remove the CD drive.
+1. Restart the VM.
+1. After the VM restarts, verify that you can ping the IP address you assigned to the base VM.
+
+##<a id='construct-stemcell'></a>Step 5: Construct the BOSH Stemcell
 
 Before constructing the BOSH stemcell, collect the following information:
 
@@ -193,7 +209,7 @@ If you want to view the status of `construct`, you can log in to the target VM a
     Get-Content -Path "C:\provision\log.log" -Wait
     ```
 
-##<a id='package-stemcell'></a>Step 5: Package the BOSH Stemcell
+##<a id='package-stemcell'></a>Step 6: Package the BOSH Stemcell
 
 Before packaging the BOSH stemcell, collect the following information:
 
@@ -224,7 +240,7 @@ version of the stemcell that you want to build. For example, `stembuild-windows-
 <p class='note'><strong>Note:</strong> This command creates a stemcell on your local host in the folder where you ran the command and may
 take up to 30 minutes to complete.</p>
 
-##<a id='upload-stemcell'></a>Step 6: Upload the BOSH Stemcell to Ops Manager
+##<a id='upload-stemcell'></a>Step 7: Upload the BOSH Stemcell to Ops Manager
 
 To upload the BOSH stemcell to Ops Manager, do the following:
 
