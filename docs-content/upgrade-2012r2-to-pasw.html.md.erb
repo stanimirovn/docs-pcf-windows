@@ -49,3 +49,48 @@ APM software vendors, including New Relic and AppDynamics, provide extension bui
 for their APM tools on [Pivotal Network](https://network.pivotal.io).
 
 ## <a id='windows-stack'></a> PASW Windows Stack
+
+A stack is a prebuilt root file system (rootfs) that supports a specific operating
+system. The stack works in tandem with a buildpack to support apps running in compartments.
+
+Each Windows stack is based on a version of Windows Server, and each PASW version
+supports a specific stack. See the following table for compatibility information:
+
+<table class="nice">
+  <tr>
+    <th>PASW Version</th>
+    <th>Windows Stack</th>
+    <th>Windows Server Version</th>
+  </tr>
+  <tr>
+    <td>PASW 2012 R2</td>
+    <td><code>windows2012</code></td>
+    <td>Windows Server, version 1709</td>
+  </tr>
+  <tr>
+    <td>PASW v2.0 - v2.3</td>
+    <td><code>windows2016</code></td>
+    <td>Windows Server, version 1803</td>
+  </tr>
+  <tr>
+    <td>PASW v2.4 and later</td>
+    <td><code>windows</code></td>
+    <td>Latest Windows Server version<sup>*</sup></td>
+  </tr>
+</table>
+
+<sup>*</sup>The `windows` stack always points to the latest version of the rootfs.
+
+Developers specify the Windows stack when pushing an app. See the following examples:3
+
+  * In PASW 2012 R2, operators used the `windows2012` stack to push .NET apps.<br><br>
+    For example:
+   <pre class="terminal">$ cf push example-app -s windows2012</pre>
+
+  * In PASW v2.0, v2.1, v2.2, and v2.3, operators use the `windows2016` stack to push .NET apps.<br><br>
+    For example:
+    <pre class="terminal">$ cf push example-app -s windows2016</pre>
+
+  * In PASW v2.4 and later, operators use the `windows` stack to push .NET apps.<br><br>
+    For example:
+    <pre class="terminal">$ cf push example-app -s windows</pre>
