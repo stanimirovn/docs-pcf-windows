@@ -123,34 +123,15 @@ To install VMware Tools on the base VM, do the following:
 1. Navigate to the `D:` drive and run `setup64.exe`.
 1. Restart the VM to complete the installation.
 
-##<a id='install-windows-updates'></a>Step 2: Install Windows Updates
+##<a id='install-windows-updates'></a>Step 2: Configure the Base VM
 
-Install Windows updates on the base VM using your preferred procedure.
-For example, you can install Windows updates by following the steps below. This procedure requires internet access.
-
-1. On the base VM, run the **SConfig** utility.
-1. Select **Download and Install Updates**.
-1. Enter **A** to search for all updates.
-1. For **Select an option**, enter **A** to install all updates.
-
-You may need to restart the base VM while installing the updates.
-
-##<a id='clone-vm'></a>Step 3: Clone the Base VM
-
-To clone the base VM, do the following in the vSphere Web Client:
-
-1. Power down the base VM.
-1. Right-click the base VM.
-1. Select **Clone** > **Clone to Virtual Machine**. This clone is your target VM.
-  <%= image_tag('clone-vm.png') %>
-1. Save the base VM. You will run Windows updates on this VM for future stemcells.
-
-##<a id='configure-network'></a>Step 4: Configure Networking on the Base VM
-
-To configure networking on the base VM, do the following:
+To configure the base VM network settings and install Windows updates, do the following:
 
 1. From the vSphere Web Client, right-click the base VM and select **Open Console**.
-1. On the command line, run `sconfig`.
+1. On the command line, enter `sconfig` to run the **SConfig** utility.
+1. On the **Server Configuration** page, enter `6` for **Download and Install Updates**.
+1. Enter `A` to search for all updates.
+1. For **Select an option**, enter `A` to install all updates. You may need to restart the base VM while installing the updates.
 1. On the **Server Configuration** page, enter `8` for **Network Settings**.
 1. On the **Network Settings** page, do the following:
   1. Under **Available Network Adapters**, enter the number that corresponds to your network adapter.
@@ -165,7 +146,17 @@ To configure networking on the base VM, do the following:
 1. Restart the VM.
 1. After the VM restarts, verify that you can ping the IP address you assigned to the base VM.
 
-##<a id='construct-stemcell'></a>Step 5: Construct the BOSH Stemcell
+##<a id='clone-vm'></a>Step 3: Clone the Base VM
+
+To clone the base VM, do the following in the vSphere Web Client:
+
+1. Power down the base VM.
+1. Right-click the base VM.
+1. Select **Clone** > **Clone to Virtual Machine**. This clone is your target VM.
+  <%= image_tag('clone-vm.png') %>
+1. Save the base VM. You will run Windows updates on this VM for future stemcells.
+
+##<a id='construct-stemcell'></a>Step 4: Construct the BOSH Stemcell
 
 Before constructing the BOSH stemcell, collect the following information:
 
@@ -214,7 +205,7 @@ If you want to view the status of `construct`, you can log in to the target VM a
     Get-Content -Path "C:\provision\log.log" -Wait
     ```
 
-##<a id='package-stemcell'></a>Step 6: Package the BOSH Stemcell
+##<a id='package-stemcell'></a>Step 5: Package the BOSH Stemcell
 
 Before packaging the BOSH stemcell, collect the following information:
 
@@ -245,7 +236,7 @@ version of the stemcell that you want to build. For example, `stembuild-windows-
 <p class='note'><strong>Note:</strong> This command creates a stemcell on your local host in the folder where you ran the command and may
 take up to 30 minutes to complete.</p>
 
-##<a id='upload-stemcell'></a>Step 7: Upload the BOSH Stemcell to Ops Manager
+##<a id='upload-stemcell'></a>Step 6: Upload the BOSH Stemcell to Ops Manager
 
 To upload the BOSH stemcell to Ops Manager, do the following:
 
