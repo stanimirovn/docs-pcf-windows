@@ -32,7 +32,18 @@ For more information about installing the PASW tile, see [Installing and Configu
 PASW v2.3 is the last version compatible with the PASW 2012 R2 release. The deprecation date for PASW 2012 R2 is December 31, 2019. Contact your Pivotal account team for more information about migration and upgrade options.
 </p>
 
-## <a id='msi'></a>  MSI-installed Drivers Previously Installed with BOSH add-ons
+## <a id='msi'></a>  MSI-Installed Drivers Previously Installed with BOSH Add-ons
+
+Operators can install dependencies like Open Database Connectivity (ODBC) drivers
+when pushing .NET applications.
+
+In PASW 2012 R2, operators installed ODBC drivers on the host VM using BOSH Add-ons.
+These drivers were shared by the applications deployed in IronFrame containers.
+The drivers could also be included in the stemcell image.
+
+In PASW, operators install the ODBC driver package locally from the source, extract
+the install DLL files, copy the driver dependency to the .NET application's `/bin`
+folder, and then deploy the application.
 
 ## <a id='apm'></a> Pushing .NET Apps with APM Tools
 
