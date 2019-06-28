@@ -5,9 +5,9 @@ owner: Windows
 
 <strong><%= modified_date %></strong>
 
-This topic describes the process of migrating apps running on Pivotal Application Service (PAS) for Windows 2012R2 cells to run on PAS for Windows v2.4 cells, which run Windows Server version 1803.
+This topic describes the process of migrating apps running on Pivotal Application Service (PAS) for Windows 2012 R2 cells to run on PAS for Windows v2.4 cells, which run Windows Server version 1803.
 
-<p class="note"><strong>Note</strong>: PAS for Windows 2012R2 has reached its End of Availability (EoA) and is no longer generally available.</p>
+<p class="note"><strong>Note</strong>: PAS for Windows 2012 R2 has reached its End of Availability (EoA) and is no longer generally available.</p>
 
 Pivotal recommends you use the blue-green deployment method for high availability. For more information about blue-green deployments, see [Using Blue-Green Deployment to Reduce Downtime and Risk](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/blue-green.html).
 
@@ -29,7 +29,7 @@ Perform the following steps to redeploy a running app with zero downtime using t
 
 1. Navigate to the location of your app.
 
-1. To find the name of the existing PAS for Windows 2012R2 app you are migrating to PAS for Windows, run the following command:
+1. To find the name of the existing PAS for Windows 2012 R2 app you are migrating to PAS for Windows, run the following command:
 
     ```shell
     cf apps
@@ -41,7 +41,7 @@ Perform the following steps to redeploy a running app with zero downtime using t
     APP-NAME-green
     ```
 
-    Where `APP-NAME` is the existing PAS for Windows 2012R2 app's name.
+    Where `APP-NAME` is the existing PAS for Windows 2012 R2 app's name.
 
 1. To push your app to a PAS for Windows Diego cell, using your newly created name, run the following command:
 
@@ -113,7 +113,7 @@ Perform the following steps to redeploy a running app with zero downtime using t
 
     For additional information about `cf-unmap-route`, see [cf unmap-route](http://cli.cloudfoundry.org/en-US/cf/unmap-route.html).
 
-## <a id="delete-app"></a> Step 3: Delete App from Windows 2012R2 Server Cells
+## <a id="delete-app"></a> Step 3: Delete App from Windows 2012 R2 Server Cells
 
 1. To delete the original app, run the following command:
 
@@ -130,7 +130,7 @@ Perform the following steps to redeploy a running app with zero downtime using t
 
 ## <a id="uninstall-old-tile"></a> Step 4: (Optional) Uninstall Old Tile
 
-Once you have migrated all of your apps and you are no longer using the Windows 2012R2 tile, a PCF operator can perform the following steps:
+Once you have migrated all of your apps and you are no longer using the Windows 2012 R2 tile, a PCF operator can perform the following steps:
 
 1. From the Installation Dashboard, click the trash icon on the tile to remove that product. In the **Delete Product** dialog box that appears, click **Confirm**.
 1. Click **Review Pending Changes**.
