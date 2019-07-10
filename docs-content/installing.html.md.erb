@@ -3,18 +3,24 @@ title: Installing and Configuring PASW
 owner: Windows
 ---
 
-
-
-This topic describes how to install and configure the Pivotal Application Service for Windows (PASW) tile. The PASW tile installs Windows cells in your Pivotal Cloud Foundry (PCF) deployment.
+This topic describes how to install and configure the Pivotal Application Service for Windows (PASW) tile. The PASW tile installs Windows Diego Cells in your Pivotal Cloud Foundry (PCF) deployment.
 
 ## <a id='ert'></a> Step 1: Confirm Shared PAS Tile Settings
 
-Windows cells installed by the **Pivotal Application Service for Windows** tile are affected by two settings in the **Pivotal Application Service** tile. Configure these **Pivotal Application Service** tile settings as desired:
+The PASW tile inherits settings from the Pivotal Application Service (PAS) tile. The PAS tile settings in
+this section affect the Windows Diego Cells that the PASW tile deploys.
 
-* **System Logging**: In the **System Logging** pane, if you configure an external syslog aggregator, logs are drained from Windows cells as well as non-Windows cells. 
-See [Logging and Metrics](../loggregator/index.html) for additional information.
-* **Disable SSL certificate verification for this environment**: In the **Networking** pane, if you select the **Disable SSL certificate verification for this environment** checkbox, 
-SSL certificate verification is disabled for Windows cells. See [Procedure: Terminate SSL/TLS at HAProxy](../opsguide/ssl-term-haproxy.html#haproxy) for additional information.
+Review the following settings in your PAS tile. If necessary, update PAS settings to fit your intended
+PASW deployment and click **Apply Changes**.
+
+### <a id='system-logging'></a>System Logging
+
+In the **System Logging** pane, if you configure an external syslog aggregator, PAS drains logs from Windows Diego Cells as well as non-Windows Diego Cells. For more information, see [Logging and Metrics](../loggregator/index.html).
+
+### <a id='disable-ssl'></a>Disable SSL Certificate Verification
+
+In the **Networking** pane, if you select the **Disable SSL certificate verification for this environment** checkbox,
+SSL certificate verification is disabled for Windows Diego Cells. For more information, see the [Procedure: Terminate SSL/TLS at HAProxy](../opsguide/ssl-term-haproxy.html#haproxy) section of _Configuring SSL/TLS Termination at HAProxy_.
 
  <p class="note"><strong>Note</strong>: Only disable SSL certificate verification for development and testing environments. Do not select **Disable SSL certificate verification for this environment** for production environments.</p>
 
@@ -22,22 +28,18 @@ SSL certificate verification is disabled for Windows cells. See [Procedure: Term
 
 1. Download the **Pivotal Application Service for Windows** product file from [Pivotal Network](https://network.pivotal.io/products/pas-windows).
 
-1. Within [Pivotal Application Service for Windows](https://network.pivotal.io/products/pas-windows), download the **Windows FS Injector** tool for your workstation OS.
-</br>
-</br>
-The Injector tool, `winfs-injector`, is an executable binary that adds the Windows Server container base image into the product file. This step requires internet access and can take up to 20 minutes.
-</br>
- <p class="note"><strong>Note</strong>: You need the `git` and `tar` (BSD) executables on your `%PATH%` to run the `winfs-injector` bin. For example, to use `winfs-injector.exe`, `tar.exe` must be copied to a directory in your `%PATH%`.
- </p>
+1. Within [Pivotal Application Service for Windows](https://network.pivotal.io/products/pas-windows), download the **Windows FS Injector** tool for your workstation OS.<br><br>
+The Injector tool, `winfs-injector`, is an executable binary that adds the Windows Server container base image into the product file. This step requires internet access and can take up to 20 minutes.<br>
+<p class="note"><strong>Note</strong>: You need the `git` and `tar` executables in your `%PATH%` to run `winfs-injector.exe`. For example, copy `git.exe` and `tar.exe` to a directory in your `%PATH%`.</p>
 
 1. To add the Windows Server container base image to the product file, run the following command:
 
     ```shell
     winfs-injector --input-tile PASW-DOWNLOAD-PATH --output-tile PASW-IMPORTABLE-PATH
-    ``` 
+    ```
 
     Where:
-    * `PASW-DOWNLOAD-PATH` is the path and filename to the downloaded PASW product file. 
+    * `PASW-DOWNLOAD-PATH` is the path and filename to the PASW product file you downloaded.
     * `PASW-IMPORTABLE-PATH` is the desired output path for the importable product file.
 
     For example:
@@ -47,40 +49,40 @@ The Injector tool, `winfs-injector`, is an executable binary that adds the Windo
     --output-tile c:\temp\pas-windows-2.6.0-build.1-INJECTED.pivotal
     </pre>
 
-    For troubleshooting the `winfs-injector`, see [Missing Local Certificates for Windows File System Injector](./troubleshooting.html#missing-certs-winfs-issues).
+    For information about troubleshooting `winfs-injector`, see [Missing Local Certificates for Windows File System Injector](./troubleshooting.html#missing-certs-winfs-issues).
 
 1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product**.
 
-1. To add **PASW** to the **Import a Product** product list, select the importable `PASW-IMPORTABLE-PATH` file on your workstation.
+1. To add the PASW tile to the **Import a Product** product list, select the importable `PASW-IMPORTABLE-PATH` file on your workstation.
 
-1. To add **PASW** to your staging area, click **+** under the **PASW** product listing.
+1. To add the PASW tile to your staging area, click **+** under the **Pivotal Application Service for Windows** product listing.
 
 ##<a id='config'></a> Step 3: Configure the Tile
 
-1. Click the newly added **PASW** tile.
+1. Click the newly added **Pivotal Application Service for Windows** tile.
 
     <%= image_tag('pcf-windows-tile-orange.png') %>
 
-1. Click **Assign AZs and Networks** or **Assign Networks**. The name of the pane varies depending on your IaaS.
+1. Select **Assign AZs and Networks** or **Assign Networks**. The name of the pane varies depending on your IaaS.
 
 1. Assign your AZs and networks and click **Save**.
 
-1. Click **VM Options**.
+1. Select **VM Options**.
 
     <%= image_tag('vm-options.png') %>
 
-1. Specify your selection for **Manage Administrator Password**.
-  * **Use random password** randomizes the admin password. With this selection, the admin password is not retrievable by an operator. This is the default selection.
-  * **Set the password** sets the same admin password for every Windows cell. As a result, this password can be used to access any Windows cell, including, for example, Remote Desktop Protocol (RDP) sessions.
+1. Select one of the following for **Manage Administrator Password**:
+  * To randomize the admin password, select **Use random password**. If you select this option, the admin password is not retrievable by an operator. This is the default selection.
+  * To set the same admin password for every Windows Diego Cell, select **Set the password**. If you select this option, this password can be used to access any Windows Diego Cell. For example, you can use this password to open Remote Desktop Protocol (RDP) sessions.
 
-1. (Optional) Select the **BETA: Enable BOSH-native SSH support on all VMs** checkbox to start the Microsoft beta port of the OpenSSH daemon on port 22 on all VMs. Users can SSH onto Windows VMs with the `bosh ssh` command, and enter a CMD terminal as an admin user. They can then run `powershell.exe` to start a PowerShell session.
+1. (Optional) To start the Microsoft beta port of the OpenSSH daemon on port 22 on all VMs, select the **BETA: Enable BOSH-native SSH support on all VMs** checkbox. If you select this option, users can SSH into Windows VMs with the `bosh ssh` command, and enter a CMD terminal as an admin user. They can then run `powershell.exe` to start a PowerShell session.
 
-    <p class="note"><strong>Note</strong>: This feature is beta and not considered production-ready.</p>
+    <p class="note"><strong>Note</strong>: This feature is in beta and not considered production-ready.</p>
 
-1. (Optional) If you want all VMs to support connection through Remote Desktop Protocol (RDP), click **Enable Remote Desktop Protocol**.
+1. (Optional) To enable all VMs to support connection through RDP, select **Enable Remote Desktop Protocol**.
 
-1. (Optional) If you want to configure a Key Management Service (KMS) that your volume-licensed Windows cell can register with, perform the following steps:
-    1. Click **Enable**
+1. (Optional) To configure a Key Management Service (KMS) that your volume-licensed Windows Diego Cell can register with, do the following:
+    1. Select **Enable**.
     2. For the **Host** field, enter the KMS hostname.
     3. For the **Port** field, enter the port number. The default port number is `1688`.
 
@@ -88,31 +90,29 @@ The Injector tool, `winfs-injector`, is an executable binary that adds the Windo
 
 1. Click **Save**.
 
-1. (Optional) To deploy your PASW application workloads to an isolation segment, click **Application Containers** and perform the steps in the [Assign a Tile to an Isolation Segment](./isolation.html#assign-isolation) section below.
+1. (Optional) To deploy your PASW app workloads to an isolation segment, select **Application Containers** and perform the steps in the [Assign a Tile to an Isolation Segment](./isolation.html#assign-isolation) section of _Windows Cells in Isolation Segments_.
 
-1. (Optional) To configure Windows cells to send Windows Event logs to an external syslog server, click **System Logging** and perform the steps in the [Send Cell Logs to a Syslog Server](./troubleshooting.html#syslog) section.
+1. (Optional) To configure Windows Diego Cells to send Windows Event logs to an external syslog server, select **System Logging** and perform the steps in the [Send Cell Logs to a Syslog Server](./troubleshooting.html#syslog) section of _Troubleshooting Windows Cells_.
 
-1. Click **Smoke Tests**.
+1. Select **Smoke Tests**.
 ![The smoke tests radio buttons: Temporary space within the system organization and Specified org and space](smoke-tests.png)
 
-
-1. Choose an org and space where your smoke tests can run.
-  * Choosing **Temporary space within the system organization**  deletes the org after smoke tests finish.
-  * Choosing **Specified org and space** requires a domain available for routing and that domain must be accessible to the organization.
+1. Select one of the following locations for smoke tests to run:
+  * To run smoke tests in a temporary space in the default org, select **Temporary space within the system organization**. PASW deletes the space after smoke tests finish.
+  * To specify the org and space where smoke tests run, select **Specified org and space**. You must enter a domain available for routing and that domain must be accessible to the org. Enter the following:
       * In the **Organization** field, enter the Application Service org to use when running tests.
       * In the **Space** field, enter the Application Service space to use when running tests.
       * In the **Domain** field, enter the domain that the org has access to for running smoke tests.
 
+1. (Optional) To configure memory and disk overcommit for your Windows Diego Cells,
+select **Advanced Features** and do the following:
 
-1. (Optional) To configure memory and disk overcommit for your Windows Diego cells,
-click **Advanced Features** and perform the following steps:
-
-  1. Enter the total desired amount of Diego cell memory in the **Cell Memory Capacity (MB)** field.
-  For the current cell memory capacity settings, see the Windows Diego cell row
+  1. Enter the total desired amount of Diego Cell memory in the **Cell Memory Capacity (MB)** field.
+  For the current cell memory capacity settings, see the Windows Diego Cell row
   on the **Resource Config** pane.
 
-  1. Enter the total desired amount of Diego cell disk capacity in the **Cell Disk Capacity (MB)** field.
-  For the current cell disk capacity settings, see the Windows Diego cell row
+  1. Enter the total desired amount of Diego Cell disk capacity in the **Cell Disk Capacity (MB)** field.
+  For the current cell disk capacity settings, see the Windows Diego Cell row
   on the **Resource Config** pane.
   <p class='note'><strong>Note:</strong> Due to the risk of app failure and the deployment-specific nature of disk and memory use,
   Pivotal has no recommendation about how much, if any, memory or disk space to overcommit.</p>
@@ -120,10 +120,9 @@ click **Advanced Features** and perform the following steps:
 
   1. Click **Save**.
 
-1. Click **Errands**.
-  1. Pivotal recommends that you set the **Install HWC Buildpack Errand** to **On**. This ensures that you receive the most up-to-date HWC Buildpack.
-  1. Enabling the **Smoke Test Errand** ensures that a smoke test is run against your Application Service installation.
-
+1. Select **Errands**.
+  1. To ensure that you receive the most up-to-date HWC buildpack, set the **Install HWC Buildpack Errand** to **On**.
+  1. To ensure that a smoke test is run against your Application Service installation, set the **Smoke Test Errand** to **On**.
 
     <%= image_tag('post-deploy-errands.png') %>
 
@@ -131,11 +130,11 @@ click **Advanced Features** and perform the following steps:
 
 ##<a id='resources'></a> Step 4: Configure Tile Resources
 
-To configure your tile resources, perform the following steps:
+To configure your tile resources, do the following:
 
 1. Navigate to the **Resource Config** pane of the PASW tile.
 1. Use the dropdown menus to configure **Windows Diego Cell**.
-For more information, see [Disk Size of Windows Diego Cells](#disk).
+For more information, see [Disk Size of Windows Diego Cells](#disk) below.
 1. Click **Save**.
 
 <p class="note"><strong>Note:</strong> Provision your <strong>Master Compilation Job</strong> with at least 100&nbsp;GB of disk space.</p>
@@ -144,11 +143,11 @@ For more information, see [Disk Size of Windows Diego Cells](#disk).
 
 Windows stemcells in the v2019.x line support ephemeral disks.
 
-The recommended disk size for your Windows Diego cells is as follows:
+See the following table for the recommended Windows Diego Cell disk size for your IaaS:
   <table>
     <tr>
       <th>IaaS</th>
-      <th>Recommended Disk size of Windows Diego cell</th>
+      <th>Recommended Windows Diego Cell Disk Size</th>
     </tr>
     <tr>
       <th>AWS</th>
@@ -178,15 +177,15 @@ The recommended disk size for your Windows Diego cells is as follows:
 
 1. Retrieve the stemcell that you downloaded or created in [Downloading or Creating a Windows Stemcell](./stemcells.html).
 
-1. Follow the steps in [Importing and Managing Stemcells](https://docs.pivotal.io/pivotalcf/opsguide/managing-stemcells.html) to upload the Windows stemcell to **Pivotal Application Service for Windows**.
+1. Follow the steps in [Importing and Managing Stemcells](../opsguide/managing-stemcells.html) to upload the Windows stemcell to **Pivotal Application Service for Windows**.
 
 ##<a id='deploy'></a> Step 6: Deploy the Tile
 
 1. Return to the Ops Manager Installation Dashboard.
-1. Click **Review Pending Changes**.
-1. Select the PASW tile and review the changes. For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
-1. Click **Apply Changes** to install the **PASW** tile.
+1. Select **Review Pending Changes**.
+1. Select the PASW tile and review the changes. For more information, see [Reviewing Pending Product Changes](../customizing/review-pending-changes.html).
+1. Select **Apply Changes** to install the **Pivotal Application Service for Windows** tile.
 
 ##<a id='copy'></a> Step 7: (Optional) Create More Tiles
 
-To run Windows cells in multiple isolation segments, you must create and configure additional PASW tiles. For more information, see [Windows Cells in Isolation Segments](./isolation.html).
+To run Windows Diego Cells in multiple isolation segments, you must create and configure additional PASW tiles. For more information, see [Windows Cells in Isolation Segments](./isolation.html).
