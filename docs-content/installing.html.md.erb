@@ -22,7 +22,7 @@ In the **System Logging** pane, if you configure an external syslog aggregator, 
 In the **Networking** pane, if you select the **Disable SSL certificate verification for this environment** checkbox,
 SSL certificate verification is disabled for Windows Diego Cells. For more information, see the [Procedure: Terminate SSL/TLS at HAProxy](../opsguide/ssl-term-haproxy.html#haproxy) section of _Configuring SSL/TLS Termination at HAProxy_.
 
- <p class="note"><strong>Note</strong>: Only disable SSL certificate verification for development and testing environments. Do not select **Disable SSL certificate verification for this environment** for production environments.</p>
+ <p class="note"><strong>Note</strong>: Only disable SSL certificate verification for development and testing environments. Do not select <strong>Disable SSL certificate verification for this environment</strong> for production environments.</p>
 
 ##<a id='install'></a> Step 2: Install the Tile
 
@@ -30,7 +30,7 @@ SSL certificate verification is disabled for Windows Diego Cells. For more infor
 
 1. Within [Pivotal Application Service for Windows](https://network.pivotal.io/products/pas-windows), download the **Windows FS Injector** tool for your workstation OS.<br><br>
 The Injector tool, `winfs-injector`, is an executable binary that adds the Windows Server container base image into the product file. This step requires internet access and can take up to 20 minutes.<br>
-<p class="note"><strong>Note</strong>: You need the `git` and `tar` executables in your `%PATH%` to run `winfs-injector.exe`. For example, copy `git.exe` and `tar.exe` to a directory in your `%PATH%`.</p>
+<p class="note"><strong>Note</strong>: You need the <code>git</code> and <code>tar</code> executables in your <code>%PATH%</code> to run <code>winfs-injector.exe</code>. For example, copy <code>git.exe</code> and <code>tar.exe</code> to a directory in your <code>%PATH%</code>.</p>
 
 1. To add the Windows Server container base image to the product file, run the following command:
 
@@ -49,7 +49,7 @@ The Injector tool, `winfs-injector`, is an executable binary that adds the Windo
     --output-tile c:\temp\pas-windows-2.4.0-build.1-INJECTED.pivotal
     </pre>
 
-    For information about troubleshooting `winfs-injector`, see [Missing Local Certificates for Windows File System Injector](./troubleshooting.html#missing-certs-winfs-issues).
+    For information about troubleshooting `winfs-injector`, see [Missing Local Certificates for Windows File System Injector](./troubleshooting.html#missing-certs-winfs-issues) in _Troubleshooting Windows Cells_.
 
 1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product**.
 
