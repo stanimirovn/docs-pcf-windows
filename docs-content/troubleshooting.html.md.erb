@@ -71,26 +71,32 @@ The product file you are trying to upload does not contain the Windows Server co
 
 1. Click the **+** icon next to the product listing to add the PAS for Windows tile to the Installation Dashboard.
 
-##<a id='log-types'></a> Windows Cell Log Types
-
-Windows cells generate two types of logs:
-
-* **BOSH job logs**, such as `rep_windows` and `consul_agent_windows`. These logs stream to the syslog server configured in the PAS tile **System Logging** pane, along with other PCF component logs. The names of these BOSH job logs correspond to the names of the logs emitted by Linux Diego cells.
-
-* **Windows Event logs**. These stream to the syslog server configured in the PAS for Windows **System Logging** pane and are downloadable through Ops Manager, as described [below](#logs).
-
 ##<a id='logs'></a> Forward Windows Cell Logs
 
-PCF operators can forward BOSH job logs and Windows Event logs
+You can use Windows cell logs to troubleshoot Windows Diego cells.
+Windows cells generate the following types of logs:
+
+* **BOSH job logs**, such as `rep_windows` and `consul_agent_windows`.
+These logs stream to the syslog server configured in the PAS tile **System Logging** pane,
+along with other PCF component logs.
+The names of these BOSH job logs correspond to the names of the logs emitted by Linux Diego cells.
+
+* **Windows Event logs**. These logs stream to the syslog server configured in
+the PAS for Windows **System Logging** pane.
+
+To PCF operators can forward BOSH job logs and Windows Event logs
 to an external syslog server in the following ways:
 
 * Configure a BOSH add-on to forward BOSH job logs.
 See the BOSH jobs logs step in [Step 2: Install the Tile](./installing.html#install) in _Installing and Configuring PASW_.
 
 * Configure PAS for Windows to forward Windows Event logs.
-See [Send Cell Logs to a Syslog Server](#syslog) below.
+See [Forward Windows Event Logs to a Syslog Server](#syslog) below.
 
-###<a id='syslog'></a> Send Cell Logs to a Syslog Server
+You can download the forwarded BOSH job logs and Window Event logs, in the PASW tile.
+See [Download Cell Logs](#download) below.
+
+###<a id='syslog'></a> Forward Windows Event Logs to a Syslog Server
 
 To forward Windows Event logs to an external syslog server,
 do the following:
