@@ -15,10 +15,6 @@ this section affect the Windows Diego Cells that the PASW tile deploys.
 Review the following settings in your PAS tile. If necessary, update PAS settings to fit your intended
 PASW deployment and click **Apply Changes**.
 
-### <a id='system-logging'></a>System Logging
-
-In the **System Logging** pane, if you configure an external syslog aggregator, PAS drains logs from Windows Diego Cells as well as non-Windows Diego Cells. For more information, see [Logging and Metrics](../loggregator/index.html).
-
 ### <a id='disable-ssl'></a>Disable SSL Certificate Verification
 
 In the **Networking** pane, if you select the **Disable SSL certificate verification for this environment** checkbox,
@@ -52,6 +48,37 @@ The Injector tool, `winfs-injector`, is an executable binary that adds the Windo
     </pre>
 
     For information about troubleshooting `winfs-injector`, see [Missing Local Certificates for Windows File System Injector](./troubleshooting.html#missing-certs-winfs-issues) in _Troubleshooting Windows Cells_.
+
+1. To enable forwarding BOSH job logs to an external syslog server,
+add the following BOSH add-on to a `runtime_config` YAML file:
+
+    ```yaml
+    releases:
+    - name: windows-syslog
+      version: latest
+
+    addons:
+    - name: windows-syslog
+      include:
+        stemcell:
+        - os: ((Stemcell OS e.g., windows2019))
+      jobs:
+      - name: syslog_forwarder_windows
+        properties:
+          syslog:
+            address: ((IP address of the syslog server))
+            port: ((Port of the syslog server))
+            transport: ((tcp or udp))
+            # Optional. If you enabled SSL certificate
+            # verification in PAS, you must configure
+            # `tls_enabled:` and `ca_cert:`.
+            tls_enabled: true
+            ca_cert: ((TLS CA certificate of the syslog server))
+        release: windows-syslog
+    ```
+
+    For more information about BOSH add-ons, see
+    [Addons Block](https://bosh.io/docs/runtime-config/#addons) in the BOSH documentation.
 
 1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product**.
 
