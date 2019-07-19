@@ -19,7 +19,7 @@ You run the `winfs-injector` and see the following error about certificates:
 
 ```text
 Get https://auth.docker.io/token?service=registry.docker.io&
-scope=repository:cloudfoundry/windows2016fs:pull: x509: 
+scope=repository:cloudfoundry/windows2016fs:pull: x509:
 failed to load system roots and no roots provided
 ```
 
@@ -79,17 +79,21 @@ Windows cells generate two types of logs:
 
 * **Windows Event logs**. These stream to the syslog server configured in the PAS for Windows **System Logging** pane and are downloadable through Ops Manager, as described [below](#logs).
 
-##<a id='logs'></a> Access Windows Event Logs
+##<a id='logs'></a> Forward Windows Cell Logs
 
-PCF operators can access log messages from Windows Diego cells in two ways:
+PCF operators can forward BOSH job logs and Windows Event logs
+to an external syslog server in the following ways:
 
-* Configure PAS for Windows to [send](#syslog) all Windows cell logs to an external syslog server.
+* Configure a BOSH add-on to forward BOSH job logs.
+See [SOMETHING ABOUT BOSH ADDONS]().
 
-* [Download](#download) archived logs from each Windows cell individually.
+* Configure PAS for Windows to forward Windows Event logs.
+See [Send Cell Logs to a Syslog Server](#syslog) below.
 
 ###<a id='syslog'></a> Send Cell Logs to a Syslog Server
 
-To forward Windows cell log messages to an external syslog server, complete the following steps:
+To forward Windows Event logs to an external syslog server,
+do the following:
 
 1. Navigate to the Ops Manager Installation Dashboard.
 
@@ -113,7 +117,7 @@ To forward Windows cell log messages to an external syslog server, complete the 
 
 ###<a id='download'></a> Download Cell Logs
 
-Perform the following steps to retrieve the logs from a Windows cell:
+To retrieve the logs from a Windows cell, do the following:
 
 1. Navigate to the Ops Manager Installation Dashboard.
 1. Click the **PAS for Windows** tile.
@@ -141,7 +145,7 @@ Perform the following steps to connect to a Windows cell to run diagnostics:
 	* In PAS for Windows v2.6 and later, use of the `bosh ssh` command is enabled by default.
 
 1. To retrieve the IP address of your Windows cell using the BOSH CLI, run the following command:
-    
+
     ```shell
     bosh -e ENV-NAME -d DEPLOYMENT-NAME
     ```
@@ -196,7 +200,7 @@ Perform the following steps to use the Consul CLI on your Windows cell to diagno
     cd CONSUL-CLI-DIR\bin
     ```
 
-    Where `CONSUL-CLI-DIR` is the Consul CLI package's directory path.  
+    Where `CONSUL-CLI-DIR` is the Consul CLI package's directory path.
 <br>
     For example:
 	<pre class="terminal">
