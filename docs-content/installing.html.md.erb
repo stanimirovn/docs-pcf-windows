@@ -106,10 +106,6 @@ add the following BOSH add-on to a `runtime_config` YAML file:
 
 1. (Optional) To start the Microsoft beta port of the OpenSSH daemon on port 22 on all VMs, select the **BETA: Enable BOSH-native SSH support on all VMs** checkbox. If you select this option, users can SSH into Windows VMs with the `bosh ssh` command, and enter a CMD terminal as an admin user. They can then run `powershell.exe` to start a PowerShell session.
 
-    <p class="note"><strong>Note</strong>: This feature is in beta and not considered production-ready.</p>
-
-1. (Optional) To enable all VMs to support connection through RDP, select **Enable Remote Desktop Protocol**.
-
 1. (Optional) To configure a Key Management Service (KMS) that your volume-licensed Windows Diego Cell can register with, do the following:
     1. Select **Enable**.
     2. For the **Host** field, enter the KMS hostname.
