@@ -12,15 +12,15 @@ This topic describes how to create the stemcell that Pivotal Application Service
 ##<a id='overview'></a> Overview
 
 A BOSH stemcell is a versioned operating system image. 
-You must create a BOSH stemcell for Windows before you can deploy either PAS for Windows or PKS Windows worker-based clusters, on vSphere.  
+You must create a BOSH stemcell for Windows before you can deploy either PASW or PKS Windows worker-based clusters, on vSphere.  
 
 The BOSH stemcell that you create in this topic is based on Windows Server 2019. 
 
 To create a Windows stemcell for vSphere, you create a base Windows VM from a volume-licensed ISO and subsequently maintain that base template with all Windows recommended security updates, but without the BOSH dependencies.
 
-<p class="note"><strong>Note:</strong> The stemcell you create in this topic is based on Windows Server 2019.</p>
-
-The VM with security updates serves as the base for all future stemcells produced from clones of that base VM. This enables you to build new stemcells without having to run Windows Updates from scratch each time. You can also use a "snapshot" feature to maintain an updated Windows image that does not contain the BOSH dependencies.
+This Windows VM, with security updates, serves as the base for all future stemcells produced from clones of that base VM. 
+This enables you to build new stemcells without having to run Windows Updates from scratch each time. 
+You can also use a "snapshot" feature to maintain an updated Windows image that does not contain the BOSH dependencies.  
 
 Pivotal recommends installing any available critical updates, and then rebuilding the stemcell from a clone of the original VM.
 
@@ -46,14 +46,14 @@ As part of completing the procedures in this topic, you download the following f
 * [stembuild](https://github.com/pivotal-cf-experimental/stembuild/releases).
     * To build a stemcell for PASW Windows clusters use the latest release of stembuild.
     * To build a stemcell for PKS Windows clusters use the version 2019.7 
-    `vSphere Stembuild CLI - Windows` release of stembuild.
+    `vSphere Stembuild CLI - Windows` release of stembuild. 
+
+    <p class="note"><strong>Note</strong>: You must choose a stemcell version to build. 
+    Stemcells are versioned as MAJOR.MINOR, such as 2019.2.</p>
     
     For more information about 2019 stemcells, see the 
     <a href="https://docs.pivotal.io/pivotalcf/stemcells/windows-stemcell-v2019x.html">
     Stemcell v2019.x (Windows Server 2019) Release Notes</a>.
-
-    <p class="note"><strong>Note</strong>: You must choose a stemcell version to build. 
-    Stemcells are versioned as MAJOR.MINOR, such as 2019.2.</p>
 
 ### <a id='windows-vm'></a>Files on Windows VM
 
