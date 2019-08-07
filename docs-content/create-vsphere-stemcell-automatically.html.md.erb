@@ -16,9 +16,9 @@ To create a Windows stemcell for vSphere, you create a base Windows VM from a vo
 subsequently maintain that base template with all Windows recommended security updates, 
 but without the BOSH dependencies.  
 
-The VM with security updates serves as the base for all future stemcells produced from clones of that base VM. 
+This Windows VM, with security updates, serves as the base for all future stemcells produced from clones of that base VM. 
 This enables you to build new stemcells without having to run Windows Updates from scratch each time. 
-You can also use a "snapshot" feature to maintain an updated Windows image that does not contain the BOSH dependencies.
+You can also use a "snapshot" feature to maintain an updated Windows image that does not contain the BOSH dependencies.  
 
 Pivotal recommends installing any available critical updates, and then rebuilding the stemcell from a clone of the original VM.
 
