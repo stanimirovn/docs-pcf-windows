@@ -3,26 +3,44 @@ title: Installing and Configuring PASW
 owner: Windows
 ---
 
-This topic describes how to install and configure the Pivotal Application Service for Windows (PASW) tile. The PASW tile installs Windows Diego Cells in your Pivotal Cloud Foundry (PCF) deployment.
+This topic describes how to install and configure the Pivotal Application Service for Windows (PASW) tile. 
 
 If you have the PASW 2012 R2 tile installed, see [Migrating from PASW 2012 R2 to PASW](./upgrade-2012r2-to-pasw.html) for more information about the changes in features and functionality between the two tile versions.
 
-## <a id='ert'></a> Step 1: Confirm Shared PAS Tile Settings
+## <a id='overview'></a> Overview
 
-The PASW tile inherits settings from the Pivotal Application Service (PAS) tile. The PAS tile settings in
-this section affect the Windows Diego Cells that the PASW tile deploys.
+The PASW tile installs Windows Diego Cells in your Pivotal Cloud Foundry (PCF) deployment.
 
-Review the following settings in your PAS tile. If necessary, update PAS settings to fit your intended
-PASW deployment and click **Apply Changes**.
+The PASW tile inherits settings from the Pivotal Application Service (PAS) tile and also includes additional configuration settings.
 
-### <a id='disable-ssl'></a>Disable SSL Certificate Verification
+To install, configure, and deploy PASW, do the following:  
 
-In the **Networking** pane, if you select the **Disable SSL certificate verification for this environment** checkbox,
-SSL certificate verification is disabled for Windows Diego Cells. For more information, see the [Procedure: Terminate SSL/TLS at HAProxy](../opsguide/ssl-term-haproxy.html#haproxy) section of _Configuring SSL/TLS Termination at HAProxy_.
+1. Complete the prerequisites. See [Prerequisite](#prerequisite).
+1. Download and install the PASW tile. See [Install the Tile](#install).
+1. Configure required settings for the tile. See [Configure the Tile](#config).
+1. Configure resources for the tile. See [Configure Tile Resources](#resources).
+1. Upload the Windows stemcell to the tile. See [Upload the Stemcell](#stemcells).
+1. Deploy the tile. See [Deploy the Tile](#deploy).
 
- <p class="note"><strong>Note</strong>: Only disable SSL certificate verification for development and testing environments. Do not select <strong>Disable SSL certificate verification for this environment</strong> for production environments.</p>
 
-##<a id='install'></a> Step 2: Install the Tile
+## <a id='prerequisite'></a> Prerequisite
+
+Before you install and configure the PASW tile, you must disable SSL certificate verification for all Windows Diego cells on development and testing environments.
+
+<p class="note"><strong>Note</strong>: Only disable SSL certificate verification for development and testing environments. Do not disable SSL certificate verification for production environments.</p>
+
+To disable SSL validation on development and testing environments, do the following:
+
+1. In the PAS tile, go to the **Networking** pane. 
+
+1. Select the **Disable SSL certificate verification for this environment** checkbox. 
+
+For more information, see the [Procedure: Terminate SSL/TLS at HAProxy](../opsguide/ssl-term-haproxy.html#haproxy) section of _Configuring SSL/TLS Termination at HAProxy_.
+
+
+##<a id='install'></a> Install the Tile
+
+To install the PASW tile, do the following:
 
 1. Download the **Pivotal Application Service for Windows** product file from [Pivotal Network](https://network.pivotal.io/products/pas-windows).
 
@@ -86,9 +104,13 @@ add the following BOSH add-on to a `runtime_config` YAML file:
 
 1. To add the PASW tile to your staging area, click **+** under the **Pivotal Application Service for Windows** product listing.
 
-##<a id='config'></a> Step 3: Configure the Tile
+##<a id='config'></a> Configure the Tile
+ 
+###<a id='config-azs-networks'></a> Assign Availability Zones and Networks
 
-1. Click the newly added **Pivotal Application Service for Windows** tile.
+To assign AZs and networks, do the following:
+
+1. Click the **Pivotal Application Service for Windows** tile.
 
     <%= image_tag('pcf-windows-tile-orange.png') %>
 
@@ -96,7 +118,11 @@ add the following BOSH add-on to a `runtime_config` YAML file:
 
 1. Assign your AZs and networks and click **Save**.
 
-1. Select **VM Options**.
+###<a id='config-vms'></a> Configure VMs
+
+To configure VMs, do the following:
+
+1. In the **Pivotal Application Service for Windows** tile, select **VM Options**.
 
     <%= image_tag('vm-options.png') %>
 
@@ -115,11 +141,12 @@ add the following BOSH add-on to a `runtime_config` YAML file:
 
 1. Click **Save**.
 
-1. (Optional) To deploy your PASW app workloads to an isolation segment, select **Application Containers** and perform the steps in the [Assign a Tile to an Isolation Segment](./isolation.html#assign-isolation) section of _Windows Cells in Isolation Segments_.
 
-1. (Optional) To configure Windows Diego Cells to send Windows Event logs to an external syslog server, select **System Logging** and perform the steps in the [Forward Windows Event Logs to a Syslog Server](./troubleshooting.html#syslog) section of _Troubleshooting Windows Cells_.
+### <a id='config-smoke-tests'></a> Configure Smoke Tests
 
-1. Select **Smoke Tests**.
+To configure smoke tests, do the following:
+
+1. In the **Pivotal Application Service for Windows** tile, select **Smoke Tests**.
 ![The smoke tests radio buttons: Temporary space within the system organization and Specified org and space](smoke-tests.png)
 
 1. Select one of the following locations for smoke tests to run:
@@ -129,21 +156,27 @@ add the following BOSH add-on to a `runtime_config` YAML file:
       * In the **Space** field, enter the Application Service space to use when running tests.
       * In the **Domain** field, enter the domain that the org has access to for running smoke tests.
 
-1. (Optional) To configure memory and disk overcommit for your Windows Diego Cells,
+### <a id='config-memory-disk'></a> Configure Memory and Disk for Windows Diego Cells      
+
+To configure memory and disk overcommit for your Windows Diego Cells,
 select **Advanced Features** and do the following:
 
-  1. Enter the total desired amount of Diego Cell memory in the **Cell Memory Capacity (MB)** field.
+1. Enter the total desired amount of Diego Cell memory in the **Cell Memory Capacity (MB)** field.
   For the current cell memory capacity settings, see the Windows Diego Cell row
   on the **Resource Config** pane.
 
-  1. Enter the total desired amount of Diego Cell disk capacity in the **Cell Disk Capacity (MB)** field.
+1. Enter the total desired amount of Diego Cell disk capacity in the **Cell Disk Capacity (MB)** field.
   For the current cell disk capacity settings, see the Windows Diego Cell row
   on the **Resource Config** pane.
   <p class='note'><strong>Note:</strong> Due to the risk of app failure and the deployment-specific nature of disk and memory use,
   Pivotal has no recommendation about how much, if any, memory or disk space to overcommit.</p>
   <%= image_tag("images/advanced-features.png") %>
 
-  1. Click **Save**.
+1. Click **Save**.
+
+### <a id='config-errands'></a> Configure Errands
+
+To configure errands, do the following:
 
 1. Select **Errands**.
   1. To ensure that you receive the most up-to-date HWC buildpack, set the **Install HWC Buildpack Errand** to **On**.
@@ -153,21 +186,21 @@ select **Advanced Features** and do the following:
 
 1. Click **Save**.
 
-##<a id='resources'></a> Step 4: Configure Tile Resources
+
+### <a id='config-iso-segments'></a> (Optional) Configure Isolation Segments
+
+To deploy your PASW app workloads to an isolation segment, select **Application Containers** and perform the steps in the [Assign a Tile to an Isolation Segment](./isolation.html#assign-isolation) section of _Windows Cells in Isolation Segments_.
+
+### <a id='config-system-logging'></a> (Optional) Configure System Logging
+
+To configure Windows Diego Cells to send Windows Event logs to an external syslog server, select **System Logging** and perform the steps in the [Forward Windows Event Logs to a Syslog Server](./troubleshooting.html#syslog) section of _Troubleshooting Windows Cells_.
+
+## <a id='resources'></a> Configure Tile Resources
 
 To configure your tile resources, do the following:
 
 1. Navigate to the **Resource Config** pane of the PASW tile.
 1. Use the dropdown menus to configure **Windows Diego Cell**.
-For more information, see [Disk Size of Windows Diego Cells](#disk) below.
-1. Click **Save**.
-
-<p class="note"><strong>Note:</strong> Provision your <strong>Master Compilation Job</strong> with at least 100&nbsp;GB of disk space.</p>
-
-### <a name='disk'></a> Disk Size of Windows Diego Cells
-
-Windows stemcells in the v2019.x line support ephemeral disks.
-
 See the following table for the recommended Windows Diego Cell disk size for your IaaS:
   <table>
     <tr>
@@ -191,26 +224,35 @@ See the following table for the recommended Windows Diego Cell disk size for you
       <td>100 GB</td>
     </tr>
   </table>
-  <p class='note'><strong>Note:</strong> If you use vSphere, you must create your own stemcell.
-  The default root disk size of Windows stemcells v2019.x line is 30 GB.
-  Pivotal recommends setting the root disk size of your Windows stemcell for vSphere to 30 GB.
-  For more information, see <a href="create-vsphere-stemcell-manually.html">Creating a Windows Stemcell for vSphere Manually</a> or <a href="create-vsphere-stemcell-automatically.html">Creating a Windows Stemcell for vSphere Using stembuild (Beta)</a>.</p>
+  <p class="note"><strong>Note:</strong> Windows stemcells in the v2019.x line support ephemeral disks.</p>
+1. Provision your <strong>Master Compilation Job</strong> with at least 100&nbsp;GB of disk space.
+1. Click **Save**.
 
-##<a id='stemcells'></a> Step 5: Upload the Stemcell
 
-1. Go to **Stemcell Library**.
+## <a id='stemcells'></a> Upload the Stemcell
+
+To upload the stemcell, do the following:
+
+1. In the **Pivotal Application Service for Windows** tile, select **Stemcell Library**.
 
 1. Retrieve the stemcell that you downloaded or created in [Downloading or Creating a Windows Stemcell](./stemcells.html).
 
 1. Follow the steps in [Importing and Managing Stemcells](../opsguide/managing-stemcells.html) to upload the Windows stemcell to **Pivotal Application Service for Windows**.
 
-##<a id='deploy'></a> Step 6: Deploy the Tile
+<p class='note'><strong>Note:</strong> If you use vSphere, you must create your own stemcell.
+  The default root disk size of Windows stemcells v2019.x line is 30 GB.
+  Pivotal recommends setting the root disk size of your Windows stemcell for vSphere to 30 GB.
+  For more information, see <a href="create-vsphere-stemcell-manually.html">Creating a Windows Stemcell for vSphere Manually</a> or <a href="create-vsphere-stemcell-automatically.html">Creating a Windows Stemcell for vSphere Using stembuild (Beta)</a>.</p>
 
-1. Return to the Ops Manager Installation Dashboard.
+##<a id='deploy'></a> Deploy the Tile
+
+To deploy the PASW tile, do the following:
+
+1. Go to the Ops Manager Installation Dashboard.
 1. Select **Review Pending Changes**.
 1. Select the PASW tile and review the changes. For more information, see [Reviewing Pending Product Changes](../customizing/review-pending-changes.html).
 1. Select **Apply Changes** to install the **Pivotal Application Service for Windows** tile.
 
-##<a id='copy'></a> Step 7: (Optional) Create More Tiles
+##<a id='copy'></a> (Optional) Create More Tiles
 
 To run Windows Diego Cells in multiple isolation segments, you must create and configure additional PASW tiles. For more information, see [Windows Cells in Isolation Segments](./isolation.html).
