@@ -314,7 +314,7 @@ Perform the following steps to reduce the stemcell size:
 	Compress-Disk
 	```
 
-##<a id='sysrep'></a> Step 5: Sysprep the System
+##<a id='sysprep'></a> Step 5: Sysprep the System
 
 This step "syspreps" the system, which ensures that each BOSH VM has a unique identity and applies the appropriate startup configuration at boot time.
 
@@ -330,7 +330,7 @@ Perform the following steps:
 	```
 	Expand-Archive PATH-TO-LGPO.ZIP C:\Windows
 	```
-1. Run the following command to sysrep the system:
+1. Run the following command to sysprep the system:
 
 	```
 	Invoke-Sysprep -IaaS vsphere
@@ -344,7 +344,7 @@ Perform the following steps:
 	* `PASSWORD` is an optional flag that enables you to set a password of your choice. Do not use any special character in the password other than `!`. For example, `Example12!` is permitted but `Example#12` is not. This is a known issue.
 	* `OWNER` and `ORGANIZATION` are optional flags. Set them if your organization requires it.
 	<br><br>
-	The sysrep command powers off the VM.
+	The sysprep command powers off the VM.
 
 <p class="note warning"><strong>WARNING</strong>: Do not turn the VM back on before completing the procedure in <a href="#export-vmdk">Step 6: Export the VMDK File</a>.</p>
 
