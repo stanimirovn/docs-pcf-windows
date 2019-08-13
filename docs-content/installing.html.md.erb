@@ -189,6 +189,21 @@ To configure errands, do the following:
 
 1. Click **Save**.
 
+### <a id='enable-route-integrity'></a> (Optional) Enable TLS Connections From Router to Apps
+
+This *beta* feature can be found under the `Advanced Features` section. By default, this feature is disabled.
+To configure this feature, do the following:
+
+1. There are three different options that can be selected to add route integrity and mTLS (mutual TLS).
+  1. **Disable route integrity and mutual TLS (Default)**: The default selection for this beta feature is to be disabled.
+  1. **Router uses TLS to verify application identity**: This will enable route integrity for your apps, but not mTLS.
+  1. **Router and applications use mutual TLS to verify each other's identity (incompatible with TCP Routing)**: This option enables both route integrity and mTLS.
+    <%= image_tag('enable-tls.png') %>
+
+1. Click **Save**.
+
+**Important Note About This Feature**:
+This beta feature checks only that the client certificate is signed by the expected CA using mTLS. It **does not** include SAN (Subject Alternative Name) checks of the presented client certificates.
 
 ### <a id='config-iso-segments'></a> (Optional) Configure Isolation Segments
 
