@@ -16,14 +16,10 @@ The following is required to use SMB Volumes in your .NET App:
 <li>Visual Studio</li>
 <li>An Azure account</li>
 <li>Pivotal Application Service for Windows (PASW)</li>
-<li>An accessible SMB Volume in Azure Cloud with a UNC path</li>
-    <ul>
-	<li>If you do not have an accessible SMB Volume, refer to <i>Create a file share in Azure Files</i> in the <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-how-to-create-file-share">Azure documentation</a>.</li>
-    </ul>
+<li>An accessible SMB Volume in an IaaS with a UNC path</li>
 <li> An existing .NET Framework application </li>
 <li>SMB Username</li>
 <li>SMB Password</li>
-<li>Windows 1803.x or Windows 1709.x Stemcell</li>
 </ul>
 
 ### <a id='steeltoe'></a> Using SMB Volumes in .NET Apps with Steeltoe
@@ -41,12 +37,8 @@ If you are using Steeltoe, add the following environment variables to your Confi
     Where:
     <ul>
     <li><code>SMB\_PATH</code> is the UNC path to your SMB.
-    <ul>
-    <li>If you are using the Windows 1709 Stemcell, your UNC is the IP of the machine you are using.</li>
-    <li>If you are using the Windows 1803 Stemcell, your UNC is the FQDN of the machine you are using.</li>
-    </ul>
-    <li><code>SMB\_USERNAME</code> is your Azure account username.</li>
-    <li><code>SMB\_PASSWORD</code> is  is your Azure account password.</li>
+    <li><code>SMB\_USERNAME</code> is your IaaS account username.</li>
+    <li><code>SMB\_PASSWORD</code> is  is your IaaS account password.</li>
     </ul>
 
 For more information about adding environment variables to your Config Server Provider, see <a href="https://steeltoe.io/docs/steeltoe-configuration/#2-0-config-server-provider">Config Server Provider</a> in the Steeltoe documentation.
