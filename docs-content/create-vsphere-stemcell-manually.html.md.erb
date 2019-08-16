@@ -318,7 +318,7 @@ Perform the following steps to reduce the stemcell size:
 
 This step "syspreps" the system, which ensures that each BOSH VM has a unique identity and applies the appropriate startup configuration at boot time.
 
-The included policies help ensure the uptime and secure operations of the stemcell's VMs, especially when deployed on <%= vars.product_name  %>.
+The included policies help ensure the uptime and secure operations of the stemcell's VMs, especially when deployed on <%= vars.product_name %>.
 
 <p class="note"><strong>Note</strong>: This step disables services that could cause restarts, such as Windows Automatic Updates. OS restarts are not supported on BOSH-deployed Windows VMs, and the BOSH Director resurrects the VM by destroying and repaving it.</p>
 

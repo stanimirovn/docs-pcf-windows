@@ -9,17 +9,17 @@ This topic describes the architecture of Windows cells that PAS for Windows depl
 
 ## <a id='overview'></a>Overview
 
-Operators who want to run Windows cells in <%= vars.product_name  %> to enable developers to push .NET apps can deploy the PAS for Windows tile.
+Operators who want to run Windows cells in <%= vars.product_name %> to enable developers to push .NET apps can deploy the PAS for Windows tile.
 
 Deploying this tile creates a separate BOSH deployment populated with the Garden Windows release, which runs on a Windows cell built from a Windows stemcell.
 
-Once the Windows cell is running, developers can specify a Windows stack when pushing .NET apps from the command line. <%= vars.product_name  %> passes the app to the Windows cell in the PAS for Windows BOSH deployment. The diagram below illustrates the process.
+Once the Windows cell is running, developers can specify a Windows stack when pushing .NET apps from the command line. <%= vars.product_name %> passes the app to the Windows cell in the PAS for Windows BOSH deployment. The diagram below illustrates the process.
 
 <%= image_tag('windows-overview.png') %>
 
 ## <a id="cells"></a> About Windows Cells
 
-App instances in <%= vars.product_name  %> run inside containers. [Garden](https://docs.pivotal.io/pivotalcf/concepts/architecture/garden.html) is the API that creates and manages these containers. An implementation equivalent to that on Linux cells provides this infrastructure on Windows cells, utilizing native Windows Server Containers.
+App instances in <%= vars.product_name %> run inside containers. [Garden](https://docs.pivotal.io/pivotalcf/concepts/architecture/garden.html) is the API that creates and manages these containers. An implementation equivalent to that on Linux cells provides this infrastructure on Windows cells, utilizing native Windows Server Containers.
 
 By installing the [PAS for Windows](installing.html) tile, operators create a Windows [cell](https://docs.pivotal.io/pivotalcf/concepts/architecture/index.html#diego-cell) from a [stemcell](https://bosh.io/docs/stemcell.html) that contains the Windows Server operating system. Garden on Windows uses [Windows Containers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/about/) to isolate resources on Windows cells that Cloud Foundry manages alongside Linux cells.
 
@@ -50,7 +50,7 @@ Garden on Windows uses the following runtime plugins to create and manage [Windo
 A "stemcell" is a customized operating system image containing the filesystem for BOSH-managed virtual machines. When deployed, the operating system includes the _BOSH Agent_ process, which is dedicated to communicating with the orchestrating VM, the _BOSH Director_.
 The BOSH Agent executes and monitors BOSH jobs on its VM.
 
-Deployments of Windows Server on <%= vars.product_name  %> currently use a stemcell containing Windows Server 2019.
+Deployments of Windows Server on <%= vars.product_name %> currently use a stemcell containing Windows Server 2019.
 
 See [Downloading or Creating Windows Stemcells](./stemcells.html) for documentation about how to obtain or create a stemcell for PAS for Windows.
 

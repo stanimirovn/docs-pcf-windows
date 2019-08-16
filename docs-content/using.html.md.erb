@@ -26,17 +26,17 @@ If you have upgraded to PAS for Windows and have apps that you want to migrate, 
 
 ##<a id='develop'></a> Develop .NET Framework Apps
 
-###<a id='cookbook'></a> .NET on <%= vars.product_name  %> Cookbook
+###<a id='cookbook'></a> .NET on <%= vars.product_name %> Cookbook
 
 The [.NET Cookbook](https://dotnet-cookbook.cfapps.io/intro/) has useful tips and recipes for migrating and developing .NET Framework apps to run on PAS for Windows.
 
 ##<a id='push'></a> Push a .NET Framework App
 
-By default, <%= vars.product_name  %> serves .NET Framework apps with Hostable Web Core (HWC). HWC is a lighter version of the Internet Information Services (IIS) server that contains the core IIS functionality.
+By default, <%= vars.product_name %> serves .NET Framework apps with Hostable Web Core (HWC). HWC is a lighter version of the Internet Information Services (IIS) server that contains the core IIS functionality.
 
 Perform the following steps to push a .NET Framework app to a Windows cell:
 
-1. To target the Cloud Controller of your <%= vars.product_name  %> deployment, run the following command:
+1. To target the Cloud Controller of your <%= vars.product_name %> deployment, run the following command:
 
     ```shell
     cf api api.APP-DOMAIN
@@ -57,7 +57,7 @@ Perform the following steps to push a .NET Framework app to a Windows cell:
 
     Where `APP-NAME` is the name of your application.
 
-    <p class="note"><strong>Note</strong>: The <code>-s windows</code> option instructs <%= vars.product_name  %> to run the app in the Windows cell.</p>
+    <p class="note"><strong>Note</strong>: The <code>-s windows</code> option instructs <%= vars.product_name %> to run the app in the Windows cell.</p>
     <p class="note"><strong>Note</strong>: If you are not pushing your app from its directory, use the <code>-p</code> option and specify the path to the directory that contains the app.</p>
 
 1. Wait for your app to stage and start. If you see an error message, see the [Troubleshoot App Errors](#troubleshoot) section of this topic.
@@ -107,7 +107,7 @@ Developers can choose to push a self-hosted app instead of using Hostable Web Co
 
 Perform the following steps to push a self-hosted app:
 
-1. To target the Cloud Controller of your <%= vars.product_name  %> deployment, run the following command:
+1. To target the Cloud Controller of your <%= vars.product_name %> deployment, run the following command:
 
     ```shell
     cf api api.APP-DOMAIN
@@ -129,7 +129,7 @@ Perform the following steps to push a self-hosted app:
 
 ##<a id='soap'></a> Push a SOAP Service
 
-Developers can push Simple Object Access Protocol (SOAP) web services to their <%= vars.product_name  %> deployment by following the procedures in the sections below.
+Developers can push Simple Object Access Protocol (SOAP) web services to their <%= vars.product_name %> deployment by following the procedures in the sections below.
 
 ###<a id='push-soap'></a> Step 1: Deploy Your Web Service
 
@@ -159,7 +159,7 @@ Perform the following steps to deploy a SOAP web service:
     urls: webservice.example.com
     </pre>
 
-    <p class="note"><strong>Note</strong>: The push command must include the <code>-s</code> flag to specify the stack, which instructs <%= vars.product_name  %> to run the app in the Windows cell.</p>
+    <p class="note"><strong>Note</strong>: The push command must include the <code>-s</code> flag to specify the stack, which instructs <%= vars.product_name %> to run the app in the Windows cell.</p>
     <p class="note"><strong>Note</strong>: The <code>-p</code> and <code>-u </code> parameters are optional parameters. The <code>-p</code> parameter is needed only when pushing your service from a directory that does not contain the published web service.
         The <code>-u</code> parameter is needed only when disabling the health check when you do not have a route serving <code>/</code>.</p>
 
@@ -167,7 +167,7 @@ Perform the following steps to deploy a SOAP web service:
 
 ###<a id='correct-wsdl'></a> Step 2: Modify the WSDL File
 
-Your SOAP web service is now deployed on <%= vars.product_name  %>, but the service's WSDL file contains incorrect port information.
+Your SOAP web service is now deployed on <%= vars.product_name %>, but the service's WSDL file contains incorrect port information.
 The WSDL file must be modified to enable an app to consume your web service. Either you or the service developer can perform the needed modification.
 
 Examine the following portion of an example WSDL file:
@@ -234,13 +234,13 @@ Developers of external applications that consume the SOAP web service can perfor
 
 ####<a id='context-routing-soap'></a>Context Path Routing Support for SOAP Web Services
 
-Developers can push SOAP web services to their <%= vars.product_name  %> deployment with context path routing. For more information, see the [Context Path Routing Support for ASP.NET Apps](#context-routing) section.
+Developers can push SOAP web services to their <%= vars.product_name %> deployment with context path routing. For more information, see the [Context Path Routing Support for ASP.NET Apps](#context-routing) section.
 
 ##<a id='troubleshoot'></a> Troubleshoot App Errors
 
 If a .NET app fails to start, consult the following list of errors and their possible solutions:
 
-* `NoCompatibleCell`: Your <%= vars.product_name  %> deployment cannot connect to your Windows cell. For information about troubleshooting your Windows cell configuration, see the [Troubleshooting Windows Cells](troubleshooting.html) topic.
+* `NoCompatibleCell`: Your <%= vars.product_name %> deployment cannot connect to your Windows cell. For information about troubleshooting your Windows cell configuration, see the [Troubleshooting Windows Cells](troubleshooting.html) topic.
 
 * `Start unsuccessful`: Your app may may be misconfigured or lacks the required DLL files and dependencies.
     * Ensure that your app directory contains either a valid `.exe` binary or a valid `Web.config` file.
