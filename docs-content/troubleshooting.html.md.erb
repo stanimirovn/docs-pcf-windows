@@ -78,7 +78,7 @@ Windows cells generate the following types of logs:
 
 * **BOSH job logs**, such as `rep_windows` and `consul_agent_windows`.
 These logs stream to the syslog server configured in the PAS tile **System Logging** pane,
-along with other PCF component logs.
+along with other <%= vars.product_name  %> component logs.
 The names of these BOSH job logs correspond to the names of the logs emitted by Linux Diego cells.
 
 * **Windows Event logs**. These logs stream to the syslog server configured in
@@ -147,7 +147,7 @@ Perform the following steps to connect to a Windows cell to run diagnostics:
 	* For Linux/UNIX, download a RDP client like [rdesktop](http://www.rdesktop.org/).
 
 1. Follow the steps in the [Log into BOSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#log-in) section of the <em>Advanced Troubleshooting with the BOSH CLI</em> topic to log in to your BOSH Director.
-	* The steps vary slightly depending on whether your PCF deployment uses internal authentication or an external user store.
+	* The steps vary slightly depending on whether your <%= vars.product_name  %> deployment uses internal authentication or an external user store.
 	* In PAS for Windows v2.6 and later, use of the `bosh ssh` command is enabled by default.
 
 1. To retrieve the IP address of your Windows cell using the BOSH CLI, run the following command:
@@ -236,4 +236,4 @@ Perform the following steps to use the Consul CLI on your Windows cell to diagno
 	router-0                   10.0.0.105:8301  alive   client  0.6.4  2         dc1
 	uaa-0                      10.0.0.93:8301   alive   client  0.6.4  2         dc1
 	</pre>
-1. Examine the output to ensure that the `cell-windows-0` service is registered in the Consul cluster and is `alive`. Otherwise, your Windows cell cannot communicate with your PCF deployment and developers cannot push .NET apps to the Windows cell. Check the configuration of your Consul cluster, and ensure that your certificates are not missing or misconfigured.
+1. Examine the output to ensure that the `cell-windows-0` service is registered in the Consul cluster and is `alive`. Otherwise, your Windows cell cannot communicate with your <%= vars.product_name  %> deployment and developers cannot push .NET apps to the Windows cell. Check the configuration of your Consul cluster, and ensure that your certificates are not missing or misconfigured.
