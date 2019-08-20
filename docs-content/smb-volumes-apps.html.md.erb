@@ -14,7 +14,7 @@ The following is required to use SMB Volumes in your .NET App:
 
 <ul>
 <li>Visual Studio</li>
-<li>An Azure account</li>
+<li>An IaaS Account</li>
 <li>Pivotal Application Service for Windows (PASW)</li>
 <li>An accessible SMB Volume in an IaaS with a UNC path</li>
 <li> An existing .NET Framework application </li>
@@ -27,8 +27,7 @@ The following is required to use SMB Volumes in your .NET App:
 Steeltoe is a set of libraries that help your team write cloud native applications. Steeltoe contains functionality for mounting SMB Volumes. Using Steeltoe requires modifying your application code. For more information, see the <a href="https://steeltoe.io/docs/">Steeltoe Documentation</a>.
 </br>
 </br>
-If you are using Steeltoe, add the following environment variables to your Config Server Provider
-:
+If you are using Steeltoe, add the following environment variables to your Config Server Provider:
 <ul>
 <li><code>SMB\_PATH</code></li>
 <li><code>SMB\_USERNAME</code></li>
@@ -49,10 +48,7 @@ After adding your environment variables to your Config Server Provider, proceed 
 
 If you do not want to modify your application code to include Steeltoe, you can utilize SMB Mounting without Steeltoe. 
 
-1. Retrieve the UNC of your existing SMB share.
-    1. If you are using the Windows 1709.x Stemcell, your UNC is your machine's IP address.
-        1. To look up your machine's IP address, you can run the `nslookup` command. For more information, see [nslookup](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/nslookup) in Microsoft's _Commands by Server Role_ Documentation.
-    1. If you are using the Windows 1803 Stemcell, your UNC is your machine's FQDN.
+1. Retrieve the UNC of your existing SMB share. The UNC is your machine's FQDN.
 1. Create a `.profile.bat` file in your .NET app's root directory.
 1. Use Apps Manager or the Cloud Foundry Command Line Interface (cf CLI) to set the following environment variables:
 <ul>
