@@ -14,7 +14,7 @@ For how to develop microservices for .NET Framework and .NET Core using Steeltoe
 
 The PAS for Windows tile must be installed and configured. For documentation about installing the PAS for Windows tile, see [Installing and Configuring PAS for Windows](installing.html).
 
-Operators must also install the Cloud Foundry Command Line Interface (cf CLI) to run the commands on this topic. For information about installing the cf CLI, see [Installing the cf CLI](https://docs.pivotal.io/pivotalcf/cf-cli/install-go-cli.html).
+Operators must also install the Cloud Foundry Command Line Interface (cf CLI) to run the commands on this topic. For information about installing the cf CLI, see [Installing the cf CLI](https://docs.pivotal.io/platform/cf-cli/install-go-cli.html).
 
 
 ## <a id='overview'></a> Overview
@@ -181,7 +181,7 @@ Examine the following portion of an example WSDL file:
 - </wsdl:service>
 ```
 
-The WSDL file provides the port number for the SOAP web service as `62492`. This is the port that the web service listens on in the Garden container, but external apps cannot access the service on this port. Instead, external apps must use port 80, and the Gorouter routes requests to the web service in the container. For more information about the Garden containter, see the [Container Mechanics](https://docs.pivotal.io/pivotalcf/concepts/container-security.html#mechanics) section of the _Container Security_ topic. For more information about the Gorouter, see [Gorouter](https://docs.pivotal.io/pivotalcf/concepts/architecture/router.html).
+The WSDL file provides the port number for the SOAP web service as `62492`. This is the port that the web service listens on in the Garden container, but external apps cannot access the service on this port. Instead, external apps must use port 80, and the Gorouter routes requests to the web service in the container. For more information about the Garden containter, see the [Container Mechanics](https://docs.pivotal.io/platform/concepts/container-security.html#mechanics) section of the _Container Security_ topic. For more information about the Gorouter, see [Gorouter](https://docs.pivotal.io/platform/concepts/architecture/router.html).
 
 The URL of the web service in the WSDL file must be modified to remove `62492`. With no port number, the URL defaults to port 80. In the example above, the modified URL would be:
 

@@ -19,19 +19,19 @@ Once the Windows cell is running, developers can specify a Windows stack when pu
 
 ## <a id="cells"></a> About Windows Cells
 
-App instances in <%= vars.product_name %> run inside containers. [Garden](https://docs.pivotal.io/pivotalcf/concepts/architecture/garden.html) is the API that creates and manages these containers. An implementation equivalent to that on Linux cells provides this infrastructure on Windows cells, utilizing native Windows Server Containers.
+App instances in <%= vars.product_name %> run inside containers. [Garden](https://docs.pivotal.io/platform/concepts/architecture/garden.html) is the API that creates and manages these containers. An implementation equivalent to that on Linux cells provides this infrastructure on Windows cells, utilizing native Windows Server Containers.
 
-By installing the [PAS for Windows](installing.html) tile, operators create a Windows [cell](https://docs.pivotal.io/pivotalcf/concepts/architecture/index.html#diego-cell) from a [stemcell](https://bosh.io/docs/stemcell.html) that contains the Windows Server operating system. Garden on Windows uses [Windows Containers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/about/) to isolate resources on Windows cells that Cloud Foundry manages alongside Linux cells.
+By installing the [PAS for Windows](installing.html) tile, operators create a Windows [cell](https://docs.pivotal.io/platform/concepts/architecture/index.html#diego-cell) from a [stemcell](https://bosh.io/docs/stemcell.html) that contains the Windows Server operating system. Garden on Windows uses [Windows Containers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/about/) to isolate resources on Windows cells that Cloud Foundry manages alongside Linux cells.
 
 ### <a id="components"></a> Components
 
 A Windows cell includes the following components:
 
-* Guardian: Implements the [Garden](https://docs.pivotal.io/pivotalcf/concepts/architecture/garden.html) API on Windows
-* [Metron Agent](https://docs.pivotal.io/pivotalcf/concepts/diego/diego-architecture.html#metron-agent): Forwards app logs, errors, and metrics to the [Loggregator](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html) system
+* Guardian: Implements the [Garden](https://docs.pivotal.io/platform/concepts/architecture/garden.html) API on Windows
+* [Metron Agent](https://docs.pivotal.io/platform/concepts/diego/diego-architecture.html#metron-agent): Forwards app logs, errors, and metrics to the [Loggregator](https://docs.pivotal.io/platform/loggregator/architecture.html) system
 * [BOSH Agent](https://bosh.io/docs/bosh-components.html#agent): Executes instructions from the BOSH Director
-* [Consul Client](https://docs.pivotal.io/pivotalcf/concepts/diego/diego-architecture.html#consul): Registers the cell as a service in a Consul cluster
-* [Diego Rep](https://docs.pivotal.io/pivotalcf/concepts/diego/diego-architecture.html#rep): Runs and manages [Tasks and Long Running Processes](https://docs.pivotal.io/pivotalcf/concepts/diego/diego-auction.html#processes)
+* [Consul Client](https://docs.pivotal.io/platform/concepts/diego/diego-architecture.html#consul): Registers the cell as a service in a Consul cluster
+* [Diego Rep](https://docs.pivotal.io/platform/concepts/diego/diego-architecture.html#rep): Runs and manages [Tasks and Long Running Processes](https://docs.pivotal.io/platform/concepts/diego/diego-auction.html#processes)
 
 The following diagram illustrates the architecture of a Windows cell:
 

@@ -7,7 +7,7 @@ This topic describes the process of migrating apps running on Pivotal Applicatio
 
 <p class="note"><strong>Note</strong>: PAS for Windows 2012 R2 has reached its End of Availability (EoA) and is no longer generally available. For more information about upgrading the PASW tile, see <a href="./upgrade-2012r2-to-pasw.html">Migrating from PASW 2012 R2 to PASW</a>.</p>
 
-Pivotal recommends you use the blue-green deployment method for high availability. For more information about blue-green deployments, see [Using Blue-Green Deployment to Reduce Downtime and Risk](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/blue-green.html).
+Pivotal recommends you use the blue-green deployment method for high availability. For more information about blue-green deployments, see [Using Blue-Green Deployment to Reduce Downtime and Risk](https://docs.pivotal.io/platform/devguide/deploy-apps/blue-green.html).
 
 ## <a id="install-tile"></a> Step 1: Install and Deploy PAS for Windows Tile
 
@@ -100,7 +100,7 @@ Perform the following steps to redeploy a running app with zero downtime using t
     cf apps
     ```
 
-    If you experience a problem, see [Troubleshooting Application Deployment and Health](https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/troubleshoot-app-health.html).
+    If you experience a problem, see [Troubleshooting Application Deployment and Health](https://docs.pivotal.io/platform/devguide/deploy-apps/troubleshoot-app-health.html).
 
 1. To unmap the original app's route, run the following command:
 
@@ -137,6 +137,6 @@ Once you have migrated all of your apps and you are no longer using the Windows 
 
 1. From the Installation Dashboard, click the trash icon on the tile to remove that product. In the **Delete Product** dialog box that appears, click **Confirm**.
 1. Click **Review Pending Changes**.
-1. Select the PAS for Windows tile and review the changes. For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
+1. Select the PAS for Windows tile and review the changes. For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/platform/customizing/review-pending-changes.html).
 1. Click **Apply Changes**.
   <p class="note"><strong>Note</strong>: After you delete a product, the product tile is removed from the installation and the Installation Dashboard. However, the product appears in the Available Products view.</p>
