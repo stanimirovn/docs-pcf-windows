@@ -28,7 +28,7 @@ In this containerized runtime it is important to remember the following:
 
 * In general, the dependencies in PASW 2012 R2 that were originally made available on the host should now be provided within the container.
 
-* Developers can create similar PASW 2012 R2 app environments by creating bin-deployable dependencies and extension buildpacks. For more information about extension buildpacks, see [Creating an Extension Buildpack for .NET Apps](../../buildpacks/hwc/extension-buildpack.html).
+* Developers can create similar PASW 2012 R2 app environments by creating bin-deployable dependencies and extension buildpacks. For more information about extension buildpacks, see [Creating an Extension Buildpack for .NET Apps](../buildpacks/hwc/extension-buildpack.html).
 
 ### <a id='upgrading'></a> Upgrading to PASW
 
@@ -52,7 +52,7 @@ In PASW, developers install the ODBC driver package locally from the source, ext
 
 Both PASW and PASW 2012 R2 support pushing .NET apps with Application Performance Monitoring (APM) tools. Developers and operators can use third-party APM tools to measure app performance and resource usage.
 
-To push a .NET app with APM tools in PASW 2012 R2, operators installed APM software using BOSH Add-ons. For more information, see [Deploying BOSH Add-Ons](../../customizing/add-ons.html).
+To push a .NET app with APM tools in PASW 2012 R2, operators installed APM software using BOSH Add-ons. For more information, see [Deploying BOSH Add-Ons](../customizing/add-ons.html).
 
 To push a .NET app with APM tools in PASW, operators download an extension buildpack for the APM software, and then push their .NET app with the extension buildpack. APM software vendors, including New Relic and AppDynamics, provide extension buildpacks for their APM tools on [Pivotal Network](https://network.pivotal.io).
 

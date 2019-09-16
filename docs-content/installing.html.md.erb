@@ -68,7 +68,7 @@ To disable SSL validation on development and testing environments:
 
 1. Enable the **Disable SSL certificate verification for this environment** checkbox. 
 
-For more information, see the [Terminate SSL/TLS at HAProxy](../../opsguide/ssl-term-haproxy.html#haproxy) section of _Configuring SSL/TLS Termination at HAProxy_.
+For more information, see the [Terminate SSL/TLS at HAProxy](../opsguide/ssl-term-haproxy.html#haproxy) section of _Configuring SSL/TLS Termination at HAProxy_.
 
 
 ## <a id='install'></a> Install the Tile
@@ -217,7 +217,7 @@ To enable overcommit:
 
 You can choose the method the Gorouter uses to verify app identity. Verifying app identity using TLS or mutual TLS enables encryption between router and app containers and guards against misrouting during control plane failures. This feature is disabled by default.
 
-For more information about Gorouter route consistency modes, see the [Preventing Misrouting](../../concepts/http-routing.html#consistency) section in the _HTTP Routing_ topic.
+For more information about Gorouter route consistency modes, see the [Preventing Misrouting](../concepts/http-routing.html#consistency) section in the _HTTP Routing_ topic.
 
 1. Select **Advanced Features**.
 
@@ -238,7 +238,7 @@ By default, Ops Manager always runs all errands.
 
 In the **Errands** pane, you can change these run rules. For each errand, you can select **On** to run it always or **Off** to never run it.
 
-For more information about how Ops Manager manages errands, see [Managing Errands in Ops Manager](../../customizing/managing_errands.html).
+For more information about how Ops Manager manages errands, see [Managing Errands in Ops Manager](../customizing/managing_errands.html).
 
 1. Select **Errands**.
 
@@ -305,7 +305,7 @@ To upload the stemcell:
 
 1. Retrieve the stemcell that you downloaded or created in [Downloading or Creating a Windows Stemcell](./stemcells.html).
 
-1. Follow the procedure in [Importing and Managing Stemcells](../../opsguide/managing-stemcells.html) to upload the Windows stemcell to PASW.
+1. Follow the procedure in [Importing and Managing Stemcells](../opsguide/managing-stemcells.html) to upload the Windows stemcell to PASW.
 
 <p class='note'><strong>Note:</strong> If you use vSphere, you must create your own stemcell. The default root disk size of Windows stemcells v2019.x line is 30&nbsp;GB. Pivotal recommends setting the root disk size of your Windows stemcell for vSphere to 30&nbsp;GB. For more information, see <a href="create-vsphere-stemcell-manually.html">Creating a Windows Stemcell for vSphere Manually</a> or <a href="create-vsphere-stemcell-automatically.html">Creating a Windows Stemcell for vSphere Using stembuild (Beta)</a>.</p>
 
@@ -318,7 +318,7 @@ To deploy the PASW tile:
 
 1. Click **Review Pending Changes**.
 
-1. Select the PASW tile and review the changes. For more information, see [Reviewing Pending Product Changes](../../customizing/review-pending-changes.html).
+1. Select the PASW tile and review the changes. For more information, see [Reviewing Pending Product Changes](../customizing/review-pending-changes.html).
 
 1. Click **Apply Changes**.
 
