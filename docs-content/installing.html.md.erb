@@ -31,6 +31,30 @@ To install, configure, and deploy PASW:
 
 ## <a id='prerequisite'></a> Prerequisite
 
+You will use the **Windows FS Injector** tool while installing the PASW tile. 
+The **Windows FS Injector** tool requires the following to function correctly:  
+
+1. The `git` and `tar` executables must be in your `%PATH%`. 
+If `git` and `tar` are not in your `%PATH%`, either 
+add the locations of your existing `git` and `tar` executables to your `%PATH%` configuration, or 
+copy `git.exe` and `tar.exe` executables to a directory in your `%PATH%`.  
+1.  The environment must allow the **Windows FS Injector** tool access to the following URLs:  
+    * [network.pivotal.io](https://network.pivotal.io), for downloading the tile and injector.
+    * [s3.amazonaws.com](https://s3.amazonaws.com/).
+    * [auth.docker.io](https://auth.docker.io/).
+    * [registry.hub.docker.com](https://registry.hub.docker.com/).
+    * [https://production.cloudflare.docker.com](https://production.cloudflare.docker.com/).
+    * [go.microsoft.com](https://go.microsoft.com/).
+    * [https://winlayers.cdn.mscr.io](https://winlayers.cdn.mscr.io/).
+    * [mcr.microsoft.com](https://mcr.microsoft.com).
+    * [*.msecnd.net](https://msecnd.net), or any domain within the Microsoft Windows Azure Content Delivery Network. 
+    For more information about the the Windows Azure Content Delivery Network, see 
+    [Introducing the Windows Azure Content Delivery Network](https://azure.microsoft.com/en-us/blog/introducing-the-windows-azure-content-delivery-network/).
+    <p class="note"><strong>Note:</strong>  To guarantee the authenticity of Microsoft container images, Microsoft does not permit the distribution of its base images. 
+     This includes Microsoft container images consumed through Docker Hub, which are actually delivered by an Microsoft CDN endpoint.
+    </p>
+
+#### <a id='prerequisite-tests'></a> Development and Test Environment Prerequisites
 Before you install and configure the PASW tile, you must disable SSL certificate verification for all Windows Diego cells on development and testing environments.
 
 <p class="note"><strong>Note:</strong> Only disable SSL certificate verification for development and testing environments. Do not disable SSL certificate verification for production environments.</p>
