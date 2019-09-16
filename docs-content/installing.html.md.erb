@@ -25,14 +25,17 @@ To install, configure, and deploy PASW, do the following:
 
 ## <a id='prerequisite'></a> Prerequisites
 
-You will use the **Windows FS Injector** tool while installing the PASW tile. 
-The **Windows FS Injector** tool requires the following to function correctly:  
+The following are requirements for installing and configuring the PASW tile.  
+#### <a id='prerequisite-injector'></a> Windows FS Injector Prerequisites
+
+You will use the **Windows FS Injector** tool to install the PASW tile. 
+The **Windows FS Injector** tool requires the following:  
 
 1. The `git` and `tar` executables must be in your `%PATH%`. 
 If `git` and `tar` are not in your `%PATH%`, either 
-add the locations of your existing `git` and `tar` executables to your `%PATH%` configuration, or 
-copy `git.exe` and `tar.exe` executables to a directory in your `%PATH%`.  
-1.  The environment must allow the **Windows FS Injector** tool access to the following URLs:  
+add your `git` and `tar` executable locations to your existing `%PATH%` configuration, or 
+copy the `git.exe` and `tar.exe` executables to a directory in your `%PATH%`.  
+1.  Your installation environment must allow the **Windows FS Injector** tool access to all of the following URLs:  
     * [network.pivotal.io](https://network.pivotal.io), for downloading the tile and injector.
     * [s3.amazonaws.com](https://s3.amazonaws.com/).
     * [auth.docker.io](https://auth.docker.io/).
