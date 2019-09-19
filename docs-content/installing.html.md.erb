@@ -28,14 +28,15 @@ To install, configure, and deploy PASW, do the following:
 The following are requirements for installing and configuring the PASW tile.  
 #### <a id='prerequisite-injector'></a> Windows FS Injector Prerequisites
 
-You will use the **Windows FS Injector** tool to install the PASW tile. 
-The **Windows FS Injector** tool requires the following:  
+Use the **Windows FS Injector** tool to install the PASW tile.  
 
-1. The `git` and `tar` executables must be in your `%PATH%`. 
+Before using the **Windows FS Injector** tool, ensure the following:  
+
+* Ensure the `git` and `tar` executables are in your `%PATH%`. 
 If `git` and `tar` are not in your `%PATH%`, either 
 add your `git` and `tar` executable locations to your existing `%PATH%` configuration, or 
 copy the `git.exe` and `tar.exe` executables to a directory in your `%PATH%`.  
-1.  Your installation environment must allow the **Windows FS Injector** tool access to all of the following URLs:  
+*  Ensure your installation environment allows the **Windows FS Injector** tool access to all of the following URLs:  
     * [network.pivotal.io](https://network.pivotal.io), for downloading the tile and injector.
     * [s3.amazonaws.com](https://s3.amazonaws.com/).
     * [auth.docker.io](https://auth.docker.io/).
@@ -48,7 +49,7 @@ copy the `git.exe` and `tar.exe` executables to a directory in your `%PATH%`.
     For more information about the the Windows Azure Content Delivery Network, see 
     [Introducing the Windows Azure Content Delivery Network](https://azure.microsoft.com/en-us/blog/introducing-the-windows-azure-content-delivery-network/).
     <p class="note"><strong>Note:</strong>  To ensure the authenticity of Microsoft container images, Microsoft does not permit the distribution of its base images. 
-     This includes Microsoft container images consumed through Docker Hub, which are actually delivered by an Microsoft CDN endpoint.
+     This includes Microsoft container images consumed through Docker Hub, which are actually delivered by a Microsoft CDN endpoint.
     </p>
 
 #### <a id='prerequisite-tests'></a> Development and Test Environment Prerequisites
