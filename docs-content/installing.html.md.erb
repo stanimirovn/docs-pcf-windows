@@ -31,16 +31,14 @@ To install, configure, and deploy PASW:
 
 ## <a id='prerequisite'></a> Prerequisites
 
-The following are requirements for installing and configuring the PASW tile.  
-#### <a id='prerequisite-injector'></a> Windows FS Injector Prerequisites
+The following are requirements for installing and configuring the PASW tile.
 
-You will use the **Windows FS Injector** tool to install the PASW tile. 
-The **Windows FS Injector** tool requires the following:  
+### <a id='prerequisite-injector'></a> Windows FS Injector Prerequisites
 
-1. The `git` and `tar` executables must be in your `%PATH%`. 
-If `git` and `tar` are not in your `%PATH%`, either 
-add your `git` and `tar` executable locations to your existing `%PATH%` configuration, or 
-copy the `git.exe` and `tar.exe` executables to a directory in your `%PATH%`.  
+You will use the **Windows FS Injector** tool to install the PASW tile. The **Windows FS Injector** tool requires the following:  
+
+1. The `git` and `tar` executables must be in your `%PATH%`. If `git` and `tar` are not in your `%PATH%`, either add your `git` and `tar` executable locations to your existing `%PATH%` configuration, or copy the `git.exe` and `tar.exe` executables to a directory in your `%PATH%`.  
+
 1.  Your installation environment must allow the **Windows FS Injector** tool access to all of the following URLs:  
     * [network.pivotal.io](https://network.pivotal.io), for downloading the tile and injector.
     * [s3.amazonaws.com](https://s3.amazonaws.com/).
@@ -53,11 +51,10 @@ copy the `git.exe` and `tar.exe` executables to a directory in your `%PATH%`.
     * [*.msecnd.net](https://msecnd.net), or any domain within the Microsoft Windows Azure Content Delivery Network. 
     For more information about the the Windows Azure Content Delivery Network, see 
     [Introducing the Windows Azure Content Delivery Network](https://azure.microsoft.com/en-us/blog/introducing-the-windows-azure-content-delivery-network/).
-    <p class="note"><strong>Note:</strong>  To ensure the authenticity of Microsoft container images, Microsoft does not permit the distribution of its base images. 
-     This includes Microsoft container images consumed through Docker Hub, which are actually delivered by an Microsoft CDN endpoint.
-    </p>
+    <p class="note"><strong>Note:</strong> To ensure the authenticity of Microsoft container images, Microsoft does not permit the distribution of its base images. This includes Microsoft container images consumed through Docker Hub, which are actually delivered by an Microsoft CDN endpoint.</p>
 
-#### <a id='prerequisite-tests'></a> Development and Test Environment Prerequisites
+### <a id='prerequisite-tests'></a> Development and Test Environment Prerequisites
+
 Before you install and configure the PASW tile, you must disable SSL certificate verification for all Windows Diego cells on development and testing environments.
 
 <p class="note"><strong>Note:</strong> Only disable SSL certificate verification for development and testing environments. Do not disable SSL certificate verification for production environments.</p>
@@ -66,7 +63,7 @@ To disable SSL validation on development and testing environments:
 
 1. In the PAS tile, select **Networking**. 
 
-1. Enable the **Disable SSL certificate verification for this environment** checkbox. 
+1. Deselect the **Disable SSL certificate verification for this environment** checkbox. 
 
 For more information, see the [Terminate SSL/TLS at HAProxy](https://docs.pivotal.io/platform/opsguide/ssl-term-haproxy.html#haproxy) section of _Configuring SSL/TLS Termination at HAProxy_.
 
@@ -144,6 +141,8 @@ The following sections describe how to configure the settings for the PASW tile.
 
 In the **Assign AZ and Networks** pane, you assign jobs to your Availability Zones (AZs) and networks.
 
+To configure AZs and networks:
+
 1. Click the PASW tile.
 
 1. Select **Assign AZs and Networks** or **Assign Networks**. The name of the pane varies depending on your IaaS.
@@ -161,13 +160,15 @@ In the **Assign AZ and Networks** pane, you assign jobs to your Availability Zon
 
 In the **VM Options** pane, you configure settings for accessing your VMs.
 
+To configure VM access:
+
 1. Select **VM Options**.
 
 1. Select one of the following for **Manage administrator password**:
   * To randomize the admin password, select **Use random password**. If you select this option, the admin password is not retrievable by an operator. This is the default selection.
   * To set the same admin password for every Windows Diego Cell, select **Set the password** and enter a password in **Password**. If you select this option, this password can be used to access any Windows Diego Cell.
 
-1. (Optional) To start the Microsoft beta port of the OpenSSH daemon on port 22 on all VMs, enable the **Enable BOSH-native SSH support on all VMs (beta)** checkbox. If you select this option, users can SSH into Windows VMs with the `bosh ssh` command, and enter a CMD terminal as an admin user. They can then run `powershell.exe` to start a PowerShell session.
+1. (Optional) To start the Microsoft beta port of the OpenSSH daemon on port 22 on all VMs, select the **Enable BOSH-native SSH support on all VMs (beta)** checkbox. If you select this option, users can SSH into Windows VMs with the `bosh ssh` command and enter a CMD terminal as an admin user. They can then run `powershell.exe` to start a PowerShell session.
 
 1. (Optional) To configure a Key Management Service (KMS) that your volume-licensed Windows Diego Cell can register with:
     1. Under **Key Management Service**, select **Enable**.
@@ -179,6 +180,8 @@ In the **VM Options** pane, you configure settings for accessing your VMs.
 ### <a id='config-smoke-tests'></a> Configure Smoke Tests
 
 In the **Smoke Tests** pane, you choose where to run smoke tests. The Smoke Tests errand runs basic functionality tests against your PASW deployment after an installation or update.
+
+To configure smoke tests:
 
 1. Select **Smoke Tests**.
 
@@ -193,9 +196,11 @@ In the **Smoke Tests** pane, you choose where to run smoke tests. The Smoke Test
 
 The **Advanced Features** pane includes new functionality that may have certain constraints. Although these features are fully supported, Pivotal recommends caution when using them in production environments.
 
-#### <a id='config-memory-disk'></a>
+The following sections describe how to configure these advanced features.
 
-If your apps do not use the full allocation of disk space and memory set in the **Resource Config** tab, you might want use this feature. These fields control the amount to overcommit disk and memory resources to each Diego Cell VM.
+#### <a id='config-memory-disk'></a> Diego Cell Memory and Disk Overcommit
+
+If your apps do not use the full allocation of disk space and memory set in the **Resource Config** pane, you might want use this feature. These fields control the amount to overcommit disk and memory resources to each Diego Cell VM.
 
 For example, you might want to use the overcommit if your apps use a small amount of disk and memory capacity compared to the amounts set in the **Resource Config** settings for **Windows Diego Cell**.
 
@@ -219,14 +224,16 @@ You can choose the method the Gorouter uses to verify app identity. Verifying ap
 
 For more information about Gorouter route consistency modes, see the [Preventing Misrouting](https://docs.pivotal.io/platform/concepts/http-routing.html#consistency) section in the _HTTP Routing_ topic.
 
+To configure app identity verification:
+
 1. Select **Advanced Features**.
 
 1. Under **TLS connections from Router to apps (beta)**, select one of the following options:
-      * To disable app identity verification and mutual TLS, select *Disable route integrity and mutual TLS*.
+      * To disable app identity verification and mutual TLS (mTLS), select *Disable route integrity and mutual TLS*.
       * To enable the Gorouter to verify app identity using TLS, click **Router uses TLS to verify app identity**.
       * To enable the Gorouter and your apps to verify each other's identity using TLS, click **Router and apps use mutual TLS to verify each other's identity**.
-      <p class='note'><strong>Note:</strong> Mutual TLS (mTLS) app identity verification does not work for Windows containers.</p>
-      <p class='note'><strong>Note:</strong> To support mutual TLS app identity verification, you need v2.3 or later of both PAS and <%= vars.product_name %> Isolation Segment (IST). The Gorouter and Diego Cell components in <%= vars.product_name %> v2.2 and earlier do not support mTLS handshakes.</p>
+      <p class='note'><strong>Note:</strong> mTLS app identity verification does not work for Windows containers.</p>
+      <p class='note'><strong>Note:</strong> To support mTLS app identity verification, you need v2.3 or later of both PAS and <%= vars.product_name %> Isolation Segment (IST). The Gorouter and Diego Cell components in <%= vars.product_name %> v2.2 and earlier do not support mTLS handshakes.</p>
 
 1. Click **Save**.
 
@@ -234,17 +241,19 @@ For more information about Gorouter route consistency modes, see the [Preventing
 
 Errands are scripts that Ops Manager runs automatically when it installs or uninstalls a product, such as a new version of PAS. There are two types of errands: _post-deploy errands_ run after the product is installed, and _pre-delete errands_ run before the product in uninstalled.
 
-By default, Ops Manager always runs all errands.
+By default, Ops Manager runs all errands.
 
-In the **Errands** pane, you can change these run rules. For each errand, you can select **On** to run it always or **Off** to never run it.
+In the **Errands** pane, you can change these run rules. For each errand, you can select **On** to run it each time Ops Manager installs or uninstalls a product, or **Off** to never run it.
 
 For more information about how Ops Manager manages errands, see [Managing Errands in Ops Manager](https://docs.pivotal.io/platform/customizing/managing_errands.html).
+
+To configure errands:
 
 1. Select **Errands**.
 
 1. To ensure that you receive the most up-to-date HWC buildpack, set the **Install HWC Buildpack Errand** to **On**.
 
-1. To ensure that a smoke test is run against your PASWe installation, set the **Smoke Test Errand** to **On**.
+1. To ensure that a smoke test is run against your PASW installation, set the **Smoke Test Errand** to **On**.
 
 1. Click **Save**.
 
