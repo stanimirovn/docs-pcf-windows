@@ -33,25 +33,13 @@ To install, configure, and deploy PASW:
 
 The following are requirements for installing and configuring the PASW tile.
 
-<<<<<<< HEAD
 ### <a id='prerequisite-injector'></a> Windows FS Injector Prerequisites
 
-You will use the **Windows FS Injector** tool to install the PASW tile. The **Windows FS Injector** tool requires the following:  
+You use the **Windows FS Injector** tool to install the PASW tile. The **Windows FS Injector** tool requires the following:  
 
 1. The `git` and `tar` executables must be in your `%PATH%`. If `git` and `tar` are not in your `%PATH%`, either add your `git` and `tar` executable locations to your existing `%PATH%` configuration, or copy the `git.exe` and `tar.exe` executables to a directory in your `%PATH%`.  
 
 1.  Your installation environment must allow the **Windows FS Injector** tool access to all of the following URLs:  
-=======
-Use the **Windows FS Injector** tool to install the PASW tile.  
-
-Before using the **Windows FS Injector** tool, ensure the following:  
-
-* Ensure the `git` and `tar` executables are in your `%PATH%`. 
-If `git` and `tar` are not in your `%PATH%`, either 
-add your `git` and `tar` executable locations to your existing `%PATH%` configuration, or 
-copy the `git.exe` and `tar.exe` executables to a directory in your `%PATH%`.  
-*  Ensure your installation environment allows the **Windows FS Injector** tool access to all of the following URLs:  
->>>>>>> eb428cf356e0c72d1545f01dc9460d158af31bbd
     * [network.pivotal.io](https://network.pivotal.io), for downloading the tile and injector.
     * [s3.amazonaws.com](https://s3.amazonaws.com/).
     * [auth.docker.io](https://auth.docker.io/).
@@ -63,15 +51,9 @@ copy the `git.exe` and `tar.exe` executables to a directory in your `%PATH%`.
     * [*.msecnd.net](https://msecnd.net), or any domain within the Microsoft Windows Azure Content Delivery Network. 
     For more information about the the Windows Azure Content Delivery Network, see 
     [Introducing the Windows Azure Content Delivery Network](https://azure.microsoft.com/en-us/blog/introducing-the-windows-azure-content-delivery-network/).
-<<<<<<< HEAD
     <p class="note"><strong>Note:</strong> To ensure the authenticity of Microsoft container images, Microsoft does not permit the distribution of its base images. This includes Microsoft container images consumed through Docker Hub, which are actually delivered by an Microsoft CDN endpoint.</p>
 
 ### <a id='prerequisite-tests'></a> Development and Test Environment Prerequisites
-=======
-    <p class="note"><strong>Note:</strong>  To ensure the authenticity of Microsoft container images, Microsoft does not permit the distribution of its base images. 
-     This includes Microsoft container images consumed through Docker Hub, which are actually delivered by a Microsoft CDN endpoint.
-    </p>
->>>>>>> eb428cf356e0c72d1545f01dc9460d158af31bbd
 
 Before you install and configure the PASW tile, you must disable SSL certificate verification for all Windows Diego cells on development and testing environments.
 
@@ -326,6 +308,8 @@ To configure your tile resources:
 
 ## <a id='stemcells'></a> Upload the Stemcell
 
+After configuring resources for the PASW tile, you must upload the Windows stemcell to the tile.
+
 To upload the stemcell:
 
 1. In the PASW tile, select **Stemcell Library**.
@@ -338,6 +322,8 @@ To upload the stemcell:
 
 
 ## <a id='deploy'></a> Deploy the Tile
+
+After uploading the Windows stemcell to the PASW tile, you are ready to deploy the tile.
 
 To deploy the PASW tile:
 
