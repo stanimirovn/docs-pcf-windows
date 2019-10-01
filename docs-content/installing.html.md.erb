@@ -53,9 +53,10 @@ copy the `git.exe` and `tar.exe` executables to a directory in your `%PATH%`.
     </p>
 
 #### <a id='prerequisite-tests'></a> Development and Test Environment Prerequisites
-Before you install and configure the PASW tile, you must disable SSL certificate verification for all Windows Diego cells on development and testing environments.
 
-<p class="note"><strong>Note</strong>: Only disable SSL certificate verification for development and testing environments. Do not disable SSL certificate verification for production environments.</p>
+Before you install and configure the PASW tile, you must disable SSL certificate verification for all Windows Diego Cells on foundations that do not use real certificates.
+
+<p class="note"><strong>Note:</strong> Only disable SSL certificate verification for development and testing environments that use a placeholder or dummy certificate. Do not disable SSL certificate verification for production environments.</p>
 
 To disable SSL validation on development and testing environments, do the following:
 
