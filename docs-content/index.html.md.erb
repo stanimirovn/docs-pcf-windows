@@ -70,6 +70,10 @@ The minimum resource requirements for each Windows cell are as follows:
 
 PAS for Windows has the following limitations:
 
+* PAS for Windows can be installed in an environment with the NSX Container Plugin (NCP), 
+but NCP cannot be used with Windows containers in PAS for Windows. 
+For more information about NCP, see [What's New](https://docs.vmware.com/en/VMware-NSX-T-Data-Center/2.5/rn/NSX-Container-Plugin-25-Release-Notes.html#about) 
+in the VMware documentation.  
 * Developers cannot push Docker or other OCI-compatible images to Windows Diego cells.
 * Container-to-container networking is not available for Windows-hosted applications.
 * OpenStack is currently not supported for PAS for Windows. Contact your Pivotal representative for information about OpenStack deployments.
