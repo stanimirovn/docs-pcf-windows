@@ -3,22 +3,22 @@ title: Installing and Configuring PASW
 owner: Windows
 ---
 
-This topic describes how to install and configure the Pivotal Application Service for Windows (PASW) tile. 
+This topic describes how to install and configure the <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>) tile.
 
 If you have the PASW 2012 R2 tile installed, see [Migrating from PASW 2012 R2 to PASW](./upgrade-2012r2-to-pasw.html) for more information about the changes in features and functionality between the two tile versions.
 
 
 ## <a id='overview'></a> Overview
 
-The PASW tile installs Windows Diego Cells in your <%= vars.product_name  %> deployment.
+The <%= vars.windows_runtime_abbr %> tile installs Windows Diego Cells in your <%= vars.platform_name %> deployment.
 
-The PASW tile inherits settings from the Pivotal Application Service (PAS) tile and also includes additional configuration settings.
+The <%= vars.windows_runtime_abbr %> tile inherits settings from the <%= vars.app_runtime_full %> tile and also includes additional configuration settings.
 
-To install, configure, and deploy PASW:  
+To install, configure, and deploy <%= vars.windows_runtime_abbr %>:
 
 1. Complete the prerequisites. See [Prerequisite](#prerequisite).
 
-1. Download and install the PASW tile. See [Install the Tile](#install).
+1. Download and install the <%= vars.windows_runtime_abbr %> tile. See [Install the Tile](#install).
 
 1. Configure required settings for the tile. See [Configure the Tile](#config).
 
@@ -31,15 +31,15 @@ To install, configure, and deploy PASW:
 
 ## <a id='prerequisite'></a> Prerequisites
 
-The following are requirements for installing and configuring the PASW tile.
+The following are requirements for installing and configuring the <%= vars.windows_runtime_abbr %> tile.
 
 ### <a id='prerequisite-injector'></a> Windows FS Injector Prerequisites
 
-You use the **Windows FS Injector** tool to install the PASW tile. The **Windows FS Injector** tool requires the following:  
+You use the **Windows FS Injector** tool to install the <%= vars.windows_runtime_abbr %> tile. The **Windows FS Injector** tool requires the following:
 
-1. The `git` and `tar` executables must be in your `%PATH%`. If `git` and `tar` are not in your `%PATH%`, either add your `git` and `tar` executable locations to your existing `%PATH%` configuration, or copy the `git.exe` and `tar.exe` executables to a directory in your `%PATH%`.  
+1. The `git` and `tar` executables must be in your `%PATH%`. If `git` and `tar` are not in your `%PATH%`, either add your `git` and `tar` executable locations to your existing `%PATH%` configuration, or copy the `git.exe` and `tar.exe` executables to a directory in your `%PATH%`.
 
-1.  Your installation environment must allow the **Windows FS Injector** tool access to all of the following URLs:  
+1.  Your installation environment must allow the **Windows FS Injector** tool access to all of the following URLs:
     * [network.pivotal.io](https://network.pivotal.io), for downloading the tile and injector.
     * [s3.amazonaws.com](https://s3.amazonaws.com/).
     * [auth.docker.io](https://auth.docker.io/).
@@ -48,29 +48,29 @@ You use the **Windows FS Injector** tool to install the PASW tile. The **Windows
     * [go.microsoft.com](https://go.microsoft.com/).
     * [https://winlayers.cdn.mscr.io](https://winlayers.cdn.mscr.io/).
     * [mcr.microsoft.com](https://mcr.microsoft.com).
-    * [*.msecnd.net](https://msecnd.net), or any domain within the Microsoft Windows Azure Content Delivery Network. 
-    For more information about the the Windows Azure Content Delivery Network, see 
+    * [*.msecnd.net](https://msecnd.net), or any domain within the Microsoft Windows Azure Content Delivery Network.
+    For more information about the the Windows Azure Content Delivery Network, see
     [Introducing the Windows Azure Content Delivery Network](https://azure.microsoft.com/en-us/blog/introducing-the-windows-azure-content-delivery-network/).
     <p class="note"><strong>Note:</strong> To ensure the authenticity of Microsoft container images, Microsoft does not permit the distribution of its base images. This includes Microsoft container images consumed through Docker Hub, which are actually delivered by an Microsoft CDN endpoint.</p>
 
 ### <a id='prerequisite-tests'></a> Development and Test Environment Prerequisites
 
-Before you install and configure the PASW tile, you must disable SSL certificate verification for all Windows Diego cells on development and testing environments.
+Before you install and configure the <%= vars.windows_runtime_abbr %> tile, you must disable SSL certificate verification for all Windows Diego Cells on foundations that do not use real certificates.
 
-<p class="note"><strong>Note:</strong> Only disable SSL certificate verification for development and testing environments. Do not disable SSL certificate verification for production environments.</p>
+<p class="note"><strong>Note:</strong> Only disable SSL certificate verification for development and testing environments that use a placeholder or dummy certificate. Do not disable SSL certificate verification for production environments.</p>
 
 To disable SSL validation on development and testing environments:
 
-1. In the PAS tile, select **Networking**. 
+1. In the <%= vars.app_runtime_abbr %> tile, select **Networking**.
 
-1. Deselect the **Disable SSL certificate verification for this environment** checkbox. 
+1. Deselect the **Disable SSL certificate verification for this environment** checkbox.
 
 For more information, see the [Terminate SSL/TLS at HAProxy](https://docs.pivotal.io/platform/opsguide/ssl-term-haproxy.html#haproxy) section of _Configuring SSL/TLS Termination at HAProxy_.
 
 
 ## <a id='install'></a> Install the Tile
 
-To install the PASW tile:
+To install the <%= vars.windows_runtime_abbr %> tile:
 
 1. Download the **Pivotal Application Service for Windows** product file from [Pivotal Network](https://network.pivotal.io/products/pas-windows).
 
@@ -85,7 +85,7 @@ The Injector tool, `winfs-injector`, is an executable binary that adds the Windo
     ```
 
     Where:
-    * `PASW-DOWNLOAD-PATH` is the path and filename to the PASW product file you downloaded.
+    * `PASW-DOWNLOAD-PATH` is the path and filename to the <%= vars.windows_runtime_abbr %> product file you downloaded.
     * `PASW-IMPORTABLE-PATH` is the desired output path for the importable product file.
 
     For example:
@@ -108,7 +108,7 @@ The Injector tool, `winfs-injector`, is an executable binary that adds the Windo
     - name: windows-syslog
       include:
         stemcell:
-        - os: ((Stemcell OS e.g., windows2019))
+        - os: ((stemcell OS e.g., windows2019))
       jobs:
       - name: syslog_forwarder_windows
         properties:
@@ -128,22 +128,22 @@ The Injector tool, `winfs-injector`, is an executable binary that adds the Windo
 
 1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product**.
 
-1. To add the PASW tile to the **Import a Product** product list, select the importable `PASW-IMPORTABLE-PATH` file on your workstation.
+1. To add the <%= vars.windows_runtime_abbr %> tile to the **Import a Product** product list, select the importable `PASW-IMPORTABLE-PATH` file on your workstation.
 
-1. To add the PASW tile to your staging area, click **+** under the **Pivotal Application Service for Windows** product listing.
+1. To add the <%= vars.windows_runtime_abbr %> tile to your staging area, click **+** under the **Pivotal Application Service for Windows** product listing.
 
 
 ## <a id='config'></a> Configure the Tile
 
-The following sections describe how to configure the settings for the PASW tile.  
- 
+The following sections describe how to configure the settings for the <%= vars.windows_runtime_abbr %> tile.
+
 ### <a id='config-azs-networks'></a> Assign Availability Zones and Networks
 
-In the **Assign AZ and Networks** pane, you assign jobs to your Availability Zones (AZs) and networks.
+In **Assign AZ and Networks**, you assign jobs to your Availability Zones (AZs) and networks.
 
 To configure AZs and networks:
 
-1. Click the PASW tile.
+1. Click the <%= vars.windows_runtime_abbr %> tile.
 
 1. Select **Assign AZs and Networks** or **Assign Networks**. The name of the pane varies depending on your IaaS.
 
@@ -158,7 +158,7 @@ To configure AZs and networks:
 
 ### <a id='config-vms'></a> Configure VMs
 
-In the **VM Options** pane, you configure settings for accessing your VMs.
+In **VM Options**, you configure settings for accessing your VMs.
 
 To configure VM access:
 
@@ -179,28 +179,28 @@ To configure VM access:
 
 ### <a id='config-smoke-tests'></a> Configure Smoke Tests
 
-In the **Smoke Tests** pane, you choose where to run smoke tests. The Smoke Tests errand runs basic functionality tests against your PASW deployment after an installation or update.
+In **Smoke Tests**, you choose where to run smoke tests. The Smoke Tests errand runs basic functionality tests against your <%= vars.windows_runtime_abbr %> deployment after an installation or update.
 
 To configure smoke tests:
 
 1. Select **Smoke Tests**.
 
 1. Select one of the following locations for smoke tests to run:
-  * To run smoke tests in a temporary space in the default org, select **A temporary space within the system org**. PASW deletes the space after smoke tests finish.
+  * To run smoke tests in a temporary space in the default org, select **A temporary space within the system org**. <%= vars.windows_runtime_abbr %> deletes the space after smoke tests finish.
   * To specify the org and space where smoke tests run, select **A specified org and space**. You must enter a domain available for routing and that domain must be accessible to the org. Enter the following:
-      * For **Org**, enter the org you want PASW to use when running smoke tests.
-      * For **Space**, enter the space you want PASW to use when running smoke tests.
-      * For **Domain**, enter the domain you want PASW to use when running smoke tests.
+      * For **Org**, enter the org you want <%= vars.windows_runtime_abbr %> to use when running smoke tests.
+      * For **Space**, enter the space you want <%= vars.windows_runtime_abbr %> to use when running smoke tests.
+      * For **Domain**, enter the domain you want <%= vars.windows_runtime_abbr %> to use when running smoke tests.
 
-### <a id='config-advanced-features'></a> Configure Advanced Features      
+### <a id='config-advanced-features'></a> Configure Advanced Features
 
-The **Advanced Features** pane includes new functionality that may have certain constraints. Although these features are fully supported, Pivotal recommends caution when using them in production environments.
+**Advanced Features** includes new functionality that might have certain constraints. Although these features are fully supported, Pivotal recommends caution when using them in production environments.
 
 The following sections describe how to configure these advanced features.
 
 #### <a id='config-memory-disk'></a> Diego Cell Memory and Disk Overcommit
 
-If your apps do not use the full allocation of disk space and memory set in the **Resource Config** pane, you might want use this feature. These fields control the amount to overcommit disk and memory resources to each Diego Cell VM.
+If your apps do not use the full allocation of disk space and memory set in **Resource Config**, you might want use this feature. These fields control the amount to overcommit disk and memory resources to each host VM.
 
 For example, you might want to use the overcommit if your apps use a small amount of disk and memory capacity compared to the amounts set in the **Resource Config** settings for **Windows Diego Cell**.
 
@@ -210,9 +210,9 @@ To enable overcommit:
 
 1. Select **Advanced Features**.
 
-1. Enter in MB the total desired amount of Diego cell memory in the **Cell memory capacity** field. Refer to the **Diego Cell** row in the **Resource Config** tab for the current Diego Cell memory capacity settings that this field overrides.
+1. Enter in MB the total desired amount of Diego Cell memory in the **Cell memory capacity** field. Refer to the **Diego Cell** row in **Resource Config** for the current Diego Cell memory capacity settings that this field overrides.
 
-1. Enter in MB the total desired amount of Diego cell disk capacity in the **Cell disk capacity** field. Refer to the **Diego Cell** row in the **Resource Config** tab for the current Diego Cell disk capacity settings that this field overrides.
+1. Enter in MB the total desired amount of Diego Cell disk capacity in the **Cell disk capacity** field. Refer to the **Diego Cell** row in **Resource Config** for the current Diego Cell disk capacity settings that this field overrides.
 
 1. Click **Save**.
 
@@ -233,17 +233,17 @@ To configure app identity verification:
       * To enable the Gorouter to verify app identity using TLS, click **Router uses TLS to verify app identity**.
       * To enable the Gorouter and your apps to verify each other's identity using TLS, click **Router and apps use mutual TLS to verify each other's identity**.
       <p class='note'><strong>Note:</strong> mTLS app identity verification does not work for Windows containers.</p>
-      <p class='note'><strong>Note:</strong> To support mTLS app identity verification, you need v2.3 or later of both PAS and <%= vars.product_name %> Isolation Segment (IST). The Gorouter and Diego Cell components in <%= vars.product_name %> v2.2 and earlier do not support mTLS handshakes.</p>
+      <p class='note'><strong>Note:</strong> To support mTLS app identity verification, you need v2.3 or later of both <%= vars.app_runtime_abbr %> and <%= vars.product_name %> Isolation Segment (IST). The Gorouter and Diego Cell components in <%= vars.platform_old %> v2.2 and earlier do not support mTLS handshakes.</p>
 
 1. Click **Save**.
 
 ### <a id='config-errands'></a> Configure Errands
 
-Errands are scripts that Ops Manager runs automatically when it installs or uninstalls a product, such as a new version of PAS. There are two types of errands: _post-deploy errands_ run after the product is installed, and _pre-delete errands_ run before the product in uninstalled.
+Errands are scripts that Ops Manager runs automatically when it installs or uninstalls a product, such as a new version of <%= vars.app_runtime_abbr %>. There are two types of errands: _post-deploy errands_ run after the product is installed, and _pre-delete errands_ run before the product in uninstalled.
 
 By default, Ops Manager runs all errands.
 
-In the **Errands** pane, you can change these run rules. For each errand, you can select **On** to run it each time Ops Manager installs or uninstalls a product, or **Off** to never run it.
+In **Errands**, you can change these run rules. For each errand, you can select **On** to run it each time Ops Manager installs or uninstalls a product, or **Off** to never run it.
 
 For more information about how Ops Manager manages errands, see [Managing Errands in Ops Manager](https://docs.pivotal.io/platform/customizing/managing_errands.html).
 
@@ -253,7 +253,7 @@ To configure errands:
 
 1. To ensure that you receive the most up-to-date HWC buildpack, set the **Install HWC Buildpack Errand** to **On**.
 
-1. To ensure that a smoke test is run against your PASW installation, set the **Smoke Test Errand** to **On**.
+1. To ensure that a smoke test is run against your <%= vars.windows_runtime_abbr %> installation, set the **Smoke Test Errand** to **On**.
 
 1. Click **Save**.
 
@@ -261,7 +261,7 @@ To configure errands:
 
 ### <a id='config-iso-segments'></a> (Optional) Configure Isolation Segments
 
-To deploy your PASW app workloads to an isolation segment, select **App Containers** and follow the procedure in the [Assign a Tile to an Isolation Segment](./isolation.html#assign-isolation) section of _Windows Cells in Isolation Segments_.
+To deploy your <%= vars.windows_runtime_abbr %> app workloads to an isolation segment, select **App Containers** and follow the procedure in the [Assign a Tile to an Isolation Segment](./isolation.html#assign-isolation) section of _Windows Cells in Isolation Segments_.
 
 ### <a id='config-system-logging'></a> (Optional) Configure System Logging
 
@@ -270,7 +270,7 @@ To configure Windows Diego Cells to send Windows Event logs to an external syslo
 
 ## <a id='resources'></a> Configure Tile Resources
 
-In the **Resource Config** pane, you must associate load balancers with the VMs in your deployment to enable traffic.
+In **Resource Config**, you must associate load balancers with the VMs in your deployment to enable traffic.
 
 To configure your tile resources:
 
@@ -308,34 +308,34 @@ To configure your tile resources:
 
 ## <a id='stemcells'></a> Upload the Stemcell
 
-After configuring resources for the PASW tile, you must upload the Windows stemcell to the tile.
+After configuring resources for the <%= vars.windows_runtime_abbr %> tile, you must upload the Windows stemcell to the tile.
 
 To upload the stemcell:
 
-1. In the PASW tile, select **Stemcell Library**.
+1. In the <%= vars.windows_runtime_abbr %> tile, select **Stemcell Library**.
 
 1. Retrieve the stemcell that you downloaded or created in [Downloading or Creating a Windows Stemcell](./stemcells.html).
 
-1. Follow the procedure in [Importing and Managing Stemcells](https://docs.pivotal.io/platform/opsguide/managing-stemcells.html) to upload the Windows stemcell to PASW.
+1. Follow the procedure in [Importing and Managing Stemcells](https://docs.pivotal.io/platform/opsguide/managing-stemcells.html) to upload the Windows stemcell to <%= vars.windows_runtime_abbr %>.
 
 <p class='note'><strong>Note:</strong> If you use vSphere, you must create your own stemcell. The default root disk size of Windows stemcells v2019.x line is 30&nbsp;GB. Pivotal recommends setting the root disk size of your Windows stemcell for vSphere to 30&nbsp;GB. For more information, see <a href="create-vsphere-stemcell-manually.html">Creating a Windows Stemcell for vSphere Manually</a> or <a href="create-vsphere-stemcell-automatically.html">Creating a Windows Stemcell for vSphere Using stembuild (Beta)</a>.</p>
 
 
 ## <a id='deploy'></a> Deploy the Tile
 
-After uploading the Windows stemcell to the PASW tile, you are ready to deploy the tile.
+After uploading the Windows stemcell to the <%= vars.windows_runtime_abbr %> tile, you are ready to deploy the tile.
 
-To deploy the PASW tile:
+To deploy the <%= vars.windows_runtime_abbr %> tile:
 
 1. Go to the Ops Manager Installation Dashboard.
 
 1. Click **Review Pending Changes**.
 
-1. Select the PASW tile and review the changes. For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/platform/customizing/review-pending-changes.html).
+1. Select the <%= vars.windows_runtime_abbr %> tile and review the changes. For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/platform/customizing/review-pending-changes.html).
 
 1. Click **Apply Changes**.
 
 
 ## <a id='copy'></a> (Optional) Create More Tiles
 
-To run Windows Diego Cells in multiple isolation segments, you must create and configure additional PASW tiles. For more information, see [Windows Cells in Isolation Segments](./isolation.html).
+To run Windows Diego Cells in multiple isolation segments, you must create and configure additional <%= vars.windows_runtime_abbr %> tiles. For more information, see [Windows Cells in Isolation Segments](./isolation.html).
