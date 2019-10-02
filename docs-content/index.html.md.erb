@@ -7,7 +7,7 @@ owner: Windows
 
 Pivotal Application Service (PAS) for Windows enables operators to provision, operate, and manage Windows cells on <%= vars.product_name  %>.
 
-After operators install the PAS for Windows tile on the Ops Manager Installation Dashboard, developers can push .NET applications to Windows cells using the [Cloud Foundry Command Line Interface](https://docs.pivotal.io/platform/2-7/cf-cli/) (cf CLI).
+After operators install the PAS for Windows tile on the Ops Manager Installation Dashboard, developers can push .NET applications to Windows cells using the [Cloud Foundry Command Line Interface](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/cf-cli/) (cf CLI).
 
 For the PAS for Windows release notes, see the [PAS for Windows v<%= product_info['local_product_version'].to_s %> Release Notes](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/pcf-release-notes/windows-rn.html) topic.
 
@@ -15,7 +15,7 @@ For the PAS for Windows release notes, see the [PAS for Windows v<%= product_inf
 
 To install the PAS for Windows tile, you must have the following:
 
-* Ops Manager v2.7 and PAS v2.7 deployed to vSphere, Amazon Web Services (AWS), Google Cloud Platform (GCP), or Azure.  
+* Ops Manager v<%= product_info['local_product_version'].to_s %> and PAS v<%= product_info['local_product_version'].to_s %> deployed to vSphere, Amazon Web Services (AWS), Google Cloud Platform (GCP), or Azure.  
 
 * A Windows stemcell, which you can obtain by following the directions in [Downloading or Creating Windows Stemcells](./stemcells.html).  
 
@@ -62,7 +62,7 @@ The minimum resource requirements for each Windows cell are as follows:
 
 * <a href="smb-volumes-apps.html">Using SMB Volumes in .NET Apps</a>
 
-* <a href="https://docs.pivotal.io/platform/2-7/devguide/deploy-apps/windows-stacks.html">Changing Windows Stacks</a>
+* <a href="https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/devguide/deploy-apps/windows-stacks.html">Changing Windows Stacks</a>
 
 * <a href="using.html" class="subnav">Tips for .NET Developers</a>
 
