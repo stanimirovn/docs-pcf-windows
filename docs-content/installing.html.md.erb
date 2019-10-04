@@ -12,15 +12,21 @@ If you have the PASW 2012 R2 tile installed, see [Migrating from PASW 2012 R2 to
 The PASW tile inherits settings from the Pivotal Application Service (PAS) tile. The PAS tile settings in
 this section affect the Windows Diego Cells that the PASW tile deploys.
 
-Review the following settings in your PAS tile. If necessary, update PAS settings to fit your intended
-PASW deployment and click **Apply Changes**.
+If your foundation does not use real certificates, you must disable SSL certificate
+verification for all Windows Diego Cells before you install and configure the
+PASW tile. If your foundation uses real certificates, you do not need to disable SSL.
 
-### <a id='disable-ssl'></a>Disable SSL Certificate Verification
+<p class="note"><strong>Note</strong>: Only disable SSL certificate verification for development and testing environments that use a placeholder or dummy certificate. Do not disable SSL certificate verification for production environments.</p>
 
-In the **Networking** pane, if you select the **Disable SSL certificate verification for this environment** checkbox,
-SSL certificate verification is disabled for Windows Diego Cells. For more information, see the [Procedure: Terminate SSL/TLS at HAProxy](../opsguide/ssl-term-haproxy.html#haproxy) section of _Configuring SSL/TLS Termination at HAProxy_.
+To disable SSL validation on development and testing environments:
 
- <p class="note"><strong>Note</strong>: Only disable SSL certificate verification for development and testing environments that use a placeholder or dummy certificate. Do not select <strong>Disable SSL certificate verification for this environment</strong> for production environments.</p>
+1. In the PAS tile, select **Networking**.
+
+1. Select **the Disable SSL certificate verification for this environment** checkbox.
+
+1. Click **Apply Changes**.
+
+For more information, see the [Procedure: Terminate SSL/TLS at HAProxy](../opsguide/ssl-term-haproxy.html#haproxy) section of _Configuring SSL/TLS Termination at HAProxy_.
 
 ##<a id='install'></a> Step 2: Install the Tile
 
