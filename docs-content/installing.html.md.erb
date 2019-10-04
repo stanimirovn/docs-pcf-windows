@@ -31,7 +31,14 @@ To install, configure, and deploy <%= vars.windows_runtime_abbr %>:
 
 ## <a id='prerequisite'></a> Prerequisites
 
-The following are requirements for installing and configuring the <%= vars.windows_runtime_abbr %> tile.
+Before you install and configure the <%= vars.windows_runtime_abbr %> tile:
+
+* Ensure that you meet the requirements to use the **Windows FS Injector** tool.
+See [Windows FS Injector Prerequisites](#prerequisite-injector).
+
+* If you are installing <%= vars.windows_runtime_abbr %> in a development
+environment and you plan to use a placeholder or dummy SSL certificate, see
+[(Optional) Disable SSL Verification for a Development Environment](#prerequisite-tests).
 
 ### <a id='prerequisite-injector'></a> Windows FS Injector Prerequisites
 
@@ -53,9 +60,12 @@ You use the **Windows FS Injector** tool to install the <%= vars.windows_runtime
     [Introducing the Windows Azure Content Delivery Network](https://azure.microsoft.com/en-us/blog/introducing-the-windows-azure-content-delivery-network/).
     <p class="note"><strong>Note:</strong> To ensure the authenticity of Microsoft container images, Microsoft does not permit the distribution of its base images. This includes Microsoft container images consumed through Docker Hub, which are actually delivered by an Microsoft CDN endpoint.</p>
 
-### <a id='prerequisite-tests'></a> Development and Test Environment Prerequisites
+### <a id='prerequisite-tests'></a>(Optional) Disable SSL Verification for a Development Environment
 
-Before you install and configure the <%= vars.windows_runtime_abbr %> tile, you must disable SSL certificate verification for all Windows Diego Cells on foundations that do not use real certificates.
+If your foundation does not use real certificates, you must disable SSL certificate
+verification for all Windows Diego Cells before you install and configure the
+<%= vars.windows_runtime_abbr %> tile. If your foundation uses real certificates,
+you do not need to disable SSL.
 
 <p class="note"><strong>Note:</strong> Only disable SSL certificate verification for development and testing environments that use a placeholder or dummy certificate. Do not disable SSL certificate verification for production environments.</p>
 
