@@ -3,7 +3,7 @@ title: Installing and Configuring PASW
 owner: Windows
 ---
 
-This topic describes how to install and configure the Pivotal Application Service for Windows (PASW) tile. 
+This topic describes how to install and configure the Pivotal Application Service for Windows (PASW) tile.
 
 If you have the PASW 2012 R2 tile installed, see [Migrating from PASW 2012 R2 to PASW](./upgrade-2012r2-to-pasw.html) for more information about the changes in features and functionality between the two tile versions.
 
@@ -13,7 +13,7 @@ The PASW tile installs Windows Diego Cells in your Pivotal Cloud Foundry (PCF) d
 
 The PASW tile inherits settings from the Pivotal Application Service (PAS) tile and also includes additional configuration settings.
 
-To install, configure, and deploy PASW, do the following:  
+To install, configure, and deploy PASW, do the following:
 
 1. Complete the prerequisites. See [Prerequisite](#prerequisite).
 1. Download and install the PASW tile. See [Install the Tile](#install).
@@ -25,18 +25,26 @@ To install, configure, and deploy PASW, do the following:
 
 ## <a id='prerequisite'></a> Prerequisites
 
-The following are requirements for installing and configuring the PASW tile.  
-#### <a id='prerequisite-injector'></a> Windows FS Injector Prerequisites
+Before you install and configure the <%= vars.windows_runtime_abbr %> tile:
 
-Use the **Windows FS Injector** tool to install the PASW tile.  
+* Ensure that you meet the requirements to use the **Windows FS Injector** tool.
+See [Windows FS Injector Prerequisites](#prerequisite-injector).
 
-Before using the **Windows FS Injector** tool, ensure the following:  
+* If you are installing <%= vars.windows_runtime_abbr %> in a development
+environment and you plan to use a placeholder or dummy SSL certificate, see
+[(Optional) Disable SSL Verification for a Development Environment](#prerequisite-tests).
 
-* Ensure the `git` and `tar` executables are in your `%PATH%`. 
-If `git` and `tar` are not in your `%PATH%`, either 
-add your `git` and `tar` executable locations to your existing `%PATH%` configuration, or 
-copy the `git.exe` and `tar.exe` executables to a directory in your `%PATH%`.  
-*  Ensure your installation environment allows the **Windows FS Injector** tool access to all of the following URLs:  
+### <a id='prerequisite-injector'></a> Windows FS Injector Prerequisites
+
+Use the **Windows FS Injector** tool to install the PASW tile.
+
+Before using the **Windows FS Injector** tool, ensure the following:
+
+* Ensure the `git` and `tar` executables are in your `%PATH%`.
+If `git` and `tar` are not in your `%PATH%`, either
+add your `git` and `tar` executable locations to your existing `%PATH%` configuration, or
+copy the `git.exe` and `tar.exe` executables to a directory in your `%PATH%`.
+*  Ensure your installation environment allows the **Windows FS Injector** tool access to all of the following URLs:
     * [network.pivotal.io](https://network.pivotal.io), for downloading the tile and injector.
     * [s3.amazonaws.com](https://s3.amazonaws.com/).
     * [auth.docker.io](https://auth.docker.io/).
@@ -45,24 +53,27 @@ copy the `git.exe` and `tar.exe` executables to a directory in your `%PATH%`.
     * [go.microsoft.com](https://go.microsoft.com/).
     * [https://winlayers.cdn.mscr.io](https://winlayers.cdn.mscr.io/).
     * [mcr.microsoft.com](https://mcr.microsoft.com).
-    * [*.msecnd.net](https://msecnd.net), or any domain within the Microsoft Windows Azure Content Delivery Network. 
-    For more information about the the Windows Azure Content Delivery Network, see 
+    * [*.msecnd.net](https://msecnd.net), or any domain within the Microsoft Windows Azure Content Delivery Network.
+    For more information about the the Windows Azure Content Delivery Network, see
     [Introducing the Windows Azure Content Delivery Network](https://azure.microsoft.com/en-us/blog/introducing-the-windows-azure-content-delivery-network/).
-    <p class="note"><strong>Note:</strong>  To ensure the authenticity of Microsoft container images, Microsoft does not permit the distribution of its base images. 
+    <p class="note"><strong>Note:</strong>  To ensure the authenticity of Microsoft container images, Microsoft does not permit the distribution of its base images.
      This includes Microsoft container images consumed through Docker Hub, which are actually delivered by a Microsoft CDN endpoint.
     </p>
 
-#### <a id='prerequisite-tests'></a> Development and Test Environment Prerequisites
+### <a id='prerequisite-tests'></a>(Optional) Disable SSL Verification for a Development Environment
 
-Before you install and configure the PASW tile, you must disable SSL certificate verification for all Windows Diego Cells on foundations that do not use real certificates.
+If your foundation does not use real certificates, you must disable SSL certificate
+verification for all Windows Diego Cells before you install and configure the
+PASW tile. If your foundation uses real certificates,
+you do not need to disable SSL.
 
 <p class="note"><strong>Note:</strong> Only disable SSL certificate verification for development and testing environments that use a placeholder or dummy certificate. Do not disable SSL certificate verification for production environments.</p>
 
 To disable SSL validation on development and testing environments, do the following:
 
-1. In the PAS tile, go to the **Networking** pane. 
+1. In the PAS tile, go to the **Networking** pane.
 
-1. Select the **Disable SSL certificate verification for this environment** checkbox. 
+1. Select the **Disable SSL certificate verification for this environment** checkbox.
 
 For more information, see the [Procedure: Terminate SSL/TLS at HAProxy](../opsguide/ssl-term-haproxy.html#haproxy) section of _Configuring SSL/TLS Termination at HAProxy_.
 
@@ -135,8 +146,8 @@ add the following BOSH add-on to a `runtime_config` YAML file:
 
 ##<a id='config'></a> Configure the Tile
 
-The following sections describe how to configure the settings for the PASW tile.  
- 
+The following sections describe how to configure the settings for the PASW tile.
+
 ###<a id='config-azs-networks'></a> Assign Availability Zones and Networks
 
 To assign AZs and networks, do the following:
@@ -191,7 +202,7 @@ To configure smoke tests, do the following:
       * In the **Space** field, enter the Application Service space to use when running tests.
       * In the **Domain** field, enter the domain that the org has access to for running smoke tests.
 
-### <a id='config-memory-disk'></a> Configure Memory and Disk for Windows Diego Cells      
+### <a id='config-memory-disk'></a> Configure Memory and Disk for Windows Diego Cells
 
 To configure memory and disk overcommit for your Windows Diego Cells, do the following:
 
