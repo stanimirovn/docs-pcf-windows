@@ -25,6 +25,7 @@ Before you create a vSphere Windows stemcell, you must have the following:
 
 * A Windows Server 2019 ISO, from [Microsoft Developer Network (MSDN)](https://msdn.microsoft.com/en-us) or [Volume Licensing Service Center (VLSC)](https://www.microsoft.com/Licensing/servicecenter/default.aspx). You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production, as the licensing expires.
 	<p class="note"><strong>Note</strong>: Pivotal recommends maintaining a separate, updated Windows VM based on this ISO to serve as the basis for the installation steps below. This enables you to apply Windows Updates and create new stemcells without having to reinstall all updates from scratch.</p>
+	<p class="note"><b>Note:</b> The Windows Server 2019 ISO must be a clean, base ISO file. A clean ISO file has no custom scripts or tooling. For example, the ISO must have no logging or antivirus tools installed.</p>
 * A vSphere/vCenter account granted sufficient permissions to perform all of the following tasks:
 	- Create a VM.
 	- Configure a VM.
