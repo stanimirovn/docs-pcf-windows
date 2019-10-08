@@ -68,8 +68,9 @@ Perform the following steps to redeploy a running app with zero downtime using t
     For additional information about <code>cf push</code>, see <a href="http://cli.cloudfoundry.org/en-US/cf/push.html">cf push</a>.</p>
 
     <p class="note"><strong>Note</strong>: The <code>windows</code> stack is a renaming of the old <code>windows2016</code> stack. These stacks are identical and differ in name only.
-    If the <code>windows</code> stack is available, specify <code>-s windows</code>. Otherwise, specify <code>-s windows2016</code>. Starting in PAS for Windows v2.5, the <code>windows2016</code> stack is deprecated.
-    For more information, please see the <a href="https://docs.pivotal.io/pivotalcf/2-5/pcf-release-notes/windows-rn.html#-deprecation-of-the-windows2016-stack">PAS for Windows v2.5 release notes</a>.</p>
+    If the <code>windows</code> stack is available, specify <code>-s windows</code>. Otherwise, specify <code>-s windows2016</code>. In PAS for Windows v2.5 and later, the <code>windows2016</code> stack is deprecated. 
+
+    For more information, see <a href="https://docs.pivotal.io/platform/2-5/pcf-release-notes/windows-rn.html#-deprecation-of-the-windows2016-stack">PAS for Windows v2.5 Release Notes</a>.</p>
 
 1. To configure the router so all incoming requests go to both `APP-NAME` and `APP-NAME-green` run the following command:
 
