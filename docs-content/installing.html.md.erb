@@ -242,7 +242,8 @@ To configure app identity verification:
       * To disable app identity verification and mutual TLS (mTLS), select *Disable route integrity and mutual TLS*.
       * To enable the Gorouter to verify app identity using TLS, click **Router uses TLS to verify app identity**.
       * To enable the Gorouter and your apps to verify each other's identity using TLS, click **Router and apps use mutual TLS to verify each other's identity**.
-      <p class='note'><strong>Note:</strong> mTLS app identity verification does not work for Windows containers.</p>
+      <p class='note'><strong>Note:</strong> If you enable mutual TLS here. You must also enable mutual TLS in the App Container Config of the PAS tile.</p>
+      <p class='note'><strong>Note:</strong> If you have mutual TLS app identity verification enabled, app containers accept incoming communication only from the Gorouter. This disables TCP routing.</p>
       <p class='note'><strong>Note:</strong> To support mTLS app identity verification, you need v2.3 or later of both <%= vars.app_runtime_abbr %> and <%= vars.product_name %> Isolation Segment (IST). The Gorouter and Diego Cell components in <%= vars.platform_old %> v2.2 and earlier do not support mTLS handshakes.</p>
 
 1. Click **Save**.
