@@ -247,7 +247,7 @@ To package the BOSH stemcell, do the following:
 2. Shut down the VM. If you do not shut down the VM before you continue to the next
 step, the package command fails stating that the storage location for the VM could not be read.
 
-3. To package the BOSH stemcell, run the following command from your local host:
+3. To package the BOSH stemcell, run the following command from your local host. For Windows use PowerShell:
 
     ```
     ./STEMBUILD-BINARY package -vcenter-url VCENTER-URL -vcenter-username VCENTER-USERNAME -vcenter-password VCENTER-PASSWORD -vm-inventory-path INVENTORY-PATH
