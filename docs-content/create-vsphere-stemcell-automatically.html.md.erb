@@ -5,25 +5,19 @@ owner: Windows
 
 This topic describes how to create a BOSH stemcell for Pivotal Application Service (PAS) for Windows on VMware vSphere using `stembuild`.
 
-##<a id='overview'></a> Overview
+## <a id='overview'></a> Overview
 
-A BOSH stemcell is a versioned operating system image. 
-You must create a BOSH stemcell for Windows before you can deploy either PAS for Windows or PKS Windows worker-based clusters, on vSphere.  
+A BOSH stemcell is a versioned operating system image. You must create a BOSH stemcell for Windows before you can deploy either PAS for Windows or PKS Windows worker-based clusters, on vSphere.  
 
 The BOSH stemcell that you create in this topic is based on Windows Server 2019.  
 
-To create a Windows stemcell for vSphere, you create a base Windows VM from a volume-licensed ISO and 
-subsequently maintain that base template with all Windows recommended security updates, 
-but without the BOSH dependencies.  
+To create a Windows stemcell for vSphere, you create a base Windows VM from a volume-licensed ISO and subsequently maintain that base template with all Windows recommended security updates, but without the BOSH dependencies.  
 
-This Windows VM, with security updates, serves as the base for all future stemcells produced from clones of that base VM. 
-This enables you to build new stemcells without having to run Windows Updates from scratch each time. 
-You can also use a "snapshot" feature to maintain an updated Windows image that does not contain the BOSH dependencies.  
+This Windows VM, with security updates, serves as the base for all future stemcells produced from clones of that base VM. This enables you to build new stemcells without having to run Windows Updates from scratch each time. You can also use a "snapshot" feature to maintain an updated Windows image that does not contain the BOSH dependencies.  
 
 Pivotal recommends installing any available critical updates, and then rebuilding the stemcell from a clone of the original VM.
 
-If you already have a BOSH stemcell for Windows on vSphere,
-see [Monthly Stemcell Upgrades](#upgrade-stemcell).
+If you already have a BOSH stemcell for Windows on vSphere, see [Monthly Stemcell Upgrades](#upgrade-stemcell).
 
 
 ## <a id='prerequisites'></a> Prerequisites
@@ -36,8 +30,8 @@ Before you create a BOSH stemcell for Windows on vSphere, you must have:
   <p class="note"><strong>Note:</strong> The Windows Server 2019 ISO must be a clean, base ISO file. A clean ISO file has no custom scripts or tooling. For example, the ISO must have no logging or antivirus tools installed.</p> 
 
 * A download of the `stembuild` command line interface (CLI) from a release in [Pivotal Stemcells (Windows)](https://network.pivotal.io/products/stemcells-windows-server) on Pivotal Network.
-    * To build a Windows stemcell for PASW, use the vSphere stembuild CLI for Windows corresponding to both the operating system of your local host and the stemcell version that you want to build.
-    * To build a Windows stemcell for PKS, use the vSphere stembuild CLI for Windows version 2019.7 or later.
+    * To build a Windows stemcell for PASW, use the vSphere `stembuild` CLI for Windows corresponding to both the operating system of your local host and the stemcell version that you want to build.
+    * To build a Windows stemcell for PKS, use the vSphere `stembuild` CLI for Windows version 2019.7 or later.
 
 * Microsoft [Local Group Policy Object Utility (LGPO)](https://www.microsoft.com/en-us/download/details.aspx?id=55319) downloaded to the same folder as your `stembuild` CLI.  
 
