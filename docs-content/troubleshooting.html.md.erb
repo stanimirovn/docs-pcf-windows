@@ -1,22 +1,23 @@
 ---
-title: Troubleshooting Windows Cells
+title: Troubleshooting Windows Diego Cells
 owner: Greenhouse
 ---
 
+This topic describes how to troubleshoot Windows Diego Cells deployed by Pivotal Application Service (PAS) for Windows.
 
-This topic describes how to troubleshoot Windows Diego cells deployed by Pivotal Application Service (PAS) for Windows.
 
-##<a id='issues'></a> Installation Issues
+## <a id='issues'></a> Installation Issues
 
 This section describes issues that may occur during the installation process.
 
-###<a id='missing-certs-winfs-issues'></a>Missing Local Certificates for Windows File System Injector
+### <a id='missing-certs-winfs-issues'></a> Missing Local Certificates for Windows File System Injector
 
 **Symptom**
 
 You run the `winfs-injector` and see the following error about certificates:
 
-```text
+```
+text
 Get https://auth.docker.io/token?service=registry.docker.io&
 scope=repository:cloudfoundry/windows2016fs:pull: x509:
 failed to load system roots and no roots provided
@@ -36,7 +37,8 @@ Install the necessary certificates on your local machine. On Ubuntu, you can ins
 
 You run the `winfs-injector` and see the following error about a missing file or directory:
 
-```text
+```
+text
 open ...windows2016fs-release/VERSION: no such file or directory
 ```
 
@@ -64,98 +66,136 @@ The product file you are trying to upload does not contain the Windows Server co
 
 1. Delete the product file listing from Ops Manager by clicking its trash can icon under **Import a Product**.
 
-1. Follow the PAS for Windows [installation instructions](./installing.html#install) to run the `winfs-injector` tool locally on the product file. This step requires internet access, can take up to 20 minutes, and adds the Windows Server container base image to the product file.
+1. Follow the PASW installation instructions to run the `winfs-injector` tool locally on the product file. This step requires internet access, can take up to 20 minutes, and adds the Windows Server container base image to the product file. For more information, see the [Install](./installing.html#install) section of the _Installing and Configuring PASW_ topic.
 
 1. Click **Import a Product** to upload the "injected" product file.
 
 1. Click the **+** icon next to the product listing to add the PAS for Windows tile to the Installation Dashboard.
 
-##<a id='logs'></a> Forward Windows Cell Logs
 
-You can use Windows cell logs to troubleshoot Windows Diego cells.
-Windows cells generate the following types of logs:
+## <a id='issues'></a> Upgrade Issues
 
-* **BOSH job logs**, such as `rep_windows` and `consul_agent_windows`.
-These logs stream to the syslog server configured in the PAS tile **System Logging** pane,
-along with other PCF component logs.
-The names of these BOSH job logs correspond to the names of the logs emitted by Linux Diego cells.
+This section describes issues that may occur during the upgrade process.
 
-* **Windows Event logs**. These logs stream to the syslog server configured in
-the PAS for Windows **System Logging** pane.
+### <a id='failure-create-containers'></a> Failure to Create Containers When Upgrading with Shared Microsoft Base Image
 
-You can forward BOSH job logs and Windows Event logs
-to an external syslog server in the following ways:
+**Symptom**
 
-* Configure a BOSH add-on to forward BOSH job logs.
-See the BOSH jobs logs step in [Step 2: Install the Tile](./installing.html#install) in _Installing and Configuring PASW_.
+The pre-start script for the `windowsfs` job fails, and the upgrade fails with the following output:
 
-* Configure PAS for Windows to forward Windows Event logs.
-See [Forward Windows Event Logs to a Syslog Server](#syslog) below.
+```
+text
+Task 308031 | 13:47:04 | Preparing deployment: Preparing deployment (00:00:03)
 
-You can download the forwarded BOSH job logs and Window Event logs, in the PASW tile.
-See [Download Cell Logs](#download) below.
+Task 308031 | 13:47:11 | Preparing package compilation: Finding packages to compile (00:00:00)
+
+Task 308031 | 13:47:21 | Updating instance windows_diego_cell: windows_diego_cell/44c5841f-7580-4e9c-9856-89fcbe08ab0d (2) (canary) (00:00:35)
+
+L Error: Action Failed get_task: Task 59ba76d1-14c5-4d7b-681c-08b9ec4bd64d result: 1 of 10 pre-start scripts failed. Failed Jobs: windows1803fs. Successful Jobs: set_kms_host, groot, loggregator_agent_windows, bosh-dns-windows, rep_windows, winc-network-1803, set_password, enable_ssh, enable_rdp.
+
+Task 308031 | 13:47:56 | Error: Action Failed get_task: Task 59ba76d1-14c5-4d7b-681c-08b9ec4bd64d result: 1 of 10 pre-start scripts failed. Failed Jobs: windows1803fs. Successful Jobs: set_kms_host, groot, loggregator_agent_windows, bosh-dns-windows, rep_windows, winc-network-1803, set_password, enable_ssh, enable_rdp.
+```
+
+Otherwise, the post-start script for the `rep_windows` job fails, and the upgrade fails with the following output:
+
+```
+text
+Task 8192 | 21:12:30 | Updating instance windows2019-cell: windows2019-cell/bd6d70b9-ed1f-412f-9d49-8045627f4ab3 (0) (canary) (00:17:24)
+                     L Error: Action Failed get_task: Task a9555020-1a3b-40c7-677c-d6fc392ce135 result: 1 of 3 post-start scripts failed. Failed Jobs: rep_windows. Successful Jobs: route_emitter_windows, bosh-dns-windows.
+Task 8192 | 21:29:55 | Error: Action Failed get_task: Task a9555020-1a3b-40c7-677c-d6fc392ce135 result: 1 of 3 post-start scripts failed. Failed Jobs: rep_windows. Successful Jobs: route_emitter_windows, bosh-dns-windows.
+```
+
+**Explanation**
+
+When upgrading between versions of Windows rootfs that have a shared Microsoft base layer, PASW may fail to create containers. The cause is currently unknown.
+
+**Solution**
+
+For available workarounds, see [Failure to create containers when upgrading with shared Microsoft base image](https://community.pivotal.io/s/article/knowledge-base-failure-to-create-containers-when-upgrading-with-shared-microsoft-base-image) in the Pivotal Knowledge Base.
+
+
+## <a id='logs'></a> Forward Windows Diego Cell Logs
+
+You can use Windows Diego Cell logs to troubleshoot Windows Diego Cells. Windows Diego Cells generate the following types of logs:
+
+* **BOSH job logs**, such as `rep_windows` and `consul_agent_windows`. These logs stream to the syslog server configured in the PAS tile **System Logging** pane, along with other PCF component logs. The names of these BOSH job logs correspond to the names of the logs emitted by Linux Diego Cells.
+
+* **Windows Event logs**. These logs stream to the syslog server configured in the PAS for Windows **System Logging** pane.
+
+You can forward BOSH job logs and Windows Event logs to an external syslog server in the following ways:
+
+* Configure a BOSH add-on to forward BOSH job logs. For more information, see the BOSH jobs logs step in the [Step 2: Install the Tile](./installing.html#install) section of the _Installing and Configuring PASW_ topic.
+
+* Configure PAS for Windows to forward Windows Event logs. For more information, see [Forward Windows Event Logs to a Syslog Server](#syslog).
+
+You can download the forwarded BOSH job logs and Window Event logs, in the PASW tile. For more information, see [Download Cell Logs](#download).
 
 ###<a id='syslog'></a> Forward Windows Event Logs to a Syslog Server
 
-To forward Windows Event logs to an external syslog server,
-do the following:
+To forward Windows Event logs to an external syslog server:
 
 1. Navigate to the Ops Manager Installation Dashboard.
 
 1. Click the **PAS for Windows** tile.
 
-1. Under the **Settings** tab, select the **System Logging** pane.
+1. Select **System Logging**.
   <%= image_tag("win-syslog-config.png") %>
 
-1. Under **Enable Syslog for VM logs?**, click **Enable**
+1. Under **Enable Syslog for VM logs?**, click **Enable**.
 
 1. Under **Address**, enter the IP address of your syslog server.
 
 1. Under **Port**, enter the port of your syslog server. The typical port for a syslog server is `514`.
-  <p class="note"><strong>Note</strong>: The host must be reachable from the PAS network. Ensure your syslog server listens on external interfaces.</p>
+  <p class="note"><strong>Note:</strong> The host must be reachable from the PAS network. Ensure your syslog server listens on external interfaces.</p>
 
 1. Under **Protocol**, select the transport protocol to use when forwarding logs.
 
 1. Click **Save**.
 
-###<a id='download'></a> Download Windows Cell Logs
+### <a id='download'></a> Download Windows Diego Cell Logs
 
-To download Windows cell log, do the following:
+To download Windows Diego Cell logs:
 
 1. Navigate to the Ops Manager Installation Dashboard.
+
 1. Click the **PAS for Windows** tile.
+
 1. Click the **Status** tab.
-1. Under the **Logs** column, click the download icon for the Windows cell you want to retrieve logs from.
+
+1. Under the **Logs** column, click the download icon for the Windows Diego Cell you want to retrieve logs from.
+
 1. Click the **Logs** tab.
+
 1. When the logs are ready, click the filename to download them.
-1. Unzip the file to examine the contents. Each component on the cell has its own logs directory:
+
+1. Unzip the file to examine the contents. Each component on the Diego Cell has its own logs directory:
 	* `/consul_agent_windows/`
 	* `/garden-windows/`
 	* `/metron_agent_windows/`
 	* `/rep_windows/`
 
-##<a id='rdp'></a> Connect to a Windows Cell
 
-Perform the following steps to connect to a Windows cell to run diagnostics:
+## <a id='rdp'></a> Connect to a Windows Diego Cell
+
+To connect to a Windows Diego Cell to run diagnostics:
 
 1. Download and install a Remote Desktop Protocol (RDP) client.
 	* For Mac OS X, download the Microsoft Remote Desktop app from the [Mac App Store](https://itunes.apple.com/us/app/microsoft-remote-desktop/id715768417?mt=12).
 	* For Windows, download the Microsoft Remote Desktop app from [Microsoft](https://www.microsoft.com/en-us/store/p/microsoft-remote-desktop/9wzdncrfj3ps).
 	* For Linux/UNIX, download a RDP client like [rdesktop](http://www.rdesktop.org/).
 
-1. Follow the steps in the [Log into BOSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#log-in) section of the 
-<em>Advanced Troubleshooting with the BOSH CLI</em> topic to log in to your BOSH Director. The steps vary slightly depending on whether 
-your PCF deployment uses internal authentication or an external user store.
+1. Follow the steps in the [Log into BOSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#log-in) section of the _Advanced Troubleshooting with the BOSH CLI_ topic to log in to your BOSH Director. The steps vary slightly depending on whether your PCF deployment uses internal authentication or an external user store.
 
-1. To retrieve the IP address of your Windows cell using the BOSH CLI, run the following command:
+1. To retrieve the IP address of your Windows Diego Cell using the BOSH CLI, run:
 
-    ```shell
+    ```
+    shell
     bosh -e ENV-NAME -d DEPLOYMENT-NAME
     ```
 
     Where:
     * `ENV-NAME` is the alias you assigned to your BOSH Director.
-    * `DEPLOYMENT-NAME` is your deployment's name.
+    * `DEPLOYMENT-NAME` is your deployment name.
 
     For example:
     <pre class="terminal">
@@ -166,38 +206,39 @@ your PCF deployment uses internal authentication or an external user store.
     garden-windows     ...              ...            -        latest
     </pre>
 
-1. Retrieve the Administrator password for your Windows cell by following the steps for your IaaS:
+1. Retrieve the Administrator password for your Windows Diego Cell by following the steps for your IaaS:
 	* On vSphere, this is the value of `WINDOWS_PASSWORD` in the `consumer-vars.yml` file you used to previously build a stemcell.
-	* On Amazon Web Services (AWS), navigate to the AWS EC2 console. Right-click on your Windows cell and select **Get Windows Password** from the drop-down menu. Provide the local path to the `ops_mgr.pem` private key file you used when installing Ops Manager and click **Decrypt password** to obtain the Administrator password for your Windows cell.
-	* On Google Cloud Platform (GCP), navigate to the Compute Engine Dashboard. Under **VM Instances**, select the instance of the Windows VM. At the top of the page, click on **Create or reset Windows password**. When prompted, enter "Administrator" under **Username** and click **Set**. You will receive a one-time password for the Windows cell.
-	* You cannot RDP into Windows cells on Azure.
+	* On Amazon Web Services (AWS), navigate to the AWS EC2 console. Right-click on your Windows Diego Cell and select **Get Windows Password** from the drop-down menu. Provide the local path to the `ops_mgr.pem` private key file you used when installing Ops Manager and click **Decrypt password** to obtain the Administrator password for your Windows Diego ell.
+	* On Google Cloud Platform (GCP), navigate to the Compute Engine Dashboard. Under **VM Instances**, select the instance of the Windows VM. At the top of the page, click on **Create or reset Windows password**. When prompted, enter "Administrator" under **Username** and click **Set**. You will receive a one-time password for the Windows Diego Cell.
+	* You cannot RDP into Windows Diego Cells on Azure.
 
 1. Open your RDP client. The examples below use the Microsoft Remote Desktop app.
 
 1. Click **New** and enter your connection information:
 	<%= image_tag('rdp-connect.png') %>
 	* **Connection name**: Enter a name for this connection.
-	* **PC name**: Enter the IP address of your Windows cell.
+	* **PC name**: Enter the IP address of your Windows Diego Cell.
 	* **User name**: Enter `Administrator`.
-	* **Password**: Enter the password of your Windows cell that you obtained above.
+	* **Password**: Enter the password of your Windows Diego Cell that you obtained above.
 
-1. To mount a directory on your local machine as a drive in the Windows cell, perform the following steps:
+1. To mount a directory on your local machine as a drive in the Windows Diego Cell, perform the following steps:
 	1. From the same **Edit Remote Desktops** window as above, click **Redirection**.
 	1. Click the plus icon at the bottom left.
 	<%= image_tag('rdp-redirection.png') %>
-	1. For **Name**, enter the name of the drive as it will appear in the Windows cell. For **Path**, enter the path of the local directory.
+	1. For **Name**, enter the name of the drive as it will appear in the Windows Diego Cell. For **Path**, enter the path of the local directory.
 	1. Click **OK**.
 
-1. Close the **Edit Remote Desktops** window and double-click the newly added connection under **My Desktops** to open a RDP connection to the Windows cell.
+1. Close the **Edit Remote Desktops** window and double-click the newly added connection under **My Desktops** to open a RDP connection to the Windows Diego Cell.
 
-1. In the RDP session, you can use the [Consul CLI](#consul) to diagnose problems with your Windows cell.
+1. In the RDP session, you can use the [Consul CLI](#consul) to diagnose problems with your Windows Diego Cell.
 
-###<a id='consul'></a> Consul CLI
+### <a id='consul'></a> Consul CLI
 
-Perform the following steps to use the Consul CLI on your Windows cell to diagnose problems with your Consul cluster:
+To use the Consul CLI on your Windows Diego Cell to diagnose problems with your Consul cluster:
 
 1. In your RDP session, open a PowerShell window.
-1. To change to the directory containing the Consul CLI binary, run the following:
+
+1. To change to the directory containing the Consul CLI binary, run:
 
     ```
     cd CONSUL-CLI-DIR\bin
@@ -209,9 +250,11 @@ Perform the following steps to use the Consul CLI on your Windows cell to diagno
 	<pre class="terminal">
 	PS C:\Users\admin\> cd C:\var\vcap\packages\consul-windows\bin\
 	</pre>
-1. To list the members of your Consul cluster, run the following:
 
-    ```shell
+1. To list the members of your Consul cluster, run:
+
+    ```
+    shell
     consul.exe members
     ```
 
@@ -233,4 +276,5 @@ Perform the following steps to use the Consul CLI on your Windows cell to diagno
 	router-0                   10.0.0.105:8301  alive   client  0.6.4  2         dc1
 	uaa-0                      10.0.0.93:8301   alive   client  0.6.4  2         dc1
 	</pre>
-1. Examine the output to ensure that the `cell-windows-0` service is registered in the Consul cluster and is `alive`. Otherwise, your Windows cell cannot communicate with your PCF deployment and developers cannot push .NET apps to the Windows cell. Check the configuration of your Consul cluster, and ensure that your certificates are not missing or misconfigured.
+
+1. Examine the output to ensure that the `cell-windows-0` service is registered in the Consul cluster and is `alive`. Otherwise, your Windows Diego Cell cannot communicate with your PCF deployment and developers cannot push .NET apps to the Windows Diego Cell. Check the configuration of your Consul cluster, and ensure that your certificates are not missing or misconfigured.
