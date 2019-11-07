@@ -17,7 +17,6 @@ This section describes issues that may occur during the installation process.
 You run the `winfs-injector` and see the following error about certificates:
 
 ```
-text
 Get https://auth.docker.io/token?service=registry.docker.io&
 scope=repository:cloudfoundry/windows2016fs:pull: x509:
 failed to load system roots and no roots provided
@@ -38,7 +37,6 @@ Install the necessary certificates on your local machine. On Ubuntu, you can ins
 You run the `winfs-injector` and see the following error about a missing file or directory:
 
 ```
-text
 open ...windows2016fs-release/VERSION: no such file or directory
 ```
 
@@ -84,7 +82,6 @@ This section describes issues that may occur during the upgrade process.
 The pre-start script for the `windowsfs` job fails, and the upgrade fails with the following output:
 
 ```
-text
 Task 308031 | 13:47:04 | Preparing deployment: Preparing deployment (00:00:03)
 
 Task 308031 | 13:47:11 | Preparing package compilation: Finding packages to compile (00:00:00)
@@ -99,7 +96,6 @@ Task 308031 | 13:47:56 | Error: Action Failed get_task: Task 59ba76d1-14c5-4d7b-
 Otherwise, the post-start script for the `rep_windows` job fails, and the upgrade fails with the following output:
 
 ```
-text
 Task 8192 | 21:12:30 | Updating instance windows2019-cell: windows2019-cell/bd6d70b9-ed1f-412f-9d49-8045627f4ab3 (0) (canary) (00:17:24)
                      L Error: Action Failed get_task: Task a9555020-1a3b-40c7-677c-d6fc392ce135 result: 1 of 3 post-start scripts failed. Failed Jobs: rep_windows. Successful Jobs: route_emitter_windows, bosh-dns-windows.
 Task 8192 | 21:29:55 | Error: Action Failed get_task: Task a9555020-1a3b-40c7-677c-d6fc392ce135 result: 1 of 3 post-start scripts failed. Failed Jobs: rep_windows. Successful Jobs: route_emitter_windows, bosh-dns-windows.
@@ -194,7 +190,6 @@ To connect to a Windows Diego Cell to run diagnostics:
 1. Retrieve the IP address of your Windows Diego Cell using the BOSH CLI:
 
     ```
-    shell
     bosh -e ENV-NAME -d DEPLOYMENT-NAME
     ```
 
@@ -259,7 +254,6 @@ To use the Consul CLI on your Windows Diego Cell to diagnose problems with your 
 1. List the members of your Consul cluster:
 
     ```
-    shell
     consul.exe members
     ```
 
