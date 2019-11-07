@@ -70,15 +70,16 @@ The product file you are trying to upload does not contain the Windows Server co
 
 1. Click the **+** icon next to the product listing to add the PASW tile to the Installation Dashboard.
 
+
 ## <a id='issues'></a> Upgrade Issues
 
 This section describes issues that may occur during the upgrade process.
 
-### <a id='failure to create containers'></a> Failure to create containers when upgrading with shared Microsoft base image
+### <a id='failure-create-containers'></a> Failure to Create Containers When Upgrading with Shared Microsoft Base Image
 
 **Symptom**
 
-The pre-start script for the windowsfs job fails, and the upgrade fails with the following output:
+The pre-start script for the `windowsfs` job fails, and the upgrade fails with the following output:
 
 ```text
 Task 308031 | 13:47:04 | Preparing deployment: Preparing deployment (00:00:03)
@@ -92,7 +93,7 @@ L Error: Action Failed get_task: Task 59ba76d1-14c5-4d7b-681c-08b9ec4bd64d resul
 Task 308031 | 13:47:56 | Error: Action Failed get_task: Task 59ba76d1-14c5-4d7b-681c-08b9ec4bd64d result: 1 of 10 pre-start scripts failed. Failed Jobs: windows1803fs. Successful Jobs: set_kms_host, groot, loggregator_agent_windows, bosh-dns-windows, rep_windows, winc-network-1803, set_password, enable_ssh, enable_rdp.
 ```
 
-or the post-start script for the rep_windows job fails, and the upgrade fails with the following output:
+Otherwise, the post-start script for the `rep_windows` job fails, and the upgrade fails with the following output:
 
 ```text
 Task 8192 | 21:12:30 | Updating instance windows2019-cell: windows2019-cell/bd6d70b9-ed1f-412f-9d49-8045627f4ab3 (0) (canary) (00:17:24)
@@ -102,11 +103,12 @@ Task 8192 | 21:29:55 | Error: Action Failed get_task: Task a9555020-1a3b-40c7-67
 
 **Explanation**
 
-When upgrading between versions of windows rootfs that have a shared Microsoft base layer, there may be failures to create containers. The cause is unknown at this time. We have an open support ticket with Microsoft and are awaiting engagement.
+When upgrading between versions of Windows rootfs that have a shared Microsoft base layer, PASW may fail to create containers. The cause is currently unknown.
 
 **Solution**
 
-See [this article](https://community.pivotal.io/s/article/knowledge-base-failure-to-create-containers-when-upgrading-with-shared-microsoft-base-image) for available workarounds.
+For available workarounds, see [Failure to create containers when upgrading with shared Microsoft base image](https://community.pivotal.io/s/article/knowledge-base-failure-to-create-containers-when-upgrading-with-shared-microsoft-base-image) in the Pivotal Knowledge Base.
+
 
 ## <a id='logs'></a> Forward Windows Cell Logs
 
