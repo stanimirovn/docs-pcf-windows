@@ -1,5 +1,5 @@
 ---
-title: Upgrading PAS for Windows and Windows Cells
+title: Upgrading PAS for Windows and Windows Stemcells
 owner: Greenhouse
 ---
 
@@ -14,7 +14,7 @@ For information about migrating apps to PASW from either PASW 2012 R2 or <%= var
 
 The PAS tile handles all of the credentials for PAS for Windows.
 
-To rotate your credentials in PAS for Windows, re-deploy PAS and PAS for Windows:
+To rotate your credentials in PAS for Windows, you must re-deploy PAS and PAS for Windows. To re-deploy PAS and PAS for Windows:
 
 1. Navigate to the Ops Manager Installation Dashboard.
 
@@ -29,7 +29,7 @@ To rotate your credentials in PAS for Windows, re-deploy PAS and PAS for Windows
 
 To upgrade PAS for Windows:
 
-1. Follow the procedures in [Upgrading <%= vars.product_name %> Products](https://docs.pivotal.io/platform/customizing/upgrading-products.html#other-products) with the latest PAS for Windows product download from [Pivotal Network](https://network.pivotal.io/products/pas-windows).
+1. Download the latest PAS for Windows version from [Pivotal Network](https://network.pivotal.io/products/pas-windows). For more information about upgrading your <%= vars.product_name %> products, see the [Upgrading <%= vars.product_name %> Products](https://docs.pivotal.io/platform/customizing/upgrading-products.html#other-products) section of the _Upgrading PAS and Other Pivotal Platform Products_ topic.
 
 1. If necessary, configure the product. For more information about configuring PAS for Windows, see [Installing and Configuring PAS for Windows](./installing.html).
 
@@ -42,9 +42,11 @@ To upgrade PAS for Windows:
 
 ## <a id='upgrade-stemcell'></a> Upgrade the Windows Stemcell
 
+To upgrade your Windows stemcell:
+
 1. Retrieve the stemcell by following the steps below for your IaaS:
-    * For vSphere, you must build your own stemcell. For more information, see [Creating a Windows vSphere Stemcell](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/wiki/Creating-a-vSphere-Stemcell) in the BOSH Windows Stemcell Builder repository on GitHub.
-    * For AWS, GCP, and Azure, navigate to the **Stemcells for <%= vars.product_name %> (Windows Server)** section of [Pivotal Network](https://network.pivotal.io/products/stemcells-windows-server).
+    * For vSphere, you must build your own stemcell. For more information, see [Creating a Windows Stemcell for vSphere](https://bosh.io/docs/windows-stemcell-create/) in the BOSH documentation.
+    * For AWS, GCP, and Azure, go to [Pivotal Stemcells (Windows)](https://network.pivotal.io/products/stemcells-windows-server) on Pivotal Network.
 
 1. Go to **Stemcell Library**.
 
