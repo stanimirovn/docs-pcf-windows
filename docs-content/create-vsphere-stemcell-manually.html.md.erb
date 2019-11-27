@@ -3,29 +3,32 @@ title: Creating a Windows Stemcell for vSphere Manually
 owner: Windows
 ---
 
-
-
-This topic describes how to create the Windows stemcell Pivotal Application Service for Windows (PASW), 
-and Enterprise Pivotal Container Service (Enterprise PKS) use to create VMs on vSphere.
+This topic describes how to create a BOSH stemcell for Windows on vSphere.
 
 <p class="note"><strong>Note:</strong> The instructions in this topic are based on vSphere 6.0 using vSphere Web Client.
 </p>
 
 ##<a id='overview'></a> Overview
 
-A BOSH stemcell is a versioned operating system image. 
-You must create a BOSH stemcell for Windows before you can deploy either PASW or PKS Windows worker-based clusters, on vSphere.  
+You must create a BOSH stemcell for Windows
+before you can deploy the following products on vSphere:
 
-The BOSH stemcell that you create in this topic is based on Windows Server 2019. 
+* Pivotal Application Service (PAS) for Windows
+* Enterprise Pivotal Container Service (Enterprise PKS) with Windows workers in Kubernetes clusters
+
+<p class="note"><strong>Note:</strong> A BOSH stemcell is a versioned operating system image. The BOSH stemcell that you create in this topic is based on Windows Server 2019.</p>
+
+### <a name='windows-stemcells'></a> Overview of Windows Stemcell Creation
 
 To create a Windows stemcell for vSphere, you create a base Windows VM from a volume-licensed ISO and subsequently maintain that base template 
 with all Windows recommended security updates, but without the BOSH dependencies.
 
-This Windows VM, with security updates, serves as the base for all future stemcells produced from clones of that base VM. 
-This enables you to build new stemcells without having to run Windows Updates from scratch each time. 
-You can also use a "snapshot" feature to maintain an updated Windows image that does not contain the BOSH dependencies.  
+The Windows VM with security updates serves as the base for all future stemcells produced from clones of that base VM. 
+This enables you to build new stemcells without having to run Windows Updates from scratch each time.
+You can also use a "snapshot" feature to maintain an updated Windows image that does not contain the BOSH dependencies.
 
-Pivotal recommends installing any available critical updates, and then rebuilding the stemcell from a clone of the original VM.
+Pivotal recommends installing any available critical updates and then rebuilding the stemcell from a clone of the original VM.
+
 
 ## <a id='prerequisites'></a> Prerequisites
 
@@ -60,8 +63,8 @@ As part of completing the procedures in this topic, you download the following f
 
 * [ovftool](https://www.vmware.com/support/developer/ovf/).
 * [stembuild](https://github.com/pivotal-cf-experimental/stembuild/releases).
-    * To build a Windows stemcell for PASW, use the latest release of stembuild.
-    * To build a Windows stemcell for PKS, use the vSphere stembuild CLI for Windows version 2019.7 or later.
+    * To build a Windows stemcell for PAS for Windows, use the latest release of stembuild.
+    * To build a Windows stemcell for Enterprise PKS, use the vSphere stembuild CLI for Windows version 2019.7 or later.
     If you want to deploy Enterprise PKS v1.5, you must use the vSphere `stembuild` CLI for Windows v2019.7.
 
     <p class="note"><strong>Note</strong>: You must choose a stemcell version to build. 
@@ -184,7 +187,7 @@ You might need to restart the Windows VM while installing updates.
 ###<a id='enable-meltdown-mitigation'></a> Enable Meltdown Mitigation
 
 <p class="note warning"><strong>WARNING</strong>: You must enable Meltdown mitigation. Not enabling Meltdown mitigation can lead to timeout issues 
-while deploying your PASW or PKS tile.
+while deploying your PAS for Windows or Enterprise PKS tile.
 </p>
 
 Windows Server 2019 should receive the update containing the Meltdown mitigation automatically when you install Windows updates.
@@ -308,8 +311,7 @@ You can use the `bosh ssh` command on BOSH-deployed Windows VMs if you install t
 and then enable it during deploy time. This lets an operator enter into a CMD or PowerShell session on the VM as a user 
 with admin privileges.
 
-* To install OpenSSH for PASW perform the following steps:  
-
+* To install OpenSSH for PASW perform the following steps:
     1. Transfer the [`OpenSSH-Win64.zip`](https://github.com/PowerShell/Win32-OpenSSH/releases/tag/v7.7.2.0p1-Beta) 
     file to the Windows VM and place it in `C:\provision`.
     1. Start PowerShell in the Windows VM and run the following command:
@@ -317,18 +319,15 @@ with admin privileges.
 	    ```
 	    Unblock-File 'C:\provision\OpenSSH-Win64.zip'
 	    ```
-
     1. Install OpenSSH with the following command:
 
 	    ```
 	    Install-SSHD -SSHZipFile 'C:\provision\OpenSSH-Win64.zip'
 	    ```
-
     1. When configuring the PAS for Windows tile, you must select the **BETA: Enable BOSH-native SSH support on all VMs checkbox**. 
     For more information, see [Installing and Configuring PAS for Windows](installing.html#config).
 
-* To install OpenSSH for PKS Windows clusters perform the following steps:  
-
+* To install OpenSSH for PKS Windows clusters perform the following steps:
     1. Transfer the [`OpenSSH-Win64.zip`](https://github.com/PowerShell/Win32-OpenSSH/releases/tag/v7.7.2.0p1-Beta) file to the Windows VM 
     and place it in `C:\provision`.
     1. Start PowerShell in the Windows VM and run the following command:
@@ -336,7 +335,6 @@ with admin privileges.
 	    ```
 	    Unblock-File 'C:\provision\OpenSSH-Win64.zip'
 	    ```
-
     1. Install OpenSSH with the following command:
 
 	    ```
