@@ -3,8 +3,7 @@ title: Creating a Windows Stemcell for vSphere Manually
 owner: Windows
 ---
 
-This topic describes how to create the Windows stemcell Pivotal Application Service for Windows (PASW), 
-and Enterprise Pivotal Container Service (Enterprise PKS) use to create VMs on vSphere.
+This topic describes how to create a BOSH stemcell for Windows on vSphere.
 
 <p class="note"><strong>Note:</strong> The instructions in this topic are based on vSphere 6.0 using vSphere Web Client.
 </p>
@@ -12,15 +11,21 @@ and Enterprise Pivotal Container Service (Enterprise PKS) use to create VMs on v
 
 ## <a id='overview'></a> Overview
 
-A BOSH stemcell is a versioned operating system image. You must create a BOSH stemcell for Windows before you can deploy either PASW or PKS Windows worker-based clusters, on vSphere.  
+You must create a BOSH stemcell for Windows
+before you can deploy the following products on vSphere:
 
-The BOSH stemcell that you create in this topic is based on Windows Server 2019. 
+* Pivotal Application Service (PAS) for Windows
+* Enterprise Pivotal Container Service (Enterprise PKS) with Windows workers in Kubernetes clusters
+
+<p class="note"><strong>Note:</strong> A BOSH stemcell is a versioned operating system image. The BOSH stemcell that you create in this topic is based on Windows Server 2019.</p>
+
+### <a name='windows-stemcells'></a> Overview of Windows Stemcell Creation
 
 To create a Windows stemcell for vSphere, you create a base Windows VM from a volume-licensed ISO and subsequently maintain that base template with all Windows recommended security updates, but without the BOSH dependencies.
 
-This Windows VM, with security updates, serves as the base for all future stemcells produced from clones of that base VM. This enables you to build new stemcells without having to run Windows Updates from scratch each time. You can also use a "snapshot" feature to maintain an updated Windows image that does not contain the BOSH dependencies.  
+The Windows VM with security updates serves as the base for all future stemcells produced from clones of that base VM. This enables you to build new stemcells without having to run Windows Updates from scratch each time. You can also use a "snapshot" feature to maintain an updated Windows image that does not contain the BOSH dependencies.
 
-Pivotal recommends installing any available critical updates, and then rebuilding the stemcell from a clone of the original VM.
+Pivotal recommends installing any available critical updates and then rebuilding the stemcell from a clone of the original VM.
 
 
 ## <a id='prerequisites'></a> Prerequisites
@@ -55,8 +60,8 @@ As part of completing the procedures in this topic, you download the following f
 * [ovftool](https://www.vmware.com/support/developer/ovf/).
 
 * [stembuild](https://github.com/pivotal-cf-experimental/stembuild/releases).
-    * To build a Windows stemcell for PASW, use the latest release of stembuild.
-    * To build a Windows stemcell for PKS, use the vSphere stembuild CLI for Windows version 2019.7 or later.
+    * To build a Windows stemcell for PAS for Windows, use the latest release of stembuild.
+    * To build a Windows stemcell for Enterprise PKS, use the vSphere stembuild CLI for Windows version 2019.7 or later.
     If you want to deploy Enterprise PKS v1.5, you must use the vSphere `stembuild` CLI for Windows v2019.7.
     <p class="note"><strong>Note:</strong> You must choose a stemcell version to build. Stemcells are versioned as MAJOR.MINOR, such as 2019.9.</p>
     For more information about 2019 stemcells, see the [Stemcell v2019.x (Windows Server 2019) Release Notes](https://docs.pivotal.io/platform/stemcells/windows-stemcell-v2019x.html).
@@ -189,7 +194,7 @@ You might need to restart the Windows VM while installing updates.
 
 ### <a id='enable-meltdown-mitigation'></a> Enable Meltdown Mitigation
 
-<p class="note warning"><strong>Warning:</strong> You must enable Meltdown mitigation. Not enabling Meltdown mitigation can lead to timeout issues while deploying your PASW or PKS tile.</p>
+<p class="note warning"><strong>Warning:</strong> You must enable Meltdown mitigation. Not enabling Meltdown mitigation can lead to timeout issues while deploying your PAS for Windows or Enterprise PKS tile.</p>
 
 Windows Server 2019 should receive the update containing the Meltdown mitigation automatically when you install Windows updates.
 
