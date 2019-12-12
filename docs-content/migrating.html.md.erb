@@ -3,15 +3,17 @@ title: Migrating Apps to PAS for Windows
 owner: Windows
 ---
 
-This topic describes the process of migrating apps running on Pivotal Application Service (PAS) for Windows 2012 R2 cells to run on PAS for Windows cells, which run Windows Server 2019.
+This topic describes the process of migrating apps running on Pivotal Application Service (PAS) for Windows 2012 R2 stemcells to run on PAS for Windows stemcells, which run Windows Server 2019.
 
-<p class="note"><strong>Note</strong>: PAS for Windows 2012 R2 has reached its End of Availability (EoA) and is no longer generally available. For more information about upgrading the PASW tile, see <a href="./upgrade-2012r2-to-pasw.html">Migrating from PASW 2012 R2 to PASW</a>.</p>
+<p class="note"><strong>Note</strong>: PAS for Windows 2012 R2 has reached its End of Availability (EoA) and is no longer generally available.</p>
 
 Pivotal recommends you use the blue-green deployment method for high availability. For more information about blue-green deployments, see [Using Blue-Green Deployment to Reduce Downtime and Risk](https://docs.pivotal.io/platform/devguide/deploy-apps/blue-green.html).
+
 
 ## <a id="install-tile"></a> Step 1: Install and Deploy PAS for Windows Tile
 
 To install and deploy the PAS for Windows tile, follow steps 1 and 2 of [Installing and Configuring PASW](installing.html).
+
 
 ## <a id="push-app"></a> Step 2: Push App to PAS for Windows Cells
 
@@ -116,6 +118,7 @@ Perform the following steps to redeploy a running app with zero downtime using t
 
     For additional information about `cf-unmap-route`, see [cf unmap-route](http://cli.cloudfoundry.org/en-US/cf/unmap-route.html).
 
+
 ## <a id="delete-app"></a> Step 3: Delete App from Windows 2012 R2 Server Cells
 
 1. To delete the original app, run the following command:
@@ -136,7 +139,10 @@ Perform the following steps to redeploy a running app with zero downtime using t
 Once you have migrated all of your apps and you are no longer using the Windows 2012 R2 tile, a <%= vars.product_name %> operator can perform the following steps:
 
 1. From the Installation Dashboard, click the trash icon on the tile to remove that product. In the **Delete Product** dialog box that appears, click **Confirm**.
+
 1. Click **Review Pending Changes**.
+
 1. Select the PAS for Windows tile and review the changes. For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/platform/customizing/review-pending-changes.html).
+
 1. Click **Apply Changes**.
   <p class="note"><strong>Note</strong>: After you delete a product, the product tile is removed from the installation and the Installation Dashboard. However, the product appears in the Available Products view.</p>
