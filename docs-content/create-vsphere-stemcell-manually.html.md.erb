@@ -30,11 +30,23 @@ Pivotal recommends installing any available critical updates and then rebuilding
 
 Before you create a vSphere Windows stemcell, you must have:
 
-* A vSphere environment. To ensure the VM hardware used by the stemcell is compatible with your deployment environment's ESXi/ESX host and vCenter Server versions, see [ESXi/ESX hosts and compatible virtual machine hardware versions list (2007240)](https://kb.vmware.com/s/article/2007240) in the VMware Knowledge Base.
+* A vSphere environment. To ensure the VM hardware used by the stemcell is compatible 
+  with your deployment environment's ESXi/ESX host and vCenter Server versions, see 
+  [ESXi/ESX hosts and compatible virtual machine hardware versions list (2007240)]
+  (https://kb.vmware.com/s/article/2007240) in the VMware Knowledge Base.  
 
-* A Windows Server 2019 ISO, build number: 17763, from Microsoft Developer Network (MSDN) or Volume Licensing Service Center (VLSC). The Windows Server 2019 ISO must be a clean, base ISO file. You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production, as the licensing expires. For more information, see the [Microsoft documentation](https://docs.microsoft.com/en-us/welcome-to-docs) or the [Microsoft Volume Licensing Service Center](https://www.microsoft.com/Licensing/servicecenter/default.aspx) website.
-    <p class="note"><strong>Note:</strong> A clean ISO file has no custom scripts or tooling. For example, the ISO must have no logging or antivirus tools installed.</p>
-    <p class="note"><strong>Note:</strong> Pivotal recommends maintaining a separate, updated Windows VM based on this ISO to serve as the basis for the installation steps below. This enables you to apply Windows Updates and create new stemcells without having to reinstall all updates from scratch.</p>
+*  An ISO for a Windows Server 2019 Server Core installation, build number: 17763, from [Microsoft Developer Network (MSDN)](https://msdn.microsoft.com/en-us) 
+or [Volume Licensing Service Center (VLSC)](https://www.microsoft.com/Licensing/servicecenter/default.aspx). 
+The Windows Server 2019 ISO must be a clean, base ISO file. 
+You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production, as the licensing expires.  
+    <p class="note"><strong>Note:</strong> A clean ISO file has no custom scripts or tooling. 
+    For example, the ISO must have no logging or antivirus tools installed.
+    </p>
+    <p class="note"><strong>Note:</strong> Pivotal recommends maintaining a separate, 
+    updated Windows VM based on this ISO to serve as the basis for the installation steps below. 
+    This enables you to apply Windows Updates and create new stemcells without having to reinstall 
+    all updates from scratch.
+    </p>
 
 * A vSphere/vCenter account granted sufficient permissions to perform all of the following tasks:
 	- Create a VM.
