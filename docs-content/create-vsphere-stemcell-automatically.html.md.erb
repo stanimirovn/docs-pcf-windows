@@ -31,18 +31,10 @@ If you already have a BOSH stemcell for Windows on vSphere, see [Monthly Stemcel
 
 Before you create a BOSH stemcell for Windows on vSphere, you must have:
 
-* A vSphere environment. To ensure the VM hardware used by the stemcell is compatible 
-  with your deployment environment's ESXi/ESX host and vCenter Server versions, see 
-  [ESXi/ESX hosts and compatible virtual machine hardware versions list (2007240)]
-  (https://kb.vmware.com/s/article/2007240) in the VMware Knowledge Base.  
+* A vSphere environment. To ensure the VM hardware used by the stemcell is compatible with your deployment environment's ESXi/ESX host and vCenter Server versions, see [ESXi/ESX hosts and compatible virtual machine hardware versions list (2007240)](https://kb.vmware.com/s/article/2007240) in the VMware Knowledge Base.  
 
-* A Windows Server 2019 ISO, build number: 17763, from [Microsoft Developer Network (MSDN)](https://msdn.microsoft.com/en-us) 
-or [Volume Licensing Service Center (VLSC)](https://www.microsoft.com/Licensing/servicecenter/default.aspx). 
-The Windows Server 2019 ISO must be a clean, base ISO file. 
-You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production, as the licensing expires.  
-    <p class="note"><strong>Note:</strong> A clean ISO file has no custom scripts or tooling. 
-    For example, the ISO must have no logging or antivirus tools installed.
-    </p> 
+* A Windows Server 2019 ISO, build number: 17763, from [Microsoft Developer Network (MSDN)](https://msdn.microsoft.com/en-us) or [Volume Licensing Service Center (VLSC)](https://www.microsoft.com/Licensing/servicecenter/default.aspx). The Windows Server 2019 ISO must be a clean, base ISO file. You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production, as the licensing expires.  
+    <p class="note"><strong>Note:</strong> A clean ISO file has no custom scripts or tooling. For example, the ISO must have no logging or antivirus tools installed.</p> 
 
 * A download of the `stembuild` command line interface (CLI) from a 2019.x release in [Pivotal Stemcells (Windows)](https://network.pivotal.io/products/stemcells-windows-server) on Pivotal Network.
     * To build a Windows stemcell for PAS for Windows, use the vSphere `stembuild` CLI for Windows corresponding to both the operating system of your local host and the stemcell version that you want to build.
@@ -241,8 +233,7 @@ To construct the BOSH stemcell, run the following command from the folder where 
 
 Where:
 
-* `STEMBUILD-BINARY` is the `stembuild` file for the version of your local host operating system and the
-version of the stemcell that you want to build. For example, `stembuild-windows-2019-2`.
+* `STEMBUILD-BINARY` is the `stembuild` file for the version of your local host operating system and the version of the stemcell that you want to build. For example, `stembuild-windows-2019-2`.
 * `TARGET-VM-IP` is the IP address of your target VM.
 * `TARGET-USERNAME` is the username of an account with Administrator privileges.
 * `TARGET-VM-PASSWORD` is the password for the Administrator account. The password must be enclosed in single quotes.
@@ -264,6 +255,7 @@ To view the status of `construct`:
     ```
     Get-Content -Path "C:\provision\log.log" -Wait
     ```
+
 
 ## <a id='package-stemcell'></a> Step 5: Package the BOSH Stemcell
 
@@ -351,14 +343,14 @@ You might also experience this issue on Windows if your password includes a sing
 
 If your vCenter username or password contains `/`, `#`, or `:`, or `'` on Windows, set the following environment variables:
 
-  + **Linux**:
+  * **Linux**:
 
     ```
     export GOVC_USERNAME=VCENTER-USERNAME
     export GOVC_PASSWORD=VCENTER-PASSWORD
     ```
 
-  + **Windows**:
+  * **Windows**:
 
     ```
     set GOVC_USERNAME=VCENTER-USERNAME
@@ -368,21 +360,21 @@ If your vCenter username or password contains `/`, `#`, or `:`, or `'` on Window
 
 Where:
 
-- `VCENTER-USERNAME` is your vCenter account username. For example, `johndoe`.
-- `VCENTER-PASSWORD` is your vCenter account password. For example, `pass#word`.
-- `VCENTER-INVENTORY-PATH` is the location of your VM in the cluster inventory.
+* `VCENTER-USERNAME` is your vCenter account username. For example, `johndoe`.
+* `VCENTER-PASSWORD` is your vCenter account password. For example, `pass#word`.
+* `VCENTER-INVENTORY-PATH` is the location of your VM in the cluster inventory.
 
 If you use other special characters, add single quotes around the input parameters, or set them in an environment variable as described above.
 
 For example:
 
-  + **Linux**:
+  * **Linux**:
 
     ```
     ./STEMBUILD-BINARY package -vcenter-url VCENTER-URL -vcenter-username 'admin@' -vcenter-password VCENTER-PASSWORD -vm-inventory-path INVENTORY-PATH
     ```
 
-  + **Windows**:
+  * **Windows**:
 
     ```
     set GOVC_PASSWORD=A_Strange!PAssword@Here#1
