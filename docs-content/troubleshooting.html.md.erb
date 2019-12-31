@@ -216,24 +216,24 @@ To connect to a Windows Diego Cell to run diagnostics:
 1. Click **New** and enter your connection information:
 	<%= image_tag('rdp-connect.png') %>
 	* **Connection name**: Enter a name for this connection.
-	* **PC name**: Enter the IP address of your Windows cell.
+	* **PC name**: Enter the IP address of your Windows Dieog Cell.
 	* **User name**: Enter `Administrator`.
-	* **Password**: Enter the password of your Windows cell that you obtained above.
+	* **Password**: Enter the password of your Windows Diego Cell that you obtained above.
 
-1. Mount a directory on your local machine as a drive in the Windows cell:
+1. Mount a directory on your local machine as a drive in the Windows Diego Cell:
 	1. From the same **Edit Remote Desktops** window as above, click **Redirection**.
 	1. Click the plus icon at the bottom left.
 	<%= image_tag('rdp-redirection.png') %>
-	1. For **Name**, enter the name of the drive as it will appear in the Windows cell. For **Path**, enter the path of the local directory.
+	1. For **Name**, enter the name of the drive as it will appear in the Windows Diego Cell. For **Path**, enter the path of the local directory.
 	1. Click **OK**.
 
-1. Close the **Edit Remote Desktops** window and double-click the newly added connection under **My Desktops** to open a RDP connection to the Windows cell.
+1. Close the **Edit Remote Desktops** window and double-click the newly added connection under **My Desktops** to open a RDP connection to the Windows Diego Cell.
 
-1. In the RDP session, you can use the [Consul CLI](#consul) to diagnose problems with your Windows cell.
+1. In the RDP session, you can use the Consul CLI to diagnose problems with your Windows Diego Cell.
 
 ### <a id='consul'></a> Consul CLI
 
-To use the Consul CLI on your Windows cell to diagnose problems with your Consul cluster:
+To use the Consul CLI on your Windows Diego Cell to diagnose problems with your Consul cluster:
 
 1. In your RDP session, open a PowerShell window.
 
