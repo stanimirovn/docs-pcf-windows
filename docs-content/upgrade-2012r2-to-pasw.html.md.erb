@@ -3,79 +3,76 @@ title: Migrating from PASW 2012 R2 to PASW
 owner: Windows
 ---
 
+<% current_page.data.title = "Migrating from " + vars.product_windows + " 2012 R2 to " + vars.product_windows  %>
 
-This topic describes the changes in functionality associated with moving from Pivotal Application Service for Windows 2012 R2 (PASW 2012 R2) to Pivotal Application Service for Windows (PASW).
+This topic describes the changes in functionality associated with moving from <%= vars.product_windows_full %> 2012 R2 to <%= vars.product_windows_full %>.
+
 
 ## <a id='overview'></a> Overview
 
-PASW v2.1 and later offer a containerized runtime based on true Windows Server containers. In this containerized runtime, Windows Diego Cells on PAS use Microsoft's Windows containers and related features.
+<%= vars.product_windows %> v2.1 and later offer a containerized runtime based on true Windows Server containers. In this containerized runtime, Windows Diego Cells on PAS use Microsoft's Windows containers and related features.
 
-As a result, functionality leveraged in the PASW 2012 R2 shared-host container model must be adjusted. In PASW v2.1 and later, Windows containers feature an isolated file system and a more defined role on their host, increasing security and enabling container networking.
+As a result, functionality leveraged in the <%= vars.product_windows %> 2012 R2 shared-host container model must be adjusted. In <%= vars.product_windows %> v2.1 and later, Windows containers feature an isolated file system and a more defined role on their host, increasing security and enabling container networking.
 
-The following sections compare features and functionality in PASW 2012 R2 and PASW:
+The following sections compare features and functionality in <%= vars.product_windows %> 2012 R2 and <%= vars.product_windows %>:
 
 + [MSI-Installed Drivers Previously Installed with BOSH Add-ons](#msi)
 + [Pushing .NET Apps with APM Tools](#apm)
-+ [PASW Windows Stack](#windows-stack)
++ [<%= vars.product_windows %> Windows Stack](#windows-stack)
 
 ### <a id='principles'></a> Guiding Principles
-In this containerized runtime it is important to remember the following:
 
-+ Apps within a Windows container have their own file systems and registries.
-+ In general, the dependencies in PASW 2012 R2 that were originally made available on the host should now be provided within the container.
-+ Developers can create similar PASW 2012 R2 app environments by creating bin-deployable dependencies and extension buildpacks. For more information about extension buildpacks, see [Creating an Extension Buildpack for .NET Apps](../buildpacks/hwc/extension-buildpack.html).
+In this containerized runtime, it is important to remember:
 
-### <a id='upgrading'></a> Upgrading to PASW
+* Apps within a Windows container have their own file systems and registries.
 
-To upgrade, operators install the new PASW tile alongside the existing PASW 2012 R2 tile. After installation,
-developers can choose which stack to target in their manifests, or they can specify the stack when they use the
-Cloud Foundry Command Line Interface (cf CLI) to push apps.
+* In general, the dependencies in <%= vars.product_windows %> 2012 R2 that were originally made available on the host should now be provided within the container.
 
-For more information about installing the PASW tile, see [Installing and Configuring PASW](./installing.html).
+* Developers can create similar <%= vars.product_windows %> 2012 R2 app environments by creating bin-deployable dependencies and extension buildpacks. For more information about extension buildpacks, see [Creating an Extension Buildpack for .NET Apps](../buildpacks/hwc/extension-buildpack.html).
 
-<p class="note"><strong>Note</strong>: PASW v2.3 is the last version compatible with the PASW 2012 R2 release. The deprecation date for PASW 2012 R2 is September 30, 2019. Contact your Pivotal account team for more information about migration and upgrade options.</p>
+### <a id='upgrading'></a> Upgrading to <%= vars.product_windows %>
 
-## <a id='msi'></a>MSI-Installed Drivers Previously Installed with BOSH Add-ons
+To upgrade, operators install the new <%= vars.product_windows %> tile alongside the existing <%= vars.product_windows %> 2012 R2 tile. After installation, developers can choose which stack to target in their manifests, or they can specify the stack when they use the Cloud Foundry Command Line Interface (cf CLI) to push apps.
 
-Operators can install dependencies like Open Database Connectivity (ODBC) drivers
-when pushing .NET apps.
+For more information about installing the <%= vars.product_windows %> tile, see [Installing and Configuring <%= vars.product_windows %>](./installing.html).
 
-In PASW 2012 R2, operators installed ODBC drivers on the host VM using BOSH Add-ons.
-These drivers were shared by the apps deployed in IronFrame containers. The drivers
-could also be included in the stemcell image.
+<p class="note"><strong>Note:</strong> <%= vars.product_windows %> v2.3 is the last version compatible with the <%= vars.product_windows %> 2012 R2 release. The deprecation date for <%= vars.product_windows %> 2012 R2 is September 30, 2019. Contact your Pivotal account team for more information about migration and upgrade options.</p>
 
-In PASW, developers install the ODBC driver package locally from the source, extract
-the installation DLL files, copy the driver dependency to the .NET app's `/bin`
-directory, and then deploy the app.
+
+## <a id='msi'></a> MSI-Installed Drivers Previously Installed with BOSH Add-Ons
+
+Operators can install dependencies like Open Database Connectivity (ODBC) drivers when pushing .NET apps.
+
+In <%= vars.product_windows %> 2012 R2, operators install ODBC drivers on the host VM using BOSH Add-ons. These drivers are shared by the apps deployed in IronFrame containers. The drivers can also be included in the stemcell image.
+
+In <%= vars.product_windows %>, developers install the ODBC driver package locally from the source, extract the installation DLL files, copy the driver dependency to the .NET app's `/bin` directory, and then deploy the app.
+
 
 ## <a id='apm'></a>Pushing .NET Apps with APM Tools
 
-Both PASW and PASW 2012 R2 support pushing .NET apps with Application Performance
-Monitoring (APM) tools. Developers and operators can use third-party APM tools to
-measure app performance and resource usage.
+Both <%= vars.product_windows %> and <%= vars.product_windows %> 2012 R2 support pushing .NET apps with Application Performance Monitoring (APM) tools. Developers and operators can use third-party APM tools to measure app performance and resource usage.
 
-To push a .NET app with APM tools in PASW 2012 R2, operators installed APM software
-using BOSH Add-ons. For more information, see [Deploying BOSH Add-Ons](../customizing/add-ons.html).
+To push a .NET app with APM tools in <%= vars.product_windows %> 2012 R2, operators install APM software using BOSH add-ons. For more information, see [Deploying BOSH Add-Ons](../customizing/add-ons.html).
 
-To push a .NET app with APM tools in PASW, operators download an extension buildpack
-for the APM software, and then push their .NET app with the extension buildpack.
-APM software vendors, including New Relic and AppDynamics, provide extension buildpacks
-for their APM tools on [Pivotal Network](https://network.pivotal.io).
+To push a .NET app with APM tools in <%= vars.product_windows %>, operators download an extension buildpack for the APM software, and then push their .NET app with the extension buildpack. APM software vendors, including New Relic and AppDynamics, provide extension buildpacks for their APM tools on [Pivotal Network](https://network.pivotal.io).
 
-## <a id='windows-stack'></a>PASW Windows Stack
 
-A stack is a prebuilt root file system (rootfs) that supports a specific operating
-system. The stack works in tandem with a buildpack to support apps running in containers.
+## <a id='windows-stack'></a> <%= vars.product_windows %> Windows Stack
 
-The `windows2012` stack was based on Windows Server 2012 R2. The current
-`windows` stack always points to the latest version of Windows Server.
+A stack is a prebuilt root file system (rootfs) that supports a specific operating system. The stack works in tandem with a buildpack to support apps running in containers.
+
+The `windows2012` stack was based on Windows Server 2012 R2. The current `windows` stack always points to the latest version of Windows Server.
 
 Developers specify the Windows stack when pushing an app. See the following examples:
 
-  * In PASW 2012 R2, operators used the `windows2012` stack to push .NET apps.<br><br>
-    For example:
-   <pre class="terminal">$ cf push example-app -s windows2012 -b hwc_buildpack</pre>
+* In <%= vars.product_windows %> 2012 R2, operators use the `windows2012` stack to push .NET apps. For example:
+  
+  	```
+	cf push example-app -s windows2012 -b hwc_buildpack
+	```
 
-  * In PASW v2.4 and later, operators use the `windows` stack to push .NET apps.<br><br>
-    For example:
-    <pre class="terminal">$ cf push example-app -s windows -b hwc_buildpack</pre>
+* In <%= vars.product_windows %> v2.4 and later, operators use the `windows` stack to push .NET apps. For example:
+  
+  	```
+  	cf push example-app -s windows -b hwc_buildpack
+  	```
