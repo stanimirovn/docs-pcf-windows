@@ -1,25 +1,26 @@
 ---
-title: Pivotal Application Service for Windows
+title: <%= vars.windows_runtime_full %>
 owner: Windows
 ---
 
 ## <a id='overview'></a> Overview
 
-Pivotal Application Service (PAS) for Windows enables operators to provision, operate, and manage Windows stemcells on <%= vars.product_name  %>.
+<%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>) enables operators to provision, operate, and manage Windows stemcells on <%= vars.product_name %>.
 
-After operators install the PAS for Windows tile on the Ops Manager Installation Dashboard, developers can push .NET applications to Windows cells using the [Cloud Foundry Command Line Interface](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/cf-cli/) (cf CLI).
+After operators install the <%= vars.windows_runtime_abbr %> tile on the Ops Manager Installation Dashboard, developers can push .NET apps to Windows Diego Cells using the [Cloud Foundry Command Line Interface](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/cf-cli/) (cf CLI).
 
-For the PAS for Windows release notes, see the [PAS for Windows v<%= product_info['local_product_version'].to_s %> Release Notes](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/pcf-release-notes/windows-rn.html) topic.
+For the <%= vars.windows_runtime_abbr %> release notes, see [Pivotal Application Service for Windows v<%= product_info['local_product_version'].to_s %> Release Notes](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/pcf-release-notes/windows-rn.html).
+
 
 ## <a id='reqs'></a> Requirements
 
-To install the PAS for Windows tile, you must have the following:
+To install the <%= vars.windows_runtime_abbr %> tile, you must have:
 
-* Ops Manager v<%= product_info['local_product_version'].to_s %> and PAS v<%= product_info['local_product_version'].to_s %> deployed to vSphere, Amazon Web Services (AWS), Google Cloud Platform (GCP), or Azure.  
+* Ops Manager v<%= product_info['local_product_version'].to_s %> and Pivotal Application Service (PAS) v<%= product_info['local_product_version'].to_s %> deployed to vSphere, Amazon Web Services (AWS), Google Cloud Platform (GCP), or Azure.  
 
-* A Windows stemcell, which you can obtain by following the directions in [Downloading or Creating Windows Stemcells](./stemcells.html).  
+* A Windows stemcell. For information about obtaining or creating a Windows stemcell, see [Downloading or Creating Windows Stemcells](./stemcells.html).  
 
-The minimum resource requirements for each Windows cell are as follows:
+The minimum resource requirements for each Windows Diego Cell are:
 
 * Disk size: 64&nbsp;GB (100&nbsp;GB recommended)
 
@@ -30,50 +31,53 @@ The minimum resource requirements for each Windows cell are as follows:
 
 ## <a id='contents'></a>Contents
 
-### <a id='understand'></a> About PAS for Windows
+### <a id='understand'></a> About <%= vars.windows_runtime_abbr %>
 
-* <a href="architecture.html" class="subnav">Product Architecture</a>
+* [Product Architecture](architecture.html)
 
 ### <a id='install'></a> Installation Guide
 
-* <a href="stemcells.html" class="subnav">Downloading or Creating Windows Stemcells</a>
+* [Downloading or Creating Windows Stemcells](stemcells.html)
 
-* <a href="create-vsphere-stemcell-manually.html" class="subnav">Creating a Windows Stemcell for vSphere Manually</a>
+* [Creating a Windows Stemcell for vSphere Manually](create-vsphere-stemcell-manually.html)
 
-* <a href="create-vsphere-stemcell-automatically.html" class="subnav">Creating a Windows Stemcell for vSphere Using stembuild (Beta)</a>
+* [Creating a Windows Stemcell for vSphere Using stembuild (Beta)](create-vsphere-stemcell-automatically.html)
 
-* <a href="installing.html" class="subnav">Installing and Configuring PASW</a>
+* [Installing and Configuring <%= vars.windows_runtime_abbr %>](installing.html)
 
-* <a href="isolation.html" class="subnav">Windows Cells in Isolation Segments</a>
+* [Windows Diego Cells in Isolation Segments](isolation.html)
 
-* <a href="migrating.html" class="subnav">Migrating Apps to PAS for Windows</a>
+* [Migrating Apps to <%= vars.windows_runtime_abbr %>](migrating.html)
 
 ### <a id='admin'></a> Admin Guide
 
-* <a href="./upgrade-windows.html" class="subnav">Upgrading Windows Cells</a>
+* [Upgrading <%= vars.windows_runtime_abbr %> and Windows Stemcells](./upgrade-windows.html)
 
-* <a href="./troubleshooting.html" class="subnav">Troubleshooting Windows Cells</a>
+* [Troubleshooting Windows Diego Cells](./troubleshooting.html)
 
 ### <a id='dev'></a> Developer Guide
 
-* <a href="develop.html">Deploying .NET Apps</a>
+* [Deploying .NET Apps](develop.html)
 
-* <a href="smb-volumes-apps.html">Using SMB Volumes in .NET Apps</a>
+* [Using SMB Volumes in .NET Apps](smb-volumes-apps.html)
 
-* <a href="https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/devguide/deploy-apps/windows-stacks.html">Changing Windows Stacks</a>
+* [Changing Windows Stacks](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/devguide/deploy-apps/windows-stacks.html)
 
-* <a href="using.html" class="subnav">Tips for .NET Developers</a>
+* [Tips for .NET Developers](using.html)
+
 
 ## <a id='limitations'></a> Limitations
 
-PAS for Windows has the following limitations:
+<%= vars.windows_runtime_abbr %> has the following limitations:
 
-* PAS for Windows can be installed in an environment with the NSX Container Plugin (NCP), 
-but NCP cannot be used with Windows containers in PAS for Windows. 
-For more information about NCP, see [What's New](https://docs.vmware.com/en/VMware-NSX-T-Data-Center/2.5/rn/NSX-Container-Plugin-25-Release-Notes.html#about) 
-in the VMware documentation.  
-* Developers cannot push Docker or other OCI-compatible images to Windows Diego cells.
-* Container-to-container networking is not available for Windows-hosted applications.
-* OpenStack is currently not supported for PAS for Windows. Contact your Pivotal representative for information about OpenStack deployments.
+* <%= vars.windows_runtime_abbr %> can be installed in an environment with the NSX Container Plugin (NCP), but NCP cannot be used with Windows containers in <%= vars.windows_runtime_abbr %>. For more information about NCP, see [What's New](https://docs.vmware.com/en/VMware-NSX-T-Data-Center/2.5/rn/NSX-Container-Plugin-25-Release-Notes.html#about) in the VMware documentation.  
+
+* Developers cannot push Docker or other OCI-compatible images to Windows Diego Cells.
+
+* Container-to-container networking is not available for Windows-hosted apps.
+
+* OpenStack is currently not supported for <%= vars.windows_runtime_abbr %>. Contact your Pivotal representative for information about OpenStack deployments.
+
 * SMB is supported, but Volume Services is not supported.
-* Due to [Known Issue #244](https://github.com/Microsoft/hcsshim/issues/244) in Windows Server OS, applications hosted on PAS for Windows cannot route traffic when deployed with the IPsec add-on for <%= vars.product_name %>.
+
+* Due to Known Issue #244 in Windows Server OS, apps hosted on <%= vars.windows_runtime_abbr %> cannot route traffic when deployed with the IPsec add-on for <%= vars.platform_name %>. For more information, see [Traffic to containers via NAT stops working when using IPSec to encrypt network connections](https://github.com/Microsoft/hcsshim/issues/244) on GitHub.
