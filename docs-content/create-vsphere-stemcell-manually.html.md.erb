@@ -3,7 +3,7 @@ title: Creating a Windows Stemcell for vSphere Manually
 owner: Windows
 ---
 
-This topic describes how to create a BOSH stemcell for Windows on vSphere.
+This topic describes how to create the stemcell that <%= vars.product_windows_full %> needs to create VMs on vSphere.
 
 <p class="note"><strong>Note:</strong> The instructions in this topic are based on vSphere 6.0 using vSphere Web Client.</p>
 
@@ -25,6 +25,7 @@ with all Windows recommended security updates, but without the BOSH dependencies
 The Windows VM with security updates serves as the base for all future stemcells produced from clones of that base VM. This enables you to build new stemcells without having to run Windows updates from scratch each time. You can also use a "snapshot" feature to maintain an updated Windows image that does not contain the BOSH dependencies.
 
 Pivotal recommends installing any available critical updates and then rebuilding the stemcell from a clone of the original VM.
+
 
 
 ## <a id='prerequisites'></a> Prerequisites
@@ -339,8 +340,7 @@ You can use the `bosh ssh` command on BOSH-deployed Windows VMs if you install t
 ### <a id='optimize-compress'></a> Optimize and Compress the Disk
 
 <p class="note"><strong>Note:</strong> Windows Server stemcells can be large, and can exceed the 10&nbsp;GB upload limit imposed by 
-default by the BOSH Director.
-</p>
+default by the BOSH Director.</p>
 
 To reduce the stemcell size:
 

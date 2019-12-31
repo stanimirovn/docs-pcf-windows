@@ -68,7 +68,7 @@ To disable SSL validation on development and testing environments, do the follow
 
 1. Select the **Disable SSL certificate verification for this environment** checkbox.
 
-For more information, see the [Terminate SSL/TLS at HAProxy](https://docs.pivotal.io/platform/opsguide/ssl-term-haproxy.html#haproxy) section of the _Configuring SSL/TLS Termination at HAProxy_ topic.
+For more information, see the [Terminate SSL/TLS at HAProxy](../opsguide/ssl-term-haproxy.html#haproxy) section of the _Configuring SSL/TLS Termination at HAProxy_ topic.
 
 
 ## <a id='install'></a> Install the Tile
@@ -135,7 +135,7 @@ To install the <%= vars.product_windows %> tile:
 
 ## <a id='config'></a> Configure the Tile
 
-The following sections describe how to configure the settings for the PASW tile.
+The following sections describe how to configure the settings for the <%= vars.product_windows %> tile.
 
 ### <a id='config-azs-networks'></a> Assign Availability Zones and Networks
 
@@ -224,7 +224,7 @@ By default, Ops Manager runs all errands.
 
 In **Errands**, you can change these run rules. For each errand, you can select **On** to run it each time Ops Manager installs or uninstalls a product, or **Off** to never run it.
 
-For more information about how Ops Manager manages errands, see [Managing Errands in Ops Manager](https://docs.pivotal.io/platform/customizing/managing_errands.html).
+For more information about how Ops Manager manages errands, see [Managing Errands in Ops Manager](../customizing/managing_errands.html).
 
 To configure errands:
 
@@ -296,7 +296,6 @@ To upload the stemcell:
 1. Follow the procedure in [Importing and Managing Stemcells](../opsguide/managing-stemcells.html) to upload the Windows stemcell to <%= vars.product_windows %>.
 
 <p class='note'><strong>Note:</strong> If you use vSphere, you must create your own stemcell. The default root disk size of Windows stemcells v2019.x line is 30&nbsp;GB. Pivotal recommends setting the root disk size of your Windows stemcell for vSphere to 30&nbsp;GB. For more information, see <a href="create-vsphere-stemcell-manually.html">Creating a Windows Stemcell for vSphere Manually</a> or <a href="create-vsphere-stemcell-automatically.html">Creating a Windows Stemcell for vSphere Using stembuild (Beta)</a>.</p>
-f="create-vsphere-stemcell-automatically.html">Creating a Windows Stemcell for vSphere Using stembuild (Beta)</a>.</p>
 
 
 ## <a id='deploy'></a> Deploy the Tile
@@ -309,7 +308,7 @@ To deploy the <%= vars.product_windows %> tile:
 
 1. Click **Review Pending Changes**.
 
-1. Select the <%= vars.product_windows %> tile and review the changes. For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/platform/customizing/review-pending-changes.html).
+1. Select the <%= vars.product_windows %> tile and review the changes. For more information, see [Reviewing Pending Product Changes](../customizing/review-pending-changes.html).
 
 1. Click **Apply Changes**.
 

@@ -12,8 +12,7 @@ For information about how to develop microservices for .NET Framework and .NET C
 
 The <%= vars.product_windows %> tile must be installed and configured. To install <%= vars.product_windows %>, see [Installing and Configuring <%= vars.product_windows %>](installing.html).
 
-Operators must also install the Cloud Foundry Command Line Interface (cf CLI) to run the commands on this topic.
-For information about installing the cf CLI, see [Installing the cf CLI](https://docs.pivotal.io/pivotalcf/cf-cli/install-go-cli.html).
+Operators must also install the Cloud Foundry Command Line Interface (cf CLI) to run the commands on this topic. For information about installing the cf CLI, see [Installing the cf CLI](../cf-cli/install-go-cli.html).
 
 
 ## <a id='overview'></a> Overview
@@ -84,7 +83,7 @@ Making an app accessible under another app's URL requires a pair of commands. To
     * `APP-DOMAIN` is your app's public domain name. For example, `example.com`.
     <p class="note"><strong>Note:</strong> The <code>-d</code> parameter is only needed when pushing an app to a non-default domain.</p>
 
-### <a id='graceful-shutdown'></a>Enable Graceful Shutdown for a .NET App (Beta)
+### <a id='graceful-shutdown'></a> Enable Graceful Shutdown for a .NET App (Beta)
 
 Developers can configure .NET apps to shut down gracefully after running `cf stop`. When you run `cf stop`, the .NET app receives a `CTRL_SHUTDOWN_EVENT` and is allowed ten seconds to shut down. To enable graceful shutdown, you must include a control handler in the app.
 
@@ -115,6 +114,11 @@ To push a self-hosted app:
 
 1. Wait for your app to stage and start. If you see an error message, see [Troubleshoot App Errors](#troubleshoot).
 
+<<<<<<< HEAD
+=======
+1. Wait for your app to stage and start. If you see an error message, see [Troubleshoot App Errors](#troubleshoot).
+
+>>>>>>> f6c459d... Style/formatting/variable sweep
 
 ## <a id='soap'></a> Push a SOAP Service
 
@@ -170,7 +174,11 @@ See the following portion of an example WSDL file:
 - </wsdl:service>
 ```
 
+<<<<<<< HEAD
 The WSDL file provides the port number for the SOAP web service as `62492`. This is the port that the web service listens on in the [Garden container](https://docs.pivotal.io/pivotalcf/concepts/container-security.html#mechanics), but external applications cannot access the service on this port. Instead, external applications must use port `80`, and the [Gorouter](https://docs.pivotal.io/pivotalcf/concepts/architecture/router.html) routes requests to the web service in the container.
+=======
+The WSDL file provides the port number for the SOAP web service as `62492`. This is the port that the web service listens on in the Garden container, but external apps cannot access the service on this port. Instead, external apps must use port `80`, and the Gorouter routes requests to the web service in the container.
+>>>>>>> f6c459d... Style/formatting/variable sweep
 
 The URL of the web service in the WSDL file must be modified to remove `62492`. With no port number, the URL defaults to port 80. In the example above, the modified URL would be `http://webservice.example.com/WebService1.asmx`.
 
@@ -219,8 +227,6 @@ To use a modified version of the WSDL file:
 #### <a id='context-routing-soap'></a> Context Path Routing Support for SOAP Web Services
 
 Developers can push SOAP web services to their <%= vars.product_name %> deployment with context path routing. For more information, see [Context Path Routing Support for ASP.NET Apps](#context-routing).
-
-Developers can push SOAP web services to their PCF deployment with context path routing. For more information, see the [Context Path Routing Support for ASP.NET Apps](#context-routing) section.
 
 
 ## <a id='troubleshoot'></a> Troubleshoot App Errors

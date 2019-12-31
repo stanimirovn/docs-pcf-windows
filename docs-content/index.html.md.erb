@@ -5,16 +5,16 @@ owner: Windows
 
 <%= vars.product_windows_full %> enables operators to provision, operate, and manage Windows stemcells on <%= vars.first_product_name %>.
 
-After operators install the <%= vars.product_windows %> tile on the Ops Manager Installation Dashboard, developers can push .NET apps to Windows Diego Cells using the [Cloud Foundry Command Line Interface](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/cf-cli/) (cf CLI).
+After operators install the <%= vars.product_windows %> tile on the Ops Manager Installation Dashboard, developers can push .NET apps to Windows Diego Cells using the [Cloud Foundry Command Line Interface](../cf-cli/) (cf CLI).
 
-For the <%= vars.product_windows %> release notes, see [Pivotal Application Service for Windows v<%= product_info['local_product_version'].to_s %> Release Notes](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/pcf-release-notes/windows-rn.html).
+For the <%= vars.product_windows %> release notes, see [Pivotal Application Service for Windows <%= vars.v_major_version %> Release Notes](../pcf-release-notes/windows-rn.html).
 
 
 ## <a id='reqs'></a> Requirements
 
 To install the <%= vars.product_windows %> tile, you must have:
 
-* Ops Manager v<%= product_info['local_product_version'].to_s %> and Pivotal Application Service (PAS) v<%= product_info['local_product_version'].to_s %> deployed to vSphere, Amazon Web Services (AWS), Google Cloud Platform (GCP), or Azure.  
+* Ops Manager <%= vars.v_major_version %> and Pivotal Application Service (PAS) <%= vars.v_major_version %> deployed to vSphere, Amazon Web Services (AWS), Google Cloud Platform (GCP), or Azure.
 
 * A Windows stemcell. For information about obtaining or creating a Windows stemcell, see [Downloading or Creating Windows Stemcells](./stemcells.html).
 
@@ -27,7 +27,7 @@ The minimum resource requirements for each Windows Diego Cell are:
 * CPUs: 4
 
 
-## <a id='contents'></a>Contents
+## <a id='contents'></a> Contents
 
 ### <a id='understand'></a> About <%= vars.product_windows %>
 
