@@ -29,6 +29,7 @@ If you are using Steeltoe, add the following environment variables to your Confi
 * `SMB\_PASSWORD`
 
 Where:
+
 * `SMB\_PATH` is the UNC path to your SMB.
 * `SMB\_USERNAME` is your IaaS account username.
 * `SMB\_PASSWORD` is your IaaS account password.
@@ -39,9 +40,9 @@ After adding your environment variables to your Config Server Provider, proceed 
 
 ### <a id='batch'></a> Using SMB Volumes in .NET Apps with Your Batch Profile
 
-If you do not want to modify your app code to include Steeltoe, you can use SMB mounting without Steeltoe.
+If you do not want to modify your app code to include Steeltoe, you can use mount SMB Volumes without Steeltoe.
 
-To use SMB mounting:
+To mount SMB Volumes:
 
 1. Retrieve the UNC of your existing SMB share. The UNC is your machine's fully-qualified domain name (FQDN).
 
