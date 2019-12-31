@@ -8,19 +8,18 @@ This topic describes how to create a BOSH stemcell for Windows on vSphere.
 
 ## <a id='overview'></a> Overview
 
-You must create a BOSH stemcell for Windows
-before you can deploy the following products on vSphere:
+You must create a BOSH stemcell for Windows before you can deploy the following products on vSphere:
 
-* Pivotal Application Service (PAS) for Windows
+* <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>)
 * Enterprise Pivotal Container Service (Enterprise PKS) with Windows workers in Kubernetes clusters
 
 <p class="note"><strong>Note:</strong> A BOSH stemcell is a versioned operating system image. The BOSH stemcell that you create in this topic is based on Windows Server 2019.</p>
 
 ### <a name='windows-stemcells'></a> Overview of Windows Stemcell Creation
 
-To create a Windows stemcell for vSphere, you create a base Windows VM from a volume-licensed ISO and subsequently maintain that base template with all Windows recommended security updates, but without the BOSH dependencies.
+To create a Windows stemcell for vSphere, you create a base Windows VM from a volume-licensed ISO and subsequently maintain that base template with all Windows-recommended security updates, but without the BOSH dependencies.
 
-The Windows VM with security updates serves as the base for all future stemcells produced from clones of that base VM. This enables you to build new stemcells without having to run Windows Updates from scratch each time. You can also use a "snapshot" feature to maintain an updated Windows image that does not contain the BOSH dependencies.  
+The Windows VM with security updates serves as the base for all future stemcells produced from clones of that base VM. This enables you to build new stemcells without having to run Windows updates from scratch each time. You can also use a "snapshot" feature to maintain an updated Windows image that does not contain the BOSH dependencies.  
 
 Pivotal recommends installing any available critical updates and then rebuilding the stemcell from a clone of the original VM.
 
@@ -33,11 +32,11 @@ Before you create a BOSH stemcell for Windows on vSphere, you must have:
 
 * A vSphere environment. To ensure the VM hardware used by the stemcell is compatible with your deployment environment's ESXi/ESX host and vCenter Server versions, see [ESXi/ESX hosts and compatible virtual machine hardware versions list (2007240)](https://kb.vmware.com/s/article/2007240) in the VMware Knowledge Base.  
 
-* A Windows Server 2019 ISO, build number: 17763, from [Microsoft Developer Network (MSDN)](https://msdn.microsoft.com/en-us) or [Volume Licensing Service Center (VLSC)](https://www.microsoft.com/Licensing/servicecenter/default.aspx). The Windows Server 2019 ISO must be a clean, base ISO file. You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production, as the licensing expires.  
+* A Windows Server 2019 ISO, build number: 17763, from Microsoft Developer Network (MSDN) or Volume Licensing Service Center (VLSC). The Windows Server 2019 ISO must be a clean, base ISO file. You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production, as the licensing expires. For more information, see the [Microsoft documentation](https://docs.microsoft.com/en-us/welcome-to-docs) or the [Microsoft Volume Licensing Service Center](https://www.microsoft.com/Licensing/servicecenter/default.aspx) website.
     <p class="note"><strong>Note:</strong> A clean ISO file has no custom scripts or tooling. For example, the ISO must have no logging or antivirus tools installed.</p> 
 
-* A download of the `stembuild` command line interface (CLI) from a 2019.x release in [Pivotal Stemcells (Windows)](https://network.pivotal.io/products/stemcells-windows-server) on Pivotal Network.
-    * To build a Windows stemcell for PAS for Windows, use the vSphere `stembuild` CLI for Windows corresponding to both the operating system of your local host and the stemcell version that you want to build.
+* A download of the `stembuild` command line interface (CLI) from a 2019.x release on the [Pivotal Stemcells (Windows)](https://network.pivotal.io/products/stemcells-windows-server) page on Pivotal Network.
+    * To build a Windows stemcell for <%= vars.windows_runtime_abbr %>, use the vSphere `stembuild` CLI for Windows corresponding to both the operating system of your local host and the stemcell version that you want to build.
     * To build a Windows stemcell for Enterprise PKS, use the vSphere `stembuild` CLI for Windows v2019.7 or later.
 
 * Microsoft [Local Group Policy Object Utility (LGPO)](https://www.microsoft.com/en-us/download/details.aspx?id=55319) downloaded to the same folder as your `stembuild` CLI.  
@@ -151,7 +150,11 @@ To install VMware Tools on the base VM:
 
 1. In the vSphere Web Client, right-click the base VM and select **Guest OS** > **Install VMware Tools**.
 
-1. Navigate to the `D:` drive and run `setup64.exe`.
+1. Navigate to the `D:` drive and run:
+
+  ```
+  setup64.exe
+  ```
 	<p class="note"><strong>Note:</strong> The VMware Tools install window might appear behind the Command Prompt window.</p>
 
 1. Restart the VM to complete the installation.
@@ -212,11 +215,11 @@ Before constructing the BOSH stemcell, collect the following information from th
 * Target VM IP address
 * Target VM username
 * Target VM password
-* vCenter inventory path to the target VM in the `/MY-DATA-CENTER/vm/MY-FOLDER/MY-VM` format where:
-  * `MY-DATA-CENTER` is the name of the data center.
+* vCenter inventory path to the target VM in the `/YOUR-DATA-CENTER/vm/YOUR-FOLDER/YOUR-VM` format, where:
+  * `YOUR-DATA-CENTER` is the name of the data center.
   * `vm` is a static string.
-  * `MY-FOLDER` is the name of the folder that contains the VM. If the target VM is not in a folder, use the `/MY-DATA-CENTER/vm/MY-VM` format instead.
-  * `MY-VM` is the name of the target VM.
+  * `YOUR-FOLDER` is the name of the folder that contains the VM. If the target VM is not in a folder, use the `/YOUR-DATA-CENTER/vm/YOUR-VM` format instead.
+  * `YOUR-VM` is the name of the target VM.
 * vCenter username
 * vCenter password
 * vCenter URL
@@ -233,8 +236,8 @@ Where:
 
 * `STEMBUILD-BINARY` is the `stembuild` file for the version of your local host operating system and the version of the stemcell that you want to build. For example, `stembuild-windows-2019-2`.
 * `TARGET-VM-IP` is the IP address of your target VM.
-* `TARGET-USERNAME` is the username of an account with Administrator privileges.
-* `TARGET-VM-PASSWORD` is the password for the Administrator account. The password must be enclosed in single quotes.
+* `TARGET-USERNAME` is the username of an account with administrator privileges.
+* `TARGET-VM-PASSWORD` is the password for the administrator account. The password must be enclosed in single quotes.
 * `VCENTER-URL` is the URL of your vCenter.
 * `VCENTER-USERNAME` is the username of your account in vCenter.
 * `VCENTER-PASSWORD` is your password. The password must be enclosed in single quotes.
@@ -260,12 +263,11 @@ To view the status of `construct`:
 To package the BOSH stemcell:
 
 1. Gather the  vCenter Web Client **VMs and Templates** information that you recorded in the previous step:
-  * vCenter inventory path to the target VM in the `/MY-DATA-CENTER/vm/MY-FOLDER/MY-VM` format, where:
-      * `MY-DATA-CENTER` is the name of the data center.
+  * vCenter inventory path to the target VM in the `/YOUR-DATA-CENTER/vm/YOUR-FOLDER/YOUR-VM` format, where:
+      * `YOUR-DATA-CENTER` is the name of the data center.
       * `vm` is a static string.
-      * `MY-FOLDER` is the name of the folder that contains the VM. If the target VM is
-      not in a folder, use the `/MY-DATA-CENTER/vm/MY-VM` format instead.
-      * `MY-VM` is the name of the target VM.
+      * `YOUR-FOLDER` is the name of the folder that contains the VM. If the target VM is not in a folder, use the `/YOUR-DATA-CENTER/vm/MY-VM` format instead.
+      * `YOUR-VM` is the name of the target VM.
   * vCenter username
   * vCenter password
   * vCenter URL
@@ -295,7 +297,7 @@ To upload the BOSH stemcell to Ops Manager:
 
 1. Upload your BOSH stemcell.
 
-1. Deploy the PAS for Windows or Enterprise PKS tile.
+1. Deploy the <%= vars.windows_runtime_abbr %> or Enterprise PKS tile.
 
 
 ## <a id='upgrade-stemcell'></a> Monthly Stemcell Upgrades
@@ -314,7 +316,7 @@ To upgrade your BOSH stemcell:
 
 1. Replace the existing stemcell in the Ops Manager stemcell library with this new stemcell.
 
-1. Deploy the PAS for Windows or Enterprise PKS tile.
+1. Deploy the <%= vars.windows_runtime_abbr %> or Enterprise PKS tile.
 
 
 ## <a id='known-issues'></a> Known Issues
@@ -365,16 +367,24 @@ If you use other special characters, add single quotes around the input paramete
 
 For example:
 
-  * **Linux**:
+* **Linux**:
 
-    ```
-    ./STEMBUILD-BINARY package -vcenter-url VCENTER-URL -vcenter-username 'admin@' -vcenter-password VCENTER-PASSWORD -vm-inventory-path INVENTORY-PATH
-    ```
+  ```
+  ./STEMBUILD-BINARY package -vcenter-url VCENTER-URL -vcenter-username 'admin@' -vcenter-password VCENTER-PASSWORD -vm-inventory-path INVENTORY-PATH
+  ```
+  Where:
+  * `STEMBUILD-BINARY` is the `stembuild` file for the version of your local host operating system and the version of the stemcell that you want to build. For example, `stembuild-windows-2019-2`.
+  * `VCENTER-URL` is the URL of your vCenter.
+  * `VCENTER-PASSWORD` is your password. The password must be enclosed in single quotes.
+  * `INVENTORY-PATH` is the vCenter inventory path to the target VM.
 
-  * **Windows**:
+* **Windows**:
 
-    ```
-    set GOVC_PASSWORD=A_Strange!PAssword@Here#1
-    ./STEMBUILD-BINARY package -vcenter-url VCENTER-URL -vcenter-username %GOVC_USERNAME% -vcenter-password %GOVC_PASSWORD% -vm-inventory-path %GOVC_PATH%
-    ```
-    <p class="note"><strong>Note:</strong> Windows environment variables do not automatically override vCenter command line parameters, so you must specify the environment variables in the vCenter command as shown above.</p>
+  ```
+  set GOVC_PASSWORD=A_Strange!PAssword@Here#1
+  ./STEMBUILD-BINARY package -vcenter-url VCENTER-URL -vcenter-username %GOVC_USERNAME% -vcenter-password %GOVC_PASSWORD% -vm-inventory-path %GOVC_PATH%
+  ```
+  Where:
+  * `STEMBUILD-BINARY` is the `stembuild` file for the version of your local host operating system and the version of the stemcell that you want to build. For example, `stembuild-windows-2019-2`.
+  * `VCENTER-URL` is the URL of your vCenter.
+  <p class="note"><strong>Note:</strong> Windows environment variables do not automatically override vCenter command line parameters, so you must specify the environment variables in the vCenter command as shown above.</p>

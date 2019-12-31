@@ -5,35 +5,28 @@ owner: Windows
 
 This topic lists resources for .NET app developers.
 
-For general information about app deployment, see [Pushing an App](https://docs.pivotal.io/platform/devguide/deploy-apps/deploy-app.html).
+For general information about app deployment, see [Pushing an App](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/devguide/deploy-apps/deploy-app.html).
 
-## <a id='dotnet-core'></a>.NET Core on Linux
 
-[.NET Core Buildpack](https://docs.pivotal.io/platform/buildpacks/dotnet-core/index.html) describes how to push .NET Core apps to
-Linux cells on Cloud Foundry using the .NET Core buildpack. For supported ASP.NET Core versions, see
-[.NET Core buildpack release notes](https://github.com/cloudfoundry/dotnet-core-buildpack/releases)
-in GitHub.
+## <a id='dotnet-core'></a> .NET Core on Linux
 
-## <a id='hwc'></a>.NET Framework on Windows
+[.NET Core Buildpack](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/buildpacks/dotnet-core/index.html) describes how to push .NET Core apps to Linux Diego Cells on <%= vars.platform_name %> using the .NET Core buildpack. For supported ASP.NET Core versions, see the [.NET Core buildpack release notes](https://github.com/cloudfoundry/dotnet-core-buildpack/releases) in GitHub.
 
-[HWC Buildpack](https://docs.pivotal.io/platform/buildpacks/hwc/index.html) describes how to push .NET Framework apps to Pivotal
-Application Service for Windows (PASW) using the HWC buildpack. It also describes what features of
-IIS (Internet Information Services) and HWC (Hostable Web Core) are supported, and how to configure
-your .NET Framework apps to run on PASW.
 
-[Console Applications](https://dotnet-cookbook.cfapps.io/headless/console_app/) in the
-_.NET Cookbook_ provides information about pushing compiled .NET Framework Console apps to PASW
-using the binary buildpack.
+## <a id='hwc'></a> .NET Framework on Windows
 
-## <a id='binary'></a>.NET Core on Windows
+[HWC Buildpack](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/buildpacks/hwc/index.html) describes how to push .NET Framework apps to <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>) using the HWC buildpack. It also describes what features of IIS (Internet Information Services) and HWC (Hostable Web Core) are supported, and how to configure your .NET Framework apps to run on <%= vars.windows_runtime_abbr %>.
 
-[Binary Buildpack](https://docs.pivotal.io/platform/buildpacks/binary/index.html) describes how to push compiled .NET Core apps
-to Windows cells on PASW using the binary buildpack.
+[Console Applications](https://dotnet-cookbook.cfapps.io/headless/console_app/) in the _.NET Cookbook_ provides information about pushing compiled .NET Framework Console apps to <%= vars.windows_runtime_abbr %> using the binary buildpack.
 
-## <a id='tips'></a>Other Resources
 
-[Tips for .NET Framework Developers](./using.html) describes common errors and challenges faced when pushing
-.NET Framework apps to PASW.
+## <a id='binary'></a> .NET Core on Windows
 
-The [.Net Cookbook](https://dotnet-cookbook.cfapps.io/intro/) provides code samples, guidelines,
-tips, and other recipes for making changes to both new and existing .NET Framework and .NET Core apps to run successfully on PASW.
+[Binary Buildpack](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/buildpacks/binary/index.html) describes how to push compiled .NET Core apps to Windows Diego Cells on <%= vars.windows_runtime_abbr %> using the binary buildpack.
+
+
+## <a id='tips'></a> Other Resources
+
+[Tips for .NET Framework Developers](./using.html) describes common errors and challenges faced when pushing .NET Framework apps to <%= vars.windows_runtime_abbr %>.
+
+The [.Net Cookbook](https://dotnet-cookbook.cfapps.io/intro/) provides code samples, guidelines, tips, and other recipes for making changes to both new and existing .NET Framework and .NET Core apps to run successfully on <%= vars.windows_runtime_abbr %>.
