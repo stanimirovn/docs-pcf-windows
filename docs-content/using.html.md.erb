@@ -3,90 +3,84 @@ title: Tips for .NET Framework Developers
 owner: Greenhouse
 ---
 
+This topic describes how to push .NET Framework apps to <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>) Diego Cells.
 
-This topic describes how to push .NET Framework apps to Pivotal Application Service (PAS) for Windows cells.
-
-For how to develop microservices for .NET Framework and .NET Core using Steeltoe, see the [Steeltoe documentation](http://steeltoe.io/docs/).
+For information about how to develop microservices for .NET Framework and .NET Core using Steeltoe, see the [Steeltoe documentation](http://steeltoe.io/docs/).
 
 
 ## <a id='prerequisites'></a> Prerequisites
 
-The PAS for Windows tile must be installed and configured. For documentation about installing the PAS for Windows tile, see [Installing and Configuring PAS for Windows](installing.html).
+The <%= vars.windows_runtime_abbr %> tile must be installed and configured. To install <%= vars.windows_runtime_abbr %>, see [Installing and Configuring <%= vars.windows_runtime_abbr %>](installing.html).
 
 Operators must also install the Cloud Foundry Command Line Interface (cf CLI) to run the commands on this topic. For information about installing the cf CLI, see [Installing the cf CLI](https://docs.pivotal.io/platform/cf-cli/install-go-cli.html).
 
 
 ## <a id='overview'></a> Overview
 
-After operators install and configure the PAS for Windows tile, developers can push .NET Framework apps to the Windows cell. Developers can push both [OWIN](http://owin.org/) and non-OWIN apps, and can push apps that are served by [Hostable Web Core](#push) or [self-hosted](#self-hosted).
+After operators install and configure the <%= vars.windows_runtime_abbr %> tile, developers can push .NET Framework apps to the Windows Diego Cell. Developers can push both [OWIN](http://owin.org/) and non-OWIN apps, and can push apps that are served by Hostable Web Core or self-hosted.
 
-If you have upgraded to PAS for Windows and have apps that you want to migrate, see [Upgrading Cells](upgrade-windows.html).
+If you have upgraded to <%= vars.windows_runtime_abbr %> and have apps that you want to migrate, see [Upgrading Windows Diego Cells](upgrade-windows.html).
 
 
 ## <a id='develop'></a> Develop .NET Framework Apps
 
-### <a id='cookbook'></a> .NET on <%= vars.product_name %> Cookbook
+### <a id='cookbook'></a> .NET on <%= vars.platform_name %> Cookbook
 
-For useful tips and recipes for migrating and developing .NET Framework apps to run on PAS for Windows, see the [.NET Cookbook](https://dotnet-cookbook.cfapps.io/intro/).
+For useful tips and recipes for migrating and developing .NET Framework apps to run on <%= vars.windows_runtime_abbr %>, see the [.NET Cookbook](https://dotnet-cookbook.cfapps.io/intro/).
 
 
 ## <a id='push'></a> Push a .NET Framework App
 
-By default, <%= vars.product_name %> serves .NET Framework apps with Hostable Web Core (HWC). HWC is a lighter version of the Internet Information Services (IIS) server that contains the core IIS functionality.
+By default, <%= vars.platform_name %> serves .NET Framework apps with Hostable Web Core (HWC). HWC is a lighter version of the Internet Information Services (IIS) server that contains the core IIS functionality.
 
-To push a .NET Framework app to a Windows cell:
+To push a .NET Framework app to a Windows Diego Cell:
 
-1. Target the Cloud Controller of your <%= vars.product_name %> deployment:
+1. Target the Cloud Controller of your <%= vars.platform_name %> deployment by running:
 
-    ```shell
+    ```
     cf api api.APP-DOMAIN
     ```
-    Where `APP-DOMAIN` is your application's public domain name, for example: `example.com`.
+    Where `APP-DOMAIN` is your app's public domain name. For example, `example.com`.
 
 1. Run one of the following commands to deploy your .NET app:
-    * To deploy an app with `.bat` or `.exe` files, run the following command:
+    * To deploy an app with `.bat` or `.exe` files, run:
 
-    ```shell
+    ```
     cf push -s windows -b binary_buildpack
     ```
-    *  To deploy a .NET Framework app, run the following command:
+    *  To deploy a .NET Framework app, run:
 
     ```shell
     cf push APP-NAME -s windows -b hwc_buildpack
     ```
-
     Where `APP-NAME` is the name of your app.
-
-    <p class="note"><strong>Note:</strong> The <code>-s windows</code> option instructs <%= vars.product_name %> to run the app in the Windows cell.</p>
+    <p class="note"><strong>Note:</strong> The <code>-s windows</code> option instructs <%= vars.platform_name %> to run the app in the Windows Diego Cell.</p>
     <p class="note"><strong>Note:</strong> If you are not pushing your app from its directory, use the <code>-p</code> option and specify the path to the directory that contains the app.</p>
 
-1. Wait for your app to stage and start. If you see an error message, see the [Troubleshoot App Errors](#troubleshoot) section of this topic.
+1. Wait for your app to stage and start. If you see an error message, see [Troubleshoot App Errors](#troubleshoot).
 
 ### <a id='context-routing'></a> Context Path Routing Support for ASP.NET Apps
 
-Context path routing enables multiple apps to share the same route hostname, such as `app1.example.com/app2`. ASP.NET developers can host apps under a route path. Within Windows cells, you can have multiple routes to an app, but those routes cannot have different context paths.
+Context path routing enables multiple apps to share the same route hostname, such as `app1.example.com/app2`. ASP.NET developers can host apps under a route path. Within Windows Diego Cells, you can have multiple routes to an app, but those routes cannot have different context paths.
 
 Making an app accessible under another app's URL requires a pair of commands. To define a context path route, such as `app1.example.com/app2`:
 
-1. Push the top-level app:
+1. Push the top-level app by running:
 
-    ```shell
+    ```
     cf push TOP-LEVEL-APP-NAME
     ```
+    Where `TOP-LEVEL-APP-NAME` is the name of your top-level app.
 
-    Where `TOP-LEVEL-APP-NAME` is the name of your  top-level app.
+1. Push the lower-level app by running:
 
-1. Push the lower-level app:
-
-    ```shell
+    ```
     cf push LOWER-LEVEL-APP-NAME -d APP-DOMAIN --hostname TOP-LEVEL-APP-NAME --route-path LOWER-LEVEL-APP-NAME
     ```
-
     Where:
-    * `TOP-LEVEL-APP-NAME` is the name of your  top-level app.
-    * `LOWER-LEVEL-APP-NAME` is the name of your  lower-level app.
-    * `APP-DOMAIN` is your app's public domain name, for example: `example.com`.
-
+    * `TOP-LEVEL-APP-NAME` is the name of your top-level app.
+    * `LOWER-LEVEL-APP-NAME` is the name of your lower-level app.
+    * `APP-DOMAIN` is your app's public domain name. For example, `example.com`.
     <p class="note"><strong>Note:</strong> The <code>-d</code> parameter is only needed when pushing an app to a non-default domain.</p>
 
 ### <a id='graceful-shutdown'></a> Enable Graceful Shutdown for a .NET App
@@ -102,30 +96,28 @@ Developers can choose to push a self-hosted app instead of using Hostable Web Co
 
 To push a self-hosted app:
 
-1. Target the Cloud Controller of your <%= vars.product_name %> deployment:
+1. Target the Cloud Controller of your <%= vars.platform_name %> deployment by running:
 
-    ```shell
+    ```
     cf api api.APP-DOMAIN
     ```
+    Where `APP-DOMAIN` is your app's public domain name. For example, `example.com`.
 
-    Where `APP-DOMAIN` is your application's public domain name, for example: `example.com`.
+1. Push your .NET app from the app root by running:
 
-1. Push your .NET app from the app root:
-
-    ```shell
+    ```
     cf push APP-NAME -s windows -b binary_buildpack -c PATH-TO-BINARY
     ```
-
     Where:
     * `APP-NAME` is the name of your app.
     * `PATH-TO-BINARY` is the path to your executable.
 
-1. Wait for your app to stage and start. If you see an error message, see [Troubleshoot App Errors](#troubleshoot) section.
+1. Wait for your app to stage and start. If you see an error message, see [Troubleshoot App Errors](#troubleshoot).
 
 
 ## <a id='soap'></a> Push a SOAP Service
 
-Developers can push Simple Object Access Protocol (SOAP) web services to their <%= vars.product_name %> deployment by following the procedures in the sections below.
+Developers can push Simple Object Access Protocol (SOAP) web services to their <%= vars.platform_name %> deployment by following the procedures in the sections below.
 
 ### <a id='push-soap'></a> Step 1: Deploy Your Web Service
 
@@ -137,18 +129,16 @@ To deploy a SOAP web service:
 
 1. Open a command line to the directory containing the published web service.
 
-1. Push your service:
+1. Push your service by running:
 
-    ```shell
+    ```
     cf push SOAP-SERVICE-NAME -s windows -b hwc_buildpack -p WEB-SERVICE-DIRECTORY -u none
     ```
-
     Where
     * `SOAP-SERVICE-NAME` is the name of your service.
     * `WEB-SERVICE-DIRECTORY` is the path to the directory containing the published web service.
-
+    <br>
     For example:
-
     <pre class='terminal'>
     $ cf push webservice -s windows -b hwc_buildpack -u none
 
@@ -157,15 +147,14 @@ To deploy a SOAP web service:
     usage: 1G x 1 instances
     urls: webservice.example.com
     </pre>
-
-    <p class="note"><strong>Note:</strong> The push command must include the <code>-s</code> flag to specify the stack, which instructs <%= vars.product_name %> to run the app in the Windows cell.</p>
+    <p class="note"><strong>Note:</strong> The push command must include the <code>-s</code> flag to specify the stack, which instructs <%= vars.platform_name %> to run the app in the Windows Diego Cell.</p>
     <p class="note"><strong>Note:</strong> The <code>-p</code> and <code>-u </code> parameters are optional parameters. The <code>-p</code> parameter is needed only when pushing your service from a directory that does not contain the published web service. The <code>-u</code> parameter is needed only when disabling the health check when you do not have a route serving <code>/</code>.</p>
 
-1. Confirm your service is running by finding your service's URL in the push command's output and browsing to it. In the example above, the URL for the service would be: `http://webservice.example.com`.
+1. Confirm your service is running by finding your service's URL in the push command's output and browsing to it. In the example above, the URL for the service would be `http://webservice.example.com`.
 
 ### <a id='correct-wsdl'></a> Step 2: Modify the WSDL File
 
-Your SOAP web service is now deployed on <%= vars.product_name %>, but the service's WSDL file contains incorrect port information. The WSDL file must be modified to enable an app to consume your web service. Either you or the service developer can perform the needed modification.
+Your SOAP web service is now deployed on <%= vars.platform_name %>, but the service's WSDL file contains incorrect port information. The WSDL file must be modified to enable an app to consume your web service. Either you or the service developer can perform the needed modification.
 
 Examine the following portion of an example WSDL file:
 
@@ -182,33 +171,30 @@ Examine the following portion of an example WSDL file:
 
 The WSDL file provides the port number for the SOAP web service as `62492`. This is the port that the web service listens on in the Garden container, but external apps cannot access the service on this port. Instead, external apps must use port 80, and the Gorouter routes requests to the web service in the container. For more information about the Garden containter, see the [Container Mechanics](https://docs.pivotal.io/platform/concepts/container-security.html#mechanics) section of the _Container Security_ topic. For more information about the Gorouter, see [Gorouter](https://docs.pivotal.io/platform/concepts/architecture/router.html).
 
-The URL of the web service in the WSDL file must be modified to remove `62492`. With no port number, the URL defaults to port 80. In the example above, the modified URL would be:
-
-```
-http://webservice.example.com/WebService1.asmx
-```
+The URL of the web service in the WSDL file must be modified to remove `62492`. With no port number, the URL defaults to port 80. In the example above, the modified URL would be `http://webservice.example.com/WebService1.asmx`.
 
 SOAP web service developers can resolve this problem in one of two ways:
 
-* Modify the WSDL file by following the instructions in [Modify a Web Service’s WSDL Using a SoapExtensionReflector](https://blogs.msdn.microsoft.com/kaevans/2005/11/16/modify-a-web-services-wsdl-using-a-soapextensionreflector/) from the Microsoft Developers Network.
+* Modify the WSDL file by following the instructions in [Modify a Web Service's WSDL Using a SoapExtensionReflector](https://blogs.msdn.microsoft.com/kaevans/2005/11/16/modify-a-web-services-wsdl-using-a-soapextensionreflector/) from the Microsoft Developers Network.
 
-* Instruct the developers of external apps that consume the web service to perform the steps in [Consume the SOAP Web Service](#consume).
+* Instruct the developers of external apps that consume the web service to follow the procedure in [Consume the SOAP Web Service](#consume).
 
 #### <a id='consume'></a> Consume the SOAP Web Service
 
-Developers of external apps that consume the SOAP web service can perform the following steps to use a modified version of the WSDL file:
+Developers of external apps that consume the SOAP web service can use a modified version of the WSDL file.
+
+To use a modified version of the WSDL file:
 
 1. In a browser, navigate to the WSDL file of the web service, using the following URL:
 
-     ```
+    ```
     https://SOAP-SERVICE-NAME.APP-DOMAIN/ASMX-FILE?wsdl
     ```
-
     Where:
     * `SOAP-SERVICE-NAME` is the name of your service.
     * `APP-DOMAIN` is your site's public domain name.
     * `ASMX-FILE` is the filename of your asmx file.
-
+    <br>
     For example:
 
     ```
@@ -221,11 +207,9 @@ Developers of external apps that consume the SOAP web service can perform the fo
 
 1. In Microsoft Visual Studio, right-click on your app in the **Solution Explorer** and select **Add** > **Service Reference**.
 
-1. Under **Address**, enter the local path to the modified WSDL file.
-<br>
-    For example:
+1. Under **Address**, enter the local path to the modified WSDL file. For example:
 
-    ```shell
+    ```
     C:\Users\example\wsdl.xml
     ```
 
@@ -233,14 +217,14 @@ Developers of external apps that consume the SOAP web service can perform the fo
 
 #### <a id='context-routing-soap'></a> Context Path Routing Support for SOAP Web Services
 
-Developers can push SOAP web services to their <%= vars.product_name %> deployment with context path routing. For more information, see [Context Path Routing Support for ASP.NET Apps](#context-routing).
+Developers can push SOAP web services to their <%= vars.platform_name %> deployment with context path routing. For more information, see [Context Path Routing Support for ASP.NET Apps](#context-routing).
 
 
 ## <a id='troubleshoot'></a> Troubleshoot App Errors
 
-If a .NET app fails to start, consult the following list of errors and their possible solutions:
+If a .NET app fails to start, see the following list of errors and their possible solutions:
 
-* `NoCompatibleCell`: Your <%= vars.product_name %> deployment cannot connect to your Windows cell. For information about troubleshooting your Windows cell configuration, see [Troubleshooting Windows Cells](troubleshooting.html).
+* `NoCompatibleCell`: Your <%= vars.platform_name %> deployment cannot connect to your Windows Diego Cell. For more information about troubleshooting your Windows Diego Cell configuration, see [Troubleshooting Windows Cells](troubleshooting.html).
 
 * `Start unsuccessful`: Your app may may be misconfigured or lacks the required DLL files and dependencies.
     * Ensure that your app directory contains either a valid `.exe` binary or a valid `Web.config` file.
