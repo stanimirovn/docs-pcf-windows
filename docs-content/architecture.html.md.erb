@@ -23,7 +23,7 @@ App instances in <%= vars.platform_name %> run inside containers. Garden is the 
 
 By installing the <%= vars.windows_runtime_abbr %> tile, operators create a Windows Diego Cell from a stemcell that contains the Windows Server operating system. Garden on Windows uses Windows containers to isolate resources on Windows Diego Cells that <%= vars.platform_name %> manages alongside Linux Diego Cells.
 
-For more information about installing the <%= vars.windows_runtime_abbr %> tile, see [Installing and Configuring PASW](installing.html).
+For more information about installing the <%= vars.windows_runtime_abbr %> tile, see [Installing and Configuring <%= vars.windows_runtime_abbr %>](installing.html).
 
 For more information about Garden, see [Garden](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/concepts/architecture/garden.html). For more information about Diego Cells, see the [Diego Cell](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/concepts/architecture/index.html#diego-cell) section of the _PAS Components_ topic. For more infmration about stemcells, see [What is a Stemcell?](https://bosh.io/docs/stemcell/) in the BOSH documentation. For more information about Windows containers, see [Windows and containers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/about/) in the Microsoft documentation.
 
@@ -33,7 +33,7 @@ A Windows Diego Cell includes the following components:
 
 * Guardian: Implements the Garden API on Windows.
 
-* Loggregator Agent: Forwards app logs, errors, and metrics to the Loggregator system. For more information about the Loggregator Agent, see [Step 6: Sends Logs to Loggregator](https://docs.pivotal.io/platform/application-service/<%= product_info['local_product_version'].to_s.sub('.','-') %>/concepts/diego/diego-architecture.html#step-6) in the _Diego Components and Architecture_ topic. For more information about Loggregator, see [Loggregator Architecture(https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/loggregator/architecture.html).
+* Loggregator Agent: Forwards app logs, errors, and metrics to the Loggregator system. For more information about the Loggregator Agent, see [Step 6: Sends Logs to Loggregator](https://docs.pivotal.io/platform/application-service/<%= product_info['local_product_version'].to_s.sub('.','-') %>/concepts/diego/diego-architecture.html#step-6) in the _Diego Components and Architecture_ topic. For more information about Loggregator, see [Loggregator Architecture](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/loggregator/architecture.html).
 
 * BOSH Agent: Executes instructions from the BOSH Director. For more information, see the [Agent](https://bosh.io/docs/bosh-components/#agent) section of the _Components of BOSH_ topic in the BOSH documentation.
 
@@ -60,4 +60,4 @@ A stemcell is a customized operating system image containing the filesystem for 
 
 Deployments of Windows Server on <%= vars.platform_name %> currently use a stemcell containing Windows Server 2019.
 
-For more information about obtaining or creating a stemcell for <%= vars.windows_runtime_abbr %>, see [Downloading or Creating Windows Stemcells](./stemcells.html)
+For more information about obtaining or creating a stemcell for <%= vars.windows_runtime_abbr %>, see [Downloading or Creating Windows Stemcells](./stemcells.html).
