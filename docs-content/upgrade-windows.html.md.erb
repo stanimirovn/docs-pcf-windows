@@ -1,7 +1,9 @@
 ---
-title: Upgrading <%= vars.product_windows %> and Windows Stemcells
+title: Upgrading PASW and Windows Stemcells
 owner: Greenhouse
 ---
+
+<% current_page.data.title = "Upgrading " + vars.product_windows + " and Windows Stemcells"  %>
 
 This topic describes how to upgrade the <%= vars.product_windows_full %> tile and update the Windows stemcell.
 
@@ -12,15 +14,15 @@ For information about migrating apps to <%= vars.product_windows %> from <%= var
 
 ## <a id='rotate'></a> Rotating Credentials
 
-The <%= vars.product_runtime_full %> (<%= vars.product_runtime_abbr %>) tile handles all of the credentials for <%= vars.product_windows %>.
+The <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) tile handles all of the credentials for <%= vars.product_windows %>.
 
-To rotate your credentials in <%= vars.product_windows %>, you must re-deploy <%= vars.product_runtime %> and <%= vars.product_windows %>. To re-deploy <%= vars.product_short %> and <%= vars.product_windows %>:
+To rotate your credentials in <%= vars.product_windows %>, you must re-deploy <%= vars.app_runtime_abbr %> and <%= vars.product_windows %>. To re-deploy <%= vars.app_runtime_abbr %> and <%= vars.product_windows %>:
 
 1. Navigate to the Ops Manager Installation Dashboard.
 
 1. Click **Review Pending Changes**.
 
-1. Select the <%= vars.product_short %> and <%= vars.product_windows %> tiles and review the changes. For more information, see [Reviewing Pending Product Changes](../customizing/review-pending-changes.html).
+1. Select the <%= vars.app_runtime_abbr %> and <%= vars.product_windows %> tiles and review the changes. For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/customizing/review-pending-changes.html).
 
 1. Click **Apply Changes**.
 
@@ -29,13 +31,13 @@ To rotate your credentials in <%= vars.product_windows %>, you must re-deploy <%
 
 To upgrade <%= vars.product_windows %>:
 
-1. Download the latest <%= vars.product_windows %> version from the [<%= vars.product_windows_full %>](https://network.pivotal.io/products/pas-windows) page on Pivotal Network. For more information about upgrading your <%= vars.first_product_name %> products, see the [Upgrading <%= vars.product_name %> Products](../customizing/upgrading-products.html#other-products) section of the _Upgrading <%= vars.product_short %> and Other <%= vars.product_name %> Products_ topic.
+1. Download the latest <%= vars.product_windows %> version from the [<%= vars.windows_runtime_full %>](https://network.pivotal.io/products/pas-windows) page on Pivotal Network. For more information about upgrading your <%= vars.platform_name %> products, see the [Upgrading <%= vars.platform_name %> Products](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/customizing/upgrading-products.html#other-products) section of the _Upgrading <%= vars.app_runtime_abbr %> and Other <%= vars.platform_name %> Products_ topic.
 
 1. If necessary, configure the product. For more information about configuring <%= vars.product_windows %>, see [Installing and Configuring <%= vars.product_windows %>](./installing.html).
 
 1. Click **Review Pending Changes**.
 
-1. Select the <%= vars.product_windows %> tile and review the changes. For more information, see [Reviewing Pending Product Changes](../customizing/review-pending-changes.html).
+1. Select the <%= vars.product_windows %> tile and review the changes. For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/customizing/review-pending-changes.html).
 
 1. Click **Apply Changes**.
 

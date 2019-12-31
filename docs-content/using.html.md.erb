@@ -114,11 +114,6 @@ To push a self-hosted app:
 
 1. Wait for your app to stage and start. If you see an error message, see [Troubleshoot App Errors](#troubleshoot).
 
-<<<<<<< HEAD
-=======
-1. Wait for your app to stage and start. If you see an error message, see [Troubleshoot App Errors](#troubleshoot).
-
->>>>>>> f6c459d... Style/formatting/variable sweep
 
 ## <a id='soap'></a> Push a SOAP Service
 
@@ -174,11 +169,7 @@ See the following portion of an example WSDL file:
 - </wsdl:service>
 ```
 
-<<<<<<< HEAD
-The WSDL file provides the port number for the SOAP web service as `62492`. This is the port that the web service listens on in the [Garden container](https://docs.pivotal.io/pivotalcf/concepts/container-security.html#mechanics), but external applications cannot access the service on this port. Instead, external applications must use port `80`, and the [Gorouter](https://docs.pivotal.io/pivotalcf/concepts/architecture/router.html) routes requests to the web service in the container.
-=======
 The WSDL file provides the port number for the SOAP web service as `62492`. This is the port that the web service listens on in the Garden container, but external apps cannot access the service on this port. Instead, external apps must use port `80`, and the Gorouter routes requests to the web service in the container.
->>>>>>> f6c459d... Style/formatting/variable sweep
 
 The URL of the web service in the WSDL file must be modified to remove `62492`. With no port number, the URL defaults to port 80. In the example above, the modified URL would be `http://webservice.example.com/WebService1.asmx`.
 
