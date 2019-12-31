@@ -1,41 +1,41 @@
 ---
-title: Upgrading PAS for Windows and Windows Stemcells
+title: Upgrading <%= vars.product_windows %> and Windows Stemcells
 owner: Greenhouse
 ---
 
-This topic describes how to upgrade the Pivotal Application Service (PAS) for Windows tile and update the Windows stemcell.
+This topic describes how to upgrade the <%= vars.product_windows_full %> tile and update the Windows stemcell.
 
-For more information about upgrading the PASW tile from PASW 2012 R2, see [Migrating from PASW 2012 R2 to PASW](./upgrade-2012r2-to-pasw.html).
+For more information about upgrading the <%= vars.product_windows %> tile from <%= vars.product_windows %> 2012 R2, see [Migrating from <%= vars.product_windows %> 2012 R2 to <%= vars.product_windows %>](./upgrade-2012r2-to-pasw.html).
 
-For information about migrating apps to PASW from either PASW 2012 R2 or PCF Runtime for Windows, see [Migrating Apps to PAS for Windows](./migrating.html).
+For information about migrating apps to <%= vars.product_windows %> from <%= vars.product_windows %> 2012 R2, see [Migrating Apps to <%= vars.product_windows %>](./migrating.html).
 
 
 ## <a id='rotate'></a> Rotating Credentials
 
-The PAS tile handles all of the credentials for PAS for Windows.
+The <%= vars.product_runtime_full %> (<%= vars.product_runtime_abbr %>) tile handles all of the credentials for <%= vars.product_windows %>.
 
-To rotate your credentials in PAS for Windows, you must re-deploy PAS and PAS for Windows. To re-deploy PAS and PAS for Windows:
+To rotate your credentials in <%= vars.product_windows %>, you must re-deploy <%= vars.product_runtime %> and <%= vars.product_windows %>. To re-deploy <%= vars.product_short %> and <%= vars.product_windows %>:
 
 1. Navigate to the Ops Manager Installation Dashboard.
 
 1. Click **Review Pending Changes**.
 
-1. Select the PAS and PAS for Windows tiles and review the changes. For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
+1. Select the <%= vars.product_short %> and <%= vars.product_windows %> tiles and review the changes. For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
 1. Click **Apply Changes**.
 
 
-## <a id='upgrade-tile'></a> Upgrade PAS for Windows
+## <a id='upgrade-tile'></a> Upgrade <%= vars.product_windows %>
 
-To upgrade PAS for Windows:
+To upgrade <%= vars.product_windows %>:
 
-1. Download the latest PAS for Windows version from [Pivotal Network](https://network.pivotal.io/products/pas-windows). For more information about upgrading your PCF products, see the [Upgrading PCF Products](https://docs.pivotal.io/pivotalcf/customizing/upgrading-products.html#other-products) section of the _Upgrading PAS and Other Pivotal Cloud Foundry Products_ topic.
+1. Download the latest <%= vars.product_windows %> version from the [<%= vars.product_windows_full %>](https://network.pivotal.io/products/pas-windows) page on Pivotal Network. For more information about upgrading your <%= vars.first_product_name %> products, see the [Upgrading <%= vars.product_name %> Products](https://docs.pivotal.io/pivotalcf/customizing/upgrading-products.html#other-products) section of the _Upgrading <%= vars.product_short %> and Other <%= vars.product_name %> Products_ topic.
 
-1. If necessary, configure the product. For more information about configuring PAS for Windows, see [Installing and Configuring PAS for Windows](./installing.html).
+1. If necessary, configure the product. For more information about configuring <%= vars.product_windows %>, see [Installing and Configuring <%= vars.product_windows %>](./installing.html).
 
 1. Click **Review Pending Changes**.
 
-1. Select the PAS for Windows tile and review the changes. For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
+1. Select the <%= vars.product_windows %> tile and review the changes. For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
 1. Click **Apply Changes**.
 
@@ -44,7 +44,7 @@ To upgrade PAS for Windows:
 
 To upgrade your Windows stemcell:
 
-1. Retrieve the stemcell by following the steps below for your IaaS:
+1. Retrieve the stemcell by following the steps for your IaaS:
     * For vSphere, you must build your own stemcell. For more information, see [Creating a Windows Stemcell for vSphere](https://bosh.io/docs/windows-stemcell-create/) in the BOSH documentation.
     * For AWS, GCP, and Azure, go to [Pivotal Stemcells (Windows)](https://network.pivotal.io/products/stemcells-windows-server) on Pivotal Network.
 

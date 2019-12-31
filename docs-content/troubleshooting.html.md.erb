@@ -3,7 +3,7 @@ title: Troubleshooting Windows Diego Cells
 owner: Greenhouse
 ---
 
-This topic describes how to troubleshoot Windows Diego Cells deployed by Pivotal Application Service (PAS) for Windows.
+This topic describes how to troubleshoot Windows Diego Cells deployed by <%= vars.product_windows_runtime %>.
 
 
 ## <a id='issues'></a> Installation Issues
@@ -30,7 +30,7 @@ Local certificates are needed to communicate with Docker Hub.
 
 Install the necessary certificates on your local machine. On Ubuntu, you can install certificates with the `ca-certificates` package.
 
-###<a id='outdated-version-winfs-issues'></a>Outdated Version for Windows File System Injector
+### <a id='outdated-version-winfs-issues'></a> Outdated Version for Windows File System Injector
 
 **Symptom**
 
@@ -46,13 +46,13 @@ You are using an outdated version of the `winfs-injector`.
 
 **Solution**
 
-From [Pivotal Network](https://network.pivotal.io/products/pas-windows), download the recommended version of **PAS for Windows File System Injector tool** for the tile.
+From the [<%= vars.product_windows_full %>](https://network.pivotal.io/products/pas-windows) page on Pivotal Network, download the recommended version of **File System Injector tool** for the tile.
 
 ###<a id='no-os'></a>Missing Container Image
 
 **Symptom**
 
-You click the **+** icon in Ops Manager to add the PAS for Windows tile to the Installation Dashboard, and you see the error:
+You click the **+** icon in Ops Manager to add the <%= vars.product_windows %> tile to the Installation Dashboard, and you see the error:
 
 <%= image_tag('error-invalid-release-uninjected-tile.png') %>
 
@@ -64,11 +64,11 @@ The product file you are trying to upload does not contain the Windows Server co
 
 1. Delete the product file listing from Ops Manager by clicking its trash can icon under **Import a Product**.
 
-1. Follow the PASW installation instructions to run the `winfs-injector` tool locally on the product file. This step requires internet access, can take up to 20 minutes, and adds the Windows Server container base image to the product file. For more information, see the [Install](./installing.html#install) section of the _Installing and Configuring PASW_ topic.
+1. Follow the <%= vars.product_windows %> installation instructions to run the `winfs-injector` tool locally on the product file. This step requires Internet access, can take up to 20 minutes, and adds the Windows Server container base image to the product file. For more information, see the [Install](./installing.html#install) section of the _Installing and Configuring <%= vars.product_windows %>_ topic.
 
 1. Click **Import a Product** to upload the "injected" product file.
 
-1. Click the **+** icon next to the product listing to add the PAS for Windows tile to the Installation Dashboard.
+1. Click the **+** icon next to the product listing to add the <%= vars.product_windows %> tile to the Installation Dashboard.
 
 
 ## <a id='issues'></a> Upgrade Issues
@@ -103,7 +103,7 @@ Task 8192 | 21:29:55 | Error: Action Failed get_task: Task a9555020-1a3b-40c7-67
 
 **Explanation**
 
-When upgrading between versions of Windows rootfs that have a shared Microsoft base layer, PASW may fail to create containers. The cause is currently unknown.
+When upgrading between versions of Windows rootfs that have a shared Microsoft base layer, <%= vars.product_windows %> may fail to create containers. The cause is currently unknown.
 
 **Solution**
 
@@ -114,25 +114,25 @@ For available workarounds, see [Failure to create containers when upgrading with
 
 You can use Windows Diego Cell logs to troubleshoot Windows Diego Cells. Windows Diego Cells generate the following types of logs:
 
-* **BOSH job logs**, such as `rep_windows` and `consul_agent_windows`. These logs stream to the syslog server configured in the PAS tile **System Logging** pane, along with other PCF component logs. The names of these BOSH job logs correspond to the names of the logs emitted by Linux Diego Cells.
+* **BOSH job logs**, such as `rep_windows` and `consul_agent_windows`. These logs stream to the syslog server configured in the **System Logging** pane of the PAS tile, along with other <%= vars.first_product_name %> component logs. The names of these BOSH job logs correspond to the names of the logs emitted by Linux Diego Cells.
 
-* **Windows Event logs**. These logs stream to the syslog server configured in the PAS for Windows **System Logging** pane.
+* **Windows event logs**. These logs stream to the syslog server configured in the **System Logging** pane of the <%= vars.product_windows %> tile.
 
 You can forward BOSH job logs and Windows Event logs to an external syslog server in the following ways:
 
-* Configure a BOSH add-on to forward BOSH job logs. For more information, see the BOSH jobs logs step in the [Step 2: Install the Tile](./installing.html#install) section of the _Installing and Configuring PASW_ topic.
+* Configure a BOSH add-on to forward BOSH job logs. For more information, see the BOSH jobs logs step in the [Step 2: Install the Tile](./installing.html#install) section of the _Installing and Configuring <%= vars.product_windows %>_ topic.
 
-* Configure PAS for Windows to forward Windows Event logs. For more information, see [Forward Windows Event Logs to a Syslog Server](#syslog).
+* Configure <%= vars.product_windows %> to forward Windows event logs. For more information, see [Forward Windows Event Logs to a Syslog Server](#syslog).
 
-You can download the forwarded BOSH job logs and Window Event logs, in the PASW tile. For more information, see [Download Cell Logs](#download).
+You can download the forwarded BOSH job logs and Window event logs in the <%= vars.product_windows %> tile. For more information, see [Download Diego Cell Logs](#download).
 
-###<a id='syslog'></a> Forward Windows Event Logs to a Syslog Server
+### <a id='syslog'></a> Forward Windows Event Logs to a Syslog Server
 
-To forward Windows Event logs to an external syslog server:
+To forward Windows event logs to an external syslog server:
 
 1. Navigate to the Ops Manager Installation Dashboard.
 
-1. Click the **PAS for Windows** tile.
+1. Click the <%= vars.product_windows %> tile.
 
 1. Select **System Logging**.
   <%= image_tag("win-syslog-config.png") %>
@@ -156,7 +156,7 @@ To download Windows Diego Cell logs:
 
 1. Navigate to the Ops Manager Installation Dashboard.
 
-1. Click the **PAS for Windows** tile.
+1. Click the <%= vars.product_windows %> tile.
 
 1. Click the **Status** tab.
 
@@ -178,24 +178,23 @@ To download Windows Diego Cell logs:
 To connect to a Windows Diego Cell to run diagnostics:
 
 1. Download and install a Remote Desktop Protocol (RDP) client.
-	* For Mac OS X, download the Microsoft Remote Desktop app from the [Mac App Store](https://itunes.apple.com/us/app/microsoft-remote-desktop/id715768417?mt=12).
-	* For Windows, download the Microsoft Remote Desktop app from [Microsoft](https://www.microsoft.com/en-us/store/p/microsoft-remote-desktop/9wzdncrfj3ps).
+	* For Mac OS X, download the [Microsoft Remote Desktop](https://itunes.apple.com/us/app/microsoft-remote-desktop/id715768417?mt=12) app from the Mac App Store.
+	* For Windows, download the [Microsoft Remote Desktop](https://www.microsoft.com/en-us/store/p/microsoft-remote-desktop/9wzdncrfj3ps) app from Microsoft.
 	* For Linux/UNIX, download a RDP client like [rdesktop](http://www.rdesktop.org/).
 
-1. Follow the steps in the [Log into BOSH](https://docs.pivotal.io/pivotalcf/customizing/trouble-advanced.html#log-in) section of the _Advanced Troubleshooting with the BOSH CLI_ topic to log in to your BOSH Director.
-	* The steps vary slightly depending on whether your PCF deployment uses internal authentication or an external user store.
-	* In PAS for Windows v2.6 and later, use of the `bosh ssh` command is enabled by default.
+1. Follow the procedure in the [Log In to BOSH](http://docs.pivotal.io/platform/customizing/trouble-advanced.html#log-in) section of the _Advanced Troubleshooting with the BOSH CLI_ topic to log in to your BOSH Director.
+	* The steps vary slightly depending on whether your <%= vars.product_name %> deployment uses internal authentication or an external user store.
+	* In <%= vars.product_windows %> v2.6 and later, use of the `bosh ssh` command is enabled by default.
 
-1. To retrieve the IP address of your Windows Diego Cell using the BOSH CLI, run:
+1. Retrieve the IP address of your Windows Diego Cell using the BOSH CLI by running:
 
     ```
     bosh -e ENV-NAME -d DEPLOYMENT-NAME
     ```
-
     Where:
     * `ENV-NAME` is the alias you assigned to your BOSH Director.
     * `DEPLOYMENT-NAME` is your deployment name.
-
+    <br>
     For example:
     <pre class="terminal">
     c:\Users\admin\> bosh -e my-environ -d garden-windows
@@ -205,10 +204,10 @@ To connect to a Windows Diego Cell to run diagnostics:
     garden-windows     ...              ...            -        latest
     </pre>
 
-1. Retrieve the Administrator password for your Windows Diego Cell by following the steps for your IaaS:
+1. Retrieve the administrator password for your Windows Diego Cell by following the steps for your IaaS:
 	* On vSphere, this is the value of `WINDOWS_PASSWORD` in the `consumer-vars.yml` file you used to previously build a stemcell.
-	* On Amazon Web Services (AWS), navigate to the AWS EC2 console. Right-click on your Windows Diego Cell and select **Get Windows Password** from the drop-down menu. Provide the local path to the `ops_mgr.pem` private key file you used when installing Ops Manager and click **Decrypt password** to obtain the Administrator password for your Windows Diego ell.
-	* On Google Cloud Platform (GCP), navigate to the Compute Engine Dashboard. Under **VM Instances**, select the instance of the Windows VM. At the top of the page, click on **Create or reset Windows password**. When prompted, enter "Administrator" under **Username** and click **Set**. You will receive a one-time password for the Windows Diego Cell.
+	* On Amazon Web Services (AWS), navigate to the AWS EC2 console. Right-click on your Windows Diego Cell and select **Get Windows Password** from the dropdown. Provide the local path to the `ops_mgr.pem` private key file you used when installing Ops Manager and click **Decrypt password** to obtain the administrator password for your Windows Diego Cell.
+	* On Google Cloud Platform (GCP), navigate to the Compute Engine Dashboard. Under **VM Instances**, select the instance of the Windows VM. At the top of the page, click on **Create or reset Windows password**. When prompted, enter `Administrator` under **Username** and click **Set**. You then receive a one-time password for the Windows Diego Cell.
 	* You cannot RDP into Windows Diego Cells on Azure.
 
 1. Open your RDP client. The examples below use the Microsoft Remote Desktop app.
@@ -237,25 +236,23 @@ To use the Consul CLI on your Windows Diego Cell to diagnose problems with your 
 
 1. In your RDP session, open a PowerShell window.
 
-1. To change to the directory containing the Consul CLI binary, run:
+1. Navigate to the directory containing the Consul CLI binary by running:
 
     ```
     cd CONSUL-CLI-DIR\bin
     ```
-
     Where `CONSUL-CLI-DIR` is the Consul CLI package's directory path.
-<br>
+	<br>
     For example:
 	<pre class="terminal">
 	PS C:\Users\admin\> cd C:\var\vcap\packages\consul-windows\bin\
 	</pre>
 
-1. To list the members of your Consul cluster, run:
+1. List the members of your Consul cluster by running:
 
     ```
     consul.exe members
     ```
-
     For example:
 	<pre class="terminal">
 	PS C:\var\vcap\packages\consul-windows\bin\> consul.exe members
@@ -275,4 +272,4 @@ To use the Consul CLI on your Windows Diego Cell to diagnose problems with your 
 	uaa-0                      10.0.0.93:8301   alive   client  0.6.4  2         dc1
 	</pre>
 
-1. Examine the output to ensure that the `cell-windows-0` service is registered in the Consul cluster and is `alive`. Otherwise, your Windows Diego Cell cannot communicate with your PCF deployment and developers cannot push .NET apps to the Windows Diego Cell. Check the configuration of your Consul cluster, and ensure that your certificates are not missing or misconfigured.
+1. Examine the output to ensure that the `cell-windows-0` service is registered in the Consul cluster and is `alive`. Otherwise, your Windows Diego Cell cannot communicate with your <%= vars.product_name %> deployment and developers cannot push .NET apps to the Windows Diego Cell. Check the configuration of your Consul cluster and ensure that your certificates are not missing or misconfigured.

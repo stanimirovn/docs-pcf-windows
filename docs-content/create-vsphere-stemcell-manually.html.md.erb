@@ -5,15 +5,14 @@ owner: Windows
 
 This topic describes how to create a BOSH stemcell for Windows on vSphere.
 
-<p class="note"><strong>Note:</strong> The instructions in this topic are based on vSphere 6.0 using vSphere Web Client.
-</p>
+<p class="note"><strong>Note:</strong> The instructions in this topic are based on vSphere 6.0 using vSphere Web Client.</p>
 
-##<a id='overview'></a> Overview
 
-You must create a BOSH stemcell for Windows
-before you can deploy the following products on vSphere:
+## <a id='overview'></a> Overview
 
-* Pivotal Application Service (PAS) for Windows
+You must create a BOSH stemcell for Windows before you can deploy the following products on vSphere:
+
+* <%= vars.product_windows_full %>
 * Enterprise Pivotal Container Service (Enterprise PKS) with Windows workers in Kubernetes clusters
 
 <p class="note"><strong>Note:</strong> A BOSH stemcell is a versioned operating system image. The BOSH stemcell that you create in this topic is based on Windows Server 2019.</p>
@@ -23,132 +22,126 @@ before you can deploy the following products on vSphere:
 To create a Windows stemcell for vSphere, you create a base Windows VM from a volume-licensed ISO and subsequently maintain that base template 
 with all Windows recommended security updates, but without the BOSH dependencies.
 
-The Windows VM with security updates serves as the base for all future stemcells produced from clones of that base VM. 
-This enables you to build new stemcells without having to run Windows Updates from scratch each time.
-You can also use a "snapshot" feature to maintain an updated Windows image that does not contain the BOSH dependencies.
+The Windows VM with security updates serves as the base for all future stemcells produced from clones of that base VM. This enables you to build new stemcells without having to run Windows updates from scratch each time. You can also use a "snapshot" feature to maintain an updated Windows image that does not contain the BOSH dependencies.
 
 Pivotal recommends installing any available critical updates and then rebuilding the stemcell from a clone of the original VM.
 
 
 ## <a id='prerequisites'></a> Prerequisites
 
-Before you create a vSphere Windows stemcell, you must have the following:
+Before you create a vSphere Windows stemcell, you must have:
 
-* A vSphere environment. To ensure the VM hardware used by the stemcell is compatible 
-  with your deployment environment's ESXi/ESX host and vCenter Server versions, see 
-  [ESXi/ESX hosts and compatible virtual machine hardware versions list (2007240)]
-  (https://kb.vmware.com/s/article/2007240) in the VMware Knowledge Base.  
+* A vSphere environment. To ensure the VM hardware used by the stemcell is compatible with your deployment environment's ESXi/ESX host and vCenter Server versions, see [ESXi/ESX hosts and compatible virtual machine hardware versions list (2007240)](https://kb.vmware.com/s/article/2007240) in the VMware Knowledge Base.
 
-*  A Windows Server 2019 ISO, build number: 17763, from [Microsoft Developer Network (MSDN)](https://msdn.microsoft.com/en-us) 
-or [Volume Licensing Service Center (VLSC)](https://www.microsoft.com/Licensing/servicecenter/default.aspx). 
-The Windows Server 2019 ISO must be a clean, base ISO file. 
-You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production, as the licensing expires.  
-    <p class="note"><strong>Note:</strong> A clean ISO file has no custom scripts or tooling. 
-    For example, the ISO must have no logging or antivirus tools installed.
-    </p>
-    <p class="note"><strong>Note:</strong> Pivotal recommends maintaining a separate, 
-    updated Windows VM based on this ISO to serve as the basis for the installation steps below. 
-    This enables you to apply Windows Updates and create new stemcells without having to reinstall 
-    all updates from scratch.
-    </p>
+* A Windows Server 2019 ISO, build number: 17763, from Microsoft Developer Network (MSDN) or Volume Licensing Service Center (VLSC). The Windows Server 2019 ISO must be a clean, base ISO file. You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production, as the licensing expires. For more information, see the [Microsoft documentation](https://docs.microsoft.com/en-us/welcome-to-docs) or the [Microsoft Volume Licensing Service Center](https://www.microsoft.com/Licensing/servicecenter/default.aspx) website.
+    <p class="note"><strong>Note:</strong> A clean ISO file has no custom scripts or tooling. For example, the ISO must have no logging or antivirus tools installed.</p>
+    <p class="note"><strong>Note:</strong> Pivotal recommends maintaining a separate, updated Windows VM based on this ISO to serve as the basis for the installation steps below. This enables you to apply Windows Updates and create new stemcells without having to reinstall all updates from scratch.</p>
+
 * A vSphere/vCenter account granted sufficient permissions to perform all of the following tasks:
 	- Create a VM.
 	- Configure a VM.
 	- Open a VM in VM Remote Console on a local desktop.
 	- Export a VM.
 
-* The ability to download/transfer files and software to a vCenter Windows VM.
+* The ability to download and transfer files and software to a vCenter Windows VM.
 
-### <a id='local'></a>Files on Local Machine
+### <a id='local'></a> Files on Local Machine
 
 As part of completing the procedures in this topic, you download the following files to your local machine:
 
 * [ovftool](https://www.vmware.com/support/developer/ovf/).
+
 * [stembuild](https://github.com/pivotal-cf-experimental/stembuild/releases).
-    * To build a Windows stemcell for PAS for Windows, use the latest release of `stembuild`.
+    * To build a Windows stemcell for <%= vars.product_windows %>, use the latest release of `stembuild`.
     * To build a Windows stemcell for Enterprise PKS, use the vSphere `stembuild` CLI for Windows version 2019.7 or later.
     If you want to deploy Enterprise PKS v1.5, you must use the vSphere `stembuild` CLI for Windows v2019.7.
+    <p class="note"><strong>Note:</strong> You must choose a stemcell version to build. Stemcells are versioned as MAJOR.MINOR, such as 2019.9.</p>
+    For more information about 2019 stemcells, see [Stemcell v2019.x (Windows Server 2019) Release Notes](https://docs.pivotal.io/platform/stemcells/windows-stemcell-v2019x.html).
 
-    <p class="note"><strong>Note</strong>: You must choose a stemcell version to build. 
-    Stemcells are versioned as MAJOR.MINOR, such as 2019.9.
-	</p>
-    
-    For more information about 2019 stemcells, see the 
-    <a href="https://docs.pivotal.io/pivotalcf/stemcells/windows-stemcell-v2019x.html">
-    Stemcell v2019.x (Windows Server 2019) Release Notes</a>.
-
-### <a id='windows-vm'></a>Files on Windows VM
+### <a id='windows-vm'></a> Files on Windows VM
 
 As part of completing the procedures in this topic, you download the following files to your Windows VM:
 
 * [lgpo.exe](https://www.microsoft.com/en-us/download/details.aspx?id=55319) from the Microsoft Security Toolkit.
+
 * [OpenSSH v7.7.2.0p1](https://github.com/PowerShell/Win32-OpenSSH/releases/tag/v7.7.2.0p1-Beta).
+
 * The [BOSH PS Modules and BOSH Agent](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/releases) 
 for the 2019 stemcell version you want to build.
 
-##<a id='create-base-vm'></a> Step 1: Create Base VM for Stemcell
 
-This section describes how to create, configure, and verify a base Windows VM
-from a volume-licensed ISO.
+## <a id='create-base-vm'></a> Step 1: Create Base VM for Stemcell
 
-###<a id='upload-windows-iso'></a>Upload the Windows ISO
+This section describes how to create, configure, and verify a base Windows VM from a volume-licensed ISO.
 
-Perform the following steps to upload the Windows ISO:
+### <a id='upload-windows-iso'></a> Upload the Windows ISO
+
+To upload the Windows ISO:
 
 1. Log in to vCenter.
+
 1. Click **Storage** in the vCenter menu.
+
 1. Choose a datastore and click or create the directory where you want the Windows ISO.
+
 1. Click **Upload a file to datastore**, and upload the Windows ISO.
-	<p class="note"><strong>Note</strong>: You might need to install the vSphere client web plugin to upload through your browser, 
-		or <code>scp</code> the file directly to the datastore server. For more information, see the VMware vSphere 
-		<a href="https://www.vmware.com/support/pubs/vsphere-esxi-vcenter-server-pubs.html">documentation</a>.
-	</p>
+	<p class="note"><strong>Note:</strong> You might need to install the vSphere client web plugin to upload through your browser, or <code>scp</code> the file directly to the datastore server. For more information, see the <a href="https://www.vmware.com/support/pubs/vsphere-esxi-vcenter-server-pubs.html">VMware vSphere</a> documentation.</p>
 
-###<a id='create-customize-vm'></a>Create and Customize a New VM
+### <a id='create-customize-vm'></a> Create and Customize a New VM
 
-Perform the following steps to create and customize a new VM:
+To create and customize a new VM:
 
 1. In the vSphere client, click the **VMs and Templates** view to display the inventory objects.
+
 1. Right-click an object and select **New Virtual Machine** > **New Virtual Machine...**.
+
 1. On the **Select a creation type** page, select **Create a new virtual machine** and click **Next**.
   <%= image_tag('new-vm.png') %>
-1. On the **Select a name and folder** page, perform the following steps:
+
+1. On the **Select a name and folder** page:
   1. Enter a name for the VM.
   1. Select a location for the VM.
   1. Click **Next**.
+
 1. On the **Select a compute resource** page, select a compute resource to run the VM and click **Next**.
-1. On the **Select storage** page, perform the following steps:
+
+1. On the **Select storage** page:
   1. Select a **VM Storage Policy**.
   1. Select the destination datastore for the VM configuration files and virtual disks.
   1. Click **Next**.
+
 1. On the **Select compatibility** page, for the **Compatible with** configuration setting, select **ESXi 6.0 and later** and click **Next**.
-1. On the **Select a guest OS** page, perform the following steps:
+
+1. On the **Select a guest OS** page:
   1. For **Guest OS Family**, select **Windows**.
   1. For **Guest OS Version**, select **Microsoft Windows Server 2016**.
   1. Click **Next**.
-1. On the **Customize hardware** page, configure the VM hardware and click **Next**.
-When configuring the VM hardware, select the following settings for **New Hard disk** and **New CD\DVD Drive**:
-  1. For **New Hard disk**, specify 30 GB or greater.
-  1. For **New CD\DVD Drive**, perform the following steps:
+
+1. On the **Customize hardware** page, configure the VM hardware and click **Next**. When configuring the VM hardware, select the following settings for **New Hard disk** and **New CD\DVD Drive**:
+  1. For **New Hard disk**, specify 30&nbsp;GB or greater.
+  1. For **New CD\DVD Drive**:
 		1. Select **Datastore ISO File**.
 		1. Select the ISO file you uploaded to your datastore and click **OK**.
 		1. Enable the **Connect At Power On** checkbox.
+
 1. Review the configuration settings on the **Ready to complete** page and click **Finish**.
 
-###<a id='install-windows-server'></a>Install Windows Server
+### <a id='install-windows-server'></a> Install Windows Server
 
-Perform the following steps to install Windows Server on the base VM:
+To install Windows Server on the base VM:
 
 1. After creating the VM, click **Power On** in the **Actions** tab for your VM.
   <%= image_tag('power-on.png') %>
+
 1. Select **Windows Server Standard**.
+
 1. Select **Custom installation**.
-1. Complete the installation process, and enter a password for the Administrator user. BOSH later randomizes this password.
 
-###<a id='verify-os'></a>Verify OS
+1. Complete the installation process, and enter a password for the administrator user. BOSH later randomizes this password.
 
-<p class="note warning"><strong>WARNING:</strong> You must complete the following procedure to verify your OS version before continuing.
-</p>
+### <a id='verify-os'></a> Verify OS
+
+<p class="note warning"><strong>Warning:</strong> You must complete the following procedure to verify your OS version before continuing.</p>
 
 Ensure you are using the correct the OS version by running the following PowerShell command on the Windows VM:
 
@@ -159,38 +152,46 @@ Caption, Version, ServicePackMajorVersion, OSArchitecture, CSName, WindowsDirect
 
 The output includes `Version: 10.0.17763`.
 
-###<a id='install-vmware-tools'></a>Install VMware Tools
+### <a id='install-vmware-tools'></a> Install VMware Tools
 
-Perform the following steps to install VMware Tools on the base VM:
+To install VMware Tools on the base VM:
+
 
 1. Under the VM **Summary** tab, select **Install VMware Tools**.
-1. Navigate to the `D:` drive and run `setup64.exe`.
-	<p class="note"><strong>Note</strong>: The VMware Tools install window might appear behind the Command Prompt window.
-	</p>
-1. Restart the VM as required to finish the install.
 
-##<a id='install-windows-updates'></a> Step 2: Install Windows Updates
+1. Navigate to the `D:` drive and run:
+
+  ```
+  setup64.exe
+  ```
+	<p class="note"><strong>Note:</strong> The VMware Tools install window might appear behind the Command Prompt window.</p>
+
+1. Restart the VM to complete the installation.
+
+
+## <a id='install-windows-updates'></a> Step 2: Install Windows Updates
 
 This section describes how to install Windows updates on your base Windows VM.
 
-###<a id='run-windows-updates'></a> Install Windows Updates
+### <a id='run-windows-updates'></a> Install Windows Updates
 
 Install Windows updates on the Windows VM using your preferred procedure.
 
-One way to install Windows updates on the Windows VM is by using the **SConfig** utility. Perform the following steps:
+One way to install Windows updates on the Windows VM is by using the **SConfig** utility. To use the **SConfig** utility:
 
 1. On the Windows VM, run the **SConfig** utility.
+
 1. Select option number 6, **Download and Install Updates**.
+
 1. Select **A** for **(A)ll updates**.
+
 1. For the **Select an option**, select **(A)ll updates**.
 
 You might need to restart the Windows VM while installing updates.
 
-###<a id='enable-meltdown-mitigation'></a> Enable Meltdown Mitigation
+### <a id='enable-meltdown-mitigation'></a> Enable Meltdown Mitigation
 
-<p class="note warning"><strong>WARNING</strong>: You must enable Meltdown mitigation. Not enabling Meltdown mitigation can lead to timeout issues 
-while deploying your PAS for Windows or Enterprise PKS tile.
-</p>
+<p class="note warning"><strong>Warning:</strong> You must enable Meltdown mitigation. Not enabling Meltdown mitigation can lead to timeout issues while deploying your <%= vars.product_windows %> or Enterprise PKS tile.</p>
 
 Windows Server 2019 should receive the update containing the Meltdown mitigation automatically when you install Windows updates.
 
@@ -210,227 +211,217 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\QualityCompat"
 /f /v cadca5fe-87d3-4b96-b7fb-a231484277cc /t REG_DWORD /d 0
 ```
 
-##<a id='clone-vm'></a> Step 3: Clone the VM
+## <a id='clone-vm'></a> Step 3: Clone the VM
 
-Clone the VM that has the Windows updates installed. Save the original VM so that you can run updates on it in the future.
+You must clone the VM that has the Windows updates installed. You should save the original VM so that you can run updates on it in the future.
 
-Perform the following steps:
+To clone the VM:
 
 1. In the vSphere client, right-click the current Windows VM.
+
 1. Select **Clone** > **Clone to Virtual Machine...**.
   <%= image_tag('clone-vm.png') %>
+
 1. Ensure that you can create the VM that can be used to create a stemcell for the next Patch Tuesday Monthly Updates.
 
-##<a id='install-required-software'></a> Step 4: Install Required Software
 
-You might need to specify an explicit execution policy for all of the PowerShell commands in the *Step 4: Install Required Software* section.
-You specify an execution policy with the `-ExecutionPolicy` flag.
+## <a id='install-required-software'></a> Step 4: Install Required Software
 
-For example:
+You might need to specify an explicit execution policy for all of the PowerShell commands in this section. You specify an execution policy with the `-ExecutionPolicy` flag. For example:
 
-<pre class="terminal">
+```
 powershell -ExecutionPolicy Bypass -Command "Install-CFFeatures"
-</pre>
+```
 
-###<a id='transfer-files'></a>Transfer Files to a Windows VM
+### <a id='transfer-files'></a> Transfer Files to a Windows VM
 
-Some of the procedures described in the sections below require 
-transferring files to a Windows VM. Many different methods exist to transfer files to a Windows VM,
-such as folder sharing or the PowerShell `Invoke-WebRequest` cmdlet. Use whatever method that you
-prefer.
+Some of the procedures described in the sections below require transferring files to a Windows VM. Many different methods exist to transfer files to a Windows VM, such as folder sharing or the PowerShell `Invoke-WebRequest` cmdlet. Use whichever method you prefer.
 
-As an example, the following PowerShell `Invoke-WebRequest` command uses TLS v1.2 to transfer
-**filename.zip** from `EXAMPLE-URL` to the current location on the Windows VM:
+As an example, run the PowerShell `Invoke-WebRequest` command below to use TLS v1.2 to transfer **filename.zip** from `EXAMPLE-URL` to the current location on the Windows VM:
 
 ```
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Invoke-WebRequest -Uri "EXAMPLE-URL/filename.zip" -OutFile ".\filename.zip"
 ```
 
-###<a id='bosh-ps-modules'></a>Install the BOSH PS Modules
+### <a id='bosh-ps-modules'></a> Install the BOSH PS Modules
 
-Perform the following steps to install the BOSH PS Modules:
+To install the BOSH PS Modules:
 
-1. Locate the [BOSH PS Modules](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/releases) 
-download for the 2019 stemcell version you want to build, such as 2019.2.
+1. Locate the [BOSH PS Modules](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/releases) download for the 2019 stemcell version you want to build, such as 2019.2.
+
 1. Transfer the `bosh-psmodules.zip` file to your Windows VM.
-1. Start PowerShell in the Windows VM and run the following command:
+
+1. Start PowerShell in the Windows VM and run:
 
 	```
 	Unblock-File PATH-TO-BOSH-PSMODULES.ZIP
 	```
-
 	Where `PATH-TO-BOSH-PSMODULES.ZIP` is the full path to the location of `bosh-psmodules.zip` on your Windows VM.
 
-1. Unzip the archive with the following command:
+1. Unzip the archive by running:
 
 	```
 	Expand-Archive PATH-TO-BOSH-PSMODULES.ZIP C:\Program Files\WindowsPowerShell\Modules
 	```
+	Where `PATH-TO-BOSH-PSMODULES.ZIP` is the full path to the location of `bosh-psmodules.zip` on your Windows VM.
 
-###<a id='cf-diego-cell'></a>Install the Cloud Foundry Diego Cell Requirements
+### <a id='cf-diego-cell'></a> Install the <%= vars.first_product_name %> Diego Cell Requirements
 
-Perform the following steps to install the Cloud Foundry Diego cell requirements:
+To install the <%= vars.product_name %> Diego Cell requirements:
 
-1. Start PowerShell in the Windows VM and run the following command:
+1. Start PowerShell in the Windows VM and run:
 
 	```
 	Install-CFFeatures
 	```
-
 	The machine restarts automatically.
 
-1. Apply the recommended ingress and service configuration with the following command:
+1. Apply the recommended ingress and service configuration by running:
 
 	```
 	Protect-CFCell
 	```
 
-###<a id='bosh-agent'></a>Install the BOSH Agent
+### <a id='bosh-agent'></a> Install the BOSH Agent
 
-Perform the following steps to install the BOSH Agent:
+To install the BOSH Agent:
 
-1. Locate the [BOSH Agent](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/releases) 
-download for the 2019 stemcell version you want to build, such as 2019.9.
+1. Locate the [BOSH Agent](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/releases) download for the 2019 stemcell version you want to build, such as 2019.9.
+
 1. Transfer the `agent.zip` file to your Windows VM.
-1. Start PowerShell in the Windows VM and run the following command:
+
+1. Start PowerShell in the Windows VM and run:
 
 	```
 	Unblock-File PATH-TO-AGENT.ZIP
 	```
-
 	Where `PATH-TO-AGENT.ZIP` is the full path to the location of the `agent.zip` file on your Windows VM.
 
-1. Install the BOSH Agent with the following command:
+1. Install the BOSH Agent by running:
 
 	```
 	Install-Agent -IaaS vsphere -agentZipPath PATH-TO-AGENT.ZIP
 	```
+	Where `PATH-TO-AGENT.ZIP` is the full path to the location of the `agent.zip` file on your Windows VM.
 
-###<a id='openssh'></a>Install OpenSSH
+### <a id='openssh'></a> Install OpenSSH
 
-You can use the `bosh ssh` command on BOSH-deployed Windows VMs if you install the OpenSSH dependency on the Windows VM 
-and then enable it during deploy time. This lets an operator enter into a CMD or PowerShell session on the VM as a user 
-with admin privileges.
+You can use the `bosh ssh` command on BOSH-deployed Windows VMs if you install the OpenSSH dependency on the Windows VM and then enable it during deploy time. This lets an operator enter into a CMD or PowerShell session on the VM as a user with admin privileges.
 
-* To install OpenSSH for PAS for Windows perform the following steps:
-    1. Transfer the [`OpenSSH-Win64.zip`](https://github.com/PowerShell/Win32-OpenSSH/releases/tag/v7.7.2.0p1-Beta) 
-    file to the Windows VM and place it in `C:\provision`.
-    1. Start PowerShell in the Windows VM and run the following command:
+* To install OpenSSH for <%= vars.product_windows %>:
+    1. Transfer the [`OpenSSH-Win64.zip`](https://github.com/PowerShell/Win32-OpenSSH/releases/tag/v7.7.2.0p1-Beta) file to the Windows VM and place it in `C:\provision`.
+    1. Start PowerShell in the Windows VM and run:
 
 	    ```
 	    Unblock-File 'C:\provision\OpenSSH-Win64.zip'
 	    ```
-    1. Install OpenSSH with the following command:
+	1. Install OpenSSH by running:
 
 	    ```
 	    Install-SSHD -SSHZipFile 'C:\provision\OpenSSH-Win64.zip'
 	    ```
-    1. When configuring the PAS for Windows tile, you must select the **BETA: Enable BOSH-native SSH support on all VMs checkbox**. 
-    For more information, see [Installing and Configuring PAS for Windows](installing.html#config).
+    1. When configuring the <%= vars.product_windows %> tile, you must select the **Enable BOSH-native SSH support on all VMs (beta)** checkbox. For more information, see the [Configure the Tile](installing.html#config) section of the _Installing and Configuring <%= vars.product_windows %>_ topic.
 
-* To install OpenSSH for PKS Windows clusters perform the following steps:
-    1. Transfer the [`OpenSSH-Win64.zip`](https://github.com/PowerShell/Win32-OpenSSH/releases/tag/v7.7.2.0p1-Beta) file to the Windows VM 
-    and place it in `C:\provision`.
-    1. Start PowerShell in the Windows VM and run the following command:
+* To install OpenSSH for PKS Windows clusters:  
+    1. Transfer the [`OpenSSH-Win64.zip`](https://github.com/PowerShell/Win32-OpenSSH/releases/tag/v7.7.2.0p1-Beta) file to the Windows VM and place it in `C:\provision`.
+    1. Start PowerShell in the Windows VM and run:
 
 	    ```
 	    Unblock-File 'C:\provision\OpenSSH-Win64.zip'
 	    ```
-    1. Install OpenSSH with the following command:
+    1. Install OpenSSH by running:
 
 	    ```
 	    Install-SSHD -SSHZipFile 'C:\provision\OpenSSH-Win64.zip'
 	    ```
 
-###<a id='optimize-compress'></a> Optimize and Compress the Disk
+### <a id='optimize-compress'></a> Optimize and Compress the Disk
 
-<p class="note"><strong>Note</strong>: Windows Server stemcells can be large, and can exceed the 10GB upload limit imposed by 
+<p class="note"><strong>Note:</strong> Windows Server stemcells can be large, and can exceed the 10&nbsp;GB upload limit imposed by 
 default by the BOSH Director.
 </p>
 
-Perform the following steps to reduce the stemcell size:
+To reduce the stemcell size:
 
 1. Restart the VM.
-1. Start PowerShell in the Windows VM and run the following command to use `dism` to clear unnecessary files:
+
+1. Start PowerShell in the Windows VM and use `dism` to clear unnecessary files by running:
 
 	```
     Optimize-Disk
 	```
-1. Run the following command to defragment and zero out the disk:
+
+1. Defragment and zero out the disk by running:
 
 	```
 	Compress-Disk
 	```
 
-##<a id='sysprep'></a> Step 5: Sysprep the System
+## <a id='sysprep'></a> Step 5: Sysprep the System
 
 This step "syspreps" the system, which ensures that each BOSH VM has a unique identity and applies the appropriate startup configuration at boot time.
 
-The included policies help ensure the uptime and secure operations of the stemcell's VMs, especially when deployed on PCF.
+The included policies help ensure the uptime and secure operations of the stemcell's VMs, especially when deployed on <%= vars.product_name %>.
 
-<p class="note"><strong>Note</strong>: This step disables services that could cause restarts, such as Windows Automatic Updates. 
-OS restarts are not supported on BOSH-deployed Windows VMs, and the BOSH Director resurrects the VM by destroying and repaving it.
-</p>
+<p class="note"><strong>Note:</strong> This step disables services that could cause restarts, such as Windows Automatic Updates.  OS restarts are not supported on BOSH-deployed Windows VMs, and the BOSH Director resurrects the VM by destroying and repaving it. </p>
 
-Perform the following steps:
+To sysprep the system:
 
-1. Transfer the [`LGPO.ZIP`](https://www.microsoft.com/en-us/download/details.aspx?id=55319) file to the Windows VM.
-1. Start PowerShell in the Windows VM and run the following command:
+1. Transfer the `LGPO.ZIP` file to the Windows VM.
+
+1. Start PowerShell in the Windows VM and run:
 
 	```
 	Expand-Archive PATH-TO-LGPO.ZIP C:\Windows
 	```
-1. Run the following command to sysprep the system:
+	Where `PATH-TO-LGPO.ZIP` is the full path to the location of the `LGPO.ZIP` file on your Windows VM.
+
+1. Sysprep the system by running:
 
 	```
 	Invoke-Sysprep -IaaS vsphere
 	[-NewPassword PASSWORD]
 	[-Owner OWNER] [-Organization ORGANIZATION]
 	```
-
-	<p class="note"><strong>Note</strong>: All of the flags of <code>Invoke-Sysprep</code> except for <code>-IaaS</code> are optional.
-	</p>
-
+	<p class="note"><strong>Note:</strong> All of the flags of <code>Invoke-Sysprep</code> except for <code>-IaaS</code> are optional.</p>
 	Where:
-	* `PASSWORD` is an optional flag that enables you to set a password of your choice. Do not use any special character in the 
-	password other than `!`. For example, `Example12!` is permitted but `Example#12` is not. This is a known issue.
+	* `PASSWORD` is an optional flag that enables you to set a password of your choice. Do not use any special character in the password other than `!`. For example, `Example12!` is permitted, but `Example#12` is not. This is a known issue.
 	* `OWNER` and `ORGANIZATION` are optional flags. Set them if your organization requires it.
 	<br><br>
 	The sysprep command powers off the VM.
 
-<p class="note warning"><strong>WARNING</strong>: Do not turn the VM back on before completing the procedure in 
-	<a href="#export-vmdk">Step 6: Export the VMDK File</a>.
-</p>
+<p class="note warning"><strong>Warning:</strong> Do not turn the VM back on before completing the procedure in <a href="#export-vmdk">Step 6: Export the VMDK File</a>.</p>
 
-##<a id='export-vmdk'></a> Step 6: Export the VMDK File
 
-Perform the following steps to export the .VMDK file associated with the VM you powered off:
+## <a id='export-vmdk'></a> Step 6: Export the VMDK File
+
+To export the .VMDK file associated with the VM you powered off:
 
 1. In vCenter, right-click the VM and select **Template > Export to OVF Template**.
-1. Download the OVA to your local machine.
-You do not need to include files in the floppy or CD Drive.
-	<p class="note"><strong>Note</strong>: You can also download the standalone vSphere client and select <strong>File > Export > Export OVF Template</strong>.
-	</p>
+
+1. Download the OVA to your local machine. You do not need to include files in the floppy or CD drive.
+	<p class="note"><strong>Note:</strong> You can also download the standalone vSphere client and select <strong>File > Export > Export OVF Template</strong>.</p>
+
 1. Rename the downloaded OVA file to have a `.tar` extension.
+
 1. Expand the TAR archive and locate the VMDK file.
 
-##<a id='convert-vmdk'></a> Step 7: Convert the VMDK File to a BOSH Stemcell
 
-<p class="note"><strong>Note</strong>: This final step typically takes about ten to twenty minutes to complete.
-</p>
+## <a id='convert-vmdk'></a> Step 7: Convert the VMDK File to a BOSH Stemcell
 
-Perform the following steps to convert the VMDK file to a BOSH stemcell:
+<p class="note"><strong>Note:</strong> This final step typically takes about ten to twenty minutes to complete.</p>
+
+To convert the VMDK file to a BOSH stemcell:
 
 1. Download the latest release of the [stembuild](https://github.com/pivotal-cf-experimental/stembuild/releases) utility to 
 your local machine and place the executable in your command-line path.
-1. Download [`ovftool`](https://www.vmware.com/support/developer/ovf/) to your local machine and place the executable in your command-line path.
-	<p class="note"><strong>Note</strong>: On the Windows desktop, <code>ovftool</code> is installed by default in 
-		<code>C:\Program Files\VMware\VMware OVF Tool</code>.
-	</p>
 
+1. Download [`ovftool`](https://www.vmware.com/support/developer/ovf/) to your local machine and place the executable in your command-line path.
+	<p class="note"><strong>Note:</strong> On the Windows desktop, <code>ovftool</code> is installed by default in <code>C:\Program Files\VMware\VMware OVF Tool</code>.</p>
 	`stembuild` invokes `ovftool` to convert the disk image to the appropriate stemcell format and apply the proper configuration.
-1. Build the stemcell with the following command:
+
+1. Build the stemcell by running:
 
 	```
 	stembuild package -vmdk PATH-TO-VDMK -stemcell-version STEMCELL-VERSION -os 2019
@@ -438,23 +429,20 @@ your local machine and place the executable in your command-line path.
 
 	Where:
 	* `PATH-TO-VMDK` is the path to the VMDK file.
-	* `STEMCELL-VERSION` is the 2019 stemcell version you want to build.
-	For example, if you downloaded the [BOSH PS Modules and BOSH Agent](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/releases) 
-	for the 2019.2 release, then specify `2019.2`.
+	* `STEMCELL-VERSION` is the 2019 stemcell version you want to build. For example, if you downloaded the [BOSH PS Modules and BOSH Agent](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/releases) for the 2019.2 release, then specify `2019.2`. `stembuild` creates the stemcell in the directory where you execute it. The file has a `.tgz` extension and a name similar to `bosh-stemcell-2019.2-vsphere-esxi-windows2019-go_agent.tgz `.
 
-	`stembuild` creates the stemcell in the directory where you execute it. The file has a `.tgz` extension and a name similar to 
-	`bosh-stemcell-2019.2-vsphere-esxi-windows2019-go_agent.tgz `.
-	<br><br>
-	The stemcell is ready for use in conjunction with your BOSH deployment.
+The stemcell is ready for use in conjunction with your BOSH deployment.
 
-##<a id='patch-tuesday'></a> Step 8: Apply Monthly Patch Tuesday Updates
 
-On Patch Tuesday, run Windows Updates on the base image, and then repeat [Step 3: Clone the VM](#clone-vm) through 
+## <a id='patch-tuesday'></a> Step 8: Apply Monthly Patch Tuesday Updates
+
+On Patch Tuesday, run Windows updates on the base image, and then repeat [Step 3: Clone the VM](#clone-vm) through 
 [Step 7: Convert the VMDK File to a BOSH Stemcell](#convert-vmdk).
 
-##<a id='troubleshooting'></a> Troubleshooting
 
-### <a id='windows-features-not-installed'></a>Garden Windows Logs Suggest Windows Features Not Installed
+## <a id='troubleshooting'></a> Troubleshooting
+
+### <a id='windows-features-not-installed'></a> Garden Windows Logs Suggest Windows Features Not Installed
 
 **Symptom**
 
