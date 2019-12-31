@@ -29,6 +29,7 @@ If you are using Steeltoe, add the following environment variables to your Confi
 * `SMB\_PASSWORD`
 
 Where:
+
 * `SMB\_PATH` is the UNC path to your SMB.
 * `SMB\_USERNAME` is your IaaS account username.
 * `SMB\_PASSWORD` is your IaaS account password.
@@ -39,9 +40,9 @@ After adding your environment variables to your Config Server Provider, proceed 
 
 ### <a id='batch'></a> Using SMB Volumes in .NET Apps with Your Batch Profile
 
-If you do not want to modify your app code to include Steeltoe, you can use SMB Mounting without Steeltoe.
+If you do not want to modify your app code to include Steeltoe, you can use mount SMB Volumes without Steeltoe.
 
-To use SMB Mounting:
+To mount SMB Volumes:
 
 1. Retrieve the UNC of your existing SMB share. The UNC is your machine's fully-qualified domain name (FQDN).
 
@@ -154,7 +155,7 @@ To configure SMB Mounting:
 
 1. Modify the `Index.cshtml` file to contain a form. This form posts to a yet-to-be-created update endpoint and also displays our note inside a text area.
 
-    <pre>
+    ```
     <big>
     <xmp>
     // Index.cshtml
@@ -167,7 +168,7 @@ To configure SMB Mounting:
     </form>
     </xmp>
     </big>
-    </pre>
+    ```
 
 1. Modify the `NoteController.cs` to have an update endpoint. This endpoint saves the data posted to the endpoint back into the `note.txt`. See the example code snippet in the following step.
 
