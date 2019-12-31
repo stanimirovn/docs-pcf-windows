@@ -39,9 +39,9 @@ After adding your environment variables to your Config Server Provider, proceed 
 
 ### <a id='batch'></a> Using SMB Volumes in .NET Apps with Your Batch Profile
 
-If you do not want to modify your app code to include Steeltoe, you can use SMB Mounting without Steeltoe.
+If you do not want to modify your app code to include Steeltoe, you can use SMB mounting without Steeltoe.
 
-To use SMB Mounting:
+To use SMB mounting:
 
 1. Retrieve the UNC of your existing SMB share. The UNC is your machine's fully-qualified domain name (FQDN).
 
@@ -63,7 +63,7 @@ To use SMB Mounting:
 
 ## <a id='smb-mounting'></a> SMB Mounting
 
-To configure SMB Mounting:
+To configure SMB mounting:
 
 1. Using the cf CLI or Apps Manager, add `SMB_PATH`, `SMB_USERNAME`, and `SMB_PASSWORD` as environment variables to your local computer or the computer you are deploying using for deploying your app. 
     <p class='note'><strong>Note:</strong> If you are using SMB Volumes with your batch profile and have already added these environment variables, ignore this step.</p>
@@ -154,7 +154,7 @@ To configure SMB Mounting:
 
 1. Modify the `Index.cshtml` file to contain a form. This form posts to a yet-to-be-created update endpoint and also displays our note inside a text area.
 
-    <pre>
+    ```
     <big>
     <xmp>
     // Index.cshtml
@@ -167,14 +167,11 @@ To configure SMB Mounting:
     </form>
     </xmp>
     </big>
-    </pre>
+    ```
 
 1. Modify the `NoteController.cs` to have an update endpoint. This endpoint saves the data posted to the endpoint back into the `note.txt`. See the example code snippet in the following step.
 
-1. Modify the `NoteController.cs` to include the ControllerBase class `RedirectToAction` method, which redirects to the index page so the user can see what was just saved. For more information about the ControllerBase class, see [ControllerBase.RedirectToAction Method](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.redirecttoaction?view=aspnetcore-2.2) in the Microsoft documentation. 
-</br>
-</br>
-See the example code snippet below:
+1. Modify the `NoteController.cs` to include the ControllerBase class `RedirectToAction` method, which redirects to the index page so the user can see what was just saved. For more information about the ControllerBase class, see [ControllerBase.RedirectToAction Method](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.redirecttoaction?view=aspnetcore-2.2) in the Microsoft documentation. See the example code snippet below:
 
     ```
     // NoteController.cs

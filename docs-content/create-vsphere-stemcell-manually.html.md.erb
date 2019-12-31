@@ -308,9 +308,8 @@ To install the BOSH Agent:
 
 You can use the `bosh ssh` command on BOSH-deployed Windows VMs if you install the OpenSSH dependency on the Windows VM and then enable it during deploy time. This lets an operator enter into a CMD or PowerShell session on the VM as a user with admin privileges.
 
-* To install OpenSSH for PAS for Windows:  
-    1. Transfer the [`OpenSSH-Win64.zip`](https://github.com/PowerShell/Win32-OpenSSH/releases/tag/v7.7.2.0p1-Beta) 
-    file to the Windows VM and place it in `C:\provision`.
+* To install OpenSSH for <%= vars.windows_runtime_abbr %>:  
+    1. Transfer the [`OpenSSH-Win64.zip`](https://github.com/PowerShell/Win32-OpenSSH/releases/tag/v7.7.2.0p1-Beta) file to the Windows VM and place it in `C:\provision`.
     1. Start PowerShell in the Windows VM and run:
 
 	    ```
@@ -321,7 +320,7 @@ You can use the `bosh ssh` command on BOSH-deployed Windows VMs if you install t
 	    ```
 	    Install-SSHD -SSHZipFile 'C:\provision\OpenSSH-Win64.zip'
 	    ```
-    1. When configuring the <%= vars.windows_runtime_abbr %> tile, you must select the **Enable BOSH-native SSH support on all VMs (beta)** checkbox. For more information, see the [Configure the Tile](installing.html#config) section of the _Installing and Configuring PASW_ topic.
+    1. When configuring the <%= vars.windows_runtime_abbr %> tile, you must select the **Enable BOSH-native SSH support on all VMs (beta)** checkbox. For more information, see the [Configure the Tile](installing.html#config) section of the _Installing and Configuring <%= vars.windows_runtime_abbr %>_ topic.
 
 * To install OpenSSH for PKS Windows clusters:  
     1. Transfer the [`OpenSSH-Win64.zip`](https://github.com/PowerShell/Win32-OpenSSH/releases/tag/v7.7.2.0p1-Beta) file to the Windows VM and place it in `C:\provision`.

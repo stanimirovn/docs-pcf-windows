@@ -5,14 +5,14 @@ owner: Windows
 
 This topic describes the process of migrating apps running on <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>) 2012 R2 stemcells to run on <%= vars.windows_runtime_abbr %> stemcells, which run Windows Server 2019.
 
-<p class="note"><strong>Note</strong>: <%= vars.windows_runtime_abbr %> 2012 R2 has reached its end of availability (EoA) and is no longer generally available. For more information about upgrading the PASW tile, see <a href="./upgrade-2012r2-to-pasw.html">Migrating from PASW 2012 R2 to PASW</a>.</p>
+<p class="note"><strong>Note</strong>: <%= vars.windows_runtime_abbr %> 2012 R2 has reached its end of availability (EoA) and is no longer generally available. For more information about upgrading the <%= vars.windows_runtime_abbr %> tile, see <a href="./upgrade-2012r2-to-pasw.html">Migrating from <%= vars.windows_runtime_abbr %> 2012 R2 to <%= vars.windows_runtime_abbr %></a>.</p>
 
 Pivotal recommends you use the blue-green deployment method for high availability. For more information about blue-green deployments, see [Using Blue-Green Deployment to Reduce Downtime and Risk](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/devguide/deploy-apps/blue-green.html).
 
 
 ## <a id="install-tile"></a> Step 1: Install and Deploy the <%= vars.windows_runtime_abbr %> Tile
 
-To install and deploy the <%= vars.windows_runtime_abbr %> tile, follow steps 1 and 2 of [Installing and Configuring PASW](installing.html).
+To install and deploy the <%= vars.windows_runtime_abbr %> tile, follow steps 1 and 2 of [Installing and Configuring <%= vars.windows_runtime_abbr %>](installing.html).
 
 
 ## <a id="push-app"></a> Step 2: Push App to <%= vars.windows_runtime_abbr %> Diego Cells
