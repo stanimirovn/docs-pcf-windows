@@ -321,6 +321,40 @@ To upgrade your BOSH stemcell:
 
 ## <a id='known-issues'></a> Known Issues
 
+### <a id='vm-credentials-validation-failure'></a> Stembuild 2019.15 Fails to Validate VM Credentials due to WinRM Connection Error
+
+**Symptom**
+
+When running stembuild v2019.15, you may see an error looking like the following when running stembuild construct:
+
+```
+Validating connection to vm...
+
+Could not prepare VM: Cannot complete login due to an incorrect VM user name or password: failed to create winrm shell: http response error: 401 - invalid content type
+```
+
+**Explanation**
+
+This is due to stembuild trying to validate your VM credentials prior to enabling WinRM. This is not known to occur on other versions of stembuild.
+
+**Workaround**
+To resolve this, log into the VM and run the following commands:
+
+```
+winrm set winrm/config/service/auth @{Basic="true"}
+
+winrm set winrm/config/service @{AllowUnencrypted="true"}
+
+powershell
+
+Enable-NetFirewallRule -DisplayName "Windows Remote Management (HTTP-In)"
+
+netsh firewall add portopening TCP 5985 "Port 5985"
+```
+
+For more information, please see the [Knowledge Base article](https://community.pivotal.io/s/article/Validating-connection-to-vm-step-fails-during-stembuild-construct-for-Stembuild-v2019-15) on this error.
+
+
 ### <a id='special-characters'></a> Authentication Error with Special Characters in stembuild Commands
 
 **Symptom**
