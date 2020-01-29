@@ -248,22 +248,24 @@ Where:
 * `VCENTER-PASSWORD` is your password. The password must be enclosed in single quotes.
 * `INVENTORY-PATH` is the vCenter inventory path to the target VM.
 
-<p class='note'><strong>Note:</strong> This operation may take up to an hour to complete and results in a powered-off target Windows VM in your vSphere environment. During <code>construct</code> execution, the WinRM connection terminates. This behavior is expected, and the <code>construct</code> command is still being executed. Do not attempt to re-run the <code>construct</code> command.</p>
-<br>
-
-Once `stembuild construct` is complete, you'll see a message that looks like the following:
+This operation may take up to an hour to complete. 
+The following message will display upon `stembuild construct` completion:  
 <pre class="terminal">
 2020-01-29T08:52:26.4523812-08:00 Successfully created stemcell version file.
-
 Finished executing setup script.
-
 WinRM has been disconnected so the VM can reboot. Preparing the VM to be shutdown.
 2020-01-29T16:53:27.505532+00:00 Still preparing VM...
 2020-01-29T16:54:27.94085+00:00 Still preparing VM...
 2020-01-29T16:55:28.374568+00:00 Still preparing VM...
 Stembuild construct has finished running and the VM has now been shutdown. Run 'stembuild package' to finish building the stemcell.
 </pre>
-<br>
+
+<p class='note'><strong>Note:</strong> The <code>stembuild construct</code> operation creates a powered-off 
+  target Windows VM in your vSphere environment. During <code>construct</code> execution, 
+  the WinRM connection terminates. 
+  This behavior is expected, and the <code>construct</code> command is still being executed. 
+  Do not attempt to re-run the <code>construct</code> command.
+</p>
 
 To view the status of `construct`:
 
