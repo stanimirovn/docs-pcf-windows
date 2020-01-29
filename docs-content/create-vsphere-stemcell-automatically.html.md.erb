@@ -112,9 +112,9 @@ To create and customize a base VM:
 1. On the **Customize hardware** page, configure the VM hardware using the information below and click **Next**.
   1. For **New Hard disk**, specify 30&nbsp;GB or greater.
   1. For **New CD\DVD Drive**:
-		1. Select **Datastore ISO File**.
-		1. Select the Windows Server 2019 ISO file you uploaded to your datastore and click **OK**.
-		1. Enable the **Connect At Power On** checkbox.
+    1. Select **Datastore ISO File**.
+    1. Select the Windows Server 2019 ISO file you uploaded to your datastore and click **OK**.
+    1. Enable the **Connect At Power On** checkbox.
 
 1. Review the configuration settings on the **Ready to complete** page and click **Finish**.
 
@@ -160,7 +160,7 @@ To install VMware Tools on the base VM:
   ```
   setup64.exe
   ```
-	<p class="note"><strong>Note:</strong> The VMware Tools install window might appear behind the Command Prompt window.</p>
+  <p class="note"><strong>Note:</strong> The VMware Tools install window might appear behind the Command Prompt window.</p>
 
 1. Restart the VM to complete the installation.
 
@@ -203,7 +203,8 @@ To configure the base VM network settings and install Windows updates:
 
 To clone the base VM:
 
-1. From the vSphere Web Client, power down the base VM. This is important because your cloned VM will share the same IP address as your base VM.
+1. From the vSphere Web Client, power down the base VM. 
+This is important because your base VM and the clone VM you create share the same IP address.
 
 1. Right-click the base VM.
 
@@ -246,10 +247,15 @@ Where:
 * `VCENTER-URL` is the URL of your vCenter.
 * `VCENTER-USERNAME` is the username of your account in vCenter.
 * `VCENTER-PASSWORD` is your password. The password must be enclosed in single quotes.
-* `INVENTORY-PATH` is the vCenter inventory path to the target VM.
+* `INVENTORY-PATH` is the vCenter inventory path to the target VM.  
 
-This operation may take up to an hour to complete. 
-The following message will display upon `stembuild construct` completion:  
+<br>
+Your `stembuild construct` operation may take up to an hour to complete. 
+<code>stembuild construct</code> creates a powered-off 
+target Windows VM in your vSphere environment.  
+
+The following is an example of the messages displayed as `stembuild construct` runs 
+and completes:  
 <pre class="terminal">
 2020-01-29T08:52:26.4523812-08:00 Successfully created stemcell version file.
 Finished executing setup script.
@@ -260,11 +266,8 @@ WinRM has been disconnected so the VM can reboot. Preparing the VM to be shutdow
 Stembuild construct has finished running and the VM has now been shutdown. Run 'stembuild package' to finish building the stemcell.
 </pre>
 
-<p class='note'><strong>Note:</strong> The <code>stembuild construct</code> operation creates a powered-off 
-  target Windows VM in your vSphere environment. During <code>construct</code> execution, 
-  the WinRM connection terminates. 
-  This behavior is expected, and the <code>construct</code> command is still being executed. 
-  Do not attempt to re-run the <code>construct</code> command.
+<p class='note'><strong>Note:</strong> Although the WinRM connection terminates during <code>construct</code> execution, 
+  <code>construct</code> is still running. Do not attempt to re-run the <code>construct</code> command.
 </p>
 
 To view the status of `construct`:
