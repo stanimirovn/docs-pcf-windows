@@ -85,11 +85,11 @@ To install the <%= vars.windows_runtime_abbr %> tile:
 1. Add the Windows Server container base image to the product file by running:
 
     ```
-    winfs-injector --input-tile PASW-DOWNLOAD-PATH --output-tile PASW-IMPORTABLE-PATH
+    winfs-injector --input-tile <%= vars.windows_runtime_abbr %>-DOWNLOAD-PATH --output-tile <%= vars.windows_runtime_abbr %>-IMPORTABLE-PATH
     ```
     Where:
-    * `PASW-DOWNLOAD-PATH` is the path and filename to the <%= vars.windows_runtime_abbr %> product file you downloaded.
-    * `PASW-IMPORTABLE-PATH` is the desired output path for the importable product file.
+    * `<%= vars.windows_runtime_abbr %>-DOWNLOAD-PATH` is the path and filename to the <%= vars.windows_runtime_abbr %> product file you downloaded.
+    * `<%= vars.windows_runtime_abbr %>-IMPORTABLE-PATH` is the desired output path for the importable product file.
     For example:
     <pre class="terminal">
     C:\Users\admin\> winfs-injector --input-tile ^
@@ -118,7 +118,7 @@ To install the <%= vars.windows_runtime_abbr %> tile:
             port: ((Port of the syslog server))
             transport: ((tcp or udp))
             # Optional. If you enabled SSL certificate
-            # verification in PAS, you must configure
+            # verification in <%= vars.app_runtime_abbr %>, you must configure
             # `tls_enabled:` and `ca_cert:`.
             tls_enabled: true
             ca_cert: ((TLS CA certificate of the syslog server))
@@ -128,7 +128,7 @@ To install the <%= vars.windows_runtime_abbr %> tile:
 
 1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product**.
 
-1. To add the <%= vars.windows_runtime_abbr %> tile to the **Import a Product** product list, select the importable `PASW-IMPORTABLE-PATH` file on your workstation.
+1. To add the <%= vars.windows_runtime_abbr %> tile to the **Import a Product** product list, select the importable `<%= vars.windows_runtime_abbr %>-IMPORTABLE-PATH` file on your workstation.
 
 1. To add the <%= vars.windows_runtime_abbr %> tile to your staging area, click **+** under the **Pivotal Application Service for Windows** product listing.
 
@@ -232,7 +232,7 @@ To configure app identity verification:
       * To disable app identity verification and mutual TLS (mTLS), select *Disable route integrity and mutual TLS*.
       * To enable the Gorouter to verify app identity using TLS, click **Router uses TLS to verify app identity**.
       * To enable the Gorouter and your apps to verify each other's identity using TLS, click **Router and apps use mutual TLS to verify each other's identity**.
-      <p class='note'><strong>Note:</strong> If you enable mutual TLS in the <%= vars.windows_runtime_abbr %> tile, you must also enable mutual TLS in the <strong>App Containers</strong> pane of the PAS tile.</p>
+      <p class='note'><strong>Note:</strong> If you enable mutual TLS in the <%= vars.windows_runtime_abbr %> tile, you must also enable mutual TLS in the <strong>App Containers</strong> pane of the <%= vars.app_runtime_abbr %> tile.</p>
       <p class='note'><strong>Note:</strong> If you have mutual TLS app identity verification enabled, app containers accept incoming communication only from the Gorouter. This disables TCP routing.</p>
       <p class='note'><strong>Note:</strong> To support mTLS app identity verification, you need v2.3 or later of both <%= vars.app_runtime_abbr %> and Pivotal Isolation Segment. The Gorouter and Diego Cell components in <%= vars.platform_old %> v2.2 and earlier do not support mTLS handshakes.</p>
 
