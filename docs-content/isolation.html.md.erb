@@ -61,4 +61,6 @@ To assign a <%= vars.windows_runtime_abbr %> tile to an isolation segment:
 
 1. Under **Segment name**, enter the name for the isolation segment to associate the tile with. If you are creating a new isolation segment, ensure that this name is unique across your <%= vars.platform_name %> deployment.
 
+1. (Optional) To limit the number of log lines each app instance in your isolation segment can generate per second, select **Enable** under **App log rate limit** and enter the **Maximum app log lines per second** you want to configure. <%= vars.recommended_by %> recommends a minimum value of 100. This feature is disabled by default. Disabling this feature may cause an app instance to overload the Loggregator Agent with logs, which may result in the Loggregator Agent dropping logs for other app instances. Otherwise, it may report inaccurate app metrics in the cf CLI or increase the CPU usage on the Diego Cell VM. If you configure a log rate limit, you can monitor the `AppInstanceExceededLogRateLimitCount` metric for the number of app instances that exceed the log rate limit.
+
 1. Click **Save**.
