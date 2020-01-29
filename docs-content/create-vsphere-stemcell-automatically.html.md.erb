@@ -36,9 +36,12 @@ Before you create a BOSH stemcell for Windows on vSphere, you must have:
   (https://kb.vmware.com/s/article/2007240) in the VMware Knowledge Base.  
 
 * An ISO for a Windows Server 2019 Server Core installation, build number: 17763, from [Microsoft Developer Network (MSDN)](https://msdn.microsoft.com/en-us) 
-or [Volume Licensing Service Center (VLSC)](https://www.microsoft.com/Licensing/servicecenter/default.aspx). 
+or [Microsoft Volume Licensing Service Center (VLSC)](https://www.microsoft.com/Licensing/servicecenter/default.aspx). 
 The Windows Server 2019 ISO must be a clean, base ISO file. 
-You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production, as the licensing expires.  
+You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production, as the licensing expires. 
+For more information, see [Get started with Windows Server 2019]
+(https://docs.microsoft.com/en-us/windows-server/get-started-19/get-started-19) 
+in the Microsoft Windows Server documentation.  
     <p class="note"><strong>Note:</strong> A clean ISO file has no custom scripts or tooling. 
     For example, the ISO must have no logging or antivirus tools installed.
     </p> 
@@ -257,12 +260,12 @@ Where:
 For example:
 <pre class="terminal">
 $ ./STEMBUILD-BINARY construct -vm-ip 192.168.1.1 -vm-username usertwo -vm-password notuser1! -vcenter-url example.com -vcenter-username userone -vcenter-password notuser2? -vm-inventory-path INVENTORY-PATH
-WinRM has been disconnected so the VM can reboot. Preparing the VM to be shutdown.
+2020-01-29T08:52:26.4523812-08:00 Successfully created stemcell version file.
 Finished executing setup script.
-Now doing power calculations of life.
-still configuring the VM...
-still configuring the VM...
-still configuring the VM...
+WinRM has been disconnected so the VM can reboot. Preparing the VM to be shutdown.
+2020-01-29T16:53:27.505532+00:00 Still preparing VM...
+2020-01-29T16:54:27.94085+00:00 Still preparing VM...
+2020-01-29T16:55:28.374568+00:00 Still preparing VM...
 Stembuild construct has finished running and the VM has now been shutdown. Run 'stembuild package' to finish building the stemcell.
 </pre>
 <br>
