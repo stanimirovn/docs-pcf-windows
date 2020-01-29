@@ -35,16 +35,8 @@ Before you create a BOSH stemcell for Windows on vSphere, you must have:
   [ESXi/ESX hosts and compatible virtual machine hardware versions list (2007240)]
   (https://kb.vmware.com/s/article/2007240) in the VMware Knowledge Base.  
 
-* An ISO for a Windows Server 2019 Server Core installation, build number: 17763, from [Microsoft Developer Network (MSDN)](https://msdn.microsoft.com/en-us) 
-or [Microsoft Volume Licensing Service Center (VLSC)](https://www.microsoft.com/Licensing/servicecenter/default.aspx). 
-The Windows Server 2019 ISO must be a clean, base ISO file. 
-You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production, as the licensing expires. 
-For more information, see [Get started with Windows Server 2019]
-(https://docs.microsoft.com/en-us/windows-server/get-started-19/get-started-19) 
-in the Microsoft Windows Server documentation.  
-    <p class="note"><strong>Note:</strong> A clean ISO file has no custom scripts or tooling. 
-    For example, the ISO must have no logging or antivirus tools installed.
-    </p> 
+* An ISO for a Windows Server 2019 Server Core installation, build number: 17763, from [Microsoft Developer Network (MSDN)](https://msdn.microsoft.com/en-us) or [Microsoft Volume Licensing Service Center (VLSC)](https://www.microsoft.com/Licensing/servicecenter/default.aspx). The Windows Server 2019 ISO must be a clean, base ISO file. You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production, as the licensing expires. For more information, see the [Windows Server Documentation](https://docs.microsoft.com/en-us/windows-server/get-started-19/get-started-19) or the [Microsoft Volume Licensing Service Center](https://www.microsoft.com/Licensing/servicecenter/default.aspx) website.
+    <p class="note"><strong>Note:</strong> A clean ISO file has no custom scripts or tooling. For example, the ISO must have no logging or antivirus tools installed.</p> 
 
 * A download of the `stembuild` command line interface (CLI) from a 2019.x release in [Pivotal Stemcells (Windows)](https://network.pivotal.io/products/stemcells-windows-server) on Pivotal Network.
     * To build a Windows stemcell for <%= vars.windows_runtime_abbr %>, use the vSphere `stembuild` CLI for Windows corresponding to both the operating system of your local host and the stemcell version that you want to build.
@@ -211,7 +203,7 @@ To configure the base VM network settings and install Windows updates:
 
 To clone the base VM:
 
-1. From the vSphere Web Client, power down the base VM.
+1. From the vSphere Web Client, power down the base VM. This is important because your cloned VM will share the same IP address as your base VM.
 
 1. Right-click the base VM.
 
@@ -256,12 +248,15 @@ Where:
 * `VCENTER-PASSWORD` is your password. The password must be enclosed in single quotes.
 * `INVENTORY-PATH` is the vCenter inventory path to the target VM.
 
+<p class='note'><strong>Note:</strong> This operation may take up to an hour to complete and results in a powered-off target Windows VM in your vSphere environment. During <code>construct</code> execution, the WinRM connection terminates. This behavior is expected, and the <code>construct</code> command is still being executed. Do not attempt to re-run the <code>construct</code> command.</p>
 <br>
-For example:
+
+Once `stembuild construct` is complete, you'll see a message that looks like the following:
 <pre class="terminal">
-$ ./STEMBUILD-BINARY construct -vm-ip 192.168.1.1 -vm-username usertwo -vm-password notuser1! -vcenter-url example.com -vcenter-username userone -vcenter-password notuser2? -vm-inventory-path INVENTORY-PATH
 2020-01-29T08:52:26.4523812-08:00 Successfully created stemcell version file.
+
 Finished executing setup script.
+
 WinRM has been disconnected so the VM can reboot. Preparing the VM to be shutdown.
 2020-01-29T16:53:27.505532+00:00 Still preparing VM...
 2020-01-29T16:54:27.94085+00:00 Still preparing VM...
@@ -269,7 +264,6 @@ WinRM has been disconnected so the VM can reboot. Preparing the VM to be shutdow
 Stembuild construct has finished running and the VM has now been shutdown. Run 'stembuild package' to finish building the stemcell.
 </pre>
 <br>
-<p class='note'><strong>Note:</strong> This operation may take up to an hour to complete and results in a powered-off target Windows VM in your vSphere environment. During <code>construct</code> execution, the WinRM connection terminates. This behavior is expected, and the <code>construct</code> command is still being executed. Do not attempt to re-run the <code>construct</code> command.</p>
 
 To view the status of `construct`:
 
