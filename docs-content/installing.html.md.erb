@@ -80,7 +80,7 @@ To install the <%= vars.windows_runtime_abbr %> tile:
 1. Download the **<%= vars.windows_runtime_full %>** product file.
 
 1. Download the **Windows FS Injector** tool for your workstation OS. The Injector tool, `winfs-injector`, is an executable binary that adds the Windows Server container base image into the product file. This step requires internet access and can take up to 20 minutes.
-<p class="note"><strong>Note:</strong> You need the <code>git</code> and <code>tar</code> executables in your <code>%PATH%</code> to run <code>winfs-injector.exe</code>. For example, copy <code>git.exe</code> and <code>tar.exe</code> to a directory in your <code>%PATH%</code>.</p>
+  <p class="note"><strong>Note:</strong> You need the <code>git</code> and <code>tar</code> executables in your <code>%PATH%</code> to run <code>winfs-injector.exe</code>. For example, copy <code>git.exe</code> and <code>tar.exe</code> to a directory in your <code>%PATH%</code>.</p>
 
 1. Add the Windows Server container base image to the product file by running:
 
@@ -130,7 +130,7 @@ To install the <%= vars.windows_runtime_abbr %> tile:
 
 1. To add the <%= vars.windows_runtime_abbr %> tile to the **Import a Product** product list, select the importable `<%= vars.windows_runtime_abbr %>-IMPORTABLE-PATH` file on your workstation.
 
-1. To add the <%= vars.windows_runtime_abbr %> tile to your staging area, click **+** under the **Pivotal Application Service for Windows** product listing.
+1. To add the <%= vars.windows_runtime_abbr %> tile to your staging area, click **+** under the **<%= vars.windows_runtime_full %>** product listing.
 
 
 ## <a id='config'></a> Configure the Tile
@@ -150,7 +150,7 @@ To configure AZs and networks:
 1. Select the first AZ under **Place singleton jobs**. Ops Manager runs any job with a single instance in this AZ.
 
 1. Select all AZs under **Balance other jobs**. Ops Manager balances instances of jobs with more than one instance across the AZs that you specify.
-  <p class='note'><strong>Note:</strong> For production deployments, Pivotal recommends at least three AZs for a highly available installation.</p>
+  <p class='note'><strong>Note:</strong> For production deployments, <%= vars.recommended_by %> recommends at least three AZs for a highly available installation.</p>
 
 1. From the **Network** dropdown, choose the runtime network that you created when configuring the BOSH Director tile.
 
@@ -194,7 +194,7 @@ To configure smoke tests:
 
 ### <a id='config-advanced-features'></a> Configure Advanced Features
 
-**Advanced Features** includes new functionality that might have certain constraints. Although these features are fully supported, Pivotal recommends caution when using them in production environments.
+**Advanced Features** includes new functionality that might have certain constraints. Although these features are fully supported, <%= vars.recommended_by %> recommends caution when using them in production environments.
 
 The following sections describe how to configure these advanced features.
 
@@ -204,15 +204,15 @@ If your apps do not use the full allocation of disk space and memory set in **Re
 
 For example, you might want to use the overcommit if your apps use a small amount of disk and memory capacity compared to the amounts set in the **Resource Config** settings for **Windows Diego Cell**.
 
-<p class="note"><strong>Note:</strong> Due to the risk of app failure and the deployment-specific nature of disk and memory use, Pivotal has no recommendation for how much, if any, memory or disk space to overcommit.</p>
+<p class="note"><strong>Note:</strong> Due to the risk of app failure and the deployment-specific nature of disk and memory use, <%= vars.recommended_by %> has no recommendation for how much, if any, memory or disk space to overcommit.</p>
 
 To enable overcommit:
 
 1. Select **Advanced Features**.
 
-1. Enter in MB the total desired amount of Diego Cell memory in the **Cell memory capacity** field. Refer to the **Diego Cell** row in **Resource Config** for the current Diego Cell memory capacity settings that this field overrides.
+1. Enter in MB the total desired amount of Diego Cell memory in the **Diego Cell memory capacity** field. See the **Diego Cell** row in **Resource Config** for the current Diego Cell memory capacity settings that this field overrides.
 
-1. Enter in MB the total desired amount of Diego Cell disk capacity in the **Cell disk capacity** field. Refer to the **Diego Cell** row in **Resource Config** for the current Diego Cell disk capacity settings that this field overrides.
+1. Enter in MB the total desired amount of Diego Cell disk capacity in the **Diego Cell disk capacity** field. See the **Diego Cell** row in **Resource Config** for the current Diego Cell disk capacity settings that this field overrides.
 
 1. Click **Save**.
 
@@ -319,7 +319,7 @@ To upload the stemcell:
 
 1. Follow the procedure in [Importing and Managing Stemcells](https://docs.pivotal.io/platform/opsguide/managing-stemcells.html) to upload the Windows stemcell to <%= vars.windows_runtime_abbr %>.
 
-<p class='note'><strong>Note:</strong> If you use vSphere, you must create your own stemcell. The default root disk size of Windows stemcells v2019.x line is 30&nbsp;GB. Pivotal recommends setting the root disk size of your Windows stemcell for vSphere to 30&nbsp;GB. For more information, see <a href="create-vsphere-stemcell-manually.html">Creating a Windows Stemcell for vSphere Manually</a> or <a href="create-vsphere-stemcell-automatically.html">Creating a Windows Stemcell for vSphere Using stembuild (Beta)</a>.</p>
+<p class='note'><strong>Note:</strong> If you use vSphere, you must create your own stemcell. The default root disk size of Windows stemcells v2019.x line is 30&nbsp;GB. <%= vars.recommended_by %> recommends setting the root disk size of your Windows stemcell for vSphere to 30&nbsp;GB. For more information, see <a href="create-vsphere-stemcell-manually.html">Creating a Windows Stemcell for vSphere Manually</a> or <a href="create-vsphere-stemcell-automatically.html">Creating a Windows Stemcell for vSphere Using stembuild (Beta)</a>.</p>
 
 
 ## <a id='deploy'></a> Deploy the Tile
