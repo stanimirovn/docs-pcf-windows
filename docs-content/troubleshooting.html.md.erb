@@ -64,7 +64,7 @@ The product file you are trying to upload does not contain the Windows Server co
 
 1. Delete the product file listing from Ops Manager by clicking its trash can icon under **Import a Product**.
 
-1. Follow the <%= vars.product_windows %> installation instructions to run the `winfs-injector` tool locally on the product file. This step requires Internet access, can take up to 20 minutes, and adds the Windows Server container base image to the product file. For more information, see the [Install](./installing.html#install) section of the _Installing and Configuring <%= vars.product_windows %>_ topic.
+1. Follow the <%= vars.product_windows %> installation instructions to run the `winfs-injector` tool locally on the product file. This step requires Internet access, can take up to 20 minutes, and adds the Windows Server container base image to the product file. For more information, see [Install](./installing.html#install) in _Installing and Configuring <%= vars.product_windows %>_.
 
 1. Click **Import a Product** to upload the "injected" product file.
 
@@ -120,7 +120,7 @@ You can use Windows Diego Cell logs to troubleshoot Windows Diego Cells. Windows
 
 You can forward BOSH job logs and Windows Event logs to an external syslog server in the following ways:
 
-* Configure a BOSH add-on to forward BOSH job logs. For more information, see the BOSH jobs logs step in the [Step 2: Install the Tile](./installing.html#install) section of the _Installing and Configuring <%= vars.product_windows %>_ topic.
+* Configure a BOSH add-on to forward BOSH job logs. For more information, see the BOSH jobs logs step in [Step 2: Install the Tile](./installing.html#install) in _Installing and Configuring <%= vars.product_windows %>_.
 
 * Configure <%= vars.product_windows %> to forward Windows event logs. For more information, see [Forward Windows Event Logs to a Syslog Server](#syslog).
 
@@ -182,7 +182,7 @@ To connect to a Windows Diego Cell to run diagnostics:
 	* For Windows, download the [Microsoft Remote Desktop](https://www.microsoft.com/en-us/store/p/microsoft-remote-desktop/9wzdncrfj3ps) app from Microsoft.
 	* For Linux/UNIX, download a RDP client like [rdesktop](http://www.rdesktop.org/).
 
-1. Follow the procedure in the [Log In to BOSH](../customizing/trouble-advanced.html#log-in) section of the _Advanced Troubleshooting with the BOSH CLI_ topic to log in to your BOSH Director.
+1. Follow the procedure in [Log In to BOSH](http://docs.pivotal.io/platform/customizing/trouble-advanced.html#log-in) in _Advanced Troubleshooting with the BOSH CLI_ to log in to your BOSH Director.
 	* The steps vary slightly depending on whether your <%= vars.product_name %> deployment uses internal authentication or an external user store.
 	* In <%= vars.product_windows %> v2.6 and later, use of the `bosh ssh` command is enabled by default.
 

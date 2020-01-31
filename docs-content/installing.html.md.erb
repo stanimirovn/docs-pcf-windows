@@ -70,7 +70,7 @@ To disable SSL validation on development and testing environments, do the follow
 
 1. Select the **Disable SSL certificate verification for this environment** checkbox.
 
-For more information, see the [Terminate SSL/TLS at HAProxy](../opsguide/ssl-term-haproxy.html#haproxy) section of the _Configuring SSL/TLS Termination at HAProxy_ topic.
+For more information, see [Terminate SSL/TLS at HAProxy](..opsguide/ssl-term-haproxy.html#haproxy) in _Configuring SSL/TLS Termination at HAProxy_.
 
 
 ## <a id='install'></a> Install the Tile
@@ -98,7 +98,7 @@ To install the <%= vars.product_windows %> tile:
     c:\temp\pas-windows-2.6.0-build.1.pivotal ^
     --output-tile c:\temp\pas-windows-2.6.0-build.1-INJECTED.pivotal
     </pre>
-    For information about troubleshooting `winfs-injector`, see the [Missing Local Certificates for Windows File System Injector](./troubleshooting.html#missing-certs-winfs-issues) section of the _Troubleshooting Windows Diego Cells_ topic.
+    For information about troubleshooting `winfs-injector`, see [Missing Local Certificates for Windows File System Injector](./troubleshooting.html#missing-certs-winfs-issues) in _Troubleshooting Windows Diego Cells_.
 
 1. To enable forwarding BOSH job logs to an external syslog server, add the following BOSH add-on to a `runtime_config` YAML file:
 
@@ -126,7 +126,7 @@ To install the <%= vars.product_windows %> tile:
             ca_cert: ((TLS CA certificate of the syslog server))
         release: windows-syslog
     ```
-    For more information about BOSH add-ons, see the [Addons Block](https://bosh.io/docs/runtime-config/#addons) section of the _Director Runtime Config_ topic in the BOSH documentation.
+    For more information about BOSH add-ons, see [Addons Block](https://bosh.io/docs/runtime-config/#addons) in _Director Runtime Config_ in the BOSH documentation.
 
 1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product**.
 
@@ -210,7 +210,7 @@ To enable overcommit:
 
 1. Select **Advanced Features**.
 
-1. Enter in MB the total desired amount of Diego Cell memory in the **Cell memory capacity (MB)** field. Refer to the **Diego Cell** row in **Resource Config** for the current Diego Cell memory capacity settings that this field overrides.
+1. Enter in MB the total desired amount of Diego Cell memory in the **Cell memory capacity (MB)** field. See the **Diego Cell** row in **Resource Config** for the current Diego Cell memory capacity settings that this field overrides.
 
 1. Enter in MB the total desired amount of Diego Cell disk capacity in the **Cell Disk Capacity (MB)** field. Refer to the **Diego Cell** row in **Resource Config** for the current Diego Cell disk capacity settings that this field overrides.
   <p class='note'><strong>Note:</strong> Due to the risk of app failure and the deployment-specific nature of disk and memory use,
@@ -240,11 +240,11 @@ To configure errands:
 
 ### <a id='config-iso-segments'></a> (Optional) Configure Isolation Segments
 
-To deploy your <%= vars.product_windows %> app workloads to an isolation segment, select **Application Containers** and follow the procedure in the [Assign a Tile to an Isolation Segment](./isolation.html#assign-isolation) section of the _Windows Diego Cells in Isolation Segments_ topic.
+To deploy your <%= vars.product_windows %> app workloads to an isolation segment, select **App Containers** and follow the procedure in [Assign a Tile to an Isolation Segment](./isolation.html#assign-isolation) in _Windows Diego Cells in Isolation Segments_.
 
 ### <a id='config-system-logging'></a> (Optional) Configure System Logging
 
-To configure Windows Diego Cells to send Windows event logs to an external syslog server, select **System Logging** and follow the procedure in the [Forward Windows Event Logs to a Syslog Server](./troubleshooting.html#syslog) section of the _Troubleshooting Windows Diego Cells_ topic.
+To configure Windows Diego Cells to send Windows event logs to an external syslog server, select **System Logging** and follow the procedure in the [Forward Windows Event Logs to a Syslog Server](./troubleshooting.html#syslog) in _Troubleshooting Windows Diego Cells_.
 
 
 ## <a id='resources'></a> Configure Tile Resources
