@@ -53,7 +53,7 @@ As part of completing the procedures in this topic, you download the following f
 * [OpenSSH v7.7.2.0p1](https://github.com/PowerShell/Win32-OpenSSH/releases/tag/v7.7.2.0p1-Beta).
 
 * The [BOSH PS Modules and BOSH Agent](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/releases) for the 2019 stemcell version you want to build.
-	<p class="note"><strong>Note</strong>: You must choose a stemcell version to build. Stemcells are versioned as MAJOR.MINOR, such as 2019.2. For more information about 2019 stemcells, see <a href="https://docs.pivotal.io/platform/stemcells/windows-stemcell-v2019x.html">Stemcell v2019.x (Windows Server 2019) Release Notes</a>.</p>
+	<p class="note"><strong>Note:</strong> You must choose a stemcell version to build. Stemcells are versioned as MAJOR.MINOR, such as 2019.2. For more information about 2019 stemcells, see <a href="https://docs.pivotal.io/platform/stemcells/windows-stemcell-v2019x.html">Stemcell v2019.x (Windows Server 2019) Release Notes</a>.</p>
 
 
 ## <a id='create-base-vm'></a> Step 1: Create Base VM for Stemcell
@@ -71,7 +71,7 @@ To upload the Windows ISO:
 1. Choose a datastore and click or create the directory where you want the Windows ISO.
 
 1. Click **Upload a file to datastore**, and upload the Windows ISO.
-	<p class="note"><strong>Note:</strong> You might need to install the vSphere client web plugin to upload through your browser, or <code>scp</code> the file directly to the datastore server. For more information, see the <a href="https://www.vmware.com/support/pubs/vsphere-esxi-vcenter-server-pubs.html">VMware vSphere</a> documentation.</p>
+	<p class="note"><strong>Note:</strong> You might need to install the vSphere client web plugin to upload through your browser, or <code>scp</code> the file directly to the datastore server. For more information, see the <a href="https://www.vmware.com/support/pubs/vsphere-esxi-vcenter-server-pubs.html">VMware vSphere documentation</a>.</p>
 
 ### <a id='create-customize-vm'></a> Create and Customize a New VM
 
@@ -307,9 +307,9 @@ You can use the `bosh ssh` command on BOSH-deployed Windows VMs if you install t
 	    ```
 	    Install-SSHD -SSHZipFile 'C:\provision\OpenSSH-Win64.zip'
 	    ```
-    1. When configuring the <%= vars.product_windows %> tile, you must select the **Enable BOSH-native SSH support on all VMs (beta)** checkbox. For more information, see the [Configure the Tile](installing.html#config) section of the _Installing and Configuring <%= vars.product_windows %>_ topic.
+    1. When configuring the <%= vars.product_windows %> tile, you must select the **Enable BOSH-native SSH support on all VMs (beta)** checkbox. For more information, see [Configure the Tile](installing.html#config) in _Installing and Configuring <%= vars.product_windows %>_.
 
-* To install OpenSSH for PKS Windows clusters:  
+* To install OpenSSH for PKS Windows clusters:
     1. Transfer the [`OpenSSH-Win64.zip`](https://github.com/PowerShell/Win32-OpenSSH/releases/tag/v7.7.2.0p1-Beta) file to the Windows VM and place it in `C:\provision`.
     1. Start PowerShell in the Windows VM and run:
 
@@ -322,7 +322,7 @@ You can use the `bosh ssh` command on BOSH-deployed Windows VMs if you install t
 
 ### <a id='optimize-compress'></a> Optimize and Compress the Disk
 
-<p class="note"><strong>Note:</strong> Windows Server stemcells can be large, and can exceed the 10&nbsp;GB upload limit imposed by 
+<p class="note"><strong>Note:</strong> Windows Server stemcells can be large, and can exceed the 10&nbsp;GB upload limit imposed by
 default by the BOSH Director.</p>
 
 To reduce the stemcell size:
@@ -398,7 +398,7 @@ To export the .VMDK file associated with the VM you powered off:
 
 To convert the VMDK file to a BOSH stemcell:
 
-1. Download the latest release of the [stembuild](https://github.com/pivotal-cf-experimental/stembuild/releases) utility to 
+1. Download the latest release of the [stembuild](https://github.com/pivotal-cf-experimental/stembuild/releases) utility to
 your local machine and place the executable in your command-line path.
 
 1. Download [`ovftool`](https://www.vmware.com/support/developer/ovf/) to your local machine and place the executable in your command-line path.
@@ -420,7 +420,7 @@ The stemcell is ready for use in conjunction with your BOSH deployment.
 
 ## <a id='patch-tuesday'></a> Step 8: Apply Monthly Patch Tuesday Updates
 
-On Patch Tuesday, run Windows updates on the base image, and then repeat [Step 3: Clone the VM](#clone-vm) through 
+On Patch Tuesday, run Windows updates on the base image, and then repeat [Step 3: Clone the VM](#clone-vm) through
 [Step 7: Convert the VMDK File to a BOSH Stemcell](#convert-vmdk).
 
 
