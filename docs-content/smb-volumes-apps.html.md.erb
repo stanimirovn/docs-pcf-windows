@@ -6,7 +6,7 @@ owner: Windows
 This topic describes how to use Server Message Block (SMB) Volumes in a .NET app. In this example, you create an app that reads and writes to a `note.txt` file within an SMB Volume share.
 
 
-## <a id='prerequisites'></a> Prerequisites 
+## <a id='prerequisites'></a> Prerequisites
 
 To use SMB Volumes in your .NET App, you must have:
 
@@ -66,7 +66,7 @@ To mount SMB Volumes:
 
 To configure SMB mounting:
 
-1. Using the cf CLI or Apps Manager, add `SMB_PATH`, `SMB_USERNAME`, and `SMB_PASSWORD` as environment variables to your local computer or the computer you are deploying using for deploying your app. 
+1. Using the cf CLI or Apps Manager, add `SMB_PATH`, `SMB_USERNAME`, and `SMB_PASSWORD` as environment variables to your local computer or the computer you are deploying using for deploying your app.
     <p class='note'><strong>Note:</strong> If you are using SMB Volumes with your batch profile and have already added these environment variables, ignore this step.</p>
     <p class="note"><strong>Note:</strong> If Visual Studio does not detect these new environment variables, restart Visual Studio.</p>
 
@@ -160,8 +160,8 @@ To configure SMB mounting:
     <xmp>
     // Index.cshtml
     ...
-    <form action="/note/update" method="post">    
-        <textarea name="note">@ViewBag.Note</textarea>    
+    <form action="/note/update" method="post">
+        <textarea name="note">@ViewBag.Note</textarea>
         <div>
             <button type="submit">Update</button>
         </div>
@@ -205,4 +205,4 @@ To configure SMB mounting:
 
 ### <a id='cannont-find-path'></a> Inability to SSH Into App Instance
 
-Despite an SMB mapping being successfully created, trying to `cf ssh` into that app instance to access the created mapping results in an an unspecified path error. 
+Despite an SMB mapping being successfully created, trying to `cf ssh` into that app instance to access the created mapping results in an an unspecified path error.
