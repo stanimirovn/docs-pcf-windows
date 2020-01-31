@@ -19,7 +19,7 @@ You must create a BOSH stemcell for Windows before you can deploy the following 
 
 To create a Windows stemcell for vSphere, you create a base Windows VM from a volume-licensed ISO and subsequently maintain that base template with all Windows-recommended security updates, but without the BOSH dependencies.
 
-The Windows VM with security updates serves as the base for all future stemcells produced from clones of that base VM. This enables you to build new stemcells without having to run Windows updates from scratch each time. You can also use a "snapshot" feature to maintain an updated Windows image that does not contain the BOSH dependencies.  
+The Windows VM with security updates serves as the base for all future stemcells produced from clones of that base VM. This enables you to build new stemcells without having to run Windows updates from scratch each time. You can also use a "snapshot" feature to maintain an updated Windows image that does not contain the BOSH dependencies.
 
 Pivotal recommends installing any available critical updates and then rebuilding the stemcell from a clone of the original VM.
 
@@ -30,19 +30,19 @@ If you already have a BOSH stemcell for Windows on vSphere, see [Monthly Stemcel
 
 Before you create a BOSH stemcell for Windows on vSphere, you must have:
 
-* A vSphere environment. To ensure the VM hardware used by the stemcell is compatible 
-  with your deployment environment's ESXi/ESX host and vCenter Server versions, see 
+* A vSphere environment. To ensure the VM hardware used by the stemcell is compatible
+  with your deployment environment's ESXi/ESX host and vCenter Server versions, see
   [ESXi/ESX hosts and compatible virtual machine hardware versions list (2007240)]
-  (https://kb.vmware.com/s/article/2007240) in the VMware Knowledge Base.  
+  (https://kb.vmware.com/s/article/2007240) in the VMware Knowledge Base.
 
-* An ISO for a Windows Server 2019 Server Core installation, build number: 17763, from [Microsoft Developer Network (MSDN)](https://msdn.microsoft.com/en-us) or [Microsoft Volume Licensing Service Center (VLSC)](https://www.microsoft.com/Licensing/servicecenter/default.aspx). The Windows Server 2019 ISO must be a clean, base ISO file. You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production, as the licensing expires. For more information, see the [Windows Server Documentation](https://docs.microsoft.com/en-us/windows-server/get-started-19/get-started-19) or the [Microsoft Volume Licensing Service Center](https://www.microsoft.com/Licensing/servicecenter/default.aspx) website.
-    <p class="note"><strong>Note:</strong> A clean ISO file has no custom scripts or tooling. For example, the ISO must have no logging or antivirus tools installed.</p> 
+* An ISO for a Windows Server 2019 Server Core installation, build number: 17763, from [Microsoft Developer Network (MSDN)](https://msdn.microsoft.com/en-us) or [Microsoft Volume Licensing Service Center (VLSC)](https://www.microsoft.com/Licensing/servicecenter/default.aspx). The Windows Server 2019 ISO must be a clean, base ISO file. You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production, as the licensing expires. For more information, see the [Windows Server documentation](https://docs.microsoft.com/en-us/windows-server/get-started-19/get-started-19) or the [Microsoft Volume Licensing Service Center](https://www.microsoft.com/Licensing/servicecenter/default.aspx) website.
+    <p class="note"><strong>Note:</strong> A clean ISO file has no custom scripts or tooling. For example, the ISO must have no logging or antivirus tools installed.</p>
 
 * A download of the `stembuild` command line interface (CLI) from a 2019.x release in [Pivotal Stemcells (Windows)](https://network.pivotal.io/products/stemcells-windows-server) on Pivotal Network.
     * To build a Windows stemcell for <%= vars.windows_runtime_abbr %>, use the vSphere `stembuild` CLI for Windows corresponding to both the operating system of your local host and the stemcell version that you want to build.
     * To build a Windows stemcell for Enterprise PKS, use the vSphere `stembuild` CLI for Windows v2019.7 or later.
 
-* Microsoft [Local Group Policy Object Utility (LGPO)](https://www.microsoft.com/en-us/download/details.aspx?id=55319) downloaded to the same folder as your `stembuild` CLI.  
+* Microsoft [Local Group Policy Object Utility (LGPO)](https://www.microsoft.com/en-us/download/details.aspx?id=55319) downloaded to the same folder as your `stembuild` CLI.
 
 * The minimum vCenter user permissions required to use `stembuild` for vSphere stemcells, specifically:
     * `VirtualMachine.GuestOperations.Modify`
@@ -202,7 +202,7 @@ To configure the base VM network settings and install Windows updates:
 
 To clone the base VM:
 
-1. From the vSphere Web Client, power down the base VM. 
+1. From the vSphere Web Client, power down the base VM.
 This is important because your base VM and the clone VM you create share the same IP address.
 
 1. Right-click the base VM.
@@ -246,14 +246,14 @@ Where:
 * `VCENTER-URL` is the URL of your vCenter.
 * `VCENTER-USERNAME` is the username of your account in vCenter.
 * `VCENTER-PASSWORD` is your password. The password must be enclosed in single quotes.
-* `INVENTORY-PATH` is the vCenter inventory path to the target VM.  
+* `INVENTORY-PATH` is the vCenter inventory path to the target VM.
 
 <br>
-<code>stembuild construct</code> creates a powered-off target Windows VM in your vSphere environment.  
+<code>stembuild construct</code> creates a powered-off target Windows VM in your vSphere environment.
 
-Your `stembuild construct` operation may take up to an hour to complete. 
-The following is an example of the messages displayed as `stembuild construct` runs 
-and completes:  
+Your `stembuild construct` operation may take up to an hour to complete.
+The following is an example of the messages displayed as `stembuild construct` runs
+and completes:
 <pre class="terminal">
 2020-01-29T08:52:26.4523812-08:00 Successfully created stemcell version file.
 Finished executing setup script.
@@ -264,7 +264,7 @@ WinRM has been disconnected so the VM can reboot. Preparing the VM to be shutdow
 Stembuild construct has finished running and the VM has now been shutdown. Run 'stembuild package' to finish building the stemcell.
 </pre>
 
-<p class='note'><strong>Note:</strong> Although the WinRM connection terminates during <code>construct</code> execution, 
+<p class='note'><strong>Note:</strong> Although the WinRM connection terminates during <code>construct</code> execution,
   <code>construct</code> is still running. Do not attempt to re-run the <code>construct</code> command.
 </p>
 
@@ -279,9 +279,9 @@ To view the status of `construct`:
     ```
     Get-Content -Path "C:\provision\log.log" -Wait
     ```
-    
+
 <br>
-For more information about `stembuild construct`, see [stembuild construct](https://github.com/cloudfoundry-incubator/stembuild#stembuild-construct) in the Cloud Foundry stembuild GitHub repository.  
+For more information about `stembuild construct`, see [stembuild construct](https://github.com/cloudfoundry-incubator/stembuild#stembuild-construct) in the Cloud Foundry stembuild GitHub repository.
 
 ## <a id='package-stemcell'></a> Step 5: Package the BOSH Stemcell
 
@@ -353,7 +353,7 @@ To upgrade your BOSH stemcell:
 
 **Symptom**
 
-When running stembuild v2019.15, you may see an error looking like the following when running stembuild construct:
+When running `stembuild` v2019.15, you see the error below when running `stembuild construct`:
 
 ```
 Validating connection to vm...
@@ -363,31 +363,31 @@ Could not prepare VM: Cannot complete login due to an incorrect VM user name or 
 
 **Explanation**
 
-This is due to stembuild trying to validate your VM credentials prior to enabling WinRM. This is not known to occur on other versions of stembuild.
+`stembuild` is trying to validate your VM credentials before enabling WinRM. This is not known to occur in other versions of `stembuild`.
 
 **Workaround**
-To resolve this, log into the VM and run the following commands:
 
-```
-winrm set winrm/config/service/auth @{Basic="true"}
+To resolve this error:
 
-winrm set winrm/config/service @{AllowUnencrypted="true"}
+1. Log in to the VM.
 
-powershell
+1. Run:
 
-Enable-NetFirewallRule -DisplayName "Windows Remote Management (HTTP-In)"
+    ```
+    winrm set winrm/config/service/auth @{Basic="true"}
+    winrm set winrm/config/service @{AllowUnencrypted="true"}
+    powershell
+    Enable-NetFirewallRule -DisplayName "Windows Remote Management (HTTP-In)"
+    netsh firewall add portopening TCP 5985 "Port 5985"
+    ```
 
-netsh firewall add portopening TCP 5985 "Port 5985"
-```
-
-For more information, please see the [Knowledge Base article](https://community.pivotal.io/s/article/Validating-connection-to-vm-step-fails-during-stembuild-construct-for-Stembuild-v2019-15) on this error.
-
+For more information, see ["Validating connection to vm..." step fails during stembuild construct for Stembuild v2019.15](https://community.pivotal.io/s/article/Validating-connection-to-vm-step-fails-during-stembuild-construct-for-Stembuild-v2019-15) in the Pivotal Knowledge Base.
 
 ### <a id='special-characters'></a> Authentication Error with Special Characters in stembuild Commands
 
 **Symptom**
 
-You authenticate with vCenter and see the following error:
+You authenticate with vCenter and see this error:
 
 ```
 ./out/stembuild: ServerFaultCode: Cannot complete login due to an incorrect user name or password.
@@ -402,16 +402,16 @@ You might also experience this issue on Windows if your password includes a sing
 
 **Workaround**
 
-If your vCenter username or password contains `/`, `#`, or `:`, or `'` on Windows, set the following environment variables:
+If your vCenter username or password contains `/`, `#`, or `:`, or `'` on Windows, set these environment variables:
 
-* **Linux**:
+* For **Linux**:
 
     ```
     export GOVC_USERNAME=VCENTER-USERNAME
     export GOVC_PASSWORD=VCENTER-PASSWORD
     ```
 
-* **Windows**:
+* For **Windows**:
 
     ```
     set GOVC_USERNAME=VCENTER-USERNAME
@@ -429,7 +429,7 @@ If you use other special characters, add single quotes around the input paramete
 
 For example:
 
-* **Linux**:
+* For **Linux**:
 
     ```
     ./STEMBUILD-BINARY package -vcenter-url VCENTER-URL -vcenter-username 'admin@' -vcenter-password VCENTER-PASSWORD -vm-inventory-path INVENTORY-PATH
@@ -440,7 +440,7 @@ For example:
     * `VCENTER-PASSWORD` is your password. The password must be enclosed in single quotes.
     * `INVENTORY-PATH` is the vCenter inventory path to the target VM.
 
-* **Windows**:
+* For **Windows**:
 
     ```
     set GOVC_PASSWORD=A_Strange!PAssword@Here#1
