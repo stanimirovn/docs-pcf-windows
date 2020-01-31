@@ -353,7 +353,7 @@ To upgrade your BOSH stemcell:
 
 **Symptom**
 
-You authenticate with vCenter and see the following error:
+You authenticate with vCenter and see this error:
 
 ```
 ./out/stembuild: ServerFaultCode: Cannot complete login due to an incorrect user name or password.
@@ -368,16 +368,16 @@ You might also experience this issue on Windows if your password includes a sing
 
 **Workaround**
 
-If your vCenter username or password contains `/`, `#`, or `:`, or `'` on Windows, set the following environment variables:
+If your vCenter username or password contains `/`, `#`, or `:`, or `'` on Windows, set these environment variables:
 
-* **Linux**:
+* For **Linux**:
 
     ```
     export GOVC_USERNAME=VCENTER-USERNAME
     export GOVC_PASSWORD=VCENTER-PASSWORD
     ```
 
-* **Windows**:
+* For **Windows**:
 
     ```
     set GOVC_USERNAME=VCENTER-USERNAME
@@ -395,7 +395,7 @@ If you use other special characters, add single quotes around the input paramete
 
 For example:
 
-* **Linux**:
+* For **Linux**:
 
     ```
     ./STEMBUILD-BINARY package -vcenter-url VCENTER-URL -vcenter-username 'admin@' -vcenter-password VCENTER-PASSWORD -vm-inventory-path INVENTORY-PATH
@@ -406,7 +406,7 @@ For example:
     * `VCENTER-PASSWORD` is your password. The password must be enclosed in single quotes.
     * `INVENTORY-PATH` is the vCenter inventory path to the target VM.
 
-* **Windows**:
+* For **Windows**:
 
     ```
     set GOVC_PASSWORD=A_Strange!PAssword@Here#1
