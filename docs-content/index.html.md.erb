@@ -66,6 +66,12 @@ The minimum resource requirements for each Windows Diego Cell are:
 * [Tips for .NET Developers](using.html)
 
 
+## <a id='windows-limitations'></a> Windows Server Container Limitations
+We use Windows Server Core Containers in PASW. Below are some of the limitations that we've discovered with Windows Server Containers:
+
+* Windows Server Core containers do not support a different time-zone than the host VM's timezone. In PASW, the host and container time-zone will always be UTC. 
+* Microsoft has removed support for "non-critical" fonts beginning in Windows Server 2019 Core images. Only the default font, Arial, is supported; no other fonts are supported, and no others can be installed. 
+
 ## <a id='limitations'></a> Limitations
 
 <%= vars.product_windows %> has the following limitations:
