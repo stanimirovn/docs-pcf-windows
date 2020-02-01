@@ -216,70 +216,69 @@ This is important because your base VM and the clone VM you create share the sam
 
 ## <a id='construct-stemcell'></a> Step 4: Construct the BOSH Stemcell
 
-Before constructing the BOSH stemcell, collect the following information from the vCenter Web Client **Inventory** > **VMs and Templates** tab:
+To create your BOSH stemcell, complete the following tasks:
 
-* Target VM IP address
-* Target VM username
-* Target VM password
-* vCenter inventory path to the target VM in the `/YOUR-DATA-CENTER/vm/YOUR-FOLDER/YOUR-VM` format, where:
-  * `YOUR-DATA-CENTER` is the name of the data center.
-  * `vm` is a static string.
-  * `YOUR-FOLDER` is the name of the folder that contains the VM. If the target VM is not in a folder, use the `/YOUR-DATA-CENTER/vm/YOUR-VM` format instead.
-  * `YOUR-VM` is the name of the target VM.
-* vCenter username
-* vCenter password
-* vCenter URL
+1. Collect the following information from the vCenter Web Client **Inventory** > **VMs and Templates** tab:
+    * Target VM IP address
+    * Target VM username
+    * Target VM password
+    * vCenter inventory path to the target VM in the `/YOUR-DATA-CENTER/vm/YOUR-FOLDER/YOUR-VM` format, where:
+      * `YOUR-DATA-CENTER` is the name of the data center.
+      * `vm` is a static string.
+      * `YOUR-FOLDER` is the name of the folder that contains the VM. If the target VM is not in a folder, use the `/YOUR-DATA-CENTER/vm/YOUR-VM` format instead.
+      * `YOUR-VM` is the name of the target VM.
+    * vCenter username
+    * vCenter password
+    * vCenter URL
 
-<p class="note"><strong>Note:</strong> The target VM must be routable from your local host. Before running the <code>construct</code> command, ensure you are logged out of the target VM.</p>
+    <p class="note"><strong>Note:</strong> The target VM must be routable from your local host. Before running the <code>construct</code> command, ensure you are logged out of the target VM.</p>
 
-To construct the BOSH stemcell, run the following command from the folder where you downloaded the CLI:
+1. To construct the BOSH stemcell, run the following command from the folder where you downloaded the CLI:
 
-```
-./STEMBUILD-BINARY construct -vm-ip TARGET-VM-IP -vm-username TARGET-USERNAME -vm-password TARGET-VM-PASSWORD -vcenter-url VCENTER-URL -vcenter-username VCENTER-USERNAME -vcenter-password VCENTER-PASSWORD -vm-inventory-path INVENTORY-PATH
-```
+    ```
+    ./STEMBUILD-BINARY construct -vm-ip 'TARGET-VM-IP' -vm-username TARGET-USERNAME -vm-password 'TARGET-VM-PASSWORD' -vcenter-url VCENTER-URL -vcenter-username VCENTER-USERNAME -vcenter-password 'VCENTER-PASSWORD' -vm-inventory-path 'INVENTORY-PATH'
+    ```
 
-Where:
+    Where:
+    * `STEMBUILD-BINARY` is the `stembuild` file for the version of your local host operating system and the version of the stemcell that you want to build. For example, `stembuild-windows-2019-2`.
+    * `TARGET-VM-IP` is the IP address of your target VM.
+    * `TARGET-USERNAME` is the username of an account with administrator privileges.
+    * `TARGET-VM-PASSWORD` is the password for the administrator account. The password must be enclosed in single quotes.
+    * `VCENTER-URL` is the URL of your vCenter.
+    * `VCENTER-USERNAME` is the username of your account in vCenter.
+    * `VCENTER-PASSWORD` is your password. The password must be enclosed in single quotes.
+    * `INVENTORY-PATH` is the vCenter inventory path to the target VM.
 
-* `STEMBUILD-BINARY` is the `stembuild` file for the version of your local host operating system and the version of the stemcell that you want to build. For example, `stembuild-windows-2019-2`.
-* `TARGET-VM-IP` is the IP address of your target VM.
-* `TARGET-USERNAME` is the username of an account with administrator privileges.
-* `TARGET-VM-PASSWORD` is the password for the administrator account. The password must be enclosed in single quotes.
-* `VCENTER-URL` is the URL of your vCenter.
-* `VCENTER-USERNAME` is the username of your account in vCenter.
-* `VCENTER-PASSWORD` is your password. The password must be enclosed in single quotes.
-* `INVENTORY-PATH` is the vCenter inventory path to the target VM.
-
+    For example:
+    <pre class="terminal">
+    ./STEMBUILD-BINARY construct -vm-ip '192.0.2.254' -vm-username user001 -vm-password 'P1a2s3Sword5' -vcenter-url example.com -vcenter-username user002 -vcenter-password 'P1a2s3Sword5' -vm-inventory-path '/datacenter/vm/folder/test-vm'
+    2020-01-29T08:52:26.4523812-08:00 Successfully created stemcell version file.
+    Finished executing setup script.
+    WinRM has been disconnected so the VM can reboot. Preparing the VM to be shutdown.
+    2020-01-29T16:53:27.505532+00:00 Still preparing VM...
+    2020-01-29T16:54:27.94085+00:00 Still preparing VM...
+    2020-01-29T16:55:28.374568+00:00 Still preparing VM...
+    Stembuild construct has finished running and the VM has now been shutdown. Run 'stembuild package' to finish building the stemcell.
+    </pre>
 <br>
-<code>stembuild construct</code> creates a powered-off target Windows VM in your vSphere environment.
+    Your `stembuild construct` operation may take up to an hour to complete. 
+    <code>stembuild construct</code> creates a powered-off target Windows VM in your vSphere environment.
 
-Your `stembuild construct` operation may take up to an hour to complete.
-The following is an example of the messages displayed as `stembuild construct` runs
-and completes:
-<pre class="terminal">
-2020-01-29T08:52:26.4523812-08:00 Successfully created stemcell version file.
-Finished executing setup script.
-WinRM has been disconnected so the VM can reboot. Preparing the VM to be shutdown.
-2020-01-29T16:53:27.505532+00:00 Still preparing VM...
-2020-01-29T16:54:27.94085+00:00 Still preparing VM...
-2020-01-29T16:55:28.374568+00:00 Still preparing VM...
-Stembuild construct has finished running and the VM has now been shutdown. Run 'stembuild package' to finish building the stemcell.
-</pre>
+    <p class='note'><strong>Note:</strong> Although the WinRM connection terminates during <code>construct</code> execution,
+      <code>construct</code> is still running. Do not attempt to re-run the <code>construct</code> command.
+    </p>
 
-<p class='note'><strong>Note:</strong> Although the WinRM connection terminates during <code>construct</code> execution,
-  <code>construct</code> is still running. Do not attempt to re-run the <code>construct</code> command.
-</p>
+1. To monitor the status of your `construct` job complete the following tasks:
 
-To view the status of `construct`:
+    1. Log in to the target VM.
 
-1. Log in to the target VM.
+    1. Start PowerShell.
 
-1. Start PowerShell.
+    1. Run:
 
-1. Run:
-
-    ```
-    Get-Content -Path "C:\provision\log.log" -Wait
-    ```
+        ```
+        Get-Content -Path "C:\provision\log.log" -Wait
+        ```
 
 <br>
 For more information about `stembuild construct`, see [stembuild construct](https://github.com/cloudfoundry-incubator/stembuild#stembuild-construct) in the Cloud Foundry stembuild GitHub repository.
