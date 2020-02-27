@@ -220,9 +220,9 @@ To enable overcommit:
 
 <p class="note"><strong>Note:</strong> Entries made to each of these two fields set the total amount of resources allocated, not the overage.</p>
 
-#### <a id='enable-route-integrity'></a> TLS Connections from Router to Apps (Beta)
+#### <a id='enable-route-integrity'></a> TLS Connections from the Gorouter to Apps (Beta)
 
-You can choose the method the Gorouter uses to verify app identity. Verifying app identity using TLS or mutual TLS enables encryption between router and app containers and guards against misrouting during control plane failures. This feature is disabled by default.
+You can choose the method the Gorouter uses to verify app identity. Verifying app identity using TLS or mutual TLS enables encryption between Gorouter and app containers and guards against misrouting during control plane failures. This feature is disabled by default.
 
 For more information about Gorouter route consistency modes, see [Preventing Misrouting](https://docs.pivotal.io/platform/concepts/http-routing.html#consistency) in _HTTP Routing_.
 
@@ -230,10 +230,10 @@ To configure app identity verification:
 
 1. Select **Advanced Features**.
 
-1. Under **TLS connections from Router to apps (beta)**, select one of the following options:
-      * To disable app identity verification and mutual TLS (mTLS), select *Disable route integrity and mutual TLS*.
-      * To enable the Gorouter to verify app identity using TLS, click **Router uses TLS to verify app identity**.
-      * To enable the Gorouter and your apps to verify each other's identity using TLS, click **Router and apps use mutual TLS to verify each other's identity**.
+1. Under **TLS connections from the Gorouter to apps (beta)**, select one of the following options:
+      * To disable app identity verification and mutual TLS (mTLS), select **Disable route integrity and mutual TLS**.
+      * To enable the Gorouter to verify app identity using TLS, click **The Gorouter uses TLS to verify app identity**.
+      * To enable the Gorouter and your apps to verify each other's identity using TLS, click **The Gorouter and apps use mutual TLS to verify each other's identity**.
       <p class='note'><strong>Note:</strong> If you enable mutual TLS in the <%= vars.windows_runtime_abbr %> tile, you must also enable mutual TLS in the <strong>App Containers</strong> pane of the <%= vars.app_runtime_abbr %> tile.</p>
       <p class='note'><strong>Note:</strong> If you have mutual TLS app identity verification enabled, app containers accept incoming communication only from the Gorouter. This disables TCP routing.</p>
       <p class='note'><strong>Note:</strong> To support mTLS app identity verification, you need v2.3 or later of both <%= vars.app_runtime_abbr %> and Pivotal Isolation Segment. The Gorouter and Diego Cell components in <%= vars.platform_old %> v2.2 and earlier do not support mTLS handshakes.</p>
