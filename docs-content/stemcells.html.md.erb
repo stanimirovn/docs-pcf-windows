@@ -3,20 +3,33 @@ title: Downloading or Creating Windows Stemcells
 owner: Windows
 ---
 
-This topic describes how to download or create the stemcell that <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>) needs to create VMs on an infrastructure.
+This topic describes how to download or create the stemcell that <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>) 
+needs to create VMs on an infrastructure.
 
 <p class="note"><strong>Note:</strong> Traffic between the Gorouter and Windows stemcells is not encrypted with TLS.</p>
 
 
 ## <a id="stemcell"></a> Windows Stemcells
 
-BOSH needs a stemcell to supply the basic operating system for any Windows VM it creates. Depending on your IaaS, you can create or download a stemcell using these methods:
+A BOSH stemcell is a versioned Operating System image wrapped with IaaS-specific packaging. 
+BOSH uses a stemcell to supply the basic operating system for any Windows VM it creates. 
+A typical BOSH stemcell for Windows contains the following:  
+
+* A bare minimum Windows OS skeleton.  
+* A BOSH Agent.  
+* OS Configuration files and common utilities. 
+
+For more information about stemcells, see [What is a Stemcell?](https://bosh.io/docs/stemcell/) 
+in the Cloud Foundry BOSH documentation.  
+
+<br>
+Depending on your IaaS, you can create or download a stemcell using these methods:
 
 * **Azure**: To activate and download the Azure Windows Stemcell, see [Configuring the Azure Light Stemcell](#azure).  
 
 * **Google Cloud Platform (GCP)**: Download the **GCP light Stemcell for Windows 2019 Server** from the [Pivotal Stemcells (Windows Server)](https://network.pivotal.io/products/stemcells-windows-server) page on Pivotal Network.
 
-* **vSphere**: To create a stemcell, see [Creating a Windows Stemcell for vSphere Manually](create-vsphere-stemcell-manually.html) or [Creating a Windows Stemcell for vSphere Using stembuild (Beta)](create-vsphere-stemcell-automatically.html).  
+* **vSphere**: To create a stemcell, see [Creating a Windows Stemcell for vSphere Manually](create-vsphere-stemcell-manually.html) or [Creating a Windows Stemcell for vSphere Using stembuild](create-vsphere-stemcell-automatically.html).
 
 * **Amazon Web Services (AWS)**: Download the **AWS light Stemcell for Windows 2019 Server** from the [Pivotal Stemcells (Windows Server)](https://network.pivotal.io/products/stemcells-windows-server) page on Pivotal Network.
 
