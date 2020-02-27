@@ -181,7 +181,11 @@ To configure VM access:
 
 ### <a id='config-smoke-tests'></a> Configure Smoke Tests
 
-In **Smoke Tests**, you choose where to run smoke tests. The Smoke Tests errand runs basic functionality tests against your <%= vars.windows_runtime_abbr %> deployment after an installation or update.
+In **Smoke Tests**, you specify the org and space where smoke tests are run.
+
+In the org and space that you specify, the Smoke Test errand pushes an app to a <%= vars.platform_name %> org. The app runs basic functionality tests against your <%= vars.windows_runtime_abbr %> deployment after an installation or update. 
+
+The Smoke Test errand is on by default. You can turn off the Smoke Test errand in the **Errands** pane. For more information, see [Configure Errands](#config-errands).
 
 To configure smoke tests:
 
