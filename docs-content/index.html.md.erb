@@ -3,20 +3,28 @@ title: PAS for Windows
 owner: Windows
 ---
 
-<%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>) enables operators to provision, operate, and manage Windows stemcells on <%= vars.product_name %>.
+<% current_page.data.title = vars.windows_runtime_full %>
+
+<%= vars.windows_runtime_full %> enables operators to provision, operate, and manage Windows stemcells
+on <%= vars.platform_name %>.
 
 After operators install the <%= vars.windows_runtime_abbr %> tile on the Ops Manager Installation Dashboard, developers can push .NET apps to Windows Diego Cells using the [Cloud Foundry Command Line Interface](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/cf-cli/) (cf CLI).
 
-For the <%= vars.windows_runtime_abbr %> release notes, see [Pivotal Application Service for Windows v<%= product_info['local_product_version'].to_s %> Release Notes](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/pcf-release-notes/windows-rn.html).
+For the <%= vars.windows_runtime_abbr %> release notes,
+see [<%= vars.windows_runtime_full %> v<%= product_info['local_product_version'].to_s %>
+Release Notes](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-')
+%>/pcf-release-notes/windows-rn.html).
 
 
 ## <a id='reqs'></a> Requirements
 
 To install the <%= vars.windows_runtime_abbr %> tile, you must have:
 
-* Ops Manager v<%= product_info['local_product_version'].to_s %> and Pivotal Application Service (PAS) v<%= product_info['local_product_version'].to_s %> deployed to vSphere, Amazon Web Services (AWS), Google Cloud Platform (GCP), or Azure.  
+* Ops Manager v<%= product_info['local_product_version'].to_s %> and <%= vars.app_runtime_full %>
+  v<%= product_info['local_product_version'].to_s %> deployed to vSphere, Amazon Web Services (AWS),
+  Google Cloud Platform (GCP), or Azure.
 
-* A Windows stemcell. For information about obtaining or creating a Windows stemcell, see [Downloading or Creating Windows Stemcells](./stemcells.html).  
+* A Windows stemcell. For information about obtaining or creating a Windows stemcell, see [Downloading or Creating Windows Stemcells](./stemcells.html).
 
 The minimum resource requirements for each Windows Diego Cell are:
 
@@ -66,22 +74,22 @@ The minimum resource requirements for each Windows Diego Cell are:
 
 ## <a id='limitations'></a> Limitations
 
-The following limitations affect Windows containers in <%= vars.product_windows %>:  
+The following limitations affect Windows containers in <%= vars.windows_runtime_abbr %>:  
 
 * [Windows Server Container Limitations](#limitations-windows)
-* [<%= vars.product_windows %> Limitations](#limitations-pasw)  
+* [<%= vars.windows_runtime_abbr %> Limitations](#limitations-pasw)  
 
 #### <a id='limitations-windows'></a> Windows Server Container Limitations
 
-We use Windows Server Core Containers in <%= vars.windows_runtime_abbr %>. 
+Windows Server Core Containers are used in <%= vars.windows_runtime_abbr %>.
 The following are known Windows Server Container limitations:
 
-* Windows Server Core containers support the host VM's timezone only. 
-In <%= vars.product_windows %>, the host and container time-zone will always be UTC.   
-* Windows Server 2019 Core images support only Arial font. 
-No other fonts are supported, and no others can be installed. 
+* Windows Server Core containers support the host VM's timezone only.
+In <%= vars.windows_runtime_abbr %>, the host and container time-zone is always UTC.
+* Windows Server 2019 Core images support only Arial font.
+No other fonts are supported, and no others can be installed.
 
-#### <a id='limitations-pasw'></a> <%= vars.product_windows %> Limitations
+#### <a id='limitations-pasw'></a> <%= vars.windows_runtime_abbr %> Limitations
 
 <%= vars.windows_runtime_abbr %> has the following limitations:
 
@@ -91,8 +99,12 @@ No other fonts are supported, and no others can be installed.
 
 * Container-to-container networking is not available for Windows-hosted apps.
 
-* OpenStack is currently not supported for <%= vars.windows_runtime_abbr %>. Contact your Pivotal representative for information about OpenStack deployments.
+* OpenStack is currently not supported for <%= vars.windows_runtime_abbr %>.
+  Contact your VMware representative for information about OpenStack deployments.
 
 * SMB is supported, but Volume Services is not supported.
 
-* Due to Known Issue #244 in Windows Server OS, apps hosted on <%= vars.windows_runtime_abbr %> cannot route traffic when deployed with the IPsec add-on for <%= vars.platform_name %>. For more information, see [Traffic to containers via NAT stops working when using IPSec to encrypt network connections](https://github.com/Microsoft/hcsshim/issues/244) on GitHub.
+* Due to Known Issue #244 in Windows Server OS, apps hosted on <%= vars.windows_runtime_abbr %> cannot
+  route traffic when deployed with the IPsec.
+  For more information, see [Traffic to containers via NAT stops working when using IPsec
+  to encrypt network connections](https://github.com/Microsoft/hcsshim/issues/244) on GitHub.
