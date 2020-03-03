@@ -67,10 +67,11 @@ As part of completing the procedures in this topic, you download the following f
 
 * [stembuild](https://github.com/pivotal-cf-experimental/stembuild/releases).
     * To build a Windows stemcell for <%= vars.windows_runtime_abbr %>, use the latest release of `stembuild`.
-    * To build a Windows stemcell for Enterprise PKS v1.6 or later, use the vSphere `stembuild` CLI for Windows version 2019.7 or later. 
-    To address [CVE-2020-0601](https://pivotal.io/security/cve-2020-0601), 
-    Enterprise PKS v1.5.2 and later patches require the v2019.15 or later Windows stemcell version. 
-    To build a Windows stemcell for Enterprise PKS v1.5.0 or v1.5.1, use the vSphere `stembuild` CLI for Windows version 2019.7.  
+    * To build a Windows stemcell for Enterprise PKS:
+        * For Enterprise PKS v1.6 or later, use the vSphere `stembuild` CLI for Windows version 2019.7 or later.  
+        * For Enterprise PKS v1.5.2 and later patches, use the vSphere `stembuild` CLI for Windows version 2019.15 or later.  
+        vSphere `stembuild` CLI for Windows version 2019.15 addresses [CVE-2020-0601](https://pivotal.io/security/cve-2020-0601).  
+        * For Enterprise PKS v1.5.0 or v1.5.1, use the vSphere `stembuild` CLI for Windows version 2019.7.  
     <p class="note"><strong>Note:</strong> You must choose a stemcell version to build. Stemcells are versioned as MAJOR.MINOR, such as 2019.9.</p>
     For more information about 2019 stemcells, see [Stemcell v2019.x (Windows Server 2019) Release Notes](https://docs.pivotal.io/platform/stemcells/windows-stemcell-v2019x.html).
 
