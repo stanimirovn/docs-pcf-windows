@@ -263,30 +263,11 @@ To create your BOSH stemcell, complete the following tasks:
     Your `stembuild construct` operation may take up to an hour to complete. 
     <code>stembuild construct</code> creates a powered-off target Windows VM in your vSphere environment.
 
-<<<<<<< HEAD
     <p class='note'><strong>Note:</strong> Although the WinRM connection terminates during <code>construct</code> execution,
       <code>construct</code> is still running. Do not attempt to re-run the <code>construct</code> command.
     </p>
 
 1. (Optional) To monitor the status of your `construct` job complete the following tasks:
-=======
-<p class='note'><strong>Note:</strong> Your `stembuild construct` operation may take up to an hour to complete. Although the WinRM connection terminates during <code>construct</code> execution, 
-  <code>construct</code> is still running. Do not attempt to re-run the <code>construct</code> command.
-</p>
-
-The following is an example of the messages displayed as `stembuild construct` runs
-and completes successfully:  
-<pre class="terminal">
-2020-01-01T00:00:00 Successfully created stemcell version file.
-Finished executing setup script.
-WinRM has been disconnected so the VM can reboot. Preparing the VM to be shutdown.
-2020-01-01T00:01:00 Still preparing VM...
-2020-01-01T00:02:00 Still preparing VM...
-2020-01-01T00:03:00 Still preparing VM...
-Stembuild construct has finished running and the VM has now been shutdown. Run 'stembuild package' to finish building the stemcell.
-</pre>
-
->>>>>>> 2a022de... Update create-vsphere-stemcell-automatically.html.md.erb
 
     1. Log in to the target VM.
 
