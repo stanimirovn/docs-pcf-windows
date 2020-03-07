@@ -3,16 +3,23 @@ title: Product Architecture
 owner: Windows
 ---
 
-This topic describes the architecture of Windows Diego Cells that <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>) deploys to run containerized .NET apps, and the stemcells that it supplies to BOSH as the operating system for the Windows Diego Cell VMs.
+This topic describes the architecture of Windows Diego Cells that <%= vars.windows_runtime_full %>
+deploys to run containerized .NET apps and the stemcells that it supplies to BOSH
+as the operating system for the Windows Diego Cell VMs.
 
 
 ## <a id='overview'></a>Overview
 
-Operators who want to run Windows Diego Cells in <%= vars.platform_name %> to enable developers to push .NET apps can deploy the <%= vars.windows_runtime_abbr %> tile.
+Operators, who want to run Windows Diego Cells in <%= vars.platform_name %> to enable developers to push .NET apps,
+can deploy the <%= vars.windows_runtime_abbr %> tile.
 
 Deploying this tile creates a separate BOSH deployment populated with the Garden Windows release, which runs on a Windows Diego Cell built from a Windows stemcell.
 
-Once the Windows Diego Cell is running, developers can specify a Windows stack when pushing .NET apps from the command line. <%= vars.platform_name %> passes the app to the Windows Diego Cell in the <%= vars.windows_runtime_abbr %> BOSH deployment. The diagram below illustrates the process.
+After the Windows Diego Cell is running,
+developers can specify a Windows stack when pushing .NET apps from the command line.
+<%= vars.platform_name %> passes the app to the Windows Diego Cell
+in the <%= vars.windows_runtime_abbr %> BOSH deployment.
+The diagram below illustrates the process.
 
 <%= image_tag('windows-overview.png') %>
 
@@ -25,7 +32,16 @@ By installing the <%= vars.windows_runtime_abbr %> tile, operators create a Wind
 
 For more information about installing the <%= vars.windows_runtime_abbr %> tile, see [Installing and Configuring <%= vars.windows_runtime_abbr %>](installing.html).
 
-For more information about Garden, see [Garden](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/concepts/architecture/garden.html). For more information about Diego Cells, see [Diego Cell](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/concepts/architecture/index.html#diego-cell) in _PAS Components_. For more infmration about stemcells, see [What is a Stemcell?](https://bosh.io/docs/stemcell/) in the BOSH documentation. For more information about Windows containers, see [Windows and containers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/about/) in the Microsoft documentation.
+For more information about Garden,
+see [Garden](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/concepts/architecture/garden.html).
+For more information about Diego Cells,
+see [Diego Cell](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/concepts/architecture/index.html#diego-cell)
+in _<%= vars.app_runtime_abbr %> Components_.
+For more information about stemcells,
+see [What is a Stemcell?](https://bosh.io/docs/stemcell/) in the BOSH documentation.
+For more information about Windows containers,
+see [Windows and containers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/about/)
+in the Microsoft documentation.
 
 ### <a id="components"></a> Components
 
@@ -45,7 +61,7 @@ The following diagram illustrates the architecture of a Windows Diego Cell:
 
 ### <a id="container"></a> Container Implementation
 
-Garden on Windows uses the following runtime plugins to create and manage Windows containers for <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>):
+Garden on Windows uses the following runtime plugins to create and manage Windows containers for <%= vars.app_runtime_full %>:
 
 * Container plugin `winc`: Creates Open Container Initiative (OCI)-compliant containers, executes processes in the containers, and sets their CPU and RAM limits. For more information about OCI compliance, see the [Open Container Initiative](https://www.opencontainers.org) website.
 
@@ -56,7 +72,10 @@ Garden on Windows uses the following runtime plugins to create and manage Window
 
 ## <a id="stemcells"></a> About Windows Stemcells
 
-A stemcell is a customized operating system image containing the filesystem for BOSH-managed virtual machines. When deployed, the operating system includes the BOSH Agent process, which is dedicated to communicating with the orchestrating VM, the BOSH Director. The BOSH Agent executes and monitors BOSH jobs on its VM.
+A stemcell is a customized operating system image containing the filesystem for BOSH-managed VMs.
+When deployed, the operating system includes the BOSH Agent process,
+which is dedicated to communicating with the orchestrating VM, the BOSH Director.
+The BOSH Agent executes and monitors BOSH jobs on its VM.
 
 Deployments of Windows Server on <%= vars.platform_name %> currently use a stemcell containing Windows Server 2019.
 
