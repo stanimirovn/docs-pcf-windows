@@ -12,7 +12,7 @@ A BOSH stemcell is a versioned operating system image.
 You must create a BOSH stemcell for Windows before you can deploy the following products on vSphere:
 
 * <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>)
-* Enterprise Pivotal Container Service (Enterprise PKS) with Windows workers in Kubernetes clusters
+* <%= vars.k8s_runtime_full %> (<%= vars.k8s_runtime_abbr %>) with Windows workers in Kubernetes clusters
 
 <p class="note"><strong>Note:</strong> The BOSH stemcell that you create in this topic is based on Windows Server 2019.</p>
 
@@ -22,7 +22,8 @@ To create a Windows stemcell for vSphere, you create a base Windows VM from a vo
 
 The Windows VM with security updates serves as the base for all future stemcells produced from clones of that base VM. This enables you to build new stemcells without having to run Windows updates from scratch each time. You can also use a "snapshot" feature to maintain an updated Windows image that does not contain the BOSH dependencies.
 
-Pivotal recommends installing any available critical updates and then rebuilding the stemcell from a clone of the original VM.
+VMware recommends installing any available critical updates and
+then rebuilding the stemcell from a clone of the original VM.
 
 If you already have a BOSH stemcell for Windows on vSphere, see [Monthly Stemcell Upgrades](#upgrade-stemcell).
 
@@ -36,13 +37,21 @@ Before you create a BOSH stemcell for Windows on vSphere, you must have:
   [ESXi/ESX hosts and compatible virtual machine hardware versions list (2007240)]
   (https://kb.vmware.com/s/article/2007240) in the VMware Knowledge Base.
 
-* An ISO for a Windows Server 2019 Server Core installation, build number: 17763, from [Microsoft Developer Network (MSDN)](https://msdn.microsoft.com/en-us) or [Microsoft Volume Licensing Service Center (VLSC)](https://www.microsoft.com/Licensing/servicecenter/default.aspx). The Windows Server 2019 ISO must be a clean, base ISO file. You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production, as the licensing expires. For more information, see the [Windows Server documentation](https://docs.microsoft.com/en-us/windows-server/get-started-19/get-started-19) or the [Microsoft Volume Licensing Service Center](https://www.microsoft.com/Licensing/servicecenter/default.aspx) website.
+* An ISO for a Windows Server 2019 Server Core installation, build number: 17763,
+  from [Microsoft Developer Network (MSDN)](https://msdn.microsoft.com/en-us) or
+  [Microsoft Volume Licensing Service Center (VLSC)](https://www.microsoft.com/Licensing/servicecenter/default.aspx).
+  The Windows Server 2019 ISO must be a clean, base ISO file.
+  You can use an evaluation copy for testing, but VMware does not recommend an evaluation copy for production,
+  becauase the licensing expires.
+  For more information, see the [Windows Server documentation](https://docs.microsoft.com/en-us/windows-server/get-started-19/get-started-19)
+  or the [Microsoft Volume Licensing Service Center](https://www.microsoft.com/Licensing/servicecenter/default.aspx) website.
     <p class="note"><strong>Note:</strong> A clean ISO file has no custom scripts or tooling. For example, the ISO must have no logging or antivirus tools installed.</p>
 
-* A download of the `stembuild` command line interface (CLI) from a 2019.x release in [Pivotal Stemcells
+* A download of the `stembuild` command line interface (CLI) from a 2019.x release in [Stemcells
   (Windows)](https://network.pivotal.io/products/stemcells-windows-server) on <%= vars.product_network %>.
     * To build a Windows stemcell for <%= vars.windows_runtime_abbr %>, use the vSphere `stembuild` CLI for Windows corresponding to both the operating system of your local host and the stemcell version that you want to build.
-    * To build a Windows stemcell for Enterprise PKS, use the latest vSphere `stembuild` CLI for Windows version.  
+    * To build a Windows stemcell for <%= vars.k8s_runtime_abbr %>,
+      use the latest vSphere `stembuild` CLI for Windows version.
 
 * Microsoft [Local Group Policy Object Utility (LGPO)](https://www.microsoft.com/en-us/download/details.aspx?id=55319) downloaded to the same folder as your `stembuild` CLI.
 
@@ -158,9 +167,9 @@ To install VMware Tools on the base VM:
 
 1. Navigate to the `D:` drive and run:
 
-  ```
-  setup64.exe
-  ```
+    ```
+    setup64.exe
+    ```
   <p class="note"><strong>Note:</strong> The VMware Tools install window might appear behind the Command Prompt window.</p>
 
 1. Restart the VM to complete the installation.
@@ -327,15 +336,15 @@ To package the BOSH stemcell:
 
 For more information about `stembuild package`, see [stembuild package](https://github.com/cloudfoundry-incubator/stembuild#stembuild-package) in the Cloud Foundry stembuild GitHub repository.
 
-## <a id='upload-stemcell'></a> Step 6: Upload the BOSH Stemcell to Ops Manager
+## <a id='upload-stemcell'></a> Step 6: Upload the BOSH Stemcell to <%= vars.platform_name %>
 
-To upload the BOSH stemcell to Ops Manager:
+To upload the BOSH stemcell to <%= vars.ops_manager %>:
 
-1. In Ops Manager, navigate to **Stemcell Library**.
+1. In <%= vars.ops_manager %>, navigate to **Stemcell Library**.
 
 1. Upload your BOSH stemcell.
 
-1. Deploy the <%= vars.windows_runtime_abbr %> or Enterprise PKS tile.
+1. Deploy the <%= vars.windows_runtime_abbr %> or <%= vars.k8s_runtime_abbr %> tile.
 
 <br>
 For more information about `stembuild`, see [Stembuild](https://github.com/cloudfoundry-incubator/stembuild#stembuild) in the Cloud Foundry stembuild GitHub repository.
@@ -354,9 +363,9 @@ To upgrade your BOSH stemcell:
 
 1. [Package the BOSH Stemcell](#package-stemcell).
 
-1. Replace the existing stemcell in the Ops Manager stemcell library with this new stemcell.
+1. Replace the existing stemcell in the <%= vars.ops_manager %> stemcell library with this new stemcell.
 
-1. Deploy the <%= vars.windows_runtime_abbr %> or Enterprise PKS tile.
+1. Deploy the <%= vars.windows_runtime_abbr %> or <%= vars.k8s_runtime_abbr %> tile.
 
 
 ## <a id='known-issues'></a> Known Issues

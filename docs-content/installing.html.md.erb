@@ -151,7 +151,7 @@ To configure AZs and networks:
 1. Select the first AZ under **Place singleton jobs**. Ops Manager runs any job with a single instance in this AZ.
 
 1. Select all AZs under **Balance other jobs**. Ops Manager balances instances of jobs with more than one instance across the AZs that you specify.
-  <p class='note'><strong>Note:</strong> For production deployments, <%= vars.recommended_by %> recommends at least three AZs for a highly available installation.</p>
+  <p class='note'><strong>Note:</strong> For production deployments, VMware recommends at least three AZs for a highly available installation.</p>
 
 1. From the **Network** dropdown, choose the runtime network that you created when configuring the BOSH Director tile.
 
@@ -197,7 +197,9 @@ To configure smoke tests:
 
 ### <a id='config-advanced-features'></a> Configure Advanced Features
 
-**Advanced Features** includes new functionality that might have certain constraints. Although these features are fully supported, <%= vars.recommended_by %> recommends caution when using them in production environments.
+**Advanced Features** includes new functionality that might have certain constraints.
+  Although these features are fully supported,
+  VMware recommends caution when using them in production environments.
 
 The following sections describe how to configure these advanced features.
 
@@ -207,7 +209,7 @@ If your apps do not use the full allocation of disk space and memory set in **Re
 
 For example, you might want to use the overcommit if your apps use a small amount of disk and memory capacity compared to the amounts set in the **Resource Config** settings for **Windows Diego Cell**.
 
-<p class="note"><strong>Note:</strong> Due to the risk of app failure and the deployment-specific nature of disk and memory use, <%= vars.recommended_by %> has no recommendation for how much, if any, memory or disk space to overcommit.</p>
+<p class="note"><strong>Note:</strong> Due to the risk of app failure and the deployment-specific nature of disk and memory use, VMware has no recommendation for how much, if any, memory or disk space to overcommit.</p>
 
 To enable overcommit:
 
@@ -322,7 +324,13 @@ To upload the stemcell:
 
 1. Follow the procedure in [Importing and Managing Stemcells](https://docs.pivotal.io/platform/opsguide/managing-stemcells.html) to upload the Windows stemcell to <%= vars.windows_runtime_abbr %>.
 
-<p class='note'><strong>Note:</strong> If you use vSphere, you must create your own stemcell. The default root disk size of Windows stemcells v2019.x line is 30&nbsp;GB. <%= vars.recommended_by %> recommends setting the root disk size of your Windows stemcell for vSphere to 30&nbsp;GB. For more information, see <a href="create-vsphere-stemcell-manually.html">Creating a Windows Stemcell for vSphere Manually</a> or <a href="create-vsphere-stemcell-automatically.html">Creating a Windows Stemcell for vSphere Using stembuild</a>.</p>
+<p class='note'><strong>Note:</strong> If you use vSphere, you must create your own stemcell.
+The default root disk size of Windows stemcells v2019.x line is 30&nbsp;GB.
+VMware recommends setting the root disk size of your Windows stemcell for vSphere to 30&nbsp;GB.
+For more information, see <a href="create-vsphere-stemcell-manually.html">Creating a Windows Stemcell
+for vSphere Manually</a> or <a href="create-vsphere-stemcell-automatically.html">Creating a Windows Stemcell
+for vSphere Using stembuild</a>.
+</p>
 
 
 ## <a id='deploy'></a> Deploy the Tile
