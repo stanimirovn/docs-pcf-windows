@@ -12,8 +12,8 @@ This topic describes how to create a BOSH stemcell for Windows on vSphere.
 
 You must create a BOSH stemcell for Windows before you can deploy the following products on vSphere:
 
-* <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>)
-* Enterprise Pivotal Container Service (Enterprise PKS) with Windows workers in Kubernetes clusters
+* <%= vars.windows_runtime_full %>
+* <%= vars.k8s_runtime_full %> (<%= vars.k8s_runtime_abbr %>) with Windows workers in Kubernetes clusters
 
 <p class="note"><strong>Note:</strong> A BOSH stemcell is a versioned operating system image. The BOSH stemcell that you create in this topic is based on Windows Server 2019.</p>
 
@@ -23,7 +23,8 @@ To create a Windows stemcell for vSphere, you create a base Windows VM from a vo
 
 The Windows VM with security updates serves as the base for all future stemcells produced from clones of that base VM. This enables you to build new stemcells without having to run Windows updates from scratch each time. You can also use a "snapshot" feature to maintain an updated Windows image that does not contain the BOSH dependencies.
 
-Pivotal recommends installing any available critical updates and then rebuilding the stemcell from a clone of the original VM.
+VMware recommends installing any available critical updates and then rebuilding the stemcell
+from a clone of the original VM.
 
 
 ## <a id='prerequisites'></a> Prerequisites
@@ -38,14 +39,15 @@ Before you create a vSphere Windows stemcell, you must have:
 * An ISO for a Windows Server 2019 Server Core installation, build number: 17763, from [Microsoft Developer Network (MSDN)](https://msdn.microsoft.com/en-us)
 or [Microsoft Volume Licensing Service Center (VLSC)](https://www.microsoft.com/Licensing/servicecenter/default.aspx).
 The Windows Server 2019 ISO must be a clean, base ISO file.
-You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production, as the licensing expires.
+You can use an evaluation copy for testing, but VMware does not recommend an evaluation copy for production,
+as the licensing expires.
 For more information, see [Get started with Windows Server 2019]
 (https://docs.microsoft.com/en-us/windows-server/get-started-19/get-started-19)
 in the Microsoft Windows Server documentation.
     <p class="note"><strong>Note:</strong> A clean ISO file has no custom scripts or tooling.
     For example, the ISO must have no logging or antivirus tools installed.
     </p>
-    <p class="note"><strong>Note:</strong> Pivotal recommends maintaining a separate,
+    <p class="note"><strong>Note:</strong> VMware recommends maintaining a separate,
     updated Windows VM based on this ISO to serve as the basis for the installation steps below.
     This enables you to apply Windows Updates and create new stemcells without having to reinstall
     all updates from scratch.
@@ -279,9 +281,9 @@ To install the BOSH PS Modules:
 	```
 	Where `PATH-TO-BOSH-PSMODULES.ZIP` is the full path to the location of `bosh-psmodules.zip` on your Windows VM.
 
-### <a id='cf-diego-cell'></a> Install the <%= vars.platform_name %> Diego Cell Requirements
+### <a id='cf-diego-cell'></a> Install the Diego Cell Requirements
 
-To install the <%= vars.platform_name %> Diego Cell requirements:
+To install the Diego Cell requirements:
 
 1. Start PowerShell in the Windows VM and run:
 
@@ -373,7 +375,7 @@ To reduce the stemcell size:
 
 This step "syspreps" the system, which ensures that each BOSH VM has a unique identity and applies the appropriate startup configuration at boot time.
 
-The included policies help ensure the uptime and secure operations of the stemcell's VMs, especially when deployed on <%= vars.platform_name %>.
+The policies included help ensure the uptime and secure operations of the stemcell's VMs.
 
 <p class="note"><strong>Note:</strong> This step disables services that could cause restarts, such as Windows Automatic Updates. OS restarts are not supported on BOSH-deployed Windows VMs, and the BOSH Director resurrects the VM by destroying and repaving it.</p>
 
