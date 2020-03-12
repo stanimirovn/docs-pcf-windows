@@ -135,7 +135,8 @@ To forward Windows event logs to an external syslog server:
 1. Click the <%= vars.product_windows %> tile.
 
 1. Select **System Logging**.
-  <%= image_tag("win-syslog-config.png") %>
+
+    <%= image_tag("win-syslog-config.png") %>
 
 1. Under **Enable Syslog for VM logs?**, click **Enable**.
 
@@ -194,7 +195,7 @@ To connect to a Windows Diego Cell to run diagnostics:
     Where:
     * `ENV-NAME` is the alias you assigned to your BOSH Director.
     * `DEPLOYMENT-NAME` is your deployment name.
-    <br>
+
     For example:
     <pre class="terminal">
     c:\Users\admin\> bosh -e my-environ -d garden-windows
