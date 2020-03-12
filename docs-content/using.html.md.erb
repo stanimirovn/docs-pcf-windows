@@ -3,7 +3,7 @@ title: Tips for .NET Framework Developers
 owner: Greenhouse
 ---
 
-This topic describes how to push .NET Framework apps to <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>) Diego Cells.
+This topic describes how to push .NET Framework apps to <%= vars.windows_runtime_full %> Diego Cells.
 
 For information about how to develop microservices for .NET Framework and .NET Core using Steeltoe, see the [Steeltoe documentation](http://steeltoe.io/docs/).
 
@@ -57,7 +57,8 @@ To push a .NET Framework app to a Windows Diego Cell:
     <p class="note"><strong>Note:</strong> The <code>-s windows</code> option instructs <%= vars.platform_name %> to run the app in the Windows Diego Cell.</p>
     <p class="note"><strong>Note:</strong> If you are not pushing your app from its directory, use the <code>-p</code> option and specify the path to the directory that contains the app.</p>
 
-1. Wait for your app to stage and start. If you see an error message, see [Troubleshoot App Errors](#troubleshoot).
+1. Wait for your app to stage and start. If you see an error message,
+   see [Troubleshoot App Errors](#troubleshoot) below.
 
 ### <a id='context-routing'></a> Context Path Routing Support for ASP.NET Apps
 
@@ -112,7 +113,8 @@ To push a self-hosted app:
     * `APP-NAME` is the name of your app.
     * `PATH-TO-BINARY` is the path to your executable.
 
-1. Wait for your app to stage and start. If you see an error message, see [Troubleshoot App Errors](#troubleshoot).
+1. Wait for your app to stage and start. If you see an error message,
+   see [Troubleshoot App Errors](#troubleshoot) below.
 
 
 ## <a id='soap'></a> Push a SOAP Service
