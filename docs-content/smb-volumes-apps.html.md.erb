@@ -12,7 +12,7 @@ To use SMB Volumes in your .NET App, you must have:
 
 * Visual Studio
 * An IaaS account
-* <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>)
+* <%= vars.windows_runtime_full %>
 * An accessible SMB Volume in an IaaS with a UNC path
 * An existing .NET Framework app
 * An SMB username
@@ -36,7 +36,8 @@ Where:
 
 For more information about adding environment variables to your Config Server Provider, see [Config Server Provider](https://steeltoe.io/docs/steeltoe-configuration/#2-0-config-server-provider) in the Steeltoe documentation.
 
-After adding your environment variables to your Config Server Provider, proceed to [SMB Mounting](smb-volumes-apps.html#smb-mounting).
+After adding your environment variables to your Config Server Provider,
+proceed to [SMB Mounting](smb-volumes-apps.html#smb-mounting) below.
 
 ### <a id='batch'></a> Using SMB Volumes in .NET Apps with Your Batch Profile
 
@@ -59,18 +60,23 @@ To mount SMB Volumes:
     net use z: %SMB_PATH% %SMB_PASSWORD% /USER:%SMB_USERNAME%
     ```
 
-1. Proceed to [SMB Mounting](smb-volumes-apps.html#smb-mounting).
+1. Proceed to [SMB Mounting](smb-volumes-apps.html#smb-mounting) below.
 
 
 ## <a id='smb-mounting'></a> SMB Mounting
 
 To configure SMB mounting:
 
-1. Using the cf CLI or Apps Manager, add `SMB_PATH`, `SMB_USERNAME`, and `SMB_PASSWORD` as environment variables to your local computer or the computer you are deploying using for deploying your app.
+1. Using the cf CLI or Apps Manager, add `SMB_PATH`, `SMB_USERNAME`, and `SMB_PASSWORD`
+   as environment variables to your local computer or the computer you are using
+   to deploy your app.
     <p class='note'><strong>Note:</strong> If you are using SMB Volumes with your batch profile and have already added these environment variables, ignore this step.</p>
     <p class="note"><strong>Note:</strong> If Visual Studio does not detect these new environment variables, restart Visual Studio.</p>
 
-1. In Visual Studio, create a new file in your solution named `SMBConfiguration.cs`. This file is the single representation of your SMB Volume configuration and reads the connection data from the environment variables you established previously. Enter the following into your SMBConfiguration.cs` file:
+1. In Visual Studio, create a new file in your solution named `SMBConfiguration.cs`.
+   This file is the single representation of your SMB Volume configuration and
+   reads the connection data from the environment variables you established previously.
+   Include the following in your `SMBConfiguration.cs` file:
 
     ```
     // SMBConfiguration.cs
@@ -98,11 +104,20 @@ To configure SMB mounting:
     }
     ```
 
-1. In Visual studio, create a new MVC Controller named `NoteController`. This file creates a controller endpoint that reads a the example note file. For more information about creating a controller, see [Add a controller to an ASP.NET Core MVC app](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/adding-controller?view=aspnetcore-2.2&tabs=visual-studio) in the Microsoft Documentation.
+1. In Visual studio, create a new MVC Controller named `NoteController`.
+   This file creates a controller endpoint that reads the example note file.
+   For more information about creating a controller,
+   see [Add a controller to an ASP.NET Core MVC app](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/adding-controller?view=aspnetcore-2.2&tabs=visual-studio)
+   in the Microsoft Documentation.
 
-1. In the command line, add `Steeltoe.Common` and `Steeltoe.Common.Net` to your app with a package manager of your choice. If you are not using Steeltoe, ignore this step.
+1. Use your package manager to add `Steeltoe.Common` and `Steeltoe.Common.Net` to your app.
+   If you are not using Steeltoe, ignore this step.
 
-1. Edit `NoteController.cs` to read from a file named `note.txt`, which does not exist yet but is created by the `FileMode.OpenOrCreate` method. See the example code snippet below, which reads the contents of the note file and stashes the `note.txt` content in the Viewbag. If you are not using Steeltoe, ignore the reference to `Steeltoe.Common.Net` in the following code snippet.
+1. Edit `NoteController.cs` to read from a file named `note.txt`.
+   This `note.txt` does not exist yet but will be created by the `FileMode.OpenOrCreate` method.
+   See the example code snippet below, which reads the contents of the note file and
+   stashes the `note.txt` content in the Viewbag.
+   If you are not using Steeltoe, ignore the reference to `Steeltoe.Common.Net` in the following code snippet.
 
     ```
     // NoteController.cs
@@ -151,7 +166,7 @@ To configure SMB mounting:
 
     @ViewBag.Note
     ```
-    Running the app now would show an empty page with no errors.
+    If you were to run the app now, you would see an empty page with no errors.
 
 1. Modify the `Index.cshtml` file to contain a form. This form posts to a yet-to-be-created update endpoint and also displays our note inside a text area.
 
@@ -205,4 +220,5 @@ To configure SMB mounting:
 
 ### <a id='cannont-find-path'></a> Inability to SSH Into App Instance
 
-Despite an SMB mapping being successfully created, trying to `cf ssh` into that app instance to access the created mapping results in an an unspecified path error.
+Even though you have successfully created the SMB mapping, you cannot `cf ssh` into that app instance.
+Trying to access the created mapping through SSH results in an unspecfied path error.
