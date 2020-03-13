@@ -5,11 +5,15 @@ owner: Windows
 
 <% current_page.data.title = "Migrating Apps to " + vars.windows_runtime_abbr %>
 
-This topic describes the process of migrating apps running on <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>) 2012 R2 stemcells to run on <%= vars.windows_runtime_abbr %> stemcells, which run Windows Server 2019.
+This topic describes the process of migrating apps running on <%= vars.windows_runtime_full %>
+2012 R2 stemcells to run on <%= vars.windows_runtime_abbr %> stemcells, which run Windows Server 2019.
 
 <p class="note"><strong>Note</strong>: <%= vars.windows_runtime_abbr %> 2012 R2 has reached its end of availability (EoA) and is no longer generally available.</p>
 
-Pivotal recommends you use the blue-green deployment method for high availability. For more information about blue-green deployments, see [Using Blue-Green Deployment to Reduce Downtime and Risk](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/devguide/deploy-apps/blue-green.html).
+VMware recommends you use the blue-green deployment method for high availability.
+For more information about blue-green deployments,
+see [Using Blue-Green Deployment to Reduce Downtime and
+Risk](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/devguide/deploy-apps/blue-green.html).
 
 
 ## <a id="install-tile"></a> Step 1: Install and Deploy the <%= vars.windows_runtime_abbr %> Tile
@@ -37,7 +41,8 @@ To redeploy a running app with zero downtime using the blue-green method:
     cf apps
     ```
 
-1. Create a name for the replacement <%= vars.windows_runtime_abbr %> app. Pivotal recommends you append `-green` to your existing app name, using the following format:
+1. Create a name for the replacement <%= vars.windows_runtime_abbr %> app.
+   VMware recommends you append `-green` to your existing app name, using the following format:
 
     ```
     APP-NAME-green
