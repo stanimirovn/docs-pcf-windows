@@ -34,7 +34,13 @@ Before you create a vSphere Windows stemcell, you must have:
 
 * A vSphere environment. To ensure the VM hardware used by the stemcell is compatible with your deployment environment's ESXi/ESX host and vCenter Server versions, see [ESXi/ESX hosts and compatible virtual machine hardware versions list (2007240)](https://kb.vmware.com/s/article/2007240) in the VMware Knowledge Base.
 
-* A Windows Server 2019 ISO, build number: 17763, from Microsoft Developer Network (MSDN) or Volume Licensing Service Center (VLSC). The Windows Server 2019 ISO must be a clean, base ISO file. You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production, as the licensing expires. For more information, see the [Microsoft documentation](https://docs.microsoft.com/en-us/welcome-to-docs) or the [Microsoft Volume Licensing Service Center](https://www.microsoft.com/Licensing/servicecenter/default.aspx) website.
+* A Windows Server 2019 ISO, build number: 17763, from Microsoft Developer Network (MSDN)
+  or Volume Licensing Service Center (VLSC).
+  The Windows Server 2019 ISO must be a clean, base ISO file.
+  You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production,
+  because the licensing expires.
+  For more information, see the [Microsoft documentation](https://docs.microsoft.com/en-us/welcome-to-docs) or
+  the [Microsoft Volume Licensing Service Center](https://www.microsoft.com/Licensing/servicecenter/default.aspx) website.
     <p class="note"><strong>Note:</strong> A clean ISO file has no custom scripts or tooling. For example, the ISO must have no logging or antivirus tools installed.</p>
     <p class="note"><strong>Note:</strong> Pivotal recommends maintaining a separate, updated Windows VM based on this ISO to serve as the basis for the installation steps below. This enables you to apply Windows Updates and create new stemcells without having to reinstall all updates from scratch.</p>
 
@@ -55,10 +61,10 @@ As part of completing the procedures in this topic, you download the following f
 * [stembuild](https://github.com/pivotal-cf-experimental/stembuild/releases).
     * To build a Windows stemcell for <%= vars.product_windows %>, use the latest release of `stembuild`.
     * To build a Windows stemcell for Enterprise PKS:
-        * For Enterprise PKS v1.6, use the vSphere `stembuild` CLI for Windows version 2019.7 or later.  
-        * For Enterprise PKS v1.5.2 and later patches, use the vSphere `stembuild` CLI for Windows version 2019.15 or later. 
-        vSphere `stembuild` CLI for Windows version 2019.15 addresses [CVE-2020-0601](https://pivotal.io/security/cve-2020-0601).  
-        * For Enterprise PKS v1.5.0 or v1.5.1, use the vSphere `stembuild` CLI for Windows version 2019.7.   
+        * For Enterprise PKS v1.6, use the vSphere `stembuild` CLI for Windows version 2019.7 or later.
+        * For Enterprise PKS v1.5.2 and later patches, use the vSphere `stembuild` CLI for Windows version 2019.15 or later.
+        vSphere `stembuild` CLI for Windows version 2019.15 addresses [CVE-2020-0601](https://pivotal.io/security/cve-2020-0601).
+        * For Enterprise PKS v1.5.0 or v1.5.1, use the vSphere `stembuild` CLI for Windows version 2019.7.
     <p class="note"><strong>Note:</strong> You must choose a stemcell version to build. Stemcells are versioned as MAJOR.MINOR, such as 2019.9.</p>
     For more information about 2019 stemcells, see [Stemcell v2019.x (Windows Server 2019) Release Notes](https://docs.pivotal.io/platform/stemcells/windows-stemcell-v2019x.html).
 
@@ -147,14 +153,19 @@ To install Windows Server on the base VM:
 
 <p class="note warning"><strong>Warning:</strong> You must complete the following procedure to verify your OS version before continuing.</p>
 
-Ensure you are using the correct the OS version by running the following PowerShell command on the Windows VM:
+To verify the OS:
 
-```
-Get-CimInstance Win32_OperatingSystem | Select-Object
-Caption, Version, ServicePackMajorVersion, OSArchitecture, CSName, WindowsDirectory
-```
+1. Ensure you are using the correct the OS version by running the following PowerShell command on the Windows VM:
 
-The output includes `Version: 10.0.17763`.
+    ```
+    Get-CimInstance Win32_OperatingSystem | Select-Object
+    Caption, Version, ServicePackMajorVersion, OSArchitecture, CSName, WindowsDirectory
+    ```
+
+2. Confirm that the output includes:
+
+    <pre class="terminal">Version: 10.0.17763</pre>
+
 
 ### <a id='install-vmware-tools'></a> Install VMware Tools
 
@@ -165,9 +176,9 @@ To install VMware Tools on the base VM:
 
 1. Navigate to the `D:` drive and run:
 
-  ```
-  setup64.exe
-  ```
+    ```
+    setup64.exe
+    ```
 	<p class="note"><strong>Note:</strong> The VMware Tools install window might appear behind the Command Prompt window.</p>
 
 1. Restart the VM to complete the installation.
