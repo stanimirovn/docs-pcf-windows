@@ -40,7 +40,7 @@ Before you create a vSphere Windows stemcell, you must have:
 or [Microsoft Volume Licensing Service Center (VLSC)](https://www.microsoft.com/Licensing/servicecenter/default.aspx).
 The Windows Server 2019 ISO must be a clean, base ISO file.
 You can use an evaluation copy for testing, but VMware does not recommend an evaluation copy for production,
-as the licensing expires.
+because the licensing expires.
 For more information, see [Get started with Windows Server 2019]
 (https://docs.microsoft.com/en-us/windows-server/get-started-19/get-started-19)
 in the Microsoft Windows Server documentation.
@@ -158,14 +158,19 @@ To install Windows Server on the base VM:
 
 <p class="note warning"><strong>Warning:</strong> You must complete the following procedure to verify your OS version before continuing.</p>
 
-Ensure you are using the correct the OS version by running the following PowerShell command on the Windows VM:
+To verify the OS:
 
-```
-Get-CimInstance Win32_OperatingSystem | Select-Object
-Caption, Version, ServicePackMajorVersion, OSArchitecture, CSName, WindowsDirectory
-```
+1. Ensure you are using the correct the OS version by running the following PowerShell command on the Windows VM:
 
-The output includes `Version: 10.0.17763`.
+    ```
+    Get-CimInstance Win32_OperatingSystem | Select-Object
+    Caption, Version, ServicePackMajorVersion, OSArchitecture, CSName, WindowsDirectory
+    ```
+
+2. Confirm that the output includes:
+
+    <pre class="terminal">Version: 10.0.17763</pre>
+
 
 ### <a id='install-vmware-tools'></a> Install VMware Tools
 
@@ -175,9 +180,9 @@ To install VMware Tools on the base VM:
 
 1. Navigate to the `D:` drive and run:
 
-  ```
-  setup64.exe
-  ```
+    ```
+    setup64.exe
+    ```
 	<p class="note"><strong>Note:</strong> The VMware Tools install window might appear behind the Command Prompt window.</p>
 
 1. Restart the VM to complete the installation.
