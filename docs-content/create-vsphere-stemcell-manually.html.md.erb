@@ -25,7 +25,13 @@ Before you create a vSphere Windows stemcell, you must have:
 
 * A vSphere environment. To ensure the VM hardware used by the stemcell is compatible with your deployment environment's ESXi/ESX host and vCenter Server versions, see [ESXi/ESX hosts and compatible virtual machine hardware versions list (2007240)](https://kb.vmware.com/s/article/2007240) in the VMware Knowledge Base.
 
-* A Windows Server 2019 ISO, build number: 17763, from Microsoft Developer Network (MSDN) or Volume Licensing Service Center (VLSC). The Windows Server 2019 ISO must be a clean, base ISO file. You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production, as the licensing expires. For more information, see the [Microsoft documentation](https://docs.microsoft.com/en-us/welcome-to-docs) or the [Microsoft Volume Licensing Service Center](https://www.microsoft.com/Licensing/servicecenter/default.aspx) website.
+* A Windows Server 2019 ISO, build number: 17763, from Microsoft Developer Network (MSDN)
+  or Volume Licensing Service Center (VLSC).
+  The Windows Server 2019 ISO must be a clean, base ISO file.
+  You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production,
+  because the licensing expires.
+  For more information, see the [Microsoft documentation](https://docs.microsoft.com/en-us/welcome-to-docs) or
+  the [Microsoft Volume Licensing Service Center](https://www.microsoft.com/Licensing/servicecenter/default.aspx) website.
     <p class="note"><strong>Note:</strong> A clean ISO file has no custom scripts or tooling. For example, the ISO must have no logging or antivirus tools installed.</p>
     <p class="note"><strong>Note:</strong> Pivotal recommends maintaining a separate, updated Windows VM based on this ISO to serve as the basis for the installation steps below. This enables you to apply Windows Updates and create new stemcells without having to reinstall all updates from scratch.</p>
 
@@ -129,14 +135,19 @@ To install Windows Server on the base VM:
 
 <p class="note warning"><strong>Warning:</strong> You must complete the following procedure to verify your OS version before continuing.</p>
 
-Ensure you are using the correct the OS version by running the following PowerShell command on the Windows VM:
+To verify the OS:
 
-```
-Get-CimInstance Win32_OperatingSystem | Select-Object
-Caption, Version, ServicePackMajorVersion, OSArchitecture, CSName, WindowsDirectory
-```
+1. Ensure you are using the correct the OS version by running the following PowerShell command on the Windows VM:
 
-The output includes `Version: 10.0.17763`.
+    ```
+    Get-CimInstance Win32_OperatingSystem | Select-Object
+    Caption, Version, ServicePackMajorVersion, OSArchitecture, CSName, WindowsDirectory
+    ```
+
+2. Confirm that the output includes:
+
+    <pre class="terminal">Version: 10.0.17763</pre>
+
 
 ### <a id='install-vmware-tools'></a> Install VMware Tools
 
@@ -147,9 +158,9 @@ To install VMware Tools on the base VM:
 
 1. Navigate to the `D:` drive and run:
 
-  ```
-  setup64.exe
-  ```
+    ```
+    setup64.exe
+    ```
 	<p class="note"><strong>Note:</strong> The VMware Tools install window might appear behind the Command Prompt window.</p>
 
 1. Restart the VM to complete the installation.
@@ -295,30 +306,23 @@ To install the BOSH Agent:
 
 You can use the `bosh ssh` command on BOSH-deployed Windows VMs if you install the OpenSSH dependency on the Windows VM and then enable it during deploy time. This lets an operator enter into a CMD or PowerShell session on the VM as a user with admin privileges.
 
-* To install OpenSSH for <%= vars.product_windows %>:
-    1. Transfer the [`OpenSSH-Win64.zip`](https://github.com/PowerShell/Win32-OpenSSH/releases/tag/v7.7.2.0p1-Beta) file to the Windows VM and place it in `C:\provision`.
-    1. Start PowerShell in the Windows VM and run:
+Perform the following steps to install OpenSSH:
 
-	    ```
-	    Unblock-File 'C:\provision\OpenSSH-Win64.zip'
-	    ```
-	1. Install OpenSSH by running:
+1. Transfer the [`OpenSSH-Win64.zip`](https://github.com/PowerShell/Win32-OpenSSH/releases/tag/v7.7.2.0p1-Beta) file to the Windows VM and place it in `C:\provision`.
+1. Start PowerShell in the Windows VM and run the following command:
 
-	    ```
-	    Install-SSHD -SSHZipFile 'C:\provision\OpenSSH-Win64.zip'
-	    ```
-    1. When configuring the <%= vars.product_windows %> tile, you must select the **Enable BOSH-native SSH support on all VMs (beta)** checkbox. For more information, see [Configure the Tile](installing.html#config) in _Installing and Configuring <%= vars.product_windows %>_.
+	```
+	Unblock-File 'C:\provision\OpenSSH-Win64.zip'
+	```
 
-* To install OpenSSH for PKS Windows clusters:
-    1. Transfer the [`OpenSSH-Win64.zip`](https://github.com/PowerShell/Win32-OpenSSH/releases/tag/v7.7.2.0p1-Beta) file to the Windows VM and place it in `C:\provision`.
-    1. Start PowerShell in the Windows VM and run:
+1. Install OpenSSH with the following command:
 
-	    ```
-	    Unblock-File 'C:\provision\OpenSSH-Win64.zip'
-	    ```
-    1. Install OpenSSH by running:
+	```
+	Install-SSHD -SSHZipFile 'C:\provision\OpenSSH-Win64.zip'
+	```
 
-1. When configuring the PAS for Windows tile, you must select the **BETA: Enable BOSH-native SSH support on all VMs checkbox**. For more information, see [Installing and Configuring PAS for Windows](installing.html#config).
+1. When configuring the PAS for Windows tile, you must select the **BETA: Enable BOSH-native SSH support on all VMs checkbox**.
+   For more information, see [Installing and Configuring PAS for Windows](installing.html#config).
 
 ### <a id='optimize-compress'></a> Optimize and Compress the Disk
 
