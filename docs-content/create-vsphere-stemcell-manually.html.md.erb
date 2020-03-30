@@ -67,14 +67,29 @@ As part of completing the procedures in this topic, you download the following f
 * [ovftool](https://www.vmware.com/support/developer/ovf/).
 
 * [stembuild](https://github.com/pivotal-cf-experimental/stembuild/releases).
+    <p class="note"><strong>Note:</strong> You must choose a stemcell version to build. Stemcells are versioned as MAJOR.MINOR, such as 2019.9.</p>
     * To build a Windows stemcell for <%= vars.windows_runtime_abbr %>, use the latest release of `stembuild`.
     * To build a Windows stemcell for Enterprise PKS:
-        * For Enterprise PKS v1.6 or later, use the vSphere `stembuild` CLI for Windows version 2019.7 or later.  
-        * For Enterprise PKS v1.5.2 and later patches, use the vSphere `stembuild` CLI for Windows version 2019.15 or later. 
-        vSphere `stembuild` CLI for Windows version 2019.15 addresses [CVE-2020-0601](https://pivotal.io/security/cve-2020-0601).  
-        * For Enterprise PKS v1.5.0 or v1.5.1, use the vSphere `stembuild` CLI for Windows version 2019.7.  
-    <p class="note"><strong>Note:</strong> You must choose a stemcell version to build. Stemcells are versioned as MAJOR.MINOR, such as 2019.9.</p>
-    For more information about 2019 stemcells, see [Stemcell v2019.x (Windows Server 2019) Release Notes](https://docs.pivotal.io/platform/stemcells/windows-stemcell-v2019x.html).
+      <table>
+        <tr>
+          <th>For Enterprise PKS version</th>
+          <th>Use this version of the <code>stembuild</code> CLI for Windows</th>
+        </tr>
+        <tr>
+          <td>1.6</td>
+          <td>2019.7 or later</td>
+        </tr>
+        <tr>
+          <td>1.5.2 or later v1.5 patches</td>
+          <td>2019.15 or later</td>
+        </tr>
+        <tr>
+          <td>1.5.0 or v1.5.1</td>
+          <td>2019.7</td>
+        </tr>
+      </table>
+
+      For more information about 2019 stemcells, see [Stemcell v2019.x (Windows Server 2019) Release Notes](https://docs.pivotal.io/platform/stemcells/windows-stemcell-v2019x.html).
 
 ### <a id='windows-vm'></a> Files on Windows VM
 
