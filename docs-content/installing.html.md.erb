@@ -35,7 +35,12 @@ Before you install and configure the <%= vars.windows_runtime_abbr %> tile:
 
 * Ensure that you meet the requirements to use the **Windows FS Injector** tool. For more information, see [Windows FS Injector Prerequisites](#prerequisite-injector).
 
-* If you are installing <%= vars.windows_runtime_abbr %> in a development environment and you plan to use a placeholder or dummy SSL certificate, see [(Optional) Disable SSL Verification for a Development Environment](#prerequisite-tests).
+* If you are installing <%= vars.windows_runtime_abbr %> in a development environment 
+and you plan to use a placeholder or dummy SSL certificate, 
+see [(Optional) Disable SSL Verification for a Development Environment](#prerequisite-tests) below.
+
+* If you are installing <%= vars.windows_runtime_abbr %> in an air-gapped environment, 
+see [((Optional) Prepare a Windows Rootfs Image In Private Registry](#prepare-registry) below. 
 
 ### <a id='prerequisite-injector'></a> Windows FS Injector Prerequisites
 
@@ -70,6 +75,45 @@ To disable SSL validation on development and testing environments:
 
 For more information, see [Terminate SSL/TLS at HAProxy](https://docs.pivotal.io/platform/opsguide/ssl-term-haproxy.html#haproxy) in _Configuring SSL/TLS Termination at HAProxy_.
 
+### <a id='prepare-registry'></a> (Optional) Prepare a Windows Rootfs Image In Private Registry
+
+To create a <%= vars.windows_runtime_abbr %> tile, a windows file-system container image is typically 
+fetched from a Docker registry. An administrator can fetch the windows file-system image 
+from either [cloudfoundry/windows2016fs](https://hub.docker.com/r/cloudfoundry/windows2016fs) 
+the publicly hosted DockerHub repository, or a privately hosted container image registry.
+
+To prepare a windows file-system container image in a private registry:
+
+1. Create an accessible Windows Server 2019 machine in your environment.
+1. Install Docker on this Windows Server 2019 machine.
+1. Configure this Windows machine’s Docker daemon to allow non-redistributable artifacts 
+to be pushed to your private registry. 
+For information about configuring your Docker daemon, see 
+[Allow push of nondistributable artifacts](https://docs.docker.com/engine/reference/commandline/dockerd/#allow-push-of-nondistributable-artifacts) 
+in the Docker documentation.
+1. Open a command line on the Windows machine.
+1. To download the windows file-system container image, run the following command:  
+
+    ```
+    docker pull cloudfoundry/windows2016fs:2019
+    ```
+1. To tag the Windows container image, run the following command:
+    
+    ```
+    docker tag cloudfoundry/windows2016fs:2019  REGISTRY-ROOT/cloudfoundry/windows2016fs:2019
+    ```
+
+    Where `REGISTRY-ROOT` is your private registry’s URI.
+
+1. To upload the Windows Container image to your accessible private registry, 
+run the following command:
+
+    ```
+    docker push IMAGE-URI
+    ```
+
+    Where `IMAGE-URI` is the URI to the Windows rootfs image in your private registry. 
+    Your image URI should follow the pattern: `my.private.registry/cloudfoundry/windows2016fs:2019`.
 
 ## <a id='install'></a> Install the Tile
 
@@ -83,21 +127,46 @@ To install the <%= vars.windows_runtime_abbr %> tile:
 1. Download the **Windows FS Injector** tool for your workstation OS. The Injector tool, `winfs-injector`, is an executable binary that adds the Windows Server container base image into the product file. This step requires internet access and can take up to 20 minutes.
   <p class="note"><strong>Note:</strong> You need the <code>git</code> and <code>tar</code> executables in your <code>%PATH%</code> to run <code>winfs-injector.exe</code>. For example, copy <code>git.exe</code> and <code>tar.exe</code> to a directory in your <code>%PATH%</code>.</p>
 
-1. Add the Windows Server container base image to the product file by running:
+1. Add the Windows Server container base image to the product file:
+    * In an environment with internet access, run the following:  
 
-    ```
-    winfs-injector --input-tile PASW-DOWNLOAD-PATH --output-tile PASW-IMPORTABLE-PATH
-    ```
-    Where:
-    * `PASW-DOWNLOAD-PATH` is the path and filename to the <%= vars.windows_runtime_abbr %> product file you downloaded.
-    * `PASW-IMPORTABLE-PATH` is the desired output path for the importable product file.
-    For example:
-    <pre class="terminal">
-    C:\Users\admin\> winfs-injector --input-tile ^
-    c:\temp\pas-windows-2.9.0-build.1.pivotal ^
-    --output-tile c:\temp\pas-windows-2.9.0-build.1-INJECTED.pivotal
-    </pre>
-    For information about troubleshooting `winfs-injector`, see [Missing Local Certificates for Windows File System Injector](./troubleshooting.html#missing-certs-winfs-issues) in _Troubleshooting Windows Diego Cells_.
+        ```
+        winfs-injector --input-tile PASW-DOWNLOAD-PATH --output-tile PASW-IMPORTABLE-PATH
+        ```
+        Where:
+        * `PASW-DOWNLOAD-PATH` is the path and filename to the <%= vars.windows_runtime_abbr %> product file you downloaded.
+        * `PASW-IMPORTABLE-PATH` is the desired output path for the importable product file.  
+<br>
+        For example:
+        <pre class="terminal">
+        C:\Users\admin\> winfs-injector --input-tile ^
+        c:\temp\pas-windows-2.9.0-build.1.pivotal ^
+        --output-tile c:\temp\pas-windows-2.9.0-build.1-INJECTED.pivotal
+        </pre>
+
+        This step take up to 20 minutes to complete.  
+<br>
+    * In an air-gapped environment, run the following:  
+
+        ```
+        winfs-injector --input-tile PASW-DOWNLOAD-PATH --output-tile PASW-IMPORTABLE-PATH --registry PASW-REGISTRY-URI
+        ```
+        Where:  
+        * `PASW-DOWNLOAD-PATH` is the path and filename to the PASW product file you downloaded.  
+        * `PASW-IMPORTABLE-PATH` is the desired output path for the importable product file.  
+        * `PASW-REGISTRY-URI` is the uri to the container registry hosting your cloudfoundry/windows2016fs image.
+<br>  
+        For example:
+        <pre class="terminal">
+        C:\Users\admin> winfs-injector ^
+        --input-tile c:\temp\pas-windows-2.6.0-build.1.pivotal ^
+        --output-tile c:\temp\pas-windows-2.6.0-build.1-INJECTED.pivotal ^
+        --registry https://my.registry.com
+        </pre>
+
+    For information about troubleshooting `winfs-injector`, 
+    see [Missing Local Certificates for Windows File System Injector](./troubleshooting.html#missing-certs-winfs-issues) 
+    in _Troubleshooting Windows Diego Cells_.
 
 1. To enable forwarding BOSH job logs to an external syslog server, add the following BOSH add-on to a `runtime_config` YAML file:
 
@@ -132,8 +201,7 @@ To install the <%= vars.windows_runtime_abbr %> tile:
 1. To add the <%= vars.windows_runtime_abbr %> tile to the **Import a Product** product list,
    select the importable `PASW-IMPORTABLE-PATH` file on your workstation.
 
-1. To add the <%= vars.windows_runtime_abbr %> tile to your staging area, click **+** under the **<%= vars.windows_runtime_full %>** product listing.
-
+1. To add the <%= vars.windows_runtime_abbr %> tile to your staging area, click **+** under the **<%= vars.windows_runtime_full %>** product listing.  
 
 ## <a id='config'></a> Configure the Tile
 
