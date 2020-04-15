@@ -131,7 +131,9 @@ To install the <%= vars.windows_runtime_abbr %> tile:
     * In an environment with internet access, run the following:  
 
         ```
-        winfs-injector --input-tile PASW-DOWNLOAD-PATH --output-tile PASW-IMPORTABLE-PATH
+        winfs-injector ^
+          --input-tile PASW-DOWNLOAD-PATH ^
+          --output-tile PASW-IMPORTABLE-PATH
         ```
         Where:
         * `PASW-DOWNLOAD-PATH` is the path and filename to the <%= vars.windows_runtime_abbr %> product file you downloaded.
@@ -139,8 +141,8 @@ To install the <%= vars.windows_runtime_abbr %> tile:
 <br>
         For example:
         <pre class="terminal">
-        C:\Users\admin\> winfs-injector --input-tile ^
-        c:\temp\pas-windows-2.9.0-build.1.pivotal ^
+        C:\Users\admin\> winfs-injector ^
+        --input-tile c:\temp\pas-windows-2.9.0-build.1.pivotal ^
         --output-tile c:\temp\pas-windows-2.9.0-build.1-INJECTED.pivotal
         </pre>
 
@@ -149,7 +151,10 @@ To install the <%= vars.windows_runtime_abbr %> tile:
     * In an air-gapped environment, run the following:  
 
         ```
-        winfs-injector --input-tile PASW-DOWNLOAD-PATH --output-tile PASW-IMPORTABLE-PATH --registry PASW-REGISTRY-URI
+        winfs-injector ^
+          --input-tile PASW-DOWNLOAD-PATH ^
+          --output-tile PASW-IMPORTABLE-PATH ^
+          --registry PASW-REGISTRY-URI
         ```
         Where:  
         * `PASW-DOWNLOAD-PATH` is the path and filename to the PASW product file you downloaded.  
