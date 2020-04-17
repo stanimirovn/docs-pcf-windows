@@ -461,7 +461,7 @@ To convert the VMDK file to a BOSH stemcell:
 	* `STEMCELL-VERSION` is the 2019 stemcell version you want to build. For example, if you downloaded the [BOSH PS Modules and BOSH Agent](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/releases) for the 2019.2 release, then specify `2019.2`. `stembuild` creates the stemcell in the directory where you execute it. The file has a `.tgz` extension and a name similar to `bosh-stemcell-2019.2-vsphere-esxi-windows2019-go_agent.tgz `.
 	* `PATCH-VERSION` is the patch version for the stemcell being built. 
 	`PATCH-VERSION` can be specified as an unquoted version name, for example `2019.12.3`, 
-	or as a quoted version number, for example `“3”`.
+	or as a quoted patch number, for example `“3”`.
 	<br><br>
 	The stemcell is ready for use in conjunction with your BOSH deployment.
 
