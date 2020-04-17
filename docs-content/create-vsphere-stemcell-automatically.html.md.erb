@@ -246,7 +246,14 @@ To create your BOSH stemcell, complete the following tasks:
 1. To construct the BOSH stemcell, run the following command from the folder where you downloaded the CLI:
 
     ```
-    ./STEMBUILD-BINARY construct -vm-ip 'TARGET-VM-IP' -vm-username TARGET-USERNAME -vm-password 'TARGET-VM-PASSWORD' -vcenter-url VCENTER-URL -vcenter-username VCENTER-USERNAME -vcenter-password 'VCENTER-PASSWORD' -vm-inventory-path 'INVENTORY-PATH'
+    ./STEMBUILD-BINARY construct ^
+      -vm-ip 'TARGET-VM-IP' ^
+      -vm-username TARGET-USERNAME ^
+      -vm-password 'TARGET-VM-PASSWORD' ^
+      -vcenter-url VCENTER-URL ^
+      -vcenter-username VCENTER-USERNAME ^
+      -vcenter-password 'VCENTER-PASSWORD' ^
+      -vm-inventory-path 'INVENTORY-PATH'
     ```
 
     Where:
@@ -323,7 +330,11 @@ To package the BOSH stemcell:
 1. To package the BOSH stemcell, run the following PowerShell command from your local host:
 
     ```
-    ./STEMBUILD-BINARY package -vcenter-url VCENTER-URL -vcenter-username VCENTER-USERNAME -vcenter-password VCENTER-PASSWORD -vm-inventory-path INVENTORY-PATH
+    ./STEMBUILD-BINARY package ^
+      -vcenter-url VCENTER-URL ^
+      -vcenter-username VCENTER-USERNAME ^
+      -vcenter-password VCENTER-PASSWORD ^
+      -vm-inventory-path INVENTORY-PATH
     ```
     Where:
     * `STEMBUILD-BINARY` is the `stembuild` file for the version of your local host operating system and the
@@ -376,10 +387,10 @@ To upgrade your BOSH stemcell:
 
 You authenticate with vCenter and see this error:
 
-```
+<pre class="terminal">
 ./out/stembuild: ServerFaultCode: Cannot complete login due to an incorrect user name or password.
 vcenter_client - unable to validate url: vcenter.example.com
-```
+</pre>
 
 **Explanation**
 
@@ -419,7 +430,11 @@ For example:
 * For **Linux**:
 
     ```
-    ./STEMBUILD-BINARY package -vcenter-url VCENTER-URL -vcenter-username 'admin@' -vcenter-password VCENTER-PASSWORD -vm-inventory-path INVENTORY-PATH
+    ./STEMBUILD-BINARY package ^
+      -vcenter-url VCENTER-URL ^
+      -vcenter-username 'admin@' ^
+      -vcenter-password VCENTER-PASSWORD ^
+      -vm-inventory-path INVENTORY-PATH
     ```
     Where:
     * `STEMBUILD-BINARY` is the `stembuild` file for the version of your local host operating system and the version of the stemcell that you want to build. For example, `stembuild-windows-2019-2`.
@@ -431,7 +446,11 @@ For example:
 
     ```
     set GOVC_PASSWORD=A_Strange!PAssword@Here#1
-    ./STEMBUILD-BINARY package -vcenter-url VCENTER-URL -vcenter-username %GOVC_USERNAME% -vcenter-password %GOVC_PASSWORD% -vm-inventory-path %GOVC_PATH%
+    ./STEMBUILD-BINARY package ^
+      -vcenter-url VCENTER-URL ^
+      -vcenter-username %GOVC_USERNAME% ^
+      -vcenter-password %GOVC_PASSWORD% ^
+      -vm-inventory-path %GOVC_PATH%
     ```
     Where:
     * `STEMBUILD-BINARY` is the `stembuild` file for the version of your local host operating system and the version of the stemcell that you want to build. For example, `stembuild-windows-2019-2`.

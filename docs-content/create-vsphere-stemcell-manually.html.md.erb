@@ -322,7 +322,9 @@ To install the BOSH Agent:
 1. Install the BOSH Agent:
 
 	```
-	Install-Agent -IaaS vsphere -agentZipPath PATH-TO-AGENT.ZIP
+	Install-Agent ^
+	  -IaaS vsphere ^
+	  -agentZipPath PATH-TO-AGENT.ZIP
 	```
 	Where `PATH-TO-AGENT.ZIP` is the full path to the location of the `agent.zip` file on your Windows VM.
 
@@ -340,7 +342,8 @@ You can use the `bosh ssh` command on BOSH-deployed Windows VMs if you install t
     1. Install OpenSSH by running:
 
 	    ```
-	    Install-SSHD -SSHZipFile 'C:\provision\OpenSSH-Win64.zip'
+	    Install-SSHD ^
+	      -SSHZipFile 'C:\provision\OpenSSH-Win64.zip'
 	    ```
     1. When configuring the <%= vars.windows_runtime_abbr %> tile, you must select the **Enable BOSH-native SSH support on all VMs (beta)** checkbox. For more information, see [Configure the Tile](installing.html#config) in _Installing and Configuring <%= vars.windows_runtime_abbr %>_.
 
@@ -354,7 +357,8 @@ You can use the `bosh ssh` command on BOSH-deployed Windows VMs if you install t
     1. Install OpenSSH by running:
 
 	    ```
-	    Install-SSHD -SSHZipFile 'C:\provision\OpenSSH-Win64.zip'
+	    Install-SSHD ^
+	      -SSHZipFile 'C:\provision\OpenSSH-Win64.zip'
 	    ```
 
 ### <a id='optimize-compress'></a> Optimize and Compress the Disk
@@ -399,9 +403,11 @@ To sysprep the system:
 1. Sysprep the system by running:
 
 	```
-	Invoke-Sysprep -IaaS vsphere
-	[-NewPassword PASSWORD]
-	[-Owner OWNER] [-Organization ORGANIZATION]
+	Invoke-Sysprep ^
+	  -IaaS vsphere ^
+	  [-NewPassword PASSWORD] ^
+	  [-Owner OWNER] ^
+	  [-Organization ORGANIZATION]
 	```
 
 	<p class="note"><strong>Note:</strong> All of the flags of <code>Invoke-Sysprep</code> except for <code>-IaaS</code> are optional.</p>
@@ -443,12 +449,19 @@ To convert the VMDK file to a BOSH stemcell:
 1. Build the stemcell by running:
 
 	```
-	stembuild package -vmdk PATH-TO-VDMK -stemcell-version STEMCELL-VERSION -os 2019
+	stembuild package ^
+	  -vmdk PATH-TO-VDMK ^
+	  -stemcell-version STEMCELL-VERSION ^
+	  -patch-version PATCH-VERSION ^
+	  -os 2019	  
 	```
 
 	Where:
 	* `PATH-TO-VMDK` is the path to the VMDK file.
 	* `STEMCELL-VERSION` is the 2019 stemcell version you want to build. For example, if you downloaded the [BOSH PS Modules and BOSH Agent](https://github.com/cloudfoundry-incubator/bosh-windows-stemcell-builder/releases) for the 2019.2 release, then specify `2019.2`. `stembuild` creates the stemcell in the directory where you execute it. The file has a `.tgz` extension and a name similar to `bosh-stemcell-2019.2-vsphere-esxi-windows2019-go_agent.tgz `.
+	* `PATCH-VERSION` is the patch version for the stemcell being built. 
+	`PATCH-VERSION` can be specified as an unquoted version name, for example `2019.12.3`, 
+	or as a quoted version number, for example `“3”`.
 	<br><br>
 	The stemcell is ready for use in conjunction with your BOSH deployment.
 
