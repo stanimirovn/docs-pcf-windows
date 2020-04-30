@@ -246,13 +246,13 @@ To create your BOSH stemcell, complete the following tasks:
 1. To construct the BOSH stemcell, run the following command from the folder where you downloaded the CLI:
 
     ```
-    ./STEMBUILD-BINARY construct ^
-      -vm-ip 'TARGET-VM-IP' ^
-      -vm-username TARGET-USERNAME ^
-      -vm-password 'TARGET-VM-PASSWORD' ^
-      -vcenter-url VCENTER-URL ^
-      -vcenter-username VCENTER-USERNAME ^
-      -vcenter-password 'VCENTER-PASSWORD' ^
+    ./STEMBUILD-BINARY construct \
+      -vm-ip 'TARGET-VM-IP' \
+      -vm-username TARGET-USERNAME \
+      -vm-password 'TARGET-VM-PASSWORD' \
+      -vcenter-url VCENTER-URL \
+      -vcenter-username VCENTER-USERNAME \
+      -vcenter-password 'VCENTER-PASSWORD' \
       -vm-inventory-path 'INVENTORY-PATH'
     ```
 
@@ -334,6 +334,7 @@ To package the BOSH stemcell:
       -vcenter-url VCENTER-URL ^
       -vcenter-username VCENTER-USERNAME ^
       -vcenter-password VCENTER-PASSWORD ^
+      -patch-version PATCH-VERSION ^
       -vm-inventory-path INVENTORY-PATH
     ```
     Where:
@@ -342,6 +343,9 @@ To package the BOSH stemcell:
     * `VCENTER-URL` is the URL of your vCenter.
     * `VCENTER-USERNAME` is the username of your account in vCenter.
     * `VCENTER-PASSWORD` is your password. The password must be enclosed in single quotes.
+    * `PATCH-VERSION` is the patch version for the stemcell being built. 
+    `PATCH-VERSION` can be specified as an unquoted version name, for example `2019.12.3`, 
+    or as a quoted patch number, for example `“3”`.
     * `INVENTORY-PATH` is the vCenter inventory path to the target VM.
     <p class='note'><strong>Note:</strong> This command creates a stemcell on your local host in the folder where you ran the command and might take up to 30 minutes to complete.</p>
 
@@ -430,16 +434,20 @@ For example:
 * For **Linux**:
 
     ```
-    ./STEMBUILD-BINARY package ^
-      -vcenter-url VCENTER-URL ^
-      -vcenter-username 'admin@' ^
-      -vcenter-password VCENTER-PASSWORD ^
+    ./STEMBUILD-BINARY package \
+      -vcenter-url VCENTER-URL \
+      -vcenter-username 'admin@' \
+      -vcenter-password VCENTER-PASSWORD \
+      -patch-version PATCH-VERSION \
       -vm-inventory-path INVENTORY-PATH
     ```
     Where:
     * `STEMBUILD-BINARY` is the `stembuild` file for the version of your local host operating system and the version of the stemcell that you want to build. For example, `stembuild-windows-2019-2`.
     * `VCENTER-URL` is the URL of your vCenter.
     * `VCENTER-PASSWORD` is your password. The password must be enclosed in single quotes.
+    * `PATCH-VERSION` is the patch version for the stemcell being built. 
+    `PATCH-VERSION` can be specified as an unquoted version name, for example `2019.12.3`, 
+    or as a quoted patch number, for example `“3”`.    
     * `INVENTORY-PATH` is the vCenter inventory path to the target VM.
 
 * For **Windows**:
@@ -450,9 +458,13 @@ For example:
       -vcenter-url VCENTER-URL ^
       -vcenter-username %GOVC_USERNAME% ^
       -vcenter-password %GOVC_PASSWORD% ^
+      -patch-version PATCH-VERSION ^
       -vm-inventory-path %GOVC_PATH%
     ```
     Where:
     * `STEMBUILD-BINARY` is the `stembuild` file for the version of your local host operating system and the version of the stemcell that you want to build. For example, `stembuild-windows-2019-2`.
     * `VCENTER-URL` is the URL of your vCenter.
+    * `PATCH-VERSION` is the patch version for the stemcell being built. 
+    `PATCH-VERSION` can be specified as an unquoted version name, for example `2019.12.3`, 
+    or as a quoted patch number, for example `“3”`.
     <p class="note"><strong>Note:</strong> Windows environment variables do not automatically override vCenter command line parameters, so you must specify the environment variables in the vCenter command as shown above.</p>
