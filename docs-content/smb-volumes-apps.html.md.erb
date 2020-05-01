@@ -3,7 +3,8 @@ title: Using SMB Volumes in .NET Apps
 owner: Windows
 ---
 
-This topic describes how to use Server Message Block (SMB) Volumes in a .NET app. In this example, you create an app that reads and writes to a `note.txt` file within an SMB Volume share.
+This topic describes how to use Server Message Block (SMB) Volumes in a .NET app. In this example, you create an app
+that reads and writes to a `note.txt` file within an SMB Volume share.
 
 
 ## <a id='prerequisites'></a> Prerequisites 
@@ -20,19 +21,21 @@ To use SMB Volumes in your .NET App, you must have:
 
 ### <a id='steeltoe'></a> Using SMB Volumes in .NET Apps with Steeltoe
 
-Steeltoe is a set of libraries that help your team write cloud native apps. Steeltoe contains functionality for mounting SMB Volumes. Using Steeltoe requires modifying your app code. For more information, see the [Steeltoe documentation](https://steeltoe.io/docs/).
+Steeltoe is a set of libraries that help your team write cloud native apps. Steeltoe contains functionality for
+mounting SMB Volumes. Using Steeltoe requires modifying your app code. For more information, see the
+[Steeltoe documentation](https://steeltoe.io/docs/).
 
 If you are using Steeltoe, add the following environment variables to your Config Server Provider:
 
-* `SMB\_PATH`
-* `SMB\_USERNAME`
-* `SMB\_PASSWORD`
+* `SMB_PATH`
+* `SMB_USERNAME`
+* `SMB_PASSWORD`
 
 Where:
 
-* `SMB\_PATH` is the UNC path to your SMB.
-* `SMB\_USERNAME` is your IaaS account username.
-* `SMB\_PASSWORD` is your IaaS account password.
+* `SMB_PATH` is the UNC path to your SMB.
+* `SMB_USERNAME` is your IaaS account username.
+* `SMB_PASSWORD` is your IaaS account password.
 
 For more information about adding environment variables to your Config Server Provider, see
 [Config Server Provider](https://steeltoe.io/docs/2-configuration/config-server-provider) in the
@@ -51,9 +54,9 @@ To mount SMB Volumes:
 1. Create a `.profile.bat` file in your .NET app's root directory.
 
 1. Use Apps Manager or the Cloud Foundry Command Line Interface (cf CLI) to set the following environment variables:
-    * `SMB\_PATH`
-    * `SMB\_USERNAME`
-    * `SMB\_PASSWORD`
+    * `SMB_PATH`
+    * `SMB_USERNAME`
+    * `SMB_PASSWORD`
 
 1. Add the following command to your `.profile.bat` file:
 
@@ -144,7 +147,10 @@ To configure SMB mounting:
 
 1. In Visual Studio, create a subdirectory in **Views** named `Note`.
 
-1. In Visual Studio, create a new View named `Index`. For more information about Views, see [Views in ASP.NET Core MVC](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/overview?view=aspnetcore-2.2) and [Add a view to an ASP.NET Core MVC app](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/adding-view?view=aspnetcore-2.2&tabs=visual-studio) in the Microsoft documentation.
+1. In Visual Studio, create a new View named `Index`. For more information about Views, see
+[Views in ASP.NET Core MVC](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/overview?view=aspnetcore-2.2) and
+[Add a view to an ASP.NET Core MVC app](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/adding-view?view=aspnetcore-2.2&tabs=visual-studio)
+in the Microsoft documentation.
 
 1. In Visual Studio, create an `Index.cshtml` file that contains the following:
 
@@ -155,7 +161,8 @@ To configure SMB mounting:
     ```
     Running the app now would show an empty page with no errors.
 
-1. Modify the `Index.cshtml` file to contain a form. This form posts to a yet-to-be-created update endpoint and also displays our note inside a text area.
+1. Modify the `Index.cshtml` file to contain a form. This form posts to a yet-to-be-created update endpoint and also
+displays our note inside a text area.
 
     ```
     <big>
@@ -172,9 +179,13 @@ To configure SMB mounting:
     </big>
     ```
 
-1. Modify the `NoteController.cs` to have an update endpoint. This endpoint saves the data posted to the endpoint back into the `note.txt`. See the example code snippet in the following step.
+1. Modify the `NoteController.cs` to have an update endpoint. This endpoint saves the data posted to the endpoint back
+into the `note.txt`. See the example code snippet in the following step.
 
-1. Modify the `NoteController.cs` to include the ControllerBase class `RedirectToAction` method, which redirects to the index page so the user can see what was just saved. For more information about the ControllerBase class, see [ControllerBase.RedirectToAction Method](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.redirecttoaction?view=aspnetcore-2.2) in the Microsoft documentation. See the example code snippet below:
+1. Modify the `NoteController.cs` to include the ControllerBase class `RedirectToAction` method, which redirects to the
+index page so the user can see what was just saved. For more information about the ControllerBase class, see
+[ControllerBase.RedirectToAction Method](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.redirecttoaction?view=aspnetcore-2.2)
+in the Microsoft documentation. See the example code snippet below:
 
     ```
     // NoteController.cs
@@ -207,4 +218,5 @@ To configure SMB mounting:
 
 ### <a id='cannont-find-path'></a> Inability to SSH Into App Instance
 
-Despite an SMB mapping being successfully created, trying to `cf ssh` into that app instance to access the created mapping results in an an unspecified path error. 
+Even though you have successfully created the SMB mapping, you cannot `cf ssh` into that app instance.
+Trying to access the created mapping through SSH results in an unspecified path error.
