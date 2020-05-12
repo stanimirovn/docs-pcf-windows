@@ -69,7 +69,7 @@ As part of completing the procedures in this topic, you download the following f
 
 * [stembuild](https://github.com/pivotal-cf-experimental/stembuild/releases).
     * To build a Windows stemcell for <%= vars.windows_runtime_abbr %>, use the latest release of `stembuild`.
-    * To build a Windows stemcell for Enterprise PKS v1.6, use the `stembuild` CLI for Windows v2019.7 or later.
+    * To build a Windows stemcell for <%= vars.k8s_runtime_full %> v1.6, use the `stembuild` CLI for Windows v2019.7 or later.
     <p class="note"><strong>Note:</strong> You must choose a stemcell version to build. Stemcells are versioned as MAJOR.MINOR, such as 2019.9.</p>
     For more information about 2019 stemcells, see [Stemcell v2019.x (Windows Server 2019) Release Notes](https://docs.pivotal.io/platform/stemcells/windows-stemcell-v2019x.html).
 
@@ -211,7 +211,7 @@ You might need to restart the Windows VM while installing updates.
 
 ### <a id='enable-meltdown-mitigation'></a> Enable Meltdown Mitigation
 
-<p class="note warning"><strong>Warning:</strong> You must enable Meltdown mitigation. Not enabling Meltdown mitigation can lead to timeout issues while deploying your <%= vars.windows_runtime_abbr %> or Enterprise PKS tile.</p>
+<p class="note warning"><strong>Warning:</strong> You must enable Meltdown mitigation. Not enabling Meltdown mitigation can lead to timeout issues while deploying your <%= vars.windows_runtime_abbr %> or <%= vars.k8s_runtime_full %> tile.</p>
 
 Windows Server 2019 should receive the update containing the Meltdown mitigation automatically when you install Windows updates.
 
@@ -347,7 +347,7 @@ You can use the `bosh ssh` command on BOSH-deployed Windows VMs if you install t
 	    ```
     1. When configuring the <%= vars.windows_runtime_abbr %> tile, you must select the **Enable BOSH-native SSH support on all VMs (beta)** checkbox. For more information, see [Configure the Tile](installing.html#config) in _Installing and Configuring <%= vars.windows_runtime_abbr %>_.
 
-* To install OpenSSH for PKS Windows clusters:
+* To install OpenSSH for <%= vars.k8s_runtime_full %> Windows clusters:
     1. Transfer the [`OpenSSH-Win64.zip`](https://github.com/PowerShell/Win32-OpenSSH/releases/tag/v7.7.2.0p1-Beta) file to the Windows VM and place it in `C:\provision`.
     1. Start PowerShell in the Windows VM and run:
 
