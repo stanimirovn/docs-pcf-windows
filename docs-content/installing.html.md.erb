@@ -25,7 +25,7 @@ To install, configure, and deploy <%= vars.windows_runtime_abbr %>:
     1. Deploy the tile. See [Deploy the Tile](#deploy).  
 
 * In an air-gapped environment, complete the steps in 
-[Install and Configure <%= vars.windows_runtime_abbr %> in an Air-Gapped Environment](#air-gapped), below.  
+[Install and Configure <%= vars.windows_runtime_abbr %> in an Air-Gapped Environment](#air-gapped) below.  
 
 ## <a id='prerequisites'></a> Prerequisites
 
@@ -73,17 +73,25 @@ For more information, see [Terminate SSL/TLS at HAProxy](https://docs.pivotal.io
 
 ## <a id='install'></a> Install the Tile
 
-To install the <%= vars.windows_runtime_abbr %> tile:
+To install the <%= vars.windows_runtime_abbr %> tile:  
+    <%# After adding or removing a step here be sure to change the step number 
+  for step 4 referenced below in the air-gapped environment section.  %>
 
 1. Go to the [<%= vars.windows_runtime_full %>](https://network.pivotal.io/products/pas-windows)
-   page on <%= vars.product_network %>.
+   page on <%= vars.product_network %>.  
+    <%# After adding or removing a step here be sure to change the step number 
+  for step 4 referenced below in the air-gapped environment section.  %>
 
-1. Download the **<%= vars.windows_runtime_full %>** product file.
+1. Download the **<%= vars.windows_runtime_full %>** product file.  
+    <%# After adding or removing a step here be sure to change the step number 
+  for step 4 referenced below in the air-gapped environment section.  %>
 
 1. Download the **Windows FS Injector** tool for your workstation OS. The Injector tool, `winfs-injector`, is an executable binary that adds the Windows Server container base image into the product file. This step requires internet access and can take up to 20 minutes.
-  <p class="note"><strong>Note:</strong> You need the <code>git</code> and <code>tar</code> executables in your <code>%PATH%</code> to run <code>winfs-injector.exe</code>. For example, copy <code>git.exe</code> and <code>tar.exe</code> to a directory in your <code>%PATH%</code>.</p>
+  <p class="note"><strong>Note:</strong> You need the <code>git</code> and <code>tar</code> executables in your <code>%PATH%</code> to run <code>winfs-injector.exe</code>. For example, copy <code>git.exe</code> and <code>tar.exe</code> to a directory in your <code>%PATH%</code>.</p>  
+    <%# After adding or removing a step here be sure to change the step number 
+  for step 4 referenced below in the air-gapped environment section.  %>
 
-1. Add the Windows Server container base image to the product file:
+1. Add the Windows Server container base image to the product file:  
 
     ```
     winfs-injector ^
@@ -376,29 +384,24 @@ To run Windows Diego Cells in multiple isolation segments, you must create and c
 
 ## <a id='air-gapped'></a> Install and Configure <%= vars.windows_runtime_abbr %> in an Air-Gapped Environment
 
-To install, configure, and deploy <%= vars.windows_runtime_abbr %> in an air-gapped environment 
-complete the following steps:  
+To install, configure, and deploy <%= vars.windows_runtime_abbr %> in an air-gapped environment:  
 
-1. Complete the prerequisites. See [Prerequisites in an Air-Gapped Environment](#prerequisites-air-gapped), below.  
-1. Complete the steps in [Install the Tile](#install) above with the following exceptions:
-    * To add the Windows Server container base image to the product file, 
-    replace step 4 with the steps in [Add the Windows Server Container Base Image to the Product File](#add-win-image-air-gapped), below.
-1. Configure required settings for the tile. See [Configure the Tile](#config), above.  
-1. Configure resources for the tile. See [Configure Tile Resources](#resources), above.  
-1. Upload the Windows stemcell to the tile. See [Upload the Stemcell](#stemcells), above.  
-1. Deploy the tile. See [Deploy the Tile](#deploy), above. 
+1. Complete the steps in [Prepare a Windows Rootfs Image in a Private Registry](#prepare-registry) below.
 
-
-### <a id='prerequisites-air-gapped'></a> Prerequisites in an Air-Gapped Environment
-
-Before you install and configure the <%= vars.windows_runtime_abbr %> tile in an air-gapped environment:
-
-* Complete the steps in [Prepare a Windows Rootfs Image in a Private Registry](#prepare-registry), below.
-
-* If you are installing <%= vars.windows_runtime_abbr %> in a development environment 
+1. If you are installing <%= vars.windows_runtime_abbr %> in a development environment 
 and you plan to use a placeholder or dummy SSL certificate, 
 see [(Optional) Disable SSL Verification for a Development Environment](#prerequisite-tests) above. 
-
+ 
+1. Complete the steps in [Install the Tile](#install) above with the following exceptions:
+    * To add the Windows Server container base image to the product file, 
+    replace step 4's internet-enabled `winfs-injector` command line 
+    with the `winfs-injector` procedure in 
+    [Add the Windows Server Container Base Image to the Product File](#add-win-image-air-gapped) 
+    below.
+1. Configure required settings for the tile. See [Configure the Tile](#config) above.  
+1. Configure resources for the tile. See [Configure Tile Resources](#resources) above.  
+1. Upload the Windows stemcell to the tile. See [Upload the Stemcell](#stemcells) above.  
+1. Deploy the tile. See [Deploy the Tile](#deploy) above. 
 
 ### <a id='prepare-registry'></a> Prepare a Windows Rootfs Image in a Private Registry
 
