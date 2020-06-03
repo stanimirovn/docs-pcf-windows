@@ -235,11 +235,13 @@ This is important because your base VM and the clone VM you create share the sam
 
 1. Save the base VM. You run Windows updates on this VM for future stemcells.
 
-1. Make backup snapshots of both your base and target VMs.
-If there is an issue when you run stembuild, use these snapshots to revert to a clean state.
+1. Take snapshots of both your base and target VMs. 
+If there is an issue when you run stembuild, use these snapshots to revert to a clean state. 
+For more information, see 
+[Managing snapshots in vSphere Web Client](https://kb.vmware.com/s/article/2032907#:~:text=To%20take%20a%20snapshot%20in,pool%2C%20host%2C%20or%20vApp.) 
+in the _VMware Knowledge Base_.  
 
-1. Power on the target VM.
-
+1. To start the target VM, click **Power** > **Power On** in the **Actions** tab for your VM.  
 
 ## <a id='construct-stemcell'></a> Step 4: Construct the BOSH Stemcell
 
