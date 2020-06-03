@@ -199,7 +199,7 @@ To configure the base VM network settings and install Windows updates:
 
 1. Enter `A` to search for all updates.
 
-1. For **Select an option**, enter `A` to install all updates. You may need to restart the base VM while installing the updates.
+1. For **Select an option**, enter `A` to install all updates. You might need to restart the base VM while installing the updates.
 
 1. On the **Server Configuration** page, enter `8` for **Network Settings**.
 
@@ -235,7 +235,7 @@ This is important because your base VM and the clone VM you create share the sam
 
 1. Save the base VM. You run Windows updates on this VM for future stemcells.
 
-1. Make backup snapshots of both your base and target VMs. 
+1. Make backup snapshots of both your base and target VMs.
 If there is an issue when you run stembuild, use these snapshots to revert to a clean state.
 
 1. Power on the target VM.
@@ -291,9 +291,9 @@ To create your BOSH stemcell, complete the following tasks:
     `stembuild construct` creates a powered-off target Windows VM in your vSphere environment.
     <br>
     <br>
-    Your `stembuild construct` operation may take up to an hour to complete. 
-    The following is an example of the messages displayed as `stembuild construct` runs 
-    and completes:  
+    Your `stembuild construct` operation may take up to an hour to complete.
+    The following is an example of the messages displayed as `stembuild construct` runs
+    and completes:
     <pre class="terminal">
     2020-01-29T08:52:26.4523812-08:00 Successfully created stemcell version file.
     Finished executing setup script.
@@ -304,7 +304,7 @@ To create your BOSH stemcell, complete the following tasks:
     Stembuild construct has finished running and the VM has now been shutdown. Run 'stembuild package' to finish building the stemcell.
     </pre>
 
-    <p class='note'><strong>Note:</strong> Although the WinRM connection terminates during <code>construct</code> execution, 
+    <p class='note'><strong>Note:</strong> Although the WinRM connection terminates during <code>construct</code> execution,
       <code>construct</code> is still running. Do not attempt to re-run the <code>construct</code> command.
     </p>
 
