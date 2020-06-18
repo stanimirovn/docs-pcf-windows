@@ -415,7 +415,12 @@ To sysprep the system:
 	* `PASSWORD` is an optional flag that enables you to set a password of your choice. Do not use any special character in the password other than `!`. For example, `Example12!` is permitted, but `Example#12` is not. This is a known issue.
 	* `OWNER` and `ORGANIZATION` are optional flags. Set them if your organization requires it.
 	<br><br>
-	The sysprep command powers off the VM.
+
+1. Power off the VM by running:
+
+	```
+	Stop-Computer
+	```
 
 <p class="note warning"><strong>Warning:</strong> Do not turn the VM back on before completing the procedure in <a href="#export-vmdk">Step 6: Export the VMDK File</a>.</p>
 
