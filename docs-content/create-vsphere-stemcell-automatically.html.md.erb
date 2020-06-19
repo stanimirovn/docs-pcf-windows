@@ -3,20 +3,18 @@ title: Creating a Windows Stemcell for vSphere Using stembuild (Beta)
 owner: Windows
 ---
 
-This topic describes how to create a BOSH stemcell for Windows on vSphere.
+This topic describes how to create a BOSH stemcell for Windows on vSphere using stembuild.
 
 
-## <a id='overview'></a> Overview
+## <a name='windows-stemcells'></a> Overview of Windows Stemcell Creation
 
-A BOSH stemcell is a versioned operating system image.
-You must create a BOSH stemcell for Windows before you can deploy the following products on vSphere:
+A BOSH stemcell is a versioned operating system image.  
+
+You must create a BOSH stemcell for Windows before you can deploy 
+the following products on vSphere:
 
 * <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>)
 * Enterprise Pivotal Container Service (Enterprise PKS) with Windows workers in Kubernetes clusters
-
-<p class="note"><strong>Note:</strong> The BOSH stemcell that you create in this topic is based on Windows Server 2019.</p>
-
-### <a name='windows-stemcells'></a> Overview of Windows Stemcell Creation
 
 To create a Windows stemcell for vSphere, you create a base Windows VM from a volume-licensed ISO and subsequently maintain that base template with all Windows-recommended security updates, but without the BOSH dependencies.
 
@@ -26,6 +24,24 @@ Pivotal recommends installing any available critical updates and then rebuilding
 
 If you already have a BOSH stemcell for Windows on vSphere, see [Monthly Stemcell Upgrades](#upgrade-stemcell).
 
+<p class="note"><strong>Note:</strong> The BOSH stemcell that you create in this topic is based on Windows Server 2019.</p>
+
+## <a id='stembuild-overview'></a> Overview of Stembuild
+
+Stembuild is a binary that you use to build BOSH stemcells for Windows Server 2019.   
+
+Stembuild creates a BOSH stemcell from a base Windows image. 
+The stembuild CLI has two commands, construct and package, 
+which you run against a Windows Server 2019 VM with the latest Windows updates. 
+[Step 4: Construct the BOSH Stemcell](#construct-stemcell) 
+and [Step 5: Package the BOSH Stemcell](#package-stemcell) 
+below explain how to run these commands.
+
+Before you can use stembuild, you need to create a Windows Server 2019 VM with the 
+latest Windows updates. 
+[Step 1: Create a Base VM for the BOSH Stemcell](#create-base-vm), 
+[Step 2: Configure the Base VM](#install-windows-updates), and
+[Step 3: Clone the Base VM](#clone-vm) below explain how to prepare the Windows Server 2019 VM.
 
 ## <a id='prerequisites'></a> Prerequisites
 
@@ -199,7 +215,6 @@ To configure the base VM network settings and install Windows updates:
 1. Restart the VM.
 
 1. After the VM restarts, verify that you can ping the IP address you assigned to the base VM.
-
 
 ## <a id='clone-vm'></a> Step 3: Clone the Base VM
 
