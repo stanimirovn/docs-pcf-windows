@@ -280,7 +280,15 @@ To create your BOSH stemcell, complete the following tasks:
 1. To construct the BOSH stemcell, run the following command from the folder where you downloaded the CLI:
 
     ```
-    ./STEMBUILD-BINARY construct -vm-ip 'TARGET-VM-IP' -vm-username TARGET-USERNAME -vm-password 'TARGET-VM-PASSWORD' -vcenter-url VCENTER-URL -vcenter-username VCENTER-USERNAME -vcenter-password 'VCENTER-PASSWORD' -vm-inventory-path 'INVENTORY-PATH'
+    ./STEMBUILD-BINARY construct  ^
+      -vm-ip 'TARGET-VM-IP'  ^
+      -vm-username TARGET-USERNAME  ^
+      -vm-password 'TARGET-VM-PASSWORD'  ^
+      -vcenter-url VCENTER-URL  ^
+      -vcenter-username VCENTER-USERNAME  ^
+      -vcenter-password 'VCENTER-PASSWORD'  ^
+      -vm-inventory-path 'INVENTORY-PATH'  ^
+      -vcenter-ca-certs 'CUSTOM-CERTS-PATH'  
     ```
 
     Where:
@@ -292,6 +300,10 @@ To create your BOSH stemcell, complete the following tasks:
     * `VCENTER-USERNAME` is the username of your account in vCenter.
     * `VCENTER-PASSWORD` is your password. The password must be enclosed in single quotes.
     * `INVENTORY-PATH` is the vCenter inventory path to the target VM.
+    * `CUSTOM-CERTS-PATH` is the file path to custom CA certificates 
+    for the destination vCenter. The `-vcenter-ca-certs` flag is optional. 
+    For more information, see [Authentication Using CA Certificates](#authenticate-using-certs) 
+    below.
 
     For example:
     <pre class="terminal">
@@ -359,7 +371,13 @@ To package the BOSH stemcell:
 1. To package the BOSH stemcell, run the following PowerShell command from your local host:
 
     ```
-    ./STEMBUILD-BINARY package -vcenter-url VCENTER-URL -vcenter-username VCENTER-USERNAME -vcenter-password VCENTER-PASSWORD -vm-inventory-path INVENTORY-PATH
+    ./STEMBUILD-BINARY package ^
+      -vcenter-url VCENTER-URL ^
+      -vcenter-username VCENTER-USERNAME ^
+      -vcenter-password VCENTER-PASSWORD ^
+      -patch-version PATCH-VERSION ^
+      -vm-inventory-path 'INVENTORY-PATH'  ^
+      -vcenter-ca-certs 'CUSTOM-CERTS-PATH'
     ```
     Where:
     * `STEMBUILD-BINARY` is the `stembuild` file for the version of your local host operating system and the
@@ -368,6 +386,10 @@ To package the BOSH stemcell:
     * `VCENTER-USERNAME` is the username of your account in vCenter.
     * `VCENTER-PASSWORD` is your password. The password must be enclosed in single quotes.
     * `INVENTORY-PATH` is the vCenter inventory path to the target VM.
+    * `CUSTOM-CERTS-PATH` is the file path to custom CA certificates 
+    for the destination vCenter. The `-vcenter-ca-certs` flag is optional. 
+    For more information, see [Authentication Using CA Certificates](#authenticate-using-certs) 
+    below.
     <p class='note'><strong>Note:</strong> This command creates a stemcell on your local host in the folder where you ran the command and might take up to 30 minutes to complete.</p>
 
 For more information about `stembuild package`, see [stembuild package](https://github.com/cloudfoundry-incubator/stembuild#stembuild-package) in the Cloud Foundry stembuild GitHub repository.
@@ -455,21 +477,74 @@ For example:
 * For **Linux**:
 
     ```
-    ./STEMBUILD-BINARY package -vcenter-url VCENTER-URL -vcenter-username 'admin@' -vcenter-password VCENTER-PASSWORD -vm-inventory-path INVENTORY-PATH
+    ./STEMBUILD-BINARY package \
+      -vcenter-url VCENTER-URL \
+      -vcenter-username 'admin@' \
+      -vcenter-password VCENTER-PASSWORD \
+      -patch-version PATCH-VERSION \
+      -vm-inventory-path 'INVENTORY-PATH' \
+      -vcenter-ca-certs 'CUSTOM-CERTS-PATH'
     ```
     Where:
     * `STEMBUILD-BINARY` is the `stembuild` file for the version of your local host operating system and the version of the stemcell that you want to build. For example, `stembuild-windows-2019-2`.
     * `VCENTER-URL` is the URL of your vCenter.
     * `VCENTER-PASSWORD` is your password. The password must be enclosed in single quotes.
     * `INVENTORY-PATH` is the vCenter inventory path to the target VM.
+    * `CUSTOM-CERTS-PATH` is the file path to custom CA certificates 
+    for the destination vCenter. The `-vcenter-ca-certs` flag is optional. 
+    For more information, see [Authentication Using CA Certificates](#authenticate-using-certs) 
+    below.
 
 * For **Windows**:
 
     ```
     set GOVC_PASSWORD=A_Strange!PAssword@Here#1
-    ./STEMBUILD-BINARY package -vcenter-url VCENTER-URL -vcenter-username %GOVC_USERNAME% -vcenter-password %GOVC_PASSWORD% -vm-inventory-path %GOVC_PATH%
+    ./STEMBUILD-BINARY package ^
+      -vcenter-url VCENTER-URL ^
+      -vcenter-username %GOVC_USERNAME% ^
+      -vcenter-password %GOVC_PASSWORD% ^
+      -patch-version PATCH-VERSION ^
+      -vm-inventory-path %GOVC_PATH% ^
+      -vcenter-ca-certs 'CUSTOM-CERTS-PATH'
     ```
     Where:
     * `STEMBUILD-BINARY` is the `stembuild` file for the version of your local host operating system and the version of the stemcell that you want to build. For example, `stembuild-windows-2019-2`.
     * `VCENTER-URL` is the URL of your vCenter.
+    * `PATCH-VERSION` is the patch version for the stemcell being built.
+    `PATCH-VERSION` can be specified as an unquoted version name, for example `2019.12.3`,
+    or as a quoted patch number, for example `“3”`.
+    * `CUSTOM-CERTS-PATH` is the file path to custom CA certificates 
+    for the destination vCenter. The `-vcenter-ca-certs` flag is optional. 
+    For more information, see [Authentication Using CA Certificates](#authenticate-using-certs) 
+    below.
     <p class="note"><strong>Note:</strong> Windows environment variables do not automatically override vCenter command line parameters, so you must specify the environment variables in the vCenter command as shown above.</p>
+
+### <a id='authenticate-using-certs'></a> Authenticate into a Destination vCenter Using CA Certificates
+
+**Symptom**
+
+You are running `stembuild` from a location outside of your destination vCenter 
+and `stembuild` is unable to authenticate.
+
+**Explanation**
+
+You are running stembuild from a location with different vCenter permissions than your 
+target VM.
+
+**Solution**
+
+You must provide `stembuild` with the CA certificates needed to authenticate into 
+your destination vCenter.
+
+To stage CA certificates for `stembuild` to use to access a target VM 
+in the destination vCenter:  
+
+1. Open your destination vCenter's homepage.  
+1. Go to the bottom of the grey box on the right side of the vCenter homepage.  
+1. Select **Download trusted root CA certificates**.  
+1. Copy the downloaded CA certificates to a path accessible to `stembuild`.  
+
+To use the staged CA certificates with `stembuild`, include the optional `-vcenter-ca-certs` 
+flag in your `stembuild` command as shown in the example `construct` and `package` 
+command lines above. 
+
