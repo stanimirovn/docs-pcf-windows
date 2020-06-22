@@ -33,12 +33,12 @@ Stembuild is a binary that you use to build BOSH stemcells for Windows Server 20
 
 Stembuild creates a BOSH stemcell from a base Windows image. 
 The stembuild CLI has two commands, construct and package, 
-which you run against a Windows Server 2019 VM with the latest Windows updates. 
+which you run against a Windows Server 2019 VM. 
 [Step 4: Construct the BOSH Stemcell](#construct-stemcell) 
 and [Step 5: Package the BOSH Stemcell](#package-stemcell) 
 below explain how to run these commands.
 
-Before you can use stembuild, you need to create a Windows Server 2019 VM with the 
+Before using stembuild to create a stemcell, you need to create a Windows Server 2019 VM and update the VM with the 
 latest Windows updates. 
 [Step 1: Create a Base VM for the BOSH Stemcell](#create-base-vm), 
 [Step 2: Configure the Base VM](#install-windows-updates), and
@@ -192,6 +192,9 @@ To install VMware Tools on the base VM:
 
 
 ## <a id='install-windows-updates'></a> Step 2: Configure the Base VM
+
+Install all the Windows Server updates so that you have the latest, most secure, 
+version of the Windows Server operating system.  
 
 To configure the base VM network settings and install Windows updates:
 
