@@ -5,15 +5,18 @@ owner: Windows
 
 This topic describes how to create a BOSH stemcell for Windows on vSphere.
 
-<p class="note"><strong>Note:</strong> The instructions in this topic are based on vSphere 6.0 using vSphere Web Client.</p>
-
-
+  <p class="note"><strong>NOTE</strong>: Manual Stemcell creation has been deprecated. 
+    Use <code>stembuild</code> v2019.23 or later to create stemcells automatically.
+  </p>
+  
 ## <a id='overview'></a> Overview
 
 You must create a BOSH stemcell for Windows before you can deploy the following products on vSphere:
 
 * <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>)
 * Enterprise Pivotal Container Service (Enterprise PKS) with Windows workers in Kubernetes clusters
+
+The instructions in this topic are based on vSphere 6.0 using vSphere Web Client.
 
 <p class="note"><strong>Note:</strong> A BOSH stemcell is a versioned operating system image. The BOSH stemcell that you create in this topic is based on Windows Server 2019.</p>
 
