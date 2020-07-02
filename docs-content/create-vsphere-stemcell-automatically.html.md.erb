@@ -6,7 +6,7 @@ owner: Windows
 This topic describes how to create a BOSH stemcell for Windows on vSphere using stembuild.
 
 
-## <a name='windows-stemcells'></a> Overview of Windows Stemcell Creation
+## <a id='windows-stemcells'></a> Overview of Windows Stemcell Creation
 
 A BOSH stemcell is a versioned operating system image.  
 
@@ -16,16 +16,20 @@ the following products on vSphere:
 * <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>)
 * <%= vars.k8s_runtime_full %> (<%= vars.k8s_runtime_abbr %>) with Windows workers in Kubernetes clusters
 
-To create a Windows stemcell for vSphere, you create a base Windows VM from a volume-licensed ISO and subsequently maintain that base template with all Windows-recommended security updates, but without the BOSH dependencies.
+To create a Windows stemcell for vSphere, you create a base Windows VM from a volume-licensed ISO and subsequently maintain that base template with all Windows-recommended security updates, but without the BOSH dependencies.  
 
 The Windows VM with security updates serves as the base for all future stemcells produced from clones of that base VM. This enables you to build new stemcells without having to run Windows updates from scratch each time. You can also use a "snapshot" feature to maintain an updated Windows image that does not contain the BOSH dependencies.
 
 VMware recommends installing any available critical updates and
 then rebuilding the stemcell from a clone of the original VM.
 
-If you already have a BOSH stemcell for Windows on vSphere, see [Monthly Stemcell Upgrades](#upgrade-stemcell).
+The BOSH stemcell that you create in this topic is based on Windows Server 2019. 
+If you already have a BOSH stemcell for Windows on vSphere, see [Monthly Stemcell Upgrades](#upgrade-stemcell).  
 
-<p class="note"><strong>Note:</strong> The BOSH stemcell that you create in this topic is based on Windows Server 2019.</p>
+For more information, see 
+[Best Practices for Stembuild for Tanzu Application Service & Tanzu Kubernetes Grid Integrated Edition]
+(https://tanzu.vmware.com/content/practitioners/best-practices-for-stembuild-for-tanzu-application-service-tanzu-kubernetes-grid-integrated-edition) 
+in _VMware Tanzu Tech Tutorials_. 
 
 ## <a id='stembuild-overview'></a> Overview of Stembuild
 
@@ -420,7 +424,7 @@ To upgrade your BOSH stemcell:
 
 ## <a id='known-issues'></a> Known Issues
 
-### <a id='special-characters'></a> Authentication Error with Special Characters in stembuild Commands
+### <a name='special-characters'></a> Authentication Error with Special Characters in stembuild Commands
 
 **Symptom**
 
@@ -516,7 +520,7 @@ For example:
 
     <p class="note"><strong>Note:</strong> Windows environment variables do not automatically override vCenter command line parameters, so you must specify the environment variables in the vCenter command as shown above.</p>
 
-### <a id='authenticate-using-certs'></a> Authenticate into a Destination vCenter Using CA Certificates
+### <a name='authenticate-using-certs'></a> Authenticate into a Destination vCenter Using CA Certificates
 
 **Symptom**
 
