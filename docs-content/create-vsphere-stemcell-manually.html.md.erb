@@ -59,6 +59,7 @@ As part of completing the procedures in this topic, you download the following f
 * [ovftool](https://www.vmware.com/support/developer/ovf/).
 
 * [stembuild](https://github.com/pivotal-cf-experimental/stembuild/releases).
+<<<<<<< HEAD
     * To build a Windows stemcell for <%= vars.product_windows %>, use the latest release of `stembuild`.
     * To build a Windows stemcell for Enterprise PKS:
         * For Enterprise PKS v1.6, use the vSphere `stembuild` CLI for Windows version 2019.7 or later.
@@ -67,6 +68,17 @@ As part of completing the procedures in this topic, you download the following f
         * For Enterprise PKS v1.5.0 or v1.5.1, use the vSphere `stembuild` CLI for Windows version 2019.7.
     <p class="note"><strong>Note:</strong> You must choose a stemcell version to build. Stemcells are versioned as MAJOR.MINOR, such as 2019.9.</p>
     For more information about 2019 stemcells, see [Stemcell v2019.x (Windows Server 2019) Release Notes](https://docs.pivotal.io/platform/stemcells/windows-stemcell-v2019x.html).
+=======
+    <p class="note"><strong>Note:</strong> You must choose a stemcell version to build. Stemcells are versioned as MAJOR.MINOR, such as 2019.9.</p>
+    * To build a Windows stemcell for <%= vars.windows_runtime_abbr %>, use the latest release of `stembuild`.
+    * To build a Windows stemcell for <%= vars.k8s_runtime_abbr %>, use a Windows stemcell and `stembuild` CLI version listed as compatible
+    in the **Product Snapshot** table in the release notes for your <%= vars.k8s_runtime_abbr %> version:
+      - **<%= vars.k8s_runtime_abbr %> v1.8**: [Release Notes](https://docs.pivotal.io/tkgi/1-8/release-notes.html)
+      - **PKS v1.7**: [Release Notes](https://docs.pivotal.io/pks/1-7/release-notes.html)
+      - **PKS v1.6**: [Release Notes](https://docs.pivotal.io/pks/1-6/release-notes.html)
+
+      For more information about 2019 stemcells, see [Stemcell v2019.x (Windows Server 2019) Release Notes](https://docs.pivotal.io/platform/stemcells/windows-stemcell-v2019x.html).
+>>>>>>> f67d89e... [#173205456] Product Snapshot pointers not specific stemcell version for PKS/TKGI
 
 ### <a id='windows-vm'></a> Files on Windows VM
 
