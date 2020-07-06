@@ -59,6 +59,7 @@ Before you create a BOSH stemcell for Windows on vSphere, you must have:
 * An ISO for a Windows Server 2019 Server Core installation, build number: 17763, from [Microsoft Developer Network (MSDN)](https://msdn.microsoft.com/en-us) or [Microsoft Volume Licensing Service Center (VLSC)](https://www.microsoft.com/Licensing/servicecenter/default.aspx). The Windows Server 2019 ISO must be a clean, base ISO file. You can use an evaluation copy for testing, but Pivotal does not recommend an evaluation copy for production, as the licensing expires. For more information, see the [Windows Server documentation](https://docs.microsoft.com/en-us/windows-server/get-started-19/get-started-19) or the [Microsoft Volume Licensing Service Center](https://www.microsoft.com/Licensing/servicecenter/default.aspx) website.
     <p class="note"><strong>Note:</strong> A clean ISO file has no custom scripts or tooling. For example, the ISO must have no logging or antivirus tools installed.</p>
 
+<<<<<<< HEAD
 * A download of the `stembuild` command line interface (CLI) from a 2019.x release in [Stemcells (Windows)](https://network.pivotal.io/products/stemcells-windows-server) on Pivotal Network.
     * To build a Windows stemcell for <%= vars.windows_runtime_abbr %>, use the `stembuild` CLI for Windows corresponding to both the operating system of your local host and the stemcell version that you want to build.
     * To build a Windows stemcell for Enterprise PKS:
@@ -84,6 +85,17 @@ Before you create a BOSH stemcell for Windows on vSphere, you must have:
           <td>2019.7</td>
         </tr>
       </table>
+=======
+* A download of the `stembuild` command line interface (CLI) from a 2019.x release in [Stemcells
+  (Windows)](https://network.pivotal.io/products/stemcells-windows-server) on <%= vars.product_network %>.
+    * To build a Windows stemcell for <%= vars.windows_runtime_abbr %>, use the vSphere `stembuild` CLI for Windows corresponding to both the operating system of your local host and the stemcell version that you want to build.
+    * To build a Windows stemcell for <%= vars.k8s_runtime_abbr %>, use a Windows stemcell and `stembuild` CLI version listed as compatible
+    in the **Product Snapshot** table in the release notes for your <%= vars.k8s_runtime_abbr %> version:
+      - **<%= vars.k8s_runtime_abbr %> v1.8**: [Release Notes](https://docs.pivotal.io/tkgi/1-8/release-notes.html)
+      - **PKS v1.7**: [Release Notes](https://docs.pivotal.io/pks/1-7/release-notes.html)
+      - **PKS v1.6**: [Release Notes](https://docs.pivotal.io/pks/1-6/release-notes.html)
+
+>>>>>>> 11f9f47... [#173205456] Product Snapshot pointers not specific stemcell version for PKS/TKGI
 
 * Microsoft [Local Group Policy Object Utility (LGPO)](https://www.microsoft.com/en-us/download/details.aspx?id=55319) downloaded to the same folder as your `stembuild` CLI.
 
