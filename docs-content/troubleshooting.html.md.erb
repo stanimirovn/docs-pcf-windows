@@ -320,57 +320,85 @@ Cell. Verify the configuration of your Consul cluster and ensure that your certi
 missing or misconfigured.
 
 
-## <a id='compilation_vms'></a> Troubleshooting Windows Compilation VMs
+## <a id='compilation_vms'></a> Troubleshoot Windows Compilation VMs
 
-To access a compilation VM for diagnostics on a vSphere environment when using Windows stemcell 2019.7+:
+To access a compilation VM for diagnostics on a vSphere environment when using Windows stemcell v2019.7 and later:
 
-1. Enable the two following settings in Operations Manager (Ops Manager):
+1. Open the vSphere UI.  
 
-   * BOSH director tile > Director config > select "Keep Unreachable Director VMs"
-   * <%= vars.windows_runtime_abbr %> tile > VM options > select "enable BOSH-native SSH support on all VMs"
+1. Open two different BOSH CLI terminal sessions.  
 
-1. Open two different BOSH CLI terminals and open the vSphere GUI. Click "Apply Changes" in Ops manager. It's important to have the terminals and vSphere GUI open as you will need to act quick. You may have only a few minutes for the compilation VM to fail before BOSH automatically deletes the compilation VM.
+1. Open <%= vars.ops_manager %>.  
+<p class="note"><strong>Note:</strong> BOSH automatically deletes the compilation VM after the compilation VM to fails. 
+  Use the open terminal sessions and vSphere UI to quickly troubleshoot the root cause of failure 
+  before the compilation VM is deleted.
+</p>
+1. Enable the two following settings in <%= vars.ops_manager %>:
+    * **BOSH Director** tile > **Director config**. 
+    Select **Keep Unreachable Director VMs**.
+    * **<%= vars.windows_runtime_abbr %>** tile > **VM options**. 
+    Select **enable BOSH-native SSH support on all VMs**.  
+1. Click "Apply Changes" against the <%= vars.windows_runtime_abbr %> tile.
+1. Monitor the BOSH task from the first BOSH CLI terminal by running this command:  
 
-1. Monitor the BOSH task running after clicking "Apply Changes" against the <%= vars.windows_runtime_abbr %> tile and keep an eye out for the compilation VM CID to come up. Do this on the first BOSH CLI terminal, by running this command:
+      ```
+      watch -n 5 "bosh -d TAS-WINDOWS-DEPLOYMENT is --details | grep compilation"
+      ```
 
-      ```watch -n 5 "bosh -d <pas-windows-deployment> is --details | grep compilation"```
+      Where `TAS-WINDOWS-DEPLOYMENT` is the name of your TAS for VMs [Windows] deployment.
 
-1. Once the Windows compilation VM CID comes up, SSH to the Windows compilation VM on the second BOSH CLI terminal:
+1. Wait until the compilation VM CID is up.
 
-   ```bosh -d <pas-windows-deployment> ssh <compilation_name>```
+1. On the second BOSH CLI terminal, SSH to the Windows compilation VM:
 
-You can do troubleshooting in this session, but before proceeding with that, you will need to prevent the compilation VM from being deleted by BOSH after it fails.
+    ```
+    bosh -d TAS-WINDOWS-DEPLOYMENT ssh COMPILATION-NAME
+    ```
+    Where:
+    * `TAS-WINDOWS-DEPLOYMENT` is the name of your TAS for VMs [Windows] deployment.
+    * `COMPILATION-NAME` is the name of your  Windows compilation VM.  
 
-1. Search for the compilation VM CID in the vSphere GUI and rename it.
+1. To prevent BOSH from deleting the compilation VM after the compilation VM fails, 
+search for the compilation VM CID in the vSphere UI and rename it.
 
-1. After you have finished troubleshooting, you will need to delete the VM manually.
+1. You can now troubleshoot within this session.  
+
+1. After you have finished troubleshooting, delete the VM manually.  
 
 **Alternate solution**
 
-In some situations, the VM may be deleted very quickly after it has been assigned a CID, making it impossible to successfully `bosh ssh` to the VM before it is deleted. If this happens, you can try this approach to inspect the filesystem contents:
+In some situations, the VM might be deleted very quickly after it has been assigned a CID, 
+making it impossible to successfully `bosh ssh` to the VM before it is deleted. 
+If this happens, you can try this approach to inspect the file system contents:
 
 1. Download a Ubuntu desktop image (http://releases.ubuntu.com/xenial/) and upload it into your vSphere datastore
 
-1. Enable the two following settings in Operations Manager (Ops Manager):
+1. Enable the two following settings in <%= vars.ops_manager %>:
 
-   * BOSH director tile > Director config > select "Keep Unreachable Director VMs"
+   * BOSH Director tile > Director config > select "Keep Unreachable Director VMs"
    * <%= vars.windows_runtime_abbr %> tile > VM options > select "enable BOSH-native SSH support on all VMs"
 
-1. Open two different BOSH CLI terminals and open the vSphere GUI. Click "Apply Changes" in Ops manager. It's important to have the terminals and vSphere GUI open as you will need to act quick. You may have only a few minutes for the compilation VM to fail before BOSH automatically deletes the compilation VM.
+1. Open two different BOSH CLI terminals and open the vSphere UI. Click "Apply Changes" in Ops manager. It's important to have the terminals and vSphere GUI open as you will need to act quick. You may have only a few minutes for the compilation VM to fail before BOSH automatically deletes the compilation VM.
 
 1. Monitor the BOSH task running after clicking "Apply Changes" against the <%= vars.windows_runtime_abbr %> tile and keep an eye out for the compilation VM CID to come up. Do this on the first BOSH CLI terminal, by running this command:
 
       ```watch -n 5 "bosh -d <pas-windows-deployment> is --details | grep compilation"```
 
-1. Search for the compilation VM CID in the vSphere GUI and rename it.
+1. Search for the compilation VM CID in the vSphere UI and rename it.
 
-1.   From the vSphere GUI, on the Windows compilation VM, go to Edit settings > add a device CD/DVD drive > browse Datastore ISO file and select the Ubuntu desktop iso -> select the box "Connect at Power ON"
+1. From the vSphere UI, on the Windows compilation VM, go to **Edit settings** > **add a device CD/DVD drive** > 
+**browse Datastore ISO file**, and select the Ubuntu desktop iso -> select **Connect at Power ON**.
 
-1. Go to Edit settings -> VM options tab -> Boot Options -> increase the Boot Delay to 10000 milliseconds and select Force BIOS Setup
+1. Go to **Edit settings** -> **VM options** tab -> **Boot Options**.
 
-1. Start/Restart the VM. On the BIOS setup screen, boot with the CD-ROM Drive
+1. Increase the Boot Delay to 10000 milliseconds.
+1. Select **Force BIOS Setup**.
 
-1. Ubuntu desktop will start, select "try Ubuntu" and launch a terminal. In the terminal run the following commands:
+1. Start/Restart the VM. On the BIOS setup screen, boot with the CD-ROM Drive.
+
+1. After Ubuntu desktop starts, select **try Ubuntu** and launch a terminal. 
+
+1. In the terminal, run:
 
    ```
    sudo fdisk -l
@@ -378,6 +406,6 @@ In some situations, the VM may be deleted very quickly after it has been assigne
    sudo mount /dev/sda1 /mnt/windows
    ```
 
-    You can then explore the contents of the windows VM filesystem within `/mnt/windows`
+1. Explore the contents of the windows VM files system within `/mnt/windows`
 
-1. After you have finished troubleshooting, you will need to delete the VM manually.
+1. After troubleshooting, delete the VM manually.
