@@ -327,19 +327,18 @@ To access a compilation VM for diagnostics on a vSphere environment when using W
 1. Open the vSphere UI.  
 
 1. Open two different BOSH CLI terminal sessions.  
-
-1. Open <%= vars.ops_manager %>.  
 <p class="note"><strong>Note:</strong> BOSH automatically deletes the compilation VM after the compilation VM to fails. 
   Use the open terminal sessions and vSphere UI to quickly troubleshoot the root cause of failure 
   before the compilation VM is deleted.
 </p>
+1. Open <%= vars.ops_manager %>.  
 1. Enable the two following settings in <%= vars.ops_manager %>:
-    * **BOSH Director** tile > **Director config**. 
-    Select **Keep Unreachable Director VMs**.
-    * **<%= vars.windows_runtime_abbr %>** tile > **VM options**. 
-    Select **enable BOSH-native SSH support on all VMs**.  
-1. Click "Apply Changes" against the <%= vars.windows_runtime_abbr %> tile.
-1. Monitor the BOSH task from the first BOSH CLI terminal by running this command:  
+    * Select **Keep Unreachable Director VMs** from 
+    **BOSH Director** tile > **Director config**. 
+    * Select **enable BOSH-native SSH support on all VMs** from 
+    **<%= vars.windows_runtime_abbr %>** tile > **VM options**. 
+1. Click **Apply Changes** against the <%= vars.windows_runtime_abbr %> tile.
+1. From the first BOSH CLI terminal, monitor the BOSH task:  
 
       ```
       watch -n 5 "bosh -d TAS-WINDOWS-DEPLOYMENT is --details | grep compilation"
@@ -349,7 +348,7 @@ To access a compilation VM for diagnostics on a vSphere environment when using W
 
 1. Wait until the compilation VM CID is up.
 
-1. On the second BOSH CLI terminal, SSH to the Windows compilation VM:
+1. From the second BOSH CLI terminal, SSH to the Windows compilation VM:
 
     ```
     bosh -d TAS-WINDOWS-DEPLOYMENT ssh COMPILATION-NAME
@@ -363,7 +362,7 @@ search for the compilation VM CID in the vSphere UI and rename it.
 
 1. You can now troubleshoot within this session.  
 
-1. After you have finished troubleshooting, delete the VM manually.  
+1. After troubleshooting, delete the VM manually.  
 
 **Alternate solution**
 
