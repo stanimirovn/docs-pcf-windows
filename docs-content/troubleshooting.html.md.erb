@@ -318,3 +318,66 @@ cluster and has a staus of `alive`. Otherwise, your Windows Diego Cell cannot co
 <%= vars.platform_name %> deployment and developers cannot push .NET apps to the Windows Diego
 Cell. Verify the configuration of your Consul cluster and ensure that your certificates are not
 missing or misconfigured.
+
+
+## <a id='compilation_vms'></a> Troubleshooting Windows Compilation VMs
+
+To access a compilation VM for diagnostics on a vSphere environment when using Windows stemcell 2019.7+:
+
+1. Enable the two following settings in Operations Manager (Ops Manager):
+
+   * BOSH director tile > Director config > select "Keep Unreachable Director VMs"
+   * <%= vars.windows_runtime_abbr %> tile > VM options > select "enable BOSH-native SSH support on all VMs"
+
+1. Open two different BOSH CLI terminals and open the vSphere GUI. Click "Apply Changes" in Ops manager. It's important to have the terminals and vSphere GUI open as you will need to act quick. You may have only a few minutes for the compilation VM to fail before BOSH automatically deletes the compilation VM.
+
+1. Monitor the BOSH task running after clicking "Apply Changes" against the <%= vars.windows_runtime_abbr %> tile and keep an eye out for the compilation VM CID to come up. Do this on the first BOSH CLI terminal, by running this command:
+
+      ```watch -n 5 "bosh -d <pas-windows-deployment> is --details | grep compilation"```
+
+1. Once the Windows compilation VM CID comes up, SSH to the Windows compilation VM on the second BOSH CLI terminal:
+
+   ```bosh -d <pas-windows-deployment> ssh <compilation_name>```
+
+You can do troubleshooting in this session, but before proceeding with that, you will need to prevent the compilation VM from being deleted by BOSH after it fails.
+
+1. Search for the compilation VM CID in the vSphere GUI and rename it.
+
+1. After you have finished troubleshooting, you will need to delete the VM manually.
+
+**Alternate solution**
+
+In some situations, the VM may be deleted very quickly after it has been assigned a CID, making it impossible to successfully `bosh ssh` to the VM before it is deleted. If this happens, you can try this approach to inspect the filesystem contents:
+
+1. Download a Ubuntu desktop image (http://releases.ubuntu.com/xenial/) and upload it into your vSphere datastore
+
+1. Enable the two following settings in Operations Manager (Ops Manager):
+
+   * BOSH director tile > Director config > select "Keep Unreachable Director VMs"
+   * <%= vars.windows_runtime_abbr %> tile > VM options > select "enable BOSH-native SSH support on all VMs"
+
+1. Open two different BOSH CLI terminals and open the vSphere GUI. Click "Apply Changes" in Ops manager. It's important to have the terminals and vSphere GUI open as you will need to act quick. You may have only a few minutes for the compilation VM to fail before BOSH automatically deletes the compilation VM.
+
+1. Monitor the BOSH task running after clicking "Apply Changes" against the <%= vars.windows_runtime_abbr %> tile and keep an eye out for the compilation VM CID to come up. Do this on the first BOSH CLI terminal, by running this command:
+
+      ```watch -n 5 "bosh -d <pas-windows-deployment> is --details | grep compilation"```
+
+1. Search for the compilation VM CID in the vSphere GUI and rename it.
+
+1.   From the vSphere GUI, on the Windows compilation VM, go to Edit settings > add a device CD/DVD drive > browse Datastore ISO file and select the Ubuntu desktop iso -> select the box "Connect at Power ON"
+
+1. Go to Edit settings -> VM options tab -> Boot Options -> increase the Boot Delay to 10000 milliseconds and select Force BIOS Setup
+
+1. Start/Restart the VM. On the BIOS setup screen, boot with the CD-ROM Drive
+
+1. Ubuntu desktop will start, select "try Ubuntu" and launch a terminal. In the terminal run the following commands:
+
+   ```
+   sudo fdisk -l
+   sudo mkdir /mnt/windows
+   sudo mount /dev/sda1 /mnt/windows
+   ```
+
+    You can then explore the contents of the windows VM filesystem within `/mnt/windows`
+
+1. After you have finished troubleshooting, you will need to delete the VM manually.
