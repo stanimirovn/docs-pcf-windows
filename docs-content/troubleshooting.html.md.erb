@@ -352,7 +352,7 @@ To troubleshoot a compilation VM from an `ssh` session:
     watch -n 5 "bosh -d TAS-WINDOWS-DEPLOYMENT is --details | grep compilation"
     ```
 
-    Where `TAS-WINDOWS-DEPLOYMENT` is the name of your TAS for VMs [Windows] deployment.
+    Where `TAS-WINDOWS-DEPLOYMENT` is the name of your <%= vars.windows_runtime_abbr %> deployment.
 
 1. Wait until the compilation VM CID is up.
 
@@ -362,7 +362,7 @@ To troubleshoot a compilation VM from an `ssh` session:
     bosh -d TAS-WINDOWS-DEPLOYMENT ssh COMPILATION-NAME
     ```
     Where:
-    * `TAS-WINDOWS-DEPLOYMENT` is the name of your TAS for VMs [Windows] deployment.
+    * `TAS-WINDOWS-DEPLOYMENT` is the name of your <%= vars.windows_runtime_abbr %> deployment.
     * `COMPILATION-NAME` is the name of your  Windows compilation VM.  
 
 1. To prevent BOSH from deleting the compilation VM after the compilation VM fails, 
@@ -400,7 +400,7 @@ To troubleshoot a quickly-deleted compilation VM:
     watch -n 5 "bosh -d TAS-WINDOWS-DEPLOYMENT is --details | grep compilation"
     ```
 
-    Where `TAS-WINDOWS-DEPLOYMENT` is the name of your TAS for VMs [Windows] deployment.
+    Where `TAS-WINDOWS-DEPLOYMENT` is the name of your <%= vars.windows_runtime_abbr %> deployment.
 
 1. Wait until the compilation VM CID is up.
 
