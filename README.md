@@ -3,7 +3,7 @@ This repo contains content for PCF for Windows 2016 server (PAS for Windows).
 
 The book repo for this content repo is **docs-book-windows**.
 
-It publishes to https://docs.pivotal.io/platform/application-service-windows/index.html using these pipelines:
+It publishes to https://docs.pivotal.io/application-service-windows/index.html using these pipelines:
 
 + https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-current?group=windows-2-10
 + https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-current?group=windows-2-9
