@@ -691,7 +691,7 @@ This is part of a larger effort to achieve platform parity with Linux VMs by ena
 
 To access Windows VMs, use `bosh ssh`. To enable `bosh ssh` for Windows VM, select **Enable BOSH-native SSH support on all VMs** in the <%= vars.windows_runtime_abbr %> tile.
 
-For more information, see [Configure VMs](https://docs.pivotal.io/application-service-windows/2-7/installing.html#config-vms) in _Installing and Configuring <%= vars.windows_runtime_abbr %>_.  
+For more information, see [Configure VMs](https://docs.pivotal.io/application-service-windows/2-7/installing.html#config-vms) in _Installing and Configuring <%= vars.windows_runtime_abbr %>_.
 
 
 ## <a id='adv-features'></a> New Advanced Features
@@ -713,6 +713,50 @@ You can select three different options to add route integrity and mTLS (mutual T
 * **Router and apps use mutual TLS to verify each other's identity**: This option enables both route integrity and mTLS.
 
 <p class="note"><strong>Note:</strong> This beta feature checks only that the client certificate is signed by the expected CA using mTLS. It does not include Subject Alternative Name (SAN) checks of the presented client certificates.</p>
+
+## <a id='breaking-changes'></a> Breaking Changes
+
+See the following <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>) breaking changes:
+
+### <a id='credhub-interpolate-with-https-win'></a> Incorrect HTTP(S) Proxy Configuration Breaks CredHub Interpolation for Apps in <%= vars.windows_runtime_abbr %> v2.7.15 and Later
+
+In <%= vars.windows_runtime_abbr %> v2.7.15 and later, apps that have an incorrect HTTP(S) Proxy configuration fail to stage or restart due to a CredHub interpolation error.
+
+Before you upgrade to <%= vars.windows_runtime_abbr %> v2.7.15 or later, you must fix the HTTP(S) Proxy configuration of any impacted applications:
+
+1. Determine whether your apps are impacted by following the resolution procedure in [Knowledgebase Article 9305](https://community.pivotal.io/s/article/Credhub-Reference-Can-t-Be-Interpolated-Due-To-Improper-HTTP-S-Proxy-Configuration).
+1. Update all impacted apps to use the recommended proxy settings that are documented in [Configuring Proxy Settings for All Apps](https://docs.pivotal.io/application-service/2-7/operating/config-proxy.html).
+1. Restart modified apps.
+
+### <a id='windows2016'></a> Windows2016 Stack is Deprecated
+
+In <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %>, the `windows2016` stack is deprecated. Before you upgrade to <%= vars.windows_runtime_full %> <%= vars.v_major_version %>, you can migrate any apps that run on the `windows2016` stack to the `windows` stack.
+
+You can migrate your apps from `windows2016` to `windows` using Stack Auditor, a Cloud Foundry CLI plugin. For more information, see [Using the Stack Auditor Plugin](https://docs.pivotal.io/platform/adminguide/stack-auditor.html).
+
+### <a id='rdp'></a> RDP is Not Supported
+
+The **Enable Remote Desktop Protocol** field is removed from the <%= vars.windows_runtime_abbr %> tile. <%= vars.windows_runtime_abbr %> VMs do not support connection through RDP.
+
+Remove references to `.properties.rdp_enabled` in any automated scripts to avoid errors during upgrade.
+
+To access Windows VMs, use `bosh ssh`. To enable `bosh ssh` for Windows VM, select **Enable BOSH-native SSH support on all VMs** in the <%= vars.windows_runtime_abbr %> tile.
+
+For more information, see [Configure VMs](https://docs.pivotal.io/application-service-windows/2-7/installing.html#config-vms) in _Installing and Configuring <%= vars.windows_runtime_abbr %>_.
+
+### <a id='props-changed-pasw'></a> Changed Syslog Properties and Jobs
+
+The following <%= vars.windows_runtime_abbr %> tile properties and jobs have been removed in <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %>:
+
+* Syslog job `syslog_adapter`
+* Syslog job `syslog_scheduler`
+* Syslog property `syslog_metrics_to_syslog_enabled`
+
+Before upgrading to <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %>, you must update any automation scripts to remove or change references to these properties and jobs.
+
+These changes mirror <%= vars.app_runtime_abbr %> tile changes described in [Changed Properties and Jobs](#props-changed).
+
+For more information, see [Agent-Based Syslog Egress Is Enabled by Default](https://docs.pivotal.io/application-service-windows/2-7/release-notes.html#agent-based-syslog-egress) in _<%= vars.windows_runtime_full %> <%= vars.v_major_version %> Release Notes_.
 
 ## <a id='known-issues'></a> Known Issues
 
