@@ -181,16 +181,28 @@ To install VMware Tools on the base VM:
 
 1. In the vSphere Web Client, right-click the base VM and select **Guest OS** > **Install VMware Tools**.
 
-1. Navigate to the `D:` drive and run:
+1. When prompted, choose **Mount**.  
+
+1. Log in to the the VM.  
+
+1. Navigate to the `D:` drive.  
+
+1. To install the VMware Tools, run:
 
     ```
     setup64.exe
     ```
-  	<p class="note"><strong>Note:</strong> The VMware Tools install window might appear behind the Command Prompt window.</p>
 
-1. When prompted, select **Complete**.
+1. Wait for a pop-up dialog.  
 
-1. Restart the VM to complete the installation.
+    <p class="note"><strong>Note:</strong> 
+    The VMware Tools install window might display behind the command line window. 
+    To avoid this, shrink or minimize the command line window while you are waiting. 
+    </p>
+
+1. When prompted, follow the instructions to finish the install.
+
+1. To complete the installation, restart the VM.
 
 
 ## <a id='install-windows-updates'></a> Step 2: Configure the Base VM
