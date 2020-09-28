@@ -171,7 +171,7 @@ See the following portion of an example WSDL file:
 - </wsdl:service>
 ```
 
-The WSDL file provides the port number for the SOAP web service as `62492`. This is the port that the web service listens on in the Garden container, but external apps cannot access the service on this port. Instead, external apps must use port 80, and the Gorouter routes requests to the web service in the container. For more information about the Garden containter, see [Container Mechanics](https://docs.pivotal.io/platform/concepts/container-security.html#mechanics) in _Container Security_. For more information about the Gorouter, see [Gorouter](https://docs.pivotal.io/platform/concepts/architecture/router.html).
+The WSDL file provides the port number for the SOAP web service as `62492`. This is the port that the web service listens on in the Garden container, but external apps cannot access the service on this port. Instead, external apps must use port 80, and the Gorouter routes requests to the web service in the container. For more information about the Garden container, see [Container Mechanics](https://docs.pivotal.io/application-service/<%= product_info['local_product_version'].to_s.sub('.','-') %>/concepts/container-security.html#mechanics) in _Container Security_. For more information about the Gorouter, see [<%= vars.app_runtime_abbr %> Routing Architecture](https://docs.pivotal.io/application-service/<%= product_info['local_product_version'].to_s.sub('.','-') %>/concepts/cf-routing-architecture.html).
 
 The URL of the web service in the WSDL file must be modified to remove `62492`. With no port number, the URL defaults to port 80. In the example above, the modified URL would be `http://webservice.example.com/WebService1.asmx`.
 
