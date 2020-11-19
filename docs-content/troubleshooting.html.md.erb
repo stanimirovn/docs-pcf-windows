@@ -174,103 +174,113 @@ To download Windows cell logs:
 	* `/rep_windows/`
 
 
-## <a id='rdp'></a> Connect to a Windows Diego Cell
+## <a id='compilation_vms'></a> Troubleshoot Windows Compilation VMs
 
-To connect to a Windows Diego Cell to run diagnostics:
+BOSH automatically deletes a compilation VM after the compilation VM fails. 
+In a vSphere environment, use one of the procedures below to troubleshoot your 
+Windows stemcell v2019.7 and later compilation VM issues:
 
-1. Download and install a Remote Desktop Protocol (RDP) client.
-	* For Mac OS X, download the [Microsoft Remote Desktop](https://itunes.apple.com/us/app/microsoft-remote-desktop/id715768417?mt=12) app from the Mac App Store.
-	* For Windows, download the [Microsoft Remote Desktop](https://www.microsoft.com/en-us/store/p/microsoft-remote-desktop/9wzdncrfj3ps) app from Microsoft.
-	* For Linux/UNIX, download a RDP client like [rdesktop](http://www.rdesktop.org/).
+* [Troubleshoot a Slowly-Deleted Windows Compilation VM](#compilation-vms-slow)
+* [Troubleshoot a Quickly-Deleted Windows Compilation VM](#compilation-vms-quick)
 
-1. Follow the procedure in [Log In to BOSH](http://docs.pivotal.io/platform/customizing/trouble-advanced.html#log-in) in _Advanced Troubleshooting with the BOSH CLI_ to log in to your BOSH Director.
-	* The steps vary slightly depending on whether your <%= vars.platform_name %> deployment uses internal authentication or an external user store.
-	* In <%= vars.windows_runtime_abbr %> v2.6 and later, use of the `bosh ssh` command is enabled by default.
+### <a name='compilation-vms-slow'></a> Troubleshoot a Slowly-Deleted Windows Compilation VM
 
-1. Retrieve the IP address of your Windows Diego Cell using the BOSH CLI by running:
+The easiest method to troubleshoot a Windows compilation VM is to 
+`bosh ssh` to the VM before BOSH deletes it. 
+
+To troubleshoot a compilation VM from an `ssh` session:
+
+1. Open the vSphere UI.  
+
+1. Open two different BOSH CLI terminal sessions.  
+1. Open <%= vars.ops_manager %>.  
+1. Enable the two following settings in <%= vars.ops_manager %>:
+    * Select **Keep Unreachable Director VMs** from 
+    **BOSH Director** tile > **Director config**. 
+    * Select **enable BOSH-native SSH support on all VMs** from 
+    **<%= vars.windows_runtime_abbr %>** tile > **VM options**. 
+1. Click **Apply Changes** against the <%= vars.windows_runtime_abbr %> tile.
+1. From the first BOSH CLI terminal, monitor the BOSH task:  
 
     ```
-    bosh -e ENV-NAME -d DEPLOYMENT-NAME
+    watch -n 5 "bosh -d TAS-WINDOWS-DEPLOYMENT is --details | grep compilation"
+    ```
+
+    Where `TAS-WINDOWS-DEPLOYMENT` is the name of your <%= vars.windows_runtime_abbr %> deployment.
+
+1. Wait until the compilation VM CID is up.
+
+1. From the second BOSH CLI terminal, SSH to the Windows compilation VM:
+
+    ```
+    bosh -d TAS-WINDOWS-DEPLOYMENT ssh COMPILATION-NAME
     ```
     Where:
-    * `ENV-NAME` is the alias you assigned to your BOSH Director.
-    * `DEPLOYMENT-NAME` is your deployment's name.
+    * `TAS-WINDOWS-DEPLOYMENT` is the name of your <%= vars.windows_runtime_abbr %> deployment.
+    * `COMPILATION-NAME` is the name of your  Windows compilation VM.  
 
-    For example:
-    <pre class="terminal">
-    c:\Users\admin\> bosh -e my-environ -d garden-windows
-    Using environment '192.0.2.6' as client 'admin'
+1. To prevent BOSH from deleting the compilation VM after the compilation VM fails, 
+search for the compilation VM CID in the vSphere UI and rename it.
 
-    Name               Release(s)       Stemcell(s)    Team(s)  Cloud Config
-    garden-windows     ...              ...            -        latest
-    </pre>
+1. You can now troubleshoot within this session.  
 
-1. Retrieve the administrator password for your Windows Diego Cell by following the steps for your IaaS:
-	* On vSphere, this is the value of `WINDOWS_PASSWORD` in the `consumer-vars.yml` file you used to previously build a stemcell.
-	* On Amazon Web Services (AWS), navigate to the AWS EC2 console. Right-click on your Windows Diego Cell and select **Get Windows Password** from the dropdown. Provide the local path to the `ops_mgr.pem` private key file you used when installing Ops Manager and click **Decrypt password** to obtain the administrator password for your Windows Diego Cell.
-	* On Google Cloud Platform (GCP), navigate to the Compute Engine Dashboard. Under **VM Instances**, select the instance of the Windows VM. At the top of the page, click on **Create or reset Windows password**. When prompted, enter `Administrator` under **Username** and click **Set**. You then receive a one-time password for the Windows Diego Cell.
-	* You cannot RDP into Windows Diego Cells on Azure.
+1. After troubleshooting, delete the VM manually.  
 
-1. Open your RDP client. The examples below use the Microsoft Remote Desktop app.
+### <a name='compilation-vms-quick'></a> Troubleshoot a Quickly-Deleted Windows Compilation VM
 
-1. Click **New** and enter your connection information:
-	<%= image_tag('rdp-connect.png') %>
-	* **Connection name**: Enter a name for this connection.
-	* **PC name**: Enter the IP address of your Windows Dieog Cell.
-	* **User name**: Enter `Administrator`.
-	* **Password**: Enter the password of your Windows Diego Cell that you obtained above.
+In some situations, the Windows compilation VM might be deleted very quickly, 
+making it impossible to `bosh ssh` to the VM before BOSH deletes it. 
 
-1. Mount a directory on your local machine as a drive in the Windows Diego Cell:
-	1. From the same **Edit Remote Desktops** window as above, click **Redirection**.
-	1. Click the plus icon at the bottom left.
-	<%= image_tag('rdp-redirection.png') %>
-	1. For **Name**, enter the name of the drive as it will appear in the Windows Diego Cell. For **Path**, enter the path of the local directory.
-	1. Click **OK**.
+To troubleshoot a quickly-deleted compilation VM:
 
-1. Close the **Edit Remote Desktops** window and double-click the newly added connection under **My Desktops** to open a RDP connection to the Windows Diego Cell.
+1. Download an Ubuntu desktop image from [Ubuntu Releases Xenial](http://releases.ubuntu.com/xenial/).
 
-1. In the RDP session, you can use the Consul CLI to diagnose problems with your Windows Diego Cell. For more information, see [Consul CLI](#consul).
+1. Upload the Ubuntu desktop image into your vSphere datastore.
 
-### <a id='consul'></a> Consul CLI
+1. Open the vSphere UI.  
 
-To use the Consul CLI on your Windows Diego Cell to diagnose problems with your Consul cluster:
+1. Open a BOSH CLI terminal session.  
+1. Open <%= vars.ops_manager %>.  
+1. Enable the two following settings in <%= vars.ops_manager %>:
+    * Select **Keep Unreachable Director VMs** from 
+    **BOSH Director** tile > **Director config**. 
+    * Select **enable BOSH-native SSH support on all VMs** from 
+    **<%= vars.windows_runtime_abbr %>** tile > **VM options**. 
+1. Click **Apply Changes** in <%= vars.ops_manager %>.
 
-1. In your RDP session, open a PowerShell window.
-
-1. Navigate to the directory containing the Consul CLI binary by running:
+1. From the BOSH CLI terminal, monitor the BOSH task:  
 
     ```
-    cd CONSUL-CLI-DIR\bin
+    watch -n 5 "bosh -d TAS-WINDOWS-DEPLOYMENT is --details | grep compilation"
     ```
-    Where `CONSUL-CLI-DIR` is the Consul CLI package's directory path.
-	<br>
-    For example:
-	<pre class="terminal">
-	PS C:\Users\admin\> cd C:\var\vcap\packages\consul-windows\bin\
-	</pre>
 
-1. List the members of your Consul cluster by running:
+    Where `TAS-WINDOWS-DEPLOYMENT` is the name of your <%= vars.windows_runtime_abbr %> deployment.
+
+1. Wait until the compilation VM CID is up.
+
+1. From the vSphere UI:
+    1. Locate the compilation VM CID in the vSphere UI.  
+    1. To prevent BOSH from deleting the compilation VM after the compilation VM fails, 
+    rename the compilation VM.
+    1. On the Windows compilation VM, go to **Edit settings** > **add a device CD/DVD drive** > 
+    **browse Datastore ISO file**, and select the Ubuntu desktop iso -> select **Connect at Power ON**.
+    1. Go to **Edit settings** -> **VM options** tab -> **Boot Options**.
+    1. Increase the **Boot Delay** to `10000 milliseconds`.
+    1. Select **Force BIOS Setup**.
+    1. Select **Start/Restart** to restart the VM. 
+
+1. On the BIOS setup screen, boot with the CD-ROM Drive.
+
+1. After Ubuntu desktop starts, select **try Ubuntu** and launch a terminal. 
+
+1. In the terminal, run:
 
     ```
-    consul.exe members
+    sudo fdisk -l
+    sudo mkdir /mnt/windows
+    sudo mount /dev/sda1 /mnt/windows
     ```
-    For example:
-	<pre class="terminal">
-	PS C:\var\vcap\packages\consul-windows\bin\> consul.exe members
-	Node                       Address          Status  Type    Build  Protocol  DC
-	cell-windows-0             10.0.0.111:8301  alive   client  0.6.4  2         dc1
-	cloud-controller-0         10.0.0.94:8301   alive   client  0.6.4  2         dc1
-	cloud-controller-worker-0  10.0.0.99:8301   alive   client  0.6.4  2         dc1
-	consul-server-0            10.0.0.96:8301   alive   server  0.6.4  2         dc1
-	diego-brain-0              10.0.0.109:8301  alive   client  0.6.4  2         dc1
-	diego-cell-0               10.0.0.103:8301  alive   client  0.6.4  2         dc1
-	diego-cell-1               10.0.0.104:8301  alive   client  0.6.4  2         dc1
-	diego-cell-2               10.0.0.107:8301  alive   client  0.6.4  2         dc1
-	diego-database-0           10.0.0.92:8301   alive   client  0.6.4  2         dc1
-	ha-proxy-0                 10.0.0.254:8301  alive   client  0.6.4  2         dc1
-	nfs-server-0               10.0.0.100:8301  alive   client  0.6.4  2         dc1
-	router-0                   10.0.0.105:8301  alive   client  0.6.4  2         dc1
-	uaa-0                      10.0.0.93:8301   alive   client  0.6.4  2         dc1
-	</pre>
+1. You can now troubleshoot within this session by 
+exploring the contents of the windows VM's file system within `/mnt/windows`
 
-1. Examine the output to ensure that the `cell-windows-0` service is registered in the Consul cluster and is `alive`. Otherwise, your Windows Diego Cell cannot communicate with your <%= vars.platform_name %> deployment and developers cannot push .NET apps to the Windows Diego Cell. Check the configuration of your Consul cluster and ensure that your certificates are not missing or misconfigured.
+1. After troubleshooting, delete the VM manually.
