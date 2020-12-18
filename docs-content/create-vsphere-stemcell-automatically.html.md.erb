@@ -267,6 +267,17 @@ in the _VMware Knowledge Base_.
 
 To create your BOSH stemcell, complete the following tasks:
 
+1. If you are running [govc](https://github.com/vmware/govmomi/tree/master/govc), a CLI for vSphere operations,
+unset any `GOVC_` environment variables before you run `stembuild construct`.<br />
+For each of the following environment variables, run `echo $GOVC_VAR` to record its current setting, and then `export GOVC_VAR=` to temporarily unset it:
+  - `GOVC_USERNAME`
+  - `GOVC_INSECURE`
+  - `GOVC_PASSWORD`
+  - `GOVC_URL`
+
+    **Explanation**: Local `GOVC` parameters that are set to configure `govc` take precedence over
+    command-line parameters that `stembuild construct` passes in to `govc`, which can cause `stembuild construct` to fail.
+
 1. Collect the following information from the vCenter Web Client **Inventory** > **VMs and Templates** tab:
     * Target VM IP address
     * Target VM username
@@ -352,8 +363,10 @@ To create your BOSH stemcell, complete the following tasks:
         Get-Content -Path "C:\provision\log.log" -Wait
         ```
 
-<br>
+1. Restore the values of any `govc` variables you unset previously.
+
 For more information about `stembuild construct`, see [stembuild construct](https://github.com/cloudfoundry-incubator/stembuild#stembuild-construct) in the Cloud Foundry stembuild GitHub repository.
+
 
 ## <a id='package-stemcell'></a> Step 5: Package the BOSH Stemcell
 
