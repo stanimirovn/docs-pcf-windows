@@ -220,34 +220,37 @@ version of the Windows Server operating system.
 
 To configure the base VM network settings and install Windows updates:
 
-1. From the vSphere Web Client, right-click the base VM and select **Open Console**.
+1. From the vSphere Web Client, right-click the base VM and select **Open Remote Console**.
 
 1. On the command line, enter `sconfig` to run the **SConfig** utility.
+
+1. On the **Server Configuration** page, enter `8` for **Network Settings**.
+
+1. On the **Network Settings** page:
+    1. Under **Available Network Adapters**, enter the number that corresponds to your network adapter.
+    1. Enter `1` to set the network adapter address.
+    1. Enter `S` to set a static IP address.
+    1. Enter a static IP address.
+    1. Enter a subnet mask, or leave the field blank to use the default value.
+    1. Enter the default gateway.
+    1. Enter `2` to set a DNS server.
+    1. Enter a DNS server, click OK on the resulting message box.
+    1. Optionally enter a secondary DNS server.
+    1. Enter `4` to return to the main menu.
 
 1. On the **Server Configuration** page, enter `6` for **Download and Install Updates**.
 
 1. Enter `A` to search for all updates.
 
-1. For **Select an option**, enter `A` to install all updates. You might need to restart the base VM while installing the updates.
+1. For **Select an option**, enter `A` to install all updates. You might need to restart the base VM while installing the updates, if so re-run **Download and Install Updates** after reboot until no more updates are found.
 
-1. On the **Server Configuration** page, enter `8` for **Network Settings**.
+1. From the vSphere Web Client select **Actions > Edit Settings** on the VM.
 
-1. On the **Network Settings** page:
-  1. Under **Available Network Adapters**, enter the number that corresponds to your network adapter.
-  1. Enter `1` to set the network adapter address.
-  1. Enter `S` to set a static IP address.
-  1. Enter a static IP address.
-  1. Enter a subnet mask, or leave the field blank to use the default value.
-  1. Enter the default gateway.
-  1. Enter `13` to exit to the command line.
-
-1. From the vSphere Web Client, select **Actions > Edit Settings**.
-
-1. In the **CD/DVD drive 1** row, disable the **Connected** checkbox. Do not remove the CD drive.
+1. In the **CD/DVD drive 1** row disable the **Connected** checkbox. Do not remove the CD/DVD drive.
 
 1. Restart the VM.
 
-1. After the VM restarts, verify that you can ping the IP address you assigned to the base VM.
+1. After the VM restarts verify that you can ping the IP address you assigned to the base VM.
 
 ## <a id='clone-vm'></a> Step 3: Clone the Base VM
 
