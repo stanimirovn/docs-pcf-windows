@@ -29,13 +29,7 @@ To install, configure, and deploy <%= vars.windows_runtime_abbr %>:
 
 ## <a id='prerequisites'></a> Prerequisites
 
-Before you install and configure the <%= vars.windows_runtime_abbr %> tile:
-
-* Ensure that you meet the requirements to use the **Windows FS Injector** tool. For more information, see [Windows FS Injector Prerequisites](#prerequisite-injector).
-
-* If you are installing <%= vars.windows_runtime_abbr %> in a development environment 
-and you plan to use a placeholder or dummy SSL certificate, 
-see [(Optional) Disable SSL Verification for a Development Environment](#prerequisite-tests) below.  
+Before you install and configure the <%= vars.windows_runtime_abbr %> tile, ensure that you meet the requirements to use the **Windows FS Injector** tool. For more information, see [Windows FS Injector Prerequisites](#prerequisite-injector).
 
 ### <a id='prerequisite-injector'></a> Windows FS Injector Prerequisites
 
@@ -55,21 +49,6 @@ You use the **Windows FS Injector** tool to install the <%= vars.windows_runtime
   * [*.msecnd.net](https://msecnd.net), or any domain within the Microsoft Windows Azure Content Delivery Network.
   For more information about the Windows Azure Content Delivery Network, see [Introducing the Windows Azure Content Delivery Network](https://azure.microsoft.com/en-us/blog/introducing-the-windows-azure-content-delivery-network/) in the Microsoft Azure documentation.
   <p class="note"><strong>Note:</strong> To ensure the authenticity of Microsoft container images, Microsoft does not permit the distribution of its base images. This includes Microsoft container images consumed through Docker Hub, which are actually delivered by an Microsoft CDN endpoint.</p>
-
-### <a id='prerequisite-tests'></a> (Optional) Disable SSL Verification for a Development Environment
-
-If your foundation does not use real certificates, you must disable SSL certificate verification for all Windows Diego Cells before you install and configure the <%= vars.windows_runtime_abbr %> tile. If your foundation uses real certificates, you do not need to disable SSL.
-
-<p class="note"><strong>Note:</strong> Only disable SSL certificate verification for development and testing environments that use a placeholder or dummy certificate. Do not disable SSL certificate verification for production environments.</p>
-
-To disable SSL validation on development and testing environments:
-
-1. In the <%= vars.app_runtime_abbr %> tile, select **Networking**.
-
-1. Deselect the **Disable SSL certificate verification for this environment** checkbox.
-
-For more information, see [Terminate SSL/TLS at HAProxy](https://docs.pivotal.io/platform/opsguide/ssl-term-haproxy.html#haproxy) in _Configuring SSL/TLS Termination at HAProxy_.
-
 
 ## <a id='install'></a> Install the Tile
 
@@ -130,9 +109,6 @@ To install the <%= vars.windows_runtime_abbr %> tile:
             address: ((IP address of the syslog server))
             port: ((Port of the syslog server))
             transport: ((tcp or udp))
-            # Optional. If you enabled SSL certificate
-            # verification in PAS, you must configure
-            # `tls_enabled:` and `ca_cert:`.
             tls_enabled: true
             ca_cert: ((TLS CA certificate of the syslog server))
         release: windows-syslog
@@ -393,10 +369,6 @@ To install, configure, and deploy <%= vars.windows_runtime_abbr %> in an air-gap
 
 1. Complete the steps in [Prepare a Windows Rootfs Image in a Private Registry](#prepare-registry) below.
 
-1. If you are installing <%= vars.windows_runtime_abbr %> in a development environment 
-and you plan to use a placeholder or dummy SSL certificate, 
-see [(Optional) Disable SSL Verification for a Development Environment](#prerequisite-tests) above. 
- 
 1. Complete the steps in [Install the Tile](#install) above with the following exceptions:
     * To add the Windows Server container base image to the product file, 
     replace step 4's internet-enabled `winfs-injector` command line 
