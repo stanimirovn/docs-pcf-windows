@@ -1,14 +1,12 @@
-# PAS for Windows
-This repo contains content for PCF for Windows 2016 server (PAS for Windows).
+VMware Tanzu Application Service for VMs [Windows]
+This repository contains content for VMware Tanzu Application Service for VMs [Windows]. This content is published as part of the following documentation set: https://docs.pivotal.io/application-service-windows/
 
-The book repo for this content repo is **docs-book-windows**.
+The book repository that contains publishing metadata for this content is https://github.com/pivotal-cf/docs-book-windows.
 
-It publishes to https://docs.pivotal.io/application-service-windows/index.html using these pipelines:
+Pipelines used to publish this book
 
-+ https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-current?group=windows-2-9
-+ https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-current?group=windows-2-8
-+ https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-previous-versions?group=windows-2-7
-
-
-
-For PCF Runtime for Windows (1.12 and earlier) and PAS for Windows 2012R2 (2.0 and later), see **docs-pcf-windows2012r2**.
+https://runway-ci.eng.vmware.com/teams/mapbu-docs/pipelines/cf-current?group=windows-2-12
+https://runway-ci.eng.vmware.com/teams/mapbu-docs/pipelines/cf-current?group=windows-2-11
+https://runway-ci.eng.vmware.com/teams/mapbu-docs/pipelines/cf-current?group=windows-2-10
+https://runway-ci.eng.vmware.com/teams/mapbu-docs/pipelines/cf-current?group=windows-2-9
+https://runway-ci.eng.vmware.com/teams/mapbu-docs/pipelines/cf-current?group=windows-2-8
