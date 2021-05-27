@@ -21,6 +21,8 @@ or see [New Features in <%= vars.windows_runtime_abbr %> v2.7](#new-features).
 
 **Release Date:** 05/27/2021
 
+When updating with no stemcell change, there may be failures to create containers, causing the deployment to fail. If there are stemcell changes or if the Microsoft base layer changes, this error likely does not occur.  Please see [this KB article](https://community.pivotal.io/s/article/knowledge-base-failure-to-create-containers-when-upgrading-with-shared-microsoft-base-image) for symptoms and resolution.
+
 * **[Feature Improvement]** Patch versions can be upgraded without a stemcell upgrade
 * Bump diego to version `2.50.0`
 * Bump garden-runc to version `1.19.25`
