@@ -10,13 +10,12 @@ This topic contains release notes for <%= vars.windows_runtime_full %> <%= vars.
 ## <a id='releases'></a> Releases
 
 <%# DO NOT DELETE THIS LINE - robots use this to add new release notes %>
- 
+
 ### <a id='2.11.1'></a> 2.11.1
 
 **Release Date:** 05/27/2021
 
-When updating with no stemcell change, there may be failures to create containers, causing the deployment to fail. If there are stemcell changes or if the Microsoft base layer changes, this error likely does not occur.  Please see [this KB article](https://community.pivotal.io/s/article/knowledge-base-failure-to-create-containers-when-upgrading-with-shared-microsoft-base-image) for symptoms and resolution.
-
+* See [Known Issues](#known-issues).
 * **[Feature Improvement]** Patch versions can be upgraded without a stemcell upgrade
 * **[Bug Fix]** Smoke Test allows the operator to provide the apps_domain property when deploying TAS and also properly configures user provided space when deploying an isolation segment
 * Bump diego to version `2.50.0`
@@ -47,8 +46,8 @@ When updating with no stemcell change, there may be failures to create container
     <tr><td>windowsfs-release</td><td>2.26.0</td></tr>
   </tbody>
 </table>
- 
- 
+
+
 
 ### <a id='2.11.0'></a> 2.11.0
 
@@ -98,4 +97,11 @@ There are no breaking changes in this release of <%= vars.windows_runtime_abbr %
 
 ## <a id='known-issues'></a> Known Issues
 
-There are no known issues in this release of <%= vars.windows_runtime_abbr %>.
+See the following <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> known issue:
+
+### <a id='no-stemcell-bump'></a>Upgrades Fail When the Stemcell Does Not Change
+
+If you upgrade to a version of <%= vars.windows_runtime_abbr %> that uses the same stemcell, <%= vars.windows_runtime_abbr %> can fail to create containers, causing the deployment to fail.
+If there are stemcell changes or if the Microsoft base layer changes, this error is unlikely to occur.
+
+For more information, see [Failure to create containers when upgrading with shared Microsoft base image](https://community.pivotal.io/s/article/knowledge-base-failure-to-create-containers-when-upgrading-with-shared-microsoft-base-image) in the VMware Tanzu Knowledge Base.
