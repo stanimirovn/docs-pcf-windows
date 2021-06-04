@@ -5,8 +5,8 @@ owner: Garden Windows
 
 This topic contains release notes for <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>) <%= vars.v_major_version %>.
 
-For the feature highlights of this release, 
-read the blog post [Any company can become a software-driven organization. The new release of Tanzu Application Service gives you the blueprint](https://tanzu.vmware.com/content/blog/any-company-can-become-a-software-driven-organization-the-new-release-of-pivotal-platform-gives-you-the-blueprint) 
+For the feature highlights of this release,
+read the blog post [Any company can become a software-driven organization. The new release of Tanzu Application Service gives you the blueprint](https://tanzu.vmware.com/content/blog/any-company-can-become-a-software-driven-organization-the-new-release-of-pivotal-platform-gives-you-the-blueprint)
 or see [New Features in <%= vars.windows_runtime_abbr %> v2.8](#new-features).
 
 <hr>
@@ -14,13 +14,12 @@ or see [New Features in <%= vars.windows_runtime_abbr %> v2.8](#new-features).
 ## <a id='releases'></a> Releases
 
 <%# DO NOT DELETE THIS LINE - robots use this to add new release notes %>
- 
+
 ### <a id='2.8.25'></a> 2.8.25
 
 **Release Date:** 05/27/2021
 
-When updating with no stemcell change, there may be failures to create containers, causing the deployment to fail. If there are stemcell changes or if the Microsoft base layer changes, this error likely does not occur.  Please see [this KB article](https://community.pivotal.io/s/article/knowledge-base-failure-to-create-containers-when-upgrading-with-shared-microsoft-base-image) for symptoms and resolution.
-
+* See [Known Issues](#known-issues).
 * **[Feature Improvement]** Patch versions can be upgraded without a stemcell upgrade
 * Bump diego to version `2.50.0`
 * Bump garden-runc to version `1.19.25`
@@ -48,9 +47,9 @@ When updating with no stemcell change, there may be failures to create container
     <tr><td>windowsfs-release</td><td>2.25.0</td></tr>
   </tbody>
 </table>
- 
- 
- 
+
+
+
 ### <a id='2.8.24'></a> 2.8.24
 
 **Release Date:** 03/31/2021
@@ -80,9 +79,9 @@ When updating with no stemcell change, there may be failures to create container
     <tr><td>windowsfs-release</td><td>2.23.0</td></tr>
   </tbody>
 </table>
- 
- 
- 
+
+
+
 ### <a id='2.8.23'></a> 2.8.23
 
 
@@ -145,9 +144,9 @@ When updating with no stemcell change, there may be failures to create container
     <tr><td>windowsfs-release</td><td>2.20.0</td></tr>
   </tbody>
 </table>
- 
- 
- 
+
+
+
 ### <a id='2.8.21'></a> 2.8.21
 
 **Release Date:** 11/17/2020
@@ -176,9 +175,9 @@ When updating with no stemcell change, there may be failures to create container
     <tr><td>windowsfs-release</td><td>2.19.0</td></tr>
   </tbody>
 </table>
- 
- 
- 
+
+
+
 ### <a id='2.8.20'></a> 2.8.20
 
 **Release Date:** 11/04/2020
@@ -207,9 +206,9 @@ When updating with no stemcell change, there may be failures to create container
     <tr><td>windowsfs-release</td><td>2.19.0</td></tr>
   </tbody>
 </table>
- 
- 
- 
+
+
+
 ### <a id='2.8.19'></a> 2.8.19
 
 **Release Date:** 10/26/2020
@@ -240,9 +239,9 @@ When updating with no stemcell change, there may be failures to create container
     <tr><td>windowsfs-release</td><td>2.19.0</td></tr>
   </tbody>
 </table>
- 
- 
- 
+
+
+
 ### <a id='2.8.18'></a> 2.8.18
 
 **Release Date:** 10/09/2020
@@ -273,9 +272,9 @@ When updating with no stemcell change, there may be failures to create container
     <tr><td>windowsfs-release</td><td>2.18.0</td></tr>
   </tbody>
 </table>
- 
- 
- 
+
+
+
 ### <a id='2.8.17'></a> 2.8.17
 
 **Release Date:** 09/21/2020
@@ -304,9 +303,9 @@ When updating with no stemcell change, there may be failures to create container
     <tr><td>windowsfs-release</td><td>2.17.0</td></tr>
   </tbody>
 </table>
- 
- 
- 
+
+
+
 ### <a id='2.8.16'></a> 2.8.16
 
 **Release Date:** 09/10/2020
@@ -338,8 +337,8 @@ When updating with no stemcell change, there may be failures to create container
     <tr><td>windowsfs-release</td><td>2.17.0</td></tr>
   </tbody>
 </table>
- 
- 
+
+
 
 ### <a id='2.8.15'></a> 2.8.15
 
@@ -975,4 +974,11 @@ Before you upgrade to <%= vars.windows_runtime_abbr %> v2.8.12 or later, you mus
 
 ## <a id='known-issues'></a> Known Issues
 
-There are currently no known issues in <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %>.
+See the following <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> known issue:
+
+### <a id='no-stemcell-bump'></a>Upgrades Fail When the Stemcell Does Not Change
+
+If you upgrade to a version of <%= vars.windows_runtime_abbr %> that uses the same stemcell, <%= vars.windows_runtime_abbr %> can fail to create containers, causing the deployment to fail.
+If there are stemcell changes or if the Microsoft base layer changes, this error is unlikely to occur.
+
+For more information, see [Failure to create containers when upgrading with shared Microsoft base image](https://community.pivotal.io/s/article/knowledge-base-failure-to-create-containers-when-upgrading-with-shared-microsoft-base-image) in the VMware Tanzu Knowledge Base.
