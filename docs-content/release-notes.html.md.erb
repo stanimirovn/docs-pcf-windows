@@ -744,3 +744,9 @@ If you upgrade to a version of <%= vars.windows_runtime_abbr %> that uses the sa
 If there are stemcell changes or if the Microsoft base layer changes, this error is unlikely to occur.
 
 For more information, see [Failure to create containers when upgrading with shared Microsoft base image](https://community.pivotal.io/s/article/knowledge-base-failure-to-create-containers-when-upgrading-with-shared-microsoft-base-image) in the VMware Tanzu Knowledge Base.
+
+### <a id='extra-failing-smoke-tests'></a>Smoke Tests Fail when Isolation Segment in Foundation
+
+The Smoke Test errand runs extra, failing tests when <%= vars.windows_runtime_abbr %> is deployed with <%= vars.segment_runtime_full %>. They are "Compute isolation disabled" and "Application Workflow Linux Applications".
+
+To work around this issue, disable Smoke Tests.
