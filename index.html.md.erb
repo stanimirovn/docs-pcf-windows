@@ -5,18 +5,22 @@ owner: Windows
 
 <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>) enables operators to provision, operate, and manage Windows stemcells on <%= vars.product_name %>.
 
-After operators install the <%= vars.windows_runtime_abbr %> tile on the Ops Manager Installation Dashboard, developers can push .NET apps to Windows Diego Cells using the [Cloud Foundry Command Line Interface](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/cf-cli/) (cf CLI).
+After operators install the <%= vars.windows_runtime_abbr %> tile on the Ops Manager Installation Dashboard, developers can push .NET apps to Windows Diego Cells using the [Cloud Foundry Command Line Interface](../cf-cli/) (cf CLI).
 
-For the <%= vars.windows_runtime_abbr %> release notes, see [Pivotal Application Service for Windows v<%= product_info['local_product_version'].to_s %> Release Notes](release-notes.html).
+For the <%= vars.windows_runtime_abbr %> release notes,
+see [<%= vars.windows_runtime_full %> <%= vars.v_major_version %>
+Release Notes](release-notes.html).
 
 
 ## <a id='reqs'></a> Requirements
 
 To install the <%= vars.windows_runtime_abbr %> tile, you must have:
 
-* Ops Manager v<%= product_info['local_product_version'].to_s %> and Pivotal Application Service (PAS) v<%= product_info['local_product_version'].to_s %> deployed to vSphere, Amazon Web Services (AWS), Google Cloud Platform (GCP), or Azure.  
+* Ops Manager <%= vars.v_major_version %> and <%= vars.app_runtime_full %>
+  <%= vars.v_major_version %> deployed to vSphere, Amazon Web Services (AWS),
+  Google Cloud Platform (GCP), or Azure.
 
-* A Windows stemcell. For information about obtaining or creating a Windows stemcell, see [Downloading or Creating Windows Stemcells](./stemcells.html).  
+* A Windows stemcell. For information about obtaining or creating a Windows stemcell, see [Downloading or Creating Windows Stemcells](./stemcells.html).
 
 The minimum resource requirements for each Windows Diego Cell are:
 
@@ -59,7 +63,7 @@ The minimum resource requirements for each Windows Diego Cell are:
 
 * [Using SMB Volumes in .NET Apps](smb-volumes-apps.html)
 
-* [Changing Windows Stacks](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/devguide/deploy-apps/windows-stacks.html)
+* [Changing Windows Stacks](../devguide/deploy-apps/windows-stacks.html)
 
 * [Tips for .NET Developers](using.html)
 
@@ -73,7 +77,7 @@ The following limitations affect Windows containers in <%= vars.windows_runtime_
 
 #### <a id='limitations-windows'></a> Windows Server Container Limitations
 
-We use Windows Server Core Containers in <%= vars.windows_runtime_abbr %>. 
+We use Windows Server Core Containers in <%= vars.windows_runtime_abbr %>.
 The following are known Windows Server Container limitations:
 
 * Windows Server Core containers support the host VM's timezone only.
@@ -85,7 +89,7 @@ No other fonts are supported, and no others can be installed.
 
 <%= vars.windows_runtime_abbr %> has the following limitations:
 
-* <%= vars.windows_runtime_abbr %> can be installed in an environment with the NSX Container Plugin (NCP), but NCP cannot be used with Windows containers in <%= vars.windows_runtime_abbr %>. For more information about NCP, see [What's New](https://docs.vmware.com/en/VMware-NSX-T-Data-Center/2.5/rn/NSX-Container-Plugin-25-Release-Notes.html#about) in the VMware documentation.  
+* <%= vars.windows_runtime_abbr %> can be installed in an environment with the NSX Container Plugin (NCP), but NCP cannot be used with Windows containers in <%= vars.windows_runtime_abbr %>. For more information about NCP, see [What's New](https://docs.vmware.com/en/VMware-NSX-T-Data-Center/2.5/rn/NSX-Container-Plugin-25-Release-Notes.html#about) in the VMware documentation.
 
 * Developers cannot push Docker or other OCI-compatible images to Windows Diego Cells.
 
