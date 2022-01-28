@@ -70,7 +70,7 @@ To disable SSL validation on development and testing environments:
 
 1. Deselect the **Disable SSL certificate verification for this environment** checkbox.
 
-For more information, see [Terminate SSL/TLS at HAProxy](https://docs.pivotal.io/platform/opsguide/ssl-term-haproxy.html#haproxy) in _Configuring SSL/TLS Termination at HAProxy_.
+For more information, see [Terminate SSL/TLS at HAProxy](../operating/ssl-term-haproxy.html#haproxy) in _Configuring SSL/TLS Termination at HAProxy_.
 
 
 ## <a id='install'></a> Install the Tile
@@ -183,7 +183,7 @@ To configure VM access:
 
 In **Smoke Tests**, you specify the org and space where smoke tests are run.
 
-In the org and space that you specify, the Smoke Test errand pushes an app to a <%= vars.platform_name %> org. The app runs basic functionality tests against your <%= vars.windows_runtime_abbr %> deployment after an installation or update. 
+In the org and space that you specify, the Smoke Test errand pushes an app to a <%= vars.platform_name %> org. The app runs basic functionality tests against your <%= vars.windows_runtime_abbr %> deployment after an installation or update.
 
 The Smoke Test errand is on by default. You can turn off the Smoke Test errand in the **Errands** pane. For more information, see [Configure Errands](#config-errands).
 
@@ -226,7 +226,7 @@ To enable overcommit:
 
 You can choose the method the Gorouter uses to verify app identity. Verifying app identity using TLS or mutual TLS (mTLS) enables encryption between the Gorouter and app containers and guards against misrouting during control plane failures. This feature is disabled by default.
 
-For more information about Gorouter route consistency modes, see [Preventing Misrouting](https://docs.pivotal.io/platform/concepts/http-routing.html#consistency) in _HTTP Routing_.
+For more information about Gorouter route consistency modes, see [Preventing Misrouting](../concepts/http-routing.html#consistency) in _HTTP Routing_.
 
 To configure app identity verification:
 
@@ -260,7 +260,7 @@ By default, Ops Manager runs all errands.
 
 In **Errands**, you can change these run rules. For each errand, you can select **On** to run it each time Ops Manager installs or uninstalls a product, or **Off** to never run it.
 
-For more information about how Ops Manager manages errands, see [Managing Errands in Ops Manager](https://docs.pivotal.io/platform/customizing/managing_errands.html).
+For more information about how Ops Manager manages errands, see [Managing Errands in Ops Manager](https://docs.pivotal.io/ops-manager/2-10/install/managing_errands.html).
 
 To configure errands:
 
@@ -331,13 +331,13 @@ To upload the stemcell:
 
 1. Retrieve the stemcell that you downloaded or created in [Downloading or Creating a Windows Stemcell](./stemcells.html).
 
-1. Follow the procedure in [Importing and Managing Stemcells](https://docs.pivotal.io/platform/opsguide/managing-stemcells.html) to upload the Windows stemcell to <%= vars.windows_runtime_abbr %>.
+1. Follow the procedure in [Importing and Managing Stemcells](https://docs.pivotal.io/ops-manager/2-10/opsguide/managing-stemcells.html) to upload the Windows stemcell to <%= vars.windows_runtime_abbr %>.
 
-<p class='note'><strong>Note:</strong> If you use vSphere, you must create your own stemcell. 
-  The default root disk size of Windows stemcells v2019.x line is 30&nbsp;GB. 
-  <%= vars.recommended_by %> recommends setting the root disk size of your Windows stemcell for vSphere to 30&nbsp;GB. 
-  For more information, see 
-  <a href="create-vsphere-stemcell-manually.html">Creating a Windows Stemcell for vSphere Manually (Deprecated)</a> or 
+<p class='note'><strong>Note:</strong> If you use vSphere, you must create your own stemcell.
+  The default root disk size of Windows stemcells v2019.x line is 30&nbsp;GB.
+  <%= vars.recommended_by %> recommends setting the root disk size of your Windows stemcell for vSphere to 30&nbsp;GB.
+  For more information, see
+  <a href="create-vsphere-stemcell-manually.html">Creating a Windows Stemcell for vSphere Manually (Deprecated)</a> or
   <a href="create-vsphere-stemcell-automatically.html">Creating a Windows Stemcell for vSphere Using stembuild</a>.
 </p>
 
@@ -351,7 +351,7 @@ To deploy the <%= vars.windows_runtime_abbr %> tile:
 
 1. Click **Review Pending Changes**.
 
-1. Select the <%= vars.windows_runtime_abbr %> tile and review the changes. For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/platform/customizing/review-pending-changes.html).
+1. Select the <%= vars.windows_runtime_abbr %> tile and review the changes. For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/ops-manager/2-10/install/review-pending-changes.html).
 
 1. Click **Apply Changes**.
 

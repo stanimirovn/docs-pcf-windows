@@ -5,24 +5,28 @@ owner: Windows
 
 This topic lists resources for .NET app developers.
 
-For general information about app deployment, see [Pushing an App](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/devguide/deploy-apps/deploy-app.html).
+For general information about app deployment, see [Pushing an App](../devguide/deploy-apps/deploy-app.html).
 
 
 ## <a id='dotnet-core'></a> .NET Core on Linux
 
-[.NET Core Buildpack](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/buildpacks/dotnet-core/index.html) describes how to push .NET Core apps to Linux Diego Cells on <%= vars.platform_name %> using the .NET Core buildpack. For supported ASP.NET Core versions, see the [.NET Core buildpack release notes](https://github.com/cloudfoundry/dotnet-core-buildpack/releases) in the .NET Core buildpack repository on GitHub.
+[.NET Core Buildpack](../buildpacks/dotnet-core/index.html) describes how to push .NET Core apps to Linux Diego Cells on <%= vars.platform_name %> using the .NET Core buildpack. For supported ASP.NET Core versions, see the [.NET Core buildpack release notes](https://github.com/cloudfoundry/dotnet-core-buildpack/releases) in the .NET Core buildpack repository on GitHub.
 
 
 ## <a id='hwc'></a> .NET Framework on Windows
 
-[HWC Buildpack](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/buildpacks/hwc/index.html) describes how to push .NET Framework apps to <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>) using the HWC buildpack. It also describes what features of IIS (Internet Information Services) and HWC (Hostable Web Core) are supported, and how to configure your .NET Framework apps to run on <%= vars.windows_runtime_abbr %>.
+[HWC Buildpack](../buildpacks/hwc/index.html)
+describes how to push .NET Framework apps to <%= vars.windows_runtime_full %> using the HWC buildpack.
+It also describes what features of IIS (Internet Information Services) and
+HWC (Hostable Web Core) are supported, and how to configure your .NET Framework apps
+to run on <%= vars.windows_runtime_abbr %>.
 
 [Console Applications](https://dotnet-cookbook.apps.pcfone.io/headless/console_app/) in the _.NET Cookbook_ provides information about pushing compiled .NET Framework Console apps to <%= vars.windows_runtime_abbr %> using the binary buildpack.
 
 
 ## <a id='binary'></a> .NET Core on Windows
 
-[Binary Buildpack](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/buildpacks/binary/index.html) describes how to push compiled .NET Core apps to Windows Diego Cells on <%= vars.windows_runtime_abbr %> using the binary buildpack.
+[Binary Buildpack](../buildpacks/binary/index.html) describes how to push compiled .NET Core apps to Windows Diego Cells on <%= vars.windows_runtime_abbr %> using the binary buildpack.
 
 
 ## <a id='tips'></a> Other Resources
