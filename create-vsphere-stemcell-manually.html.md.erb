@@ -5,12 +5,12 @@ owner: Windows
 
 This topic describes how to create a BOSH stemcell for Windows on vSphere.
 
-  <p class="note"><strong>Note</strong>: Manual stemcell creation is deprecated. 
-    Use <code>stembuild</code> v2019.23 or later to create stemcells automatically. 
-    For more information, 
+  <p class="note"><strong>Note</strong>: Manual stemcell creation is deprecated.
+    Use <code>stembuild</code> v2019.23 or later to create stemcells automatically.
+    For more information,
     see <a href="create-vsphere-stemcell-automatically.html">Creating a Windows Stemcell for vSphere Using stembuild</a>.
   </p>
-  
+
 ## <a id='overview'></a> Overview
 
 You must create a BOSH stemcell for Windows before you can deploy the following products on vSphere:
@@ -81,7 +81,7 @@ As part of completing the procedures in this topic, you download the following f
       - **PKS v1.6**: [Release Notes](https://docs.pivotal.io/pks/1-6/release-notes.html)
 
     <p class="note"><strong>Note:</strong> You must choose a stemcell version to build. Stemcells are versioned as MAJOR.MINOR, such as 2019.9.</p>
-    For more information about 2019 stemcells, see [Stemcell v2019.x (Windows Server 2019) Release Notes](https://docs.pivotal.io/platform/stemcells/windows-stemcell-v2019x.html).
+    For more information about 2019 stemcells, see [Stemcell v2019.x (Windows Server 2019) Release Notes](https://docs.pivotal.io/stemcells/windows-stemcell-v2019x.html).
 
 ### <a id='windows-vm'></a> Files on Windows VM
 
@@ -467,7 +467,7 @@ To convert the VMDK file to a BOSH stemcell:
 	stembuild package ^
 	  -vmdk PATH-TO-VDMK ^
 	  -stemcell-version STEMCELL-VERSION ^
-	  -os 2019	  
+	  -os 2019
 	```
 
 	Where:
