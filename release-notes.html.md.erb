@@ -14,7 +14,8 @@ or see [New Features in <%= vars.windows_runtime_abbr %> v2.7](#new-features).
 Because VMware uses the Percona Distribution for MySQL, expect a time lag between Oracle
 releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> containing that patch.
 
-<hr>
+<p class="note warning"><strong>Warning:</strong> Windows stemcells v2019.44 and later include a version of <code>tar</code> that is incompatible
+with winfs2019-release v2.33.2 and earlier. For more information, see <a href="#windows-stemcell-tar" in <em>Known Issues</em>.</p>
 
 ## <a id='releases'></a> Releases
 
@@ -22,6 +23,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 ### <a id='2.7.37'></a> 2.7.37
 
 **Release Date:** 02/04/2022
+
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
 
 * **[Security Fix]** Diego - Bump containerd to v1.5.9 to fix CVE-2021-43816
 * **[Feature Improvement]** TAS for Windows now supports compiled releases
@@ -57,6 +60,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 
 **Release Date:** 12/15/2021
 
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
+
 * **[Bug Fix]** Diego - Envoy 1.19 should use original TCP connection pool, so that it can accept more than 1024 downstream connections
 * Bump diego to version `2.54.0`
 * Bump garden-runc to version `1.19.30`
@@ -87,6 +92,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 
 **Release Date:** 11/23/2021
 
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
+
 * Bump diego to version `2.53.1`
 * Bump windowsfs-release to version `2.31.0`
 
@@ -115,6 +122,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 
 **Release Date:** 10/18/2021
 
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
+
 * No BOSH release bumps
 
 <table border="1" class="nice">
@@ -142,6 +151,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 
 **Release Date:** 09/29/2021
 
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
+
 * **[Security Fix]** Fixes an issue where BBS socket connections could be kept alive unnecessarily
 * **[Feature Improvement]** Disable Diego container proxy ALPN
 * Bump diego to version `2.53.0`
@@ -167,9 +178,12 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
     <tr><td>windowsfs-release</td><td>2.29.0</td></tr>
   </tbody>
 </table>
+
 ### <a id='2.7.32'></a> 2.7.32
 
 **Release Date:** 09/16/2021
+
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
 
 * **[Bug Fix]** garden-runc - Fix handling reserved space on ext4 and generating bundle mounts when SMB volumes are present
 * Bump garden-runc to version `1.19.30`
@@ -196,9 +210,12 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
     <tr><td>windowsfs-release</td><td>2.29.0</td></tr>
   </tbody>
 </table>
+
 ### <a id='2.7.31'></a> 2.7.31
 
 **Release Date:** 09/09/2021
+
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
 
 * **[Bug Fix]** garden-runc - recover after cell restarts
 * Bump garden-runc to version `1.19.29`
@@ -229,6 +246,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 
 **Release Date:** 07/15/2021
 
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
+
 * Bump garden-runc to version `1.19.28`
 * Bump windowsfs-release to version `2.27.0`
 
@@ -253,9 +272,12 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
     <tr><td>windowsfs-release</td><td>2.27.0</td></tr>
   </tbody>
 </table>
+
 ### <a id='2.7.29'></a> 2.7.29
 
 **Release Date:** 06/22/2021
+
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
 
 * **[Security Fix]** Bump some dependencies to resolve security vulnerabilities
 * Bump loggregator-agent to version `3.21.18`
@@ -284,6 +306,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 ### <a id='2.7.28'></a> 2.7.28
 
 **Release Date:** 05/27/2021
+
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
 
 * **[Feature Improvement]** Patch versions can be upgraded without a stemcell upgrade
 * Bump diego to version `2.50.0`
@@ -318,6 +342,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 
 **Release Date:** 03/31/2021
 
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
+
 * Bump windows2019 stemcell to version `2019.32`
 * Bump windowsfs-release to version `2.23.0`
 
@@ -349,6 +375,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 
 **Release Date:** 02/19/2021
 
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
+
 * Bump windows2019 stemcell to version `2019.30`
 * Bump windowsfs-release to version `2.22.0`
 
@@ -377,6 +405,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 ### <a id='2.7.25'></a> 2.7.25
 
 **Release Date:** 12/18/2020
+
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
 
 * **[Security Fix]** Bump garden-runc-release to address [CVE-2020-15257](https://nvd.nist.gov/vuln/detail/CVE-2020-15257)
 * Bump windows2019 stemcell to version `2019.29`
@@ -411,6 +441,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 
 **Release Date:** 11/17/2020
 
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
+
 * No BOSH release bumps
 
 <table border="1" class="nice">
@@ -440,6 +472,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 ### <a id='2.7.23'></a> 2.7.23
 
 **Release Date:** 11/04/2020
+
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
 
 * No BOSH release bumps
 
@@ -471,6 +505,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 
 **Release Date:** 10/26/2020
 
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
+
 * Bump windows2019 stemcell to version `2019.27`
 * Bump windowsfs-release to version `2.19.0`
 
@@ -501,6 +537,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 ### <a id='2.7.21'></a> 2.7.21
 
 **Release Date:** 10/09/2020
+
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
 
 * **[Bug Fix]**  loggregator-agent-release - Fix certs directory on `prom_scraper_windows` process
 * **[Bug Fix]** Remove "power_of_two" constraint from CPU resource definitions
@@ -536,6 +574,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 
 **Release Date:** 09/21/2020
 
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
+
 * No BOSH release bumps
 
 <table border="1" class="nice">
@@ -565,6 +605,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 ### <a id='2.7.19'></a> 2.7.19
 
 **Release Date:** 09/09/2020
+
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
 
 * Bump windows2019 stemcell to version `2019.25`
 * Bump diego to version `2.48.0`
@@ -599,6 +641,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 
 **Release Date:** 08/24/2020
 
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
+
 * **[Bug Fix]** Bump garden-runc to v1.19.16
 * Bump garden-runc to version `1.19.16`
 
@@ -628,6 +672,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 ### <a id='2.7.17'></a> 2.7.17
 
 **Release Date:** 08/11/2020
+
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
 
 * **[Feature]** Support Maestro's rotation capability by adding Services TLS CA to all App containers
 * **[Bug Fix]** Fix `prom_scraper` job to have `scrape` certs property. Restores Prometheus-style metrics emitting to Firehose.
@@ -664,6 +710,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 
 **Release Date:** 07/09/2020
 
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
+
 * Bump windows2019 stemcell to version `2019.23`
 * Bump cf-smoke-tests to version `40.0.130`
 
@@ -694,6 +742,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 ### <a id='2.7.15'></a> 2.7.15
 
 **Release Date:** 06/25/2020
+
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
 
 * **[Breaking Change]** Incorrect HTTP(S) Proxy configuration breaks CredHub interpolation for apps. For more information, see [Incorrect HTTP(S) Proxy Configuration Breaks CredHub Interpolation for Apps in <%= vars.windows_runtime_abbr %> v2.7.15 and Later](#credhub-interpolate-with-https-win) below.
 * **[Bug Fix]** Remove invalid characters in hostnames in outgoing application syslog messages to comply with [RFC 5424](https://tools.ietf.org/html/rfc5424)
@@ -731,6 +781,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 
 **Release Date:** 05/18/2020
 
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
+
 * **[Bug Fix]** Fix scheduling bug in `loggregator agent` by upgrading to Go 1.14.2
 * Bump windows2019 stemcell to version `2019.20`
 * Bump loggregator-agent to version `3.21.10`
@@ -766,6 +818,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 
 **Release Date:** 04/22/2020
 
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
+
 * **[Bug Fix]** Loggregator Agent handles deployment with no Dopplers
 * Bump windows2019 stemcell to version `2019.19`
 * Bump loggregator-agent to version `3.21.9`
@@ -797,6 +851,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 ### <a id='2.7.12'></a> 2.7.12
 
 **Release Date:** 04/07/2020
+
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
 
 * **[Bug Fix]** garden-runc - bump to latest release in supported versions
 * Bump windows2019 stemcell to version `2019.19`
@@ -832,6 +888,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 
 **Release Date:** 03/19/2020
 
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
+
 * Add new release cf-smoke-tests at version `40.0.127`
 * Bump windowsfs-release to version `2.10.0`
 * Removed cf-windows-smoke-tests release
@@ -863,6 +921,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 ### <a id='2.7.10'></a> 2.7.10
 
 **Release Date:** 02/27/2020
+
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
 
 * **[Bug Fix]** Fix Race Condition in Loggregator Agent
 * Bump windows2019 stemcell to version `2019.17`
@@ -897,6 +957,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 
 **Release Date:** 02/07/2020
 
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
+
 * Bump windowsfs-release to version `2.5.0`
 
 * Include support for .NET Framework 4.8.0
@@ -929,6 +991,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 
 **Release Date:** 01/18/2020
 
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
+
 * **[Security Fix]** Addresses CVE 2020-0601: Windows CryptoAPI Spoofing Vulnerability
 * Bump windows2019 stemcell to version `2019.15`
 * Bump windowsfs-release to version `2.4.0`
@@ -959,6 +1023,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 
 **Release Date:** 01/16/2020
 
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
+
 * Bump cf-windows-smoke-tests to version `40.0.125`
 * Removed loggregator release
 
@@ -987,6 +1053,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 ### <a id='2.7.6'></a> 2.7.6
 
 **Release Date:** 12/26/2019
+
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
 
 * **[Security Fix]** [CVE-2019-17596](https://nvd.nist.gov/vuln/detail/CVE-2019-17596) - Fix panic upon an attempt to process network traffic containing an invalid DSA public key for garden-runc release
 * **[Security Fix]** [CVE-2019-17596](https://nvd.nist.gov/vuln/detail/CVE-2019-17596) - Fix panic upon an attempt to process network traffic containing an invalid DSA public key for loggregator releases
@@ -1023,6 +1091,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 
 **Release Date:** 12/09/2019
 
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
+
 * Bump windowsfs-release to version `2.3.0`
 
 <table border="1" class="nice">
@@ -1051,6 +1121,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 ### <a id='2.7.4'></a> 2.7.4
 
 **Release Date:** 12/02/2019
+
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
 
 * Bump windows2019 stemcell to version `2019.13`
 * Bump cf-windows-smoke-tests to version `40.0.123`
@@ -1081,6 +1153,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 ### <a id='2.7.3'></a> 2.7.3
 
 **Release Date:** 10/31/2019
+
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
 
 * **[Security Fix]** Upgrade Go, runc and containerd to latest to include security fixes
 * **[Security Fix]** CVE-2019-17596 bump Go
@@ -1116,6 +1190,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 
 **Release Date:** 10/16/2019
 
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
+
 * **[Security Fix]** Bump Go to address CVE-2019-16276
 * **[Bug Fix]** Increase task result file size to ensure apps with very long start commands stage successfully
 * Bump diego to version `2.36.5`
@@ -1149,6 +1225,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 ### <a id='2.7.1'></a> 2.7.1
 
 **Release Date:** 10/08/2019
+
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
 
 * **[Security Fix]** Use envoy-nginx-release v0.6.0 to address HTTP2 vulnerabilities
 * **[Security Fix]** Upgrade Diego Components to Use grpc v1.23.0 and Go 1.12.9 to Fix HTTP2 CVEs
@@ -1188,6 +1266,8 @@ releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> co
 ### <a id='2.7.0'></a> 2.7.0
 
 <p class="note breaking"><strong>Breaking Change:</strong> Platform engineers can no longer enable or disable RDP in PASW.</p>
+
+<%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
 
 * **[Feature]** Enable TLS connections from Router to Windows Applications [Beta]
 * **[Feature Improvement]** Add the ciphers configuration to envoy-nginx-release
@@ -1378,3 +1458,10 @@ If you upgrade to a version of <%= vars.windows_runtime_abbr %> that uses the sa
 If there are stemcell changes or if the Microsoft base layer changes, this error is unlikely to occur.
 
 For more information, see [Failure to create containers when upgrading with shared Microsoft base image](https://community.pivotal.io/s/article/knowledge-base-failure-to-create-containers-when-upgrading-with-shared-microsoft-base-image) in the VMware Tanzu Knowledge Base.
+
+### <a id='windows-stemcell-tar'></a>Windows Stemcell v2019.44 is Incompatible with winfs2019-release v2.33.2 and Earlier
+
+Windows stemcells v2019.44 and later include a newer version of `tar` that is incompatible
+with winfs2019-release v2.33.2 and earlier.
+<%= vars.windows_runtime_abbr %> deployments that use Windows stemcells v2019.44 and later cannot untar the current versions of winfs2019-release.
+To work around this issue, you must use an older stemcell to install <%= vars.windows_runtime_abbr %>.
