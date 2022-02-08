@@ -11,7 +11,7 @@ Because VMware uses the Percona Distribution for MySQL, expect a time lag betwee
 releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> containing that patch.
 
 <p class="note warning"><strong>Warning:</strong> Windows stemcells v2019.44 and later include a version of <code>tar</code> that is incompatible
-with winfs2019-release v2.33.2 and earlier. For more information, see <a href="#windows-stemcell-tar" in <em>Known Issues</em>.</p>
+with winfs2019-release v2.33.1 and earlier. For more information, see <a href="#windows-stemcell-tar" in <em>Known Issues</em>.</p>
 
 ## <a id='releases'></a> Releases
 
@@ -232,10 +232,9 @@ The Smoke Test errand runs extra, failing tests when <%= vars.windows_runtime_ab
 
 To work around this issue, disable Smoke Tests. For more information, see [Windows Tile smoke-tests fails for isolation segment segments](https://community.pivotal.io/s/article/5004y00001iTlFg1635513986409) in the VMware Tanzu Knowledge Base.
 
-### <a id='windows-stemcell-tar'></a>Windows Stemcell v2019.44 is Incompatible with winfs2019-release v2.33.2 and Earlier
+### <a id='windows-stemcell-tar'></a>Windows Stemcell v2019.44 is Incompatible with winfs2019-release v2.33.1 and Earlier
 
 Windows stemcells v2019.44 and later include a newer version of `tar` that is incompatible
-with winfs2019-release v2.33.2 and earlier.
-<%= vars.windows_runtime_abbr %> deployments that use Windows stemcells v2019.44 and later cannot untar the current versions of winfs2019-release.
-To work around this issue, you must use an older stemcell to install <%= vars.windows_runtime_abbr %>.
-Compatible Windows stemcells include v2019.0 through v2019.43.
+with winfs2019-release v2.33.1 and earlier.
+<%= vars.windows_runtime_abbr %> deployments that use Windows stemcells v2019.44 and later cannot untar winfs2019-release v2.33.1 and earlier.
+Compatible Windows stemcells for this winfs2019-release include v2019.0 through v2019.43.
