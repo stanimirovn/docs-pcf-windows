@@ -11,21 +11,36 @@ needs to create VMs on an infrastructure.
 
 ## <a id="stemcell"></a> Windows Stemcells
 
-A BOSH stemcell is a versioned OS image wrapped with IaaS-specific packaging. 
-BOSH uses a stemcell to supply the basic OS for any Windows VM it creates. 
-A typical BOSH stemcell for Windows contains the following:  
+A BOSH stemcell is a versioned OS image wrapped with IaaS-specific packaging.
+BOSH uses a stemcell to supply the basic OS for any Windows VM it creates.
+A typical BOSH stemcell for Windows contains the following:
 
-* A bare minimum Windows OS skeleton.  
-* A BOSH Agent.  
-* OS Configuration files and common utilities. 
+* A bare minimum Windows OS skeleton.
+* A BOSH Agent.
+* OS Configuration files and common utilities.
 
-For more information about stemcells, see [What is a Stemcell?](https://bosh.io/docs/stemcell/) 
-in the Cloud Foundry BOSH documentation.  
+For more information about stemcells, see [What is a Stemcell?](https://bosh.io/docs/stemcell/)
+in the Cloud Foundry BOSH documentation.
+
+### <a id="compatibility"></a> Windows Stemcell Compatibility Matrix
+
+Refer to the compatibility matrix below before deploying and installing the <%= vars.windows_runtime_abbr %> tile:
+
+| <%= vars.windows_runtime_abbr %> Version        | WindowsFS Version     | Stemcell 2019.43 and earlier | Stemcell 2019.44 for Azure and Stembuild vSphere | Stemcell v2019.44 for other IAASes |
+|---------------------|-----------------------|---------------------|-----------------------------------------|--------------------------|
+| v2.7.35 and earlier  | v2.31.0 and earlier    | Compatible          | Not compatible                          | Compatible               |
+| v2.7.37              | v2.33.2                | Compatible          | Compatible                              | Compatible               |
+| v2.10.19 and earlier | v2.31.9 and earlier    | Compatible          | Not compatible                          | Compatible               |
+| v2.10.21             | v2.33.2                | Compatible          | Compatible                              | Compatible               |
+| v2.11.8 and earlier  | v2.31.0 and earlier    | Compatible          | Not compatible                          | Compatible               |
+| v2.11.10             | v2.33.2                | Compatible          | Compatible                              | Compatible               |
+| v2.12.3 and earlier  | v2.31.0 and earlier    | Compatible          | Not compatible                          | Compatible               |
+| v2.12.4              | v2.33.2                | Compatible          | Compatible                              | Compatible               |
 
 <br>
 Depending on your IaaS, you can create or download a stemcell using these methods:
 
-* **Azure**: To activate and download the Azure Windows Stemcell, see [Configuring the Azure Light Stemcell](#azure).  
+* **Azure**: To activate and download the Azure Windows Stemcell, see [Configuring the Azure Light Stemcell](#azure).
 
 * **Google Cloud Platform (GCP)**: Download the **GCP light Stemcell for Windows 2019 Server**
   from the [Stemcells (Windows)](https://network.pivotal.io/products/stemcells-windows-server)
@@ -48,8 +63,8 @@ On Azure, the stemcell exists as an offering in the Azure Marketplace. To start 
 
 ### <a id="use"></a> Enable the Azure Light Stemcell
 
-To use the Azure light stemcell, you must first accept the corresponding Microsoft license agreement 
-and enable the stemcell for your non-trial Azure Subscription through the Azure Marketplace. 
+To use the Azure light stemcell, you must first accept the corresponding Microsoft license agreement
+and enable the stemcell for your non-trial Azure Subscription through the Azure Marketplace.
 
 #### <a id="enable-sub"></a> Enable Your Azure Subscriptions
 
@@ -81,14 +96,14 @@ To accept the license agreement for your stemcell:
     az login
     ```
 
-1. To list the available Windows stemcells and find latest Windows stemcell `urn`, 
-run the following Azure CLI command:  
+1. To list the available Windows stemcells and find latest Windows stemcell `urn`,
+run the following Azure CLI command:
 
 	```
 	az vm image list --all --publisher pivotal --sku 2019
 	```
 
-    For example: 
+    For example:
 
 	<pre class="terminal">
 	az vm image list --all --publisher pivotal --sku 2019
@@ -104,10 +119,10 @@ run the following Azure CLI command:
 	bosh-windows-server-2019  pivotal      2019   pivotal:bosh-windows-server-2019:2019:2019.8.028001  2019.8.028001
 	</pre>
 
-	In the example above, `pivotal:bosh-windows-server-2019:2019:2019.8.028001` is the 
+	In the example above, `pivotal:bosh-windows-server-2019:2019:2019.8.028001` is the
     latest Windows stemcell `urn`.
 
-1. To accept the terms for the selected Windows stemcell for each Azure subscription 
+1. To accept the terms for the selected Windows stemcell for each Azure subscription
 with which you want to use the stemcell, run the following command:
 
     ```
@@ -115,8 +130,8 @@ with which you want to use the stemcell, run the following command:
     ```
 
     Where:
-    * `SUBSCRIPTION_ID` is an Azure subscription with which you want to use the stemcell.  
-    * `URN-ID` is the `urn` for the latest Windows stemcell.  
+    * `SUBSCRIPTION_ID` is an Azure subscription with which you want to use the stemcell.
+    * `URN-ID` is the `urn` for the latest Windows stemcell.
 
 
 ### <a id="download"></a> Download the Azure Light Stemcell
