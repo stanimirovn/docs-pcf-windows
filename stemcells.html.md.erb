@@ -22,6 +22,19 @@ A typical BOSH stemcell for Windows contains the following:
 For more information about stemcells, see [What is a Stemcell?](https://bosh.io/docs/stemcell/) 
 in the Cloud Foundry BOSH documentation.  
 
+Refer to the compatibility matrix below before deploying and installing the TASW tile:
+
+| TASW Version        | WinFSInjector version | 2019.43 and earlier | 2019.44 for Azure and Stembuild vSphere | 2019.44 for other IAASes |
+|---------------------|-----------------------|---------------------|-----------------------------------------|--------------------------|
+| 2.7.35 and earlier  | 2.31.0 and earlier    | Compatible          | Not compatible                          | Compatible               |
+| 2.7.37              | 2.33.2                | Compatible          | Compatible                              | Compatible               |
+| 2.10.19 and earlier | 2.31.9 and earlier    | Compatible          | Not compatible                          | Compatible               |
+| 2.10.21             | 2.33.2                | Compatible          | Compatible                              | Compatible               |
+| 2.11.8 and earlier  | 2.31.0 and earlier    | Compatible          | Not compatible                          | Compatible               |
+| 2.11.10             | 2.33.2                | Compatible          | Compatible                              | Compatible               |
+| 2.12.3 and earlier  | 2.31.0 and earlier    | Compatible          | Not compatible                          | Compatible               |
+| 2.12.4              | 2.33.2                | Compatible          | Compatible                              | Compatible               |
+
 <br>
 Depending on your IaaS, you can create or download a stemcell using these methods:
 
