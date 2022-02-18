@@ -24,8 +24,8 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
 **Release Date:** 02/08/2022
 
 * **[Security Fix]** Diego - Bump containerd to v1.5.9 to fix CVE-2021-43816
-* **[Feature Improvement]** TAS for Windows now supports compiled releases
-* **[Feature Improvement]** Golang v1.17 contains stricter IP parsing standards, so syslog drains registered via user provided services cannot contain IP addresses with leading zeros in any octects.
+* **[Feature Improvement]** <%= vars.windows_runtime_abbr %> supports compiled releases
+* **[Feature Improvement]** Golang v1.17 contains stricter IP parsing standards, so syslog drains registered using user-provided services cannot contain IP addresses with leading zeros in any octets.
 * Bump diego to version `2.57.0`
 * Bump hwc-offline-buildpack to version `3.1.21`
 * Bump loggregator-agent to version `6.3.7`
@@ -65,7 +65,7 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
 
 <%= partial "/pcf/tas/known-issues/windows-stemcell-tar" %>
 
-* **[Bug Fix]** Diego - Envoy 1.19 should use original TCP connection pool, so that it can accept more than 1024 downstream connections
+* **[Bug Fix]** Diego - Envoy v1.19 uses the original TCP connection pool so that it can accept more than 1024 downstream connections
 * **[Bug Fix]** Smoke Tests uses specified domain for Isolation Segments
 * Bump diego to version `2.54.0`
 * Bump loggregator-agent to version `6.3.5`
