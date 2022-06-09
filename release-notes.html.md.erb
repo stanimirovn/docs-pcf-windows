@@ -27,6 +27,8 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
 
 **Release Date:** 06/09/2022
 
+<p class="note warning"><strong> Warning: Upcoming reduction in maintenance and security release coverage!</strong> In future patches, no sooner than July 1st 2022, some TAS components will become more strict about the protocols used in TLS communications, causing integrations with systems using older, insecure protocols to fail. Specifically, components built using the Go programming language will no longer support TLS 1.0 or 1.1, or certificates using SHA-1. In order to avoid breaking changes in this version line, (which has reached its End of General Support,) these components will no longer be updated with bug and security fixes in any patches that may be released. To continue receiving maintenance and security releases, upgrade to a version of TAS that remains in general support.</p>
+
 * Bump diego to version `2.64.0`
 * Bump garden-runc to version `1.20.6`
 * Bump loggregator-agent to version `6.0.10`
