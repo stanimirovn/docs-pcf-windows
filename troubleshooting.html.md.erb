@@ -122,7 +122,7 @@ For available workarounds, see
 [Failure to create containers when upgrading with shared Microsoft base
 image](https://community.pivotal.io/s/article/knowledge-base-failure-to-create-containers-when-upgrading-with-shared-microsoft-base-image) in the Knowledge Base.
 
-## <a id='logs'></a> Forward Windows Diego Cell Logs
+### <a id='syslog'></a> Forwarding Logs to a Syslog Server
 
 You can use Windows Diego Cell logs to troubleshoot Windows Diego Cells. Windows Diego Cells
 generate the following types of logs:
@@ -135,30 +135,13 @@ correspond to the names of the logs emitted by Linux Diego Cells.
 * **Windows event logs**. These logs stream to the syslog server configured in the
 **System Logging** pane of the <%= vars.windows_runtime_abbr %> tile.
 
-You can forward BOSH job logs and Windows Event logs to an external syslog server in the following
-ways:
-
-* Configure a BOSH add-on to forward BOSH job logs. For more information, see the BOSH jobs logs
-step in [Install the Tile](./installing.html#install) in _Installing and Configuring <%= vars.windows_runtime_abbr %>_.
-
-* Configure <%= vars.windows_runtime_abbr %> to forward Windows event logs. For more information,
-see [Forward Windows Event Logs to a Syslog Server](#syslog).
-
-You can download the forwarded BOSH job logs and Window event logs in the
-<%= vars.windows_runtime_abbr %> tile. For more information, see
-[Download Diego Cell Logs](#download).
-
-### <a id='syslog'></a> Forward Windows Event Logs to a Syslog Server
-
-To forward Windows event logs to an external syslog server:
+To forward Windows logs to an external syslog server:
 
 1. Navigate to the <%= vars.platform_name %> Installation Dashboard.
 
 1. Click the <%= vars.windows_runtime_abbr %> tile.
 
 1. Select **System Logging**.
-
-    <%= image_tag("win-syslog-config.png") %>
 
 1. Under **Enable syslog for VM logs?**, select **Enable**.
 
@@ -168,6 +151,10 @@ To forward Windows event logs to an external syslog server:
   <p class="note"><strong>Note:</strong> The host must be reachable from the <%= vars.app_runtime_abbr %> network. Ensure that your syslog server listens on external interfaces.</p>
 
 1. Under **Protocol**, select the transport protocol to use when forwarding logs.
+
+1. Under **tls_enabled**, select enabled if you are using tcp and want tls.
+
+1. Under **ca_cert**, add the certificate to validate connections to external server if using tls.
 
 1. Enable the **Enable system metrics** checkbox. For a list of the VM metrics that the System Metric Agent emits, see
 [VM Metrics](https://github.com/cloudfoundry/system-metrics-release/blob/develop/docs/system-metrics-agent.md#vm-metrics) in the System Metrics repository on GitHub.
