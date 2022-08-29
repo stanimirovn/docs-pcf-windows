@@ -90,31 +90,6 @@ To install the <%= vars.windows_runtime_abbr %> tile:
 
     This step take up to 20 minutes to complete.
 
-1. To enable forwarding BOSH job logs to an external syslog server, add the following BOSH add-on to a `runtime_config` YAML file:
-
-    ```
-    releases:
-    - name: windows-syslog
-      version: latest
-
-    addons:
-    - name: windows-syslog
-      include:
-        stemcell:
-        - os: ((stemcell OS e.g., windows2019))
-      jobs:
-      - name: syslog_forwarder_windows
-        properties:
-          syslog:
-            address: ((IP address of the syslog server))
-            port: ((Port of the syslog server))
-            transport: ((tcp or udp))
-            tls_enabled: true
-            ca_cert: ((TLS CA certificate of the syslog server))
-        release: windows-syslog
-    ```
-    For more information about BOSH add-ons, see [Addons Block](https://bosh.io/docs/runtime-config/#addons) in _Director Runtime Config_ in the BOSH documentation.
-
 1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product**.
 
 1. To add the <%= vars.windows_runtime_abbr %> tile to the **Import a Product** product list,
@@ -274,7 +249,7 @@ To deploy your <%= vars.windows_runtime_abbr %> app workloads to an isolation se
 
 ### <a id='config-system-logging'></a> (Optional) Configure System Logging
 
-To configure Windows Diego Cells to send Windows event logs to an external syslog server, select **System Logging** and follow the procedure in [Forward Windows Event Logs to a Syslog Server](./troubleshooting.html#syslog) in _Troubleshooting Windows Diego Cells_.
+To configure Windows Diego Cells to send vm logs to an external syslog server, select **System Logging** and follow the procedure in [Forwarding Logs to a Syslog Server](./troubleshooting.html#syslog) in _Troubleshooting Windows Diego Cells_.
 
 ### <a id='dns-search-domains'></a> (Optional) Configure DNS Search Domains
 
