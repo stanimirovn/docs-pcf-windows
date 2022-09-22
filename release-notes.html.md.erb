@@ -24,6 +24,7 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
 * **[Security Fix]** Bump Cloud Controller Ruby version to 2.7.6 and Go to 1.18.5
 * **[Security Fix]** Update Content-Security-Policy
 * **[Feature]** Enables TLS for all internal MySQL galera and monitoring components
+* **[Breaking Change]** A change in behavior to line-based log rate limits has been made. Previously, logs were buffered and released at the allowed rate, now logs exceeding the limit will be dropped.
 * Bump diego to version `2.66.3`
 * Bump envoy-nginx to version `0.11.0`
 * Bump garden-runc to version `1.22.2`
