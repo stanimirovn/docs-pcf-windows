@@ -7,10 +7,12 @@ owner: Garden Windows
 
 This topic contains release notes for <%= vars.windows_runtime_full %> <%= vars.v_major_version %>.
 
-Because VMware uses the Percona Distribution for MySQL, expect a time lag between Oracle
-releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> containing that patch.
+Because VMware uses the Percona Distribution for MySQL, expect a time lag between Oracle releasing a MySQL patch and VMware releasing
+<%= vars.windows_runtime_abbr %> containing that patch.
 
 Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix](./stemcells.html#compatibility).
+
+<hr>
 
 ## <a id='releases'></a> Releases
 
@@ -24,7 +26,8 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
 * **[Security Fix]** Bump Cloud Controller Ruby version to 2.7.6 and Go to 1.18.5
 * **[Security Fix]** Update Content-Security-Policy
 * **[Feature]** Enables TLS for all internal MySQL galera and monitoring components
-* **[Breaking Change]** A change in behavior to line-based log rate limits has been made. Previously, logs were buffered and released at the allowed rate, now logs exceeding the limit will be dropped.
+* **[Breaking Change]** The global log rate limit that measures app log rates in lines per second is deprecated in favor of per-app log rate limits that
+measure app log rates in bytes per second. For more information, see [Global Log Rate Limit is Deprecated](#global-log-rate-limit) below.
 * Bump diego to version `2.66.3`
 * Bump envoy-nginx to version `0.11.0`
 * Bump garden-runc to version `1.22.2`
@@ -57,8 +60,6 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
   </tbody>
 </table>
 
-
-
 ### <a id='2.13.5'></a> 2.13.5
 
 **Release Date:** 08/10/2022
@@ -87,8 +88,6 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
     <tr><td>windows-utilities</td><td>0.14.0</td></tr>
   </tbody>
 </table>
-
-
 
 ### <a id='2.13.4'></a> 2.13.4
 
@@ -122,14 +121,11 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
   </tbody>
 </table>
 
-
-
 ### <a id='2.13.3'></a> 2.13.3
 
 **Release Date:** 06/24/2022
 
-<p class="note warning"><strong> WARNING: Upcoming reduction in maintenance and security release coverage!</strong> In future patches, no sooner than July 1st 2022, some TAS components will become more strict about the protocols used in TLS communications, causing integrations with systems using older, insecure protocols to fail. Specifically, components built using the Go programming language will no longer support TLS 1.0 or 1.1, or certificates using SHA-1. In order to avoid breaking changes in this version line, (which has reached its End of General Support,) these components will no longer be updated with bug and security fixes in any patches that may be released. To continue receiving maintenance and security releases, upgrade to a version of TAS that remains in general support.</p>
-
+<p class='note warning'><strong>Warning:</strong> Upcoming reduction in maintenance and security release coverage! In future patches, no sooner than July 1st 2022, some TAS components will become more strict about the protocols used in TLS communications, causing integrations with systems using older, insecure protocols to fail. Specifically, components built using the Go programming language will no longer support TLS 1.0 or 1.1, or certificates using SHA-1. In order to avoid breaking changes in this version line, (which has reached its End of General Support,) these components will no longer be updated with bug and security fixes in any patches that may be released. To continue receiving maintenance and security releases, upgrade to a version of TAS that remains in general support.</p>
 
 * Bump diego to version `2.62.0`
 
@@ -156,13 +152,11 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
   </tbody>
 </table>
 
-
-
 ### <a id='2.13.2'></a> 2.13.2
 
 **Release Date:** 06/09/2022
 
-<p class="note warning"><strong> WARNING: Breaking change.</strong> This version contains Diego 2.64.0, which bumps to Go 1.18. Go 1.18 no longer supports TLS 1.0 and 1.1 connections or certificates with a SHA-1 checksum. This is most likely to affect connections with external databases. We stated earlier that we wouldn't bump to Go 1.18 until July 1, 2022. This TAS release with Diego 2.64.0 breaks that promise. We apologize. We are rolling back to Diego 2.62.0.  If you already successfully deployed to this TAS release with Diego 2.64.0, then you are safe to continue using it.</p>
+<p class='note warning'><strong>Warning:</strong> Breaking change. This version contains Diego 2.64.0, which bumps to Go 1.18. Go 1.18 no longer supports TLS 1.0 and 1.1 connections or certificates with a SHA-1 checksum. This is most likely to affect connections with external databases. We stated earlier that we wouldn't bump to Go 1.18 until July 1, 2022. This TAS release with Diego 2.64.0 breaks that promise. We apologize. We are rolling back to Diego 2.62.0.  If you already successfully deployed to this TAS release with Diego 2.64.0, then you are safe to continue using it.</p>
 
 * **[Breaking Change]** Syslog drains configured to use TLS now [reject certificates signed with the SHA-1 hash function](https://go.dev/doc/go1.18#sha1).
 * Bump diego to version `2.64.0`
@@ -192,8 +186,6 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
     <tr><td>windowsfs-release</td><td>2.35.0</td></tr>
   </tbody>
 </table>
-
-
 
 ### <a id='2.13.1'></a> 2.13.1
 
@@ -227,8 +219,6 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
   </tbody>
 </table>
 
-
-
 ### <a id='2.13.0'></a> 2.13.0
 
 **Release Date:** March 29, 2022
@@ -256,17 +246,36 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
   </tbody>
 </table>
 
+
 ## <a id='upgrade'></a> How to Upgrade
 
-The <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> tile is available with the release of TAS for VMs <%= vars.v_major_version %>. To use the <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> tile, you must install Ops Manager <%= vars.v_major_version %> or later and <%= vars.app_runtime_full %> (TAS for VMs) <%= vars.v_major_version %> or later.
+The <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> tile is available with the release of TAS for VMs <%= vars.v_major_version %>. To use the
+<%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> tile, you must install Ops Manager <%= vars.v_major_version %> or later and
+<%= vars.app_runtime_full %> <%= vars.app_runtime_abbr %> <%= vars.v_major_version %> or later.
+
 
 ## <a id='new-features'></a> New Features in <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %>
 
 <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> includes no major features.
 
+
 ## <a id='breaking-changes'></a> Breaking Changes
 
-<%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> includes no breaking changes.
+<%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> includes the following breaking changes:
+
+### <a id='global-log-rate-limit'></a> Global Log Rate Limit is Deprecated
+
+The global log rate limit that measures app log rates in lines per second is deprecated in favor of per-app log rate limits that measure app log rates in
+bytes per second.
+
+If you have configured a global log rate limit in lines per second, <%= vars.company_name %> recommends that you re-configure your apps to use log rate limits
+in bytes per second.
+
+If you still want to use the global log rate limit, logs that exceed the log rate limit are immediately dropped. Previously, logs that exceeded the log rate
+limit were buffered and released at the configured log rate.
+
+For more information about app log rate limits, see [App Log Rate Limiting](../loggregator/app-log-rate-limits.html).
+
 
 ## <a id='known-issues'></a> Known Issues
 
