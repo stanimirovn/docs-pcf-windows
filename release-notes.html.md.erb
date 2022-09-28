@@ -7,24 +7,28 @@ owner: Garden Windows
 
 This topic contains release notes for <%= vars.windows_runtime_full %> <%= vars.v_major_version %>.
 
-Because VMware uses the Percona Distribution for MySQL, expect a time lag between Oracle
-releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> containing that patch.
+Because VMware uses the Percona Distribution for MySQL, expect a time lag between Oracle releasing a MySQL patch and VMware releasing
+<%= vars.windows_runtime_abbr %> containing that patch.
 
-<p class="note warning"><strong>Warning:</strong> Windows stemcells v2019.44 and later include a version of <code>tar</code> that is incompatible
-with winfs2019-release v2.33.1 and earlier. For more information, see <a href="#windows-stemcell-tar">Windows Stemcell v2019.44 is Incompatible with winfs2019-release v2.33.1 and Earlier</a> in <em>Known Issues</em>.</p>
+<p class='note warning'><strong>Warning:</strong> Windows stemcells v2019.44 and later include a version of <code>tar</code> that is incompatible with
+  winfs2019-release v2.33.1 and earlier. For more information, see <a href="#windows-stemcell-tar">Windows Stemcell v2019.44 is Incompatible with
+  winfs2019-release v2.33.1 and Earlier</a> below.</p>
 
 Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix](./stemcells.html#compatibility).
+
+<hr>
 
 ## <a id='releases'></a> Releases
 
 <%# DO NOT DELETE THIS LINE - robots use this to add new release notes %>
 
-### <a id='2.11.20'></a> 2.11.20
+### <a id='2-11-20'></a> 2.11.20
 
 **Release Date:** 09/20/2022
 
 * **[Feature Improvement]** Bump golang to 1.18 for diego, routing, cf-networking, and silk
-* **[Breaking Change]** A change in behavior to line-based log rate limits has been made. Previously, logs were buffered and released at the allowed rate, now logs exceeding the limit will be dropped.
+* **[Breaking Change]** The global log rate limit that measures app log rates in lines per second is deprecated in favor of per-app log rate limits that
+measure app log rates in bytes per second. For more information, see [Global Log Rate Limit is Deprecated](#global-log-rate-limit) below.
 * Bump diego to version `2.66.3`
 * Bump envoy-nginx to version `0.10.0`
 * Bump garden-runc to version `1.22.0`
@@ -54,9 +58,7 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
   </tbody>
 </table>
 
-
-
-### <a id='2.11.17'></a> 2.11.17
+### <a id='2-11-17'></a> 2.11.17
 
 **Release Date:** 08/10/2022
 
@@ -85,9 +87,7 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
   </tbody>
 </table>
 
-
-
-### <a id='2.11.16'></a> 2.11.16
+### <a id='2-11-16'></a> 2.11.16
 
 **Release Date:** 07/18/2022
 
@@ -119,12 +119,11 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
   </tbody>
 </table>
 
-
-
-### <a id='2.11.15'></a> 2.11.15
+### <a id='2-11-15'></a> 2.11.15
 
 **Release Date:** 06/23/2022
-<p class="note warning"><strong> Warning:Upcoming breaking changes!</strong> In future patches, no sooner than July 1st 2022, some components will become more strict about the protocols used in TLS communications, causing integrations with systems using older, insecure protocols to fail. Specifically, components using the Go programming language will be updated to Go 1.18, and will no longer support TLS 1.0 and 1.1 connections or certificates with a SHA-1 checksum. This is most likely to affect connections with external databases. However, the pre-existing configuration for "TLS versions supported by the Gorouter" will still work. This change may not arrive all at once, as Go is used in systems throughout TAS. There will be a VMware Knowledge Base article about this change published prior to the changes rolling out. These changes will be clearly designated in the release notes of the versions they ship in; a version of this warning will appear on all patch versions until we are confident no systems remain to be updated.</p>
+
+<p class='note warning'><strong>Warning:</strong> Upcoming breaking changes! In future patches, no sooner than July 1st 2022, some components will become more strict about the protocols used in TLS communications, causing integrations with systems using older, insecure protocols to fail. Specifically, components using the Go programming language will be updated to Go 1.18, and will no longer support TLS 1.0 and 1.1 connections or certificates with a SHA-1 checksum. This is most likely to affect connections with external databases. However, the pre-existing configuration for "TLS versions supported by the Gorouter" will still work. This change may not arrive all at once, as Go is used in systems throughout TAS. There will be a VMware Knowledge Base article about this change published prior to the changes rolling out. These changes will be clearly designated in the release notes of the versions they ship in; a version of this warning will appear on all patch versions until we are confident no systems remain to be updated.</p>
 
 * Bump diego to version `2.62.0`
 
@@ -153,11 +152,10 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
 
 
 
-### <a id='2.11.14'></a> 2.11.14
+### <a id='2-11-14'></a> 2.11.14
 
 **Release Date:** 06/09/2022
-<p class="note warning"><strong> Warning: Breaking change.</strong> This version contains Diego 2.64.0, which bumps to Go 1.18. Go 1.18 no longer supports TLS 1.0 and 1.1 connections or certificates with a SHA-1 checksum. This is most likely to affect connections with external databases. We stated earlier that we wouldn't bump to Go 1.18 until July 1, 2022. This TAS release with Diego 2.64.0 breaks that promise. We apologize. We are rolling back to Diego 2.62.0.  If you already successfully deployed to this TAS release with Diego 2.64.0, then you are safe to continue using it.</p>
-
+<p class='note warning'><strong>Warning:</strong> Breaking change. This version contains Diego 2.64.0, which bumps to Go 1.18. Go 1.18 no longer supports TLS 1.0 and 1.1 connections or certificates with a SHA-1 checksum. This is most likely to affect connections with external databases. We stated earlier that we wouldn't bump to Go 1.18 until July 1, 2022. This TAS release with Diego 2.64.0 breaks that promise. We apologize. We are rolling back to Diego 2.62.0.  If you already successfully deployed to this TAS release with Diego 2.64.0, then you are safe to continue using it.</p>
 
 * Bump diego to version `2.64.0`
 * Bump garden-runc to version `1.20.6`
@@ -187,9 +185,7 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
   </tbody>
 </table>
 
-
-
-### <a id='2.11.13'></a> 2.11.13
+### <a id='2-11-13'></a> 2.11.13
 
 **Release Date:** 04/20/2022
 
@@ -244,9 +240,7 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
   </tbody>
 </table>
 
-
-
-### <a id='2.11.12'></a> 2.11.12
+### <a id='2-11-12'></a> 2.11.12
 
 **Release Date:** 03/31/2022
 
@@ -281,9 +275,7 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
   </tbody>
 </table>
 
-
-
-### <a id='2.11.11'></a> 2.11.11
+### <a id='2-11-11'></a> 2.11.11
 
 **Release Date:** 02/28/2022
 
@@ -320,9 +312,7 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
   </tbody>
 </table>
 
-
-
-### <a id='2.11.10'></a> 2.11.10
+### <a id='2-11-10'></a> 2.11.10
 
 **Release Date:** 02/08/2022
 
@@ -360,9 +350,7 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
   </tbody>
 </table>
 
-
-
-### <a id='2.11.9'></a> 2.11.9 - Withdrawn
+### <a id='2-11-9'></a> 2.11.9 - Withdrawn
 
 <p class="note warning"><strong> Warning:</strong> This release has been removed from VMware Tanzu Network due to a regression in Windows FS Injector 0.21.0.</p>
 
@@ -399,9 +387,7 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
   </tbody>
 </table>
 
-
-
-### <a id='2.11.8'></a> 2.11.8
+### <a id='2-11-8'></a> 2.11.8
 
 **Release Date:** 11/23/2021
 
@@ -433,7 +419,8 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
     <tr><td>windowsfs-release</td><td>2.31.0</td></tr>
   </tbody>
 </table>
-### <a id='2.11.7'></a> 2.11.7
+
+### <a id='2-11-7'></a> 2.11.7
 
 **Release Date:** 10/19/2021
 
@@ -463,7 +450,8 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
     <tr><td>windowsfs-release</td><td>2.29.0</td></tr>
   </tbody>
 </table>
-### <a id='2.11.6'></a> 2.11.6
+
+### <a id='2-11-6'></a> 2.11.6
 
 **Release Date:** 09/30/2021
 
@@ -495,7 +483,8 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
     <tr><td>windowsfs-release</td><td>2.29.0</td></tr>
   </tbody>
 </table>
-### <a id='2.11.5'></a> 2.11.5
+
+### <a id='2-11-5'></a> 2.11.5
 
 **Release Date:** 09/17/2021
 
@@ -527,7 +516,8 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
     <tr><td>windowsfs-release</td><td>2.29.0</td></tr>
   </tbody>
 </table>
-### <a id='2.11.4'></a> 2.11.4
+
+### <a id='2-11-4'></a> 2.11.4
 
 **Release Date:** 09/09/2021
 
@@ -561,7 +551,7 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
   </tbody>
 </table>
 
-### <a id='2.11.3'></a> 2.11.3
+### <a id='2-11-3'></a> 2.11.3
 
 **Release Date:** 07/15/2021
 
@@ -594,7 +584,8 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
     <tr><td>windowsfs-release</td><td>2.27.0</td></tr>
   </tbody>
 </table>
-### <a id='2.11.2'></a> 2.11.2
+
+### <a id='2-11-2'></a> 2.11.2
 
 **Release Date:** 06/22/2021
 
@@ -626,7 +617,8 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
     <tr><td>windowsfs-release</td><td>2.26.0</td></tr>
   </tbody>
 </table>
-### <a id='2.11.1'></a> 2.11.1
+
+### <a id='2-11-1'></a> 2.11.1
 
 **Release Date:** 05/27/2021
 
@@ -664,9 +656,7 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
   </tbody>
 </table>
 
-
-
-### <a id='2.11.0'></a> 2.11.0
+### <a id='2-11-0'></a> 2.11.0
 
 **Release Date:** March 30, 2021
 
@@ -698,10 +688,11 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
 
 ## <a id='upgrade'></a> How to Upgrade
 
-The <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> tile is available with the release of <%= vars.ops_manager %> v2.10.
-For more information, see the [<%= vars.ops_manager %>](https://docs.pivotal.io/ops-manager/2-10/index.html) documentation.
+The <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> tile is available with the release of <%= vars.ops_manager %> v2.10. For more information,
+see the [<%= vars.ops_manager %>](https://docs.pivotal.io/ops-manager/2-10/index.html) documentation.
 
-To use the <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> tile, you must install <%= vars.ops_manager %> v2.10 and <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) <%= vars.v_major_version %> or later.
+To use the <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> tile, you must install <%= vars.ops_manager %> v2.10 and <%= vars.app_runtime_full %>
+(<%= vars.app_runtime_abbr %>) <%= vars.v_major_version %> or later.
 
 
 ## <a id='new-features'></a> New Features in <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %>
@@ -711,29 +702,45 @@ There are no new features in this release of <%= vars.windows_runtime_abbr %>.
 
 ## <a id='breaking-changes'></a> Breaking Changes
 
-There are no breaking changes in this release of <%= vars.windows_runtime_abbr %>.
+<%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> includes the following breaking change:
+
+### <a id='global-log-rate-limit'></a> Global Log Rate Limit is Deprecated
+
+The global log rate limit that measures app log rates in lines per second is deprecated in favor of per-app log rate limits that measure app log rates in
+bytes per second.
+
+If you have configured a global log rate limit in lines per second, <%= vars.company_name %> recommends that you re-configure your apps to use log rate limits
+in bytes per second.
+
+If you still want to use the global log rate limit, logs that exceed the log rate limit are immediately dropped. Previously, logs that exceeded the log rate
+limit were buffered and released at the configured log rate.
+
+For more information about app log rate limits, see [App Log Rate Limiting](../loggregator/app-log-rate-limits.html).
 
 
 ## <a id='known-issues'></a> Known Issues
 
-See the following <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> known issues:
+<%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> includes the following known issues:
 
-### <a id='no-stemcell-bump'></a>Upgrades Fail When the Stemcell Does Not Change
+### <a id='no-stemcell-bump'></a> Upgrades Fail When the Stemcell Does Not Change
 
-If you upgrade to a version of <%= vars.windows_runtime_abbr %> that uses the same stemcell, <%= vars.windows_runtime_abbr %> can fail to create containers, causing the deployment to fail.
-If there are stemcell changes or if the Microsoft base layer changes, this error is unlikely to occur.
+If you upgrade to a version of <%= vars.windows_runtime_abbr %> that uses the same stemcell, <%= vars.windows_runtime_abbr %> can fail to create containers,
+causing the deployment to fail. If there are stemcell changes or if the Microsoft base layer changes, this error is unlikely to occur.
 
-For more information, see [Failure to create containers when upgrading with shared Microsoft base image](https://community.pivotal.io/s/article/knowledge-base-failure-to-create-containers-when-upgrading-with-shared-microsoft-base-image) in the VMware Tanzu Knowledge Base.
+For more information, see [Failure to create containers when upgrading with shared Microsoft base
+image](https://community.pivotal.io/s/article/knowledge-base-failure-to-create-containers-when-upgrading-with-shared-microsoft-base-image) in the VMware Tanzu
+Knowledge Base.
 
-### <a id='extra-failing-smoke-tests'></a>Smoke Tests Fail when Isolation Segment in Foundation
+### <a id='extra-failing-smoke-tests'></a> Smoke Tests Fail when Isolation Segment in Foundation
 
-The Smoke Test errand runs extra, failing tests when <%= vars.windows_runtime_abbr %> is deployed with <%= vars.segment_runtime_full %>. They are "Compute isolation disabled" and "Application Workflow Linux Applications".
+The Smoke Test errand runs extra, failing tests when <%= vars.windows_runtime_abbr %> is deployed with <%= vars.segment_runtime_full %>. They are "Compute
+isolation disabled" and "Application Workflow Linux Applications".
 
-To work around this issue, disable Smoke Tests. For more information, see [Windows Tile smoke-tests fails for isolation segment segments](https://community.pivotal.io/s/article/5004y00001iTlFg1635513986409) in the VMware Tanzu Knowledge Base.
+To work around this issue, disable Smoke Tests. For more information, see [Windows Tile smoke-tests fails for isolation segment
+segments](https://community.pivotal.io/s/article/5004y00001iTlFg1635513986409) in the VMware Tanzu Knowledge Base.
 
-### <a id='windows-stemcell-tar'></a>Windows Stemcell v2019.44 is Incompatible with winfs2019-release v2.33.1 and Earlier
+### <a id='windows-stemcell-tar'></a> Windows Stemcell v2019.44 is Incompatible with winfs2019-release v2.33.1 and Earlier
 
-Windows stemcells v2019.44 and later include a newer version of `tar` that is incompatible
-with winfs2019-release v2.33.1 and earlier.
-<%= vars.windows_runtime_abbr %> deployments that use Windows stemcells v2019.44 and later cannot untar winfs2019-release v2.33.1 and earlier.
-Compatible Windows stemcells for this winfs2019-release include v2019.0 through v2019.43.
+Windows stemcells v2019.44 and later include a newer version of `tar` that is incompatible with winfs2019-release v2.33.1 and earlier.
+<%= vars.windows_runtime_abbr %> deployments that use Windows stemcells v2019.44 and later cannot untar winfs2019-release v2.33.1 and earlier. Compatible
+Windows stemcells for this winfs2019-release include v2019.0 through v2019.43.
