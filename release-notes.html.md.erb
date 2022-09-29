@@ -7,16 +7,18 @@ owner: Garden Windows
 
 This topic contains release notes for <%= vars.windows_runtime_full %> <%= vars.v_major_version %>.
 
-Because VMware uses the Percona Distribution for MySQL, expect a time lag between Oracle
-releasing a MySQL patch and VMware releasing <%= vars.windows_runtime_abbr %> containing that patch.
+Because VMware uses the Percona Distribution for MySQL, expect a time lag between Oracle releasing a MySQL patch and VMware releasing
+<%= vars.windows_runtime_abbr %> containing that patch.
 
 Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix](./stemcells.html#compatibility).
+
+<hr>
 
 ## <a id='releases'></a> Releases
 
 <%# DO NOT DELETE THIS LINE - robots use this to add new release notes %>
 
-### <a id='3.0.0'></a> 3.0.0
+### <a id='3-0-0'></a> 3.0.0
 
 **Release Date:** 09/20/2022
 
@@ -44,9 +46,7 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
   </tbody>
 </table>
 
-
-
-### <a id='2.14.0-alpha.7'></a> 2.14.0-alpha.7
+### <a id='2-14-0-alpha-7'></a> 2.14.0-alpha.7
 
 **Release Date:** 08/10/2022
 
@@ -77,9 +77,7 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
   </tbody>
 </table>
 
-
-
-### <a id='2.14.0-alpha.5'></a> 2.14.0-alpha.5
+### <a id='2-14-0-alpha-5'></a> 2.14.0-alpha.5
 
 **Release Date:** 07/19/2022
 
@@ -112,9 +110,7 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
   </tbody>
 </table>
 
-
-
-### <a id='2.14.0-alpha.4'></a> 2.14.0-alpha.4
+### <a id='2-14-0-alpha-4'></a> 2.14.0-alpha.4
 
 **Release Date:** 06/23/2022
 
@@ -146,13 +142,11 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
   </tbody>
 </table>
 
-
-
-### <a id='2.14.0-alpha.3'></a> 2.14.0-alpha.3
+### <a id='2-14-0-alpha-3'></a> 2.14.0-alpha.3
 
 **Release Date:** 06/09/2022
 
-<p class="note warning"><strong> Warning:Upcoming breaking changes!</strong> In future patches, no sooner than July 1st 2022, some components will become more strict about the protocols used in TLS communications, causing integrations with systems using older, insecure protocols to fail. Specifically, components using the Go programming language will be updated to Go 1.18, and will no longer support TLS 1.0 and 1.1 connections or certificates with a SHA-1 checksum. This is most likely to affect connections with external databases. However, the pre-existing configuration for "TLS versions supported by the Gorouter" will still work. This change may not arrive all at once, as Go is used in systems throughout TAS. There will be a VMware Knowledge Base article about this change published prior to the changes rolling out. These changes will be clearly designated in the release notes of the versions they ship in; a version of this warning will appear on all patch versions until we are confident no systems remain to be updated.</p>
+<p class='note warning'><strong> Warning:</strong> In future patches, no sooner than July 1st 2022, some components will become more strict about the protocols used in TLS communications, causing integrations with systems using older, insecure protocols to fail. Specifically, components using the Go programming language will be updated to Go 1.18, and will no longer support TLS 1.0 and 1.1 connections or certificates with a SHA-1 checksum. This is most likely to affect connections with external databases. However, the pre-existing configuration for "TLS versions supported by the Gorouter" will still work. This change may not arrive all at once, as Go is used in systems throughout TAS. There will be a VMware Knowledge Base article about this change published prior to the changes rolling out. These changes will be clearly designated in the release notes of the versions they ship in; a version of this warning will appear on all patch versions until we are confident no systems remain to be updated.</p>
 
 * Bump diego to version `2.64.0`
 * Bump garden-runc to version `1.20.6`
@@ -183,9 +177,7 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
   </tbody>
 </table>
 
-
-
-### <a id='2.14.0-alpha.2'></a> 2.14.0-alpha.2
+### <a id='2-14-0-alpha-2'></a> 2.14.0-alpha.2
 
 **Release Date:** 04/25/2022
 
@@ -239,10 +231,7 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
   </tbody>
 </table>
 
-
-
-
-### <a id='2.14.0-alpha.1'></a> 2.14.0-alpha.1
+### <a id='2-14-0-alpha-1'></a> 2.14.0-alpha.1
 
 **Release Date:** 04/04/2022
 
@@ -276,18 +265,35 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
 </table>
 
 
-
 ## <a id='upgrade'></a> How to Upgrade
 
-The <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> tile is available with the release of <%= vars.app_runtime_abbr %> <%= vars.v_major_version %>. To use the <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> tile, you must install <%= vars.ops_manager_full %> <%= vars.v_major_version %> or later and <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) <%= vars.v_major_version %> or later.
+The <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> tile is available with the release of <%= vars.app_runtime_abbr %>
+<%= vars.v_major_version %>. To use the <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> tile, you must install <%= vars.ops_manager_full %>
+<%= vars.v_major_version %> or later and <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) <%= vars.v_major_version %> or later.
+
 
 ## <a id='new-features'></a> New Features in <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %>
 
 <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> includes the following major features:
 
+
 ## <a id='breaking-changes'></a> Breaking Changes
 
-<%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> includes the following breaking changes:
+<%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> includes the following breaking change:
+
+### <a id='global-log-rate-limit'></a> Global Log Rate Limit is Deprecated
+
+The global log rate limit that measures app log rates in lines per second is deprecated in favor of per-app log rate limits that measure app log rates in
+bytes per second.
+
+If you have configured a global log rate limit in lines per second, <%= vars.company_name %> recommends that you re-configure your apps to use log rate limits
+in bytes per second.
+
+If you still want to use the global log rate limit, logs that exceed the log rate limit are immediately dropped. Previously, logs that exceeded the log rate
+limit were buffered and released at the configured log rate.
+
+For more information about app log rate limits, see [App Log Rate Limiting](../loggregator/app-log-rate-limits.html).
+
 
 ### <a id='windows-syslog'></a> Windows syslog changes
 
@@ -313,4 +319,4 @@ An example log of the new format
 
 ## <a id='known-issues'></a> Known Issues
 
-See the following <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> known issues:
+<%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> includes the following known issues:
