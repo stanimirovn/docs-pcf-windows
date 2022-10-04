@@ -152,11 +152,11 @@ To forward Windows logs to an external syslog server:
 
 1. Under **Protocol**, select the transport protocol to use when forwarding logs.
 
-1. Under **tls_enabled**, select enabled if you are using tcp and want tls.
+1. If you are using a TCP protocol and want to allow TLS communication:
+  1. Activate the **TLS Enabled** checkbox.
+  1. For **Ca certificate**, provide the CA certificate that validates connections to an external server.
 
-1. Under **ca_cert**, add the certificate to validate connections to external server if using tls.
-
-1. Enable the **Enable system metrics** checkbox. For a list of the VM metrics that the System Metric Agent emits, see
+1. Activate the **Enable system metrics** checkbox. For a list of the VM metrics that the System Metric Agent emits, see
 [VM Metrics](https://github.com/cloudfoundry/system-metrics-release/blob/develop/docs/system-metrics-agent.md#vm-metrics) in the System Metrics repository on GitHub.
 
 1. Click **Save**.
@@ -194,8 +194,7 @@ Windows stemcell v2019.7 and later compilation VM issues:
 
 ### <a name='compilation-vms-slow'></a> Troubleshoot a Slowly-Deleted Windows Compilation VM
 
-The easiest method to troubleshoot a Windows compilation VM is to 
-`bosh ssh` to the VM before BOSH deletes it. 
+The easiest method to troubleshoot a Windows compilation VM is to SSH into the VM before BOSH deletes it. 
 
 To troubleshoot a compilation VM from an `ssh` session:
 
@@ -206,7 +205,7 @@ To troubleshoot a compilation VM from an `ssh` session:
 1. Enable the two following settings in <%= vars.ops_manager %>:
     * Select **Keep Unreachable Director VMs** from 
     **BOSH Director** tile > **Director config**. 
-    * Select **enable BOSH-native SSH support on all VMs** from 
+    * Select **Enable BOSH-native SSH support on all VMs** from 
     **<%= vars.windows_runtime_abbr %>** tile > **VM options**. 
 1. Click **Apply Changes** against the <%= vars.windows_runtime_abbr %> tile.
 1. From the first BOSH CLI terminal, monitor the BOSH task:  
@@ -229,16 +228,14 @@ To troubleshoot a compilation VM from an `ssh` session:
     * `COMPILATION-NAME` is the name of your  Windows compilation VM.  
 
 1. To prevent BOSH from deleting the compilation VM after the compilation VM fails, 
-search for the compilation VM CID in the vSphere UI and rename it.
-
-1. You can now troubleshoot within this session.  
+search for the compilation VM CID in the vSphere UI and rename it. You can now troubleshoot within this session.  
 
 1. After troubleshooting, delete the VM manually.  
 
 ### <a name='compilation-vms-quick'></a> Troubleshoot a Quickly-Deleted Windows Compilation VM
 
 In some situations, the Windows compilation VM might be deleted very quickly, 
-making it impossible to `bosh ssh` to the VM before BOSH deletes it. 
+making it impossible to SSH into the VM before BOSH deletes it. 
 
 To troubleshoot a quickly-deleted compilation VM:
 
@@ -289,7 +286,6 @@ To troubleshoot a quickly-deleted compilation VM:
     sudo mkdir /mnt/windows
     sudo mount /dev/sda1 /mnt/windows
     ```
-1. You can now troubleshoot within this session by 
-exploring the contents of the windows VM's file system within `/mnt/windows`
+1. You can now troubleshoot within this session by exploring the contents of the windows VM's file system within `/mnt/windows`.
 
 1. After troubleshooting, delete the VM manually.
