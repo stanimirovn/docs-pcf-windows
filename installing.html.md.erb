@@ -243,6 +243,23 @@ following options:
 
 1. Click **Save**.
 
+#### <a id='custom-cell-verlay'></a>Custom Windows Diego Cell Overlay Subnet
+
+By default Windows Diego Cells use the `172.30.0.0/22` address space for container networking.
+If this conflicts with any internal IP addresses in use at your organization, you can customize
+this subnet. Unlike in TAS on Linux Diego Cells, this subnet is per-cell. When overriding this,
+ensure that the new subnet CIDR does not conflict with any resources apps may need to communicate
+with, and that the subnet is large enough to handle the number of apps you expect to have running
+on each cell.
+
+To configure a custom Windows Diego Cell Overlay Sunet
+
+1. Select **Advanced Features**.
+
+1. Enter the new subnet desired into **Diego Cell Overlay Subnet**.
+
+1. Click **Save**.
+
 ### <a id='config-errands'></a> Configure Errands
 
 Errands are scripts that Ops Manager runs automatically when it installs or uninstalls a product,
