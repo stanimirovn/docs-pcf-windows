@@ -16,12 +16,12 @@ Before you install the tile, review the [Windows Stemcell Compatibility Matrix](
 
 ## <a id='releases'></a> Releases
 
-### <a id='3.0.0'></a> 3.0.0
+<%# DO NOT DELETE THIS LINE - robots use this to add new release notes %>
+
+### <a id='3-0-0'></a> v3.0.0
 
 **Release Date:** 10/04/2022
 
-* **[Feature Improvement]** Bump golang to 1.18 for diego, routing, cf-networking, and silk
-
 <table border="1" class="nice">
   <thead>
     <tr>
@@ -42,257 +42,6 @@ Before you install the tile, review the [Windows Stemcell Compatibility Matrix](
     <tr><td>windows-syslog</td><td>1.1.7</td></tr>
     <tr><td>windows-utilities</td><td>0.17.0</td></tr>
     <tr><td>windowsfs-release</td><td>2.36.0</td></tr>
-  </tbody>
-</table>
-
-
-
-<%# DO NOT DELETE THIS LINE - robots use this to add new release notes %>
-
-### <a id='3-0-0-rc.1'></a> 3.0.0-rc.1
-
-**Release Date:** 09/20/2022
-
-* **[Breaking Change]** [Add file logging and improve event logging](#windows-syslog)
-
-<table border="1" class="nice">
-  <thead>
-    <tr>
-      <th>Component</th>
-      <th>Version</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>windows2019 stemcell</td><td>2019.44</td></tr>
-    <tr><td>diego</td><td>2.66.3</td></tr>
-    <tr><td>envoy-nginx</td><td>0.11.0</td></tr>
-    <tr><td>garden-runc</td><td>1.22.2</td></tr>
-    <tr><td>hwc-offline-buildpack</td><td>3.1.24</td></tr>
-    <tr><td>loggregator-agent</td><td>6.5.0</td></tr>
-    <tr><td>metrics-discovery</td><td>3.2.0</td></tr>
-    <tr><td>smoke-tests</td><td>4.5.0</td></tr>
-    <tr><td>winc</td><td>2.7.0</td></tr>
-    <tr><td>windows-syslog</td><td>1.1.7</td></tr>
-    <tr><td>windows-utilities</td><td>0.17.0</td></tr>
-    <tr><td>windowsfs-release</td><td>2.36.0</td></tr>
-  </tbody>
-</table>
-
-### <a id='2-14-0-alpha-7'></a> 2.14.0-alpha.7
-
-**Release Date:** 08/10/2022
-
-* Bump diego to version `2.65.0`
-* Bump loggregator-agent to version `6.4.3`
-* Bump metrics-discovery to version `3.1.1`
-
-<table border="1" class="nice">
-  <thead>
-    <tr>
-      <th>Component</th>
-      <th>Version</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>windows2019 stemcell</td><td>2019.44</td></tr>
-    <tr><td>diego</td><td>2.65.0</td></tr>
-    <tr><td>envoy-nginx</td><td>0.9.0</td></tr>
-    <tr><td>event-log</td><td>0.9.0</td></tr>
-    <tr><td>garden-runc</td><td>1.20.8</td></tr>
-    <tr><td>hwc-offline-buildpack</td><td>3.1.24</td></tr>
-    <tr><td>loggregator-agent</td><td>6.4.3</td></tr>
-    <tr><td>metrics-discovery</td><td>3.1.1</td></tr>
-    <tr><td>smoke-tests</td><td>4.5.0</td></tr>
-    <tr><td>winc</td><td>2.5.0</td></tr>
-    <tr><td>windows-utilities</td><td>0.17.0</td></tr>
-    <tr><td>windowsfs-release</td><td>2.35.0</td></tr>
-  </tbody>
-</table>
-
-### <a id='2-14-0-alpha-5'></a> 2.14.0-alpha.5
-
-**Release Date:** 07/19/2022
-
-* **[Feature]** Remove the Obsolete windows2012R2 & windows2016 stacks and their associated buildpacks from TAS
-* Bump garden-runc to version `1.20.8`
-* Bump loggregator-agent to version `6.4.2`
-* Bump metrics-discovery to version `3.1.0`
-* Bump windows-utilities to version `0.17.0`
-
-<table border="1" class="nice">
-  <thead>
-    <tr>
-      <th>Component</th>
-      <th>Version</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>windows2019 stemcell</td><td>2019.44</td></tr>
-    <tr><td>diego</td><td>2.64.0</td></tr>
-    <tr><td>envoy-nginx</td><td>0.9.0</td></tr>
-    <tr><td>event-log</td><td>0.9.0</td></tr>
-    <tr><td>garden-runc</td><td>1.20.8</td></tr>
-    <tr><td>hwc-offline-buildpack</td><td>3.1.24</td></tr>
-    <tr><td>loggregator-agent</td><td>6.4.2</td></tr>
-    <tr><td>metrics-discovery</td><td>3.1.0</td></tr>
-    <tr><td>smoke-tests</td><td>4.5.0</td></tr>
-    <tr><td>winc</td><td>2.5.0</td></tr>
-    <tr><td>windows-utilities</td><td>0.17.0</td></tr>
-    <tr><td>windowsfs-release</td><td>2.35.0</td></tr>
-  </tbody>
-</table>
-
-### <a id='2-14-0-alpha-4'></a> 2.14.0-alpha.4
-
-**Release Date:** 06/23/2022
-
-* Bump garden-runc to version `1.20.6`
-* Bump loggregator-agent to version `6.4.1`
-* Bump metrics-discovery to version `3.0.13`
-* Bump windows-utilities to version `0.15.0`
-
-<table border="1" class="nice">
-  <thead>
-    <tr>
-      <th>Component</th>
-      <th>Version</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>windows2019 stemcell</td><td>2019.44</td></tr>
-    <tr><td>diego</td><td>2.62.0</td></tr>
-    <tr><td>envoy-nginx</td><td>0.9.0</td></tr>
-    <tr><td>event-log</td><td>0.9.0</td></tr>
-    <tr><td>garden-runc</td><td>1.20.6</td></tr>
-    <tr><td>hwc-offline-buildpack</td><td>3.1.24</td></tr>
-    <tr><td>loggregator-agent</td><td>6.4.1</td></tr>
-    <tr><td>metrics-discovery</td><td>3.0.13</td></tr>
-    <tr><td>smoke-tests</td><td>4.5.0</td></tr>
-    <tr><td>winc</td><td>2.5.0</td></tr>
-    <tr><td>windows-utilities</td><td>0.15.0</td></tr>
-    <tr><td>windowsfs-release</td><td>2.35.0</td></tr>
-  </tbody>
-</table>
-
-### <a id='2-14-0-alpha-3'></a> 2.14.0-alpha.3
-
-**Release Date:** 06/09/2022
-
-<p class='note warning'><strong> Warning:</strong> In future patches, no sooner than July 1st 2022, some components will become more strict about the protocols used in TLS communications, causing integrations with systems using older, insecure protocols to fail. Specifically, components using the Go programming language will be updated to Go 1.18, and will no longer support TLS 1.0 and 1.1 connections or certificates with a SHA-1 checksum. This is most likely to affect connections with external databases. However, the pre-existing configuration for "TLS versions supported by the Gorouter" will still work. This change may not arrive all at once, as Go is used in systems throughout TAS. There will be a VMware Knowledge Base article about this change published prior to the changes rolling out. These changes will be clearly designated in the release notes of the versions they ship in; a version of this warning will appear on all patch versions until we are confident no systems remain to be updated.</p>
-
-* Bump diego to version `2.64.0`
-* Bump garden-runc to version `1.20.6`
-* Bump loggregator-agent to version `6.4.1`
-* Bump metrics-discovery to version `3.0.13`
-* Bump windows-utilities to version `0.15.0`
-
-<table border="1" class="nice">
-  <thead>
-    <tr>
-      <th>Component</th>
-      <th>Version</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>windows2019 stemcell</td><td>2019.44</td></tr>
-    <tr><td>diego</td><td>2.64.0</td></tr>
-    <tr><td>envoy-nginx</td><td>0.9.0</td></tr>
-    <tr><td>event-log</td><td>0.9.0</td></tr>
-    <tr><td>garden-runc</td><td>1.20.6</td></tr>
-    <tr><td>hwc-offline-buildpack</td><td>3.1.24</td></tr>
-    <tr><td>loggregator-agent</td><td>6.4.1</td></tr>
-    <tr><td>metrics-discovery</td><td>3.0.13</td></tr>
-    <tr><td>smoke-tests</td><td>4.5.0</td></tr>
-    <tr><td>winc</td><td>2.5.0</td></tr>
-    <tr><td>windows-utilities</td><td>0.15.0</td></tr>
-    <tr><td>windowsfs-release</td><td>2.35.0</td></tr>
-  </tbody>
-</table>
-
-### <a id='2-14-0-alpha-2'></a> 2.14.0-alpha.2
-
-**Release Date:** 04/25/2022
-
-* Bump diego to version `2.62.0`
-* Bump hwc-offline-buildpack to version `3.1.24`
-* Bump loggregator-agent to version `6.3.11`
-* Bump metrics-discovery to version `3.0.10`
-* Bump winc to version `2.5.0`
-
-<table border="1" class="nice">
-  <thead>
-    <tr>
-      <th>Component</th>
-      <th>Version</th>
-      <th>Release Notes</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>windows2019 stemcell</td><td>2019.44</td><td></td></tr>
-    <tr><td>diego</td><td>2.62.0</td><td></td></tr>
-    <tr><td>envoy-nginx</td><td>0.9.0</td><td></td></tr>
-    <tr><td>event-log</td><td>0.9.0</td><td></td></tr>
-    <tr><td>garden-runc</td><td>1.20.3</td><td></td></tr>
-    <tr><td>hwc-offline-buildpack</td><td>3.1.24</td><td></td></tr>
-    <tr><td>loggregator-agent</td><td>6.3.11</td>
-      <td>
-        <details>
-          <summary>v6.3.11</summary>
-          <pre>
-  - fix bug with large messages (#89)
-  - bump-golang to v0.100.0(now 1.18)
-          </pre>
-        </details>
-      </td>
-    </tr>
-    <tr><td>metrics-discovery</td><td>3.0.10</td>
-      <td>
-        <details>
-          <summary>v3.0.10</summary>
-          <pre>
-  - fix bug with large messages (#22)
-  - bump-golang to v0.100.0(now 1.18)
-          </pre>
-        </details>
-      </td>
-    </tr>
-    <tr><td>smoke-tests</td><td>4.5.0</td><td></td></tr>
-    <tr><td>winc</td><td>2.5.0</td><td></td></tr>
-    <tr><td>windows-utilities</td><td>0.14.0</td><td></td></tr>
-    <tr><td>windowsfs-release</td><td>2.35.0</td></tr>
-  </tbody>
-</table>
-
-### <a id='2-14-0-alpha-1'></a> 2.14.0-alpha.1
-
-**Release Date:** 04/04/2022
-
-* Bump diego to version `2.61.0`
-* Bump garden-runc to version `1.20.3`
-* Bump hwc-offline-buildpack to version `3.1.23`
-* Bump loggregator-agent to version `6.3.10`
-* Bump metrics-discovery to version `3.0.9`
-
-<table border="1" class="nice">
-  <thead>
-    <tr>
-      <th>Component</th>
-      <th>Version</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>windows2019 stemcell</td><td>2019.44</td></tr>
-    <tr><td>diego</td><td>2.61.0</td></tr>
-    <tr><td>envoy-nginx</td><td>0.9.0</td></tr>
-    <tr><td>event-log</td><td>0.9.0</td></tr>
-    <tr><td>garden-runc</td><td>1.20.3</td></tr>
-    <tr><td>hwc-offline-buildpack</td><td>3.1.23</td></tr>
-    <tr><td>loggregator-agent</td><td>6.3.10</td></tr>
-    <tr><td>metrics-discovery</td><td>3.0.9</td></tr>
-    <tr><td>smoke-tests</td><td>4.5.0</td></tr>
-    <tr><td>winc</td><td>2.4.0</td></tr>
-    <tr><td>windows-utilities</td><td>0.14.0</td></tr>
-    <tr><td>windowsfs-release</td><td>2.35.0</td></tr>
   </tbody>
 </table>
 
@@ -341,14 +90,25 @@ For more information about app log rate limits, see [App Log Rate Limiting](../l
 
 ### <a id='syslog-format'></a> windows-syslog Uses a Different Log Format
 
-There are some minor formatting differences between the messages output by the old syslog connections and the new syslog connections
-   * The priority field in syslog has changed, from the facility/severity of `kernel/debug(7)` to `user/info(14)`
-   * The app name in syslog has changed, from `Microsoft-Windows-Security-Auditing` to `event_logger`
-   * The proccess field in syslog has changed, from the numerical process ID to `rs2`
-   * The new logs contain structured data for instance and deployment details
-   * The event log JSON now has additional fields, field names are now camel-cased, and fields may be in a different order.
+The logs that `windows-syslog` forwards to the configured syslog endpoint for your <%= vars.windows_runtime_abbr %> deployment follow a different format from
+that of previous logs.
 
-[How does this break things? Do we really need examples below?]
+If your observability platform is configured to gather data by parsing forwarded system logs, you may need to re-configure your rules to accommodate the
+following format changes:
+
+* The priority is changed from `kernel/debug(7)` to `user/info(14)`.
+
+* The app name is changed from `Microsoft-Windows-Security-Auditing` to `event_logger`.
+
+* The process number is changed from a numerical process ID to `rs2`.
+
+* Logs contain structured data for instance and deployment details.
+
+* The event log JSON string includes additional fields.
+
+* In the event log JSON string, field names are written in camel case.
+
+* In the event log JSON string, fields may appear in a different order.
 
 The following example shows the previous log format:
 
@@ -365,4 +125,4 @@ The following example shows the new log format:
 
 ## <a id='known-issues'></a> Known Issues
 
-<%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> includes the following known issues:
+There are no known issues for <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %>.
