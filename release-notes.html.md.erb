@@ -5,7 +5,7 @@ owner: Garden Windows
 
 <% current_page.data.title = vars.windows_runtime_full + " " + vars.v_major_version + " Release Notes" %>
 
-This topic contains release notes for <%= vars.windows_runtime_full %> <%= vars.v_major_version %>.
+This topic contains release notes for <%= vars.windows_runtime_full %> (<%= vars.windows_runtime_abbr %>) <%= vars.v_major_version %>.
 
 Because VMware uses the Percona Distribution for MySQL, expect a time lag between Oracle releasing a MySQL patch and VMware releasing
 <%= vars.windows_runtime_abbr %> containing that patch.
@@ -18,7 +18,7 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
 
 <%# DO NOT DELETE THIS LINE - robots use this to add new release notes %>
 
-### <a id='2-13-6'></a> 2.13.6
+### <a id='2-13-6'></a> v2.13.6
 
 **Release Date:** 09/21/2022
 
@@ -26,8 +26,8 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
 * **[Security Fix]** Bump Cloud Controller Ruby version to 2.7.6 and Go to 1.18.5
 * **[Security Fix]** Update Content-Security-Policy
 * **[Feature]** Enables TLS for all internal MySQL galera and monitoring components
-* **[Breaking Change]** The global log rate limit that measures app log rates in lines per second is deprecated in favor of per-app log rate limits that
-measure app log rates in bytes per second. For more information, see [Global Log Rate Limit is Deprecated](#global-log-rate-limit) below.
+* **[Breaking Change]** If you have configured an app log rate limit that measures app log rates in lines per second, Diego immediately drops app logs that
+exceed the app log rate limit. For more information, see [Diego Drops App Logs That Exceed the App Log Rate Limit](#dropped-app-logs) below.
 * Bump diego to version `2.66.3`
 * Bump envoy-nginx to version `0.11.0`
 * Bump garden-runc to version `1.22.2`
@@ -60,7 +60,7 @@ measure app log rates in bytes per second. For more information, see [Global Log
   </tbody>
 </table>
 
-### <a id='2-13-5'></a> 2.13.5
+### <a id='2-13-5'></a> v2.13.5
 
 **Release Date:** 08/10/2022
 
@@ -89,7 +89,7 @@ measure app log rates in bytes per second. For more information, see [Global Log
   </tbody>
 </table>
 
-### <a id='2-13-4'></a> 2.13.4
+### <a id='2-13-4'></a> v2.13.4
 
 **Release Date:** 07/19/2022
 
@@ -121,7 +121,7 @@ measure app log rates in bytes per second. For more information, see [Global Log
   </tbody>
 </table>
 
-### <a id='2-13-3'></a> 2.13.3
+### <a id='2-13-3'></a> v2.13.3
 
 **Release Date:** 06/24/2022
 
@@ -152,7 +152,7 @@ measure app log rates in bytes per second. For more information, see [Global Log
   </tbody>
 </table>
 
-### <a id='2-13-2'></a> 2.13.2
+### <a id='2-13-2'></a> v2.13.2
 
 **Release Date:** 06/09/2022
 
@@ -187,7 +187,7 @@ measure app log rates in bytes per second. For more information, see [Global Log
   </tbody>
 </table>
 
-### <a id='2-13-1'></a> 2.13.1
+### <a id='2-13-1'></a> v2.13.1
 
 **Release Date:** 04/20/2022
 
@@ -219,7 +219,7 @@ measure app log rates in bytes per second. For more information, see [Global Log
   </tbody>
 </table>
 
-### <a id='2-13-0'></a> 2.13.0
+### <a id='2-13-0'></a> v2.13.0
 
 **Release Date:** March 29, 2022
 
@@ -249,30 +249,31 @@ measure app log rates in bytes per second. For more information, see [Global Log
 
 ## <a id='upgrade'></a> How to Upgrade
 
-The <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> tile is available with the release of TAS for VMs <%= vars.v_major_version %>. To use the
-<%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> tile, you must install Ops Manager <%= vars.v_major_version %> or later and
-<%= vars.app_runtime_full %> <%= vars.app_runtime_abbr %> <%= vars.v_major_version %> or later.
+The <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> tile is available with the release of <%= vars.app_runtime_first %>
+<%= vars.v_major_version %>. To use the <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> tile, you must install <%= vars.ops_manager %> v2.10 or
+later and <%= vars.app_runtime_abbr %> <%= vars.v_major_version %> or later.
 
 
 ## <a id='new-features'></a> New Features in <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %>
 
-<%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> includes no major features.
+<%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> includes no new features.
 
 
 ## <a id='breaking-changes'></a> Breaking Changes
 
-<%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> includes the following breaking changes:
+<%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> includes the following breaking change:
 
-### <a id='global-log-rate-limit'></a> Global Log Rate Limit is Deprecated
+### <a id='dropped-app-logs'></a> Diego Drops App Logs That Exceed the App Log Rate Limit
 
-The global log rate limit that measures app log rates in lines per second is deprecated in favor of per-app log rate limits that measure app log rates in
-bytes per second.
+As of <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %>.6, if you have configured an app log rate limit that measures app log rates in lines per
+second, Diego immediately drops app logs that exceed the app log rate limit.
 
-If you have configured a global log rate limit in lines per second, <%= vars.company_name %> recommends that you re-configure your apps to use log rate limits
-in bytes per second.
+In <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %>.5 and earlier, Diego buffers and releases approximately 5&nbsp;MB to 10&nbsp;MB of app logs
+that exceed the app log rate limit. This behavior has changed in <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %>.6 because Diego has been
+upgraded to a newer version.
 
-If you still want to use the global log rate limit, logs that exceed the log rate limit are immediately dropped. Previously, logs that exceeded the log rate
-limit were buffered and released at the configured log rate.
+If this change in behavior causes parts of your deployment to fail, <%= vars.company_name %> recommends that you either modify any automated scripts that rely
+on app log output or increase the app log rate limit.
 
 For more information about app log rate limits, see [App Log Rate Limiting](../loggregator/app-log-rate-limits.html).
 
