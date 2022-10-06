@@ -14,7 +14,7 @@ Because VMware uses the Percona Distribution for MySQL, expect a time lag betwee
   winfs2019-release v2.33.1 and earlier. For more information, see <a href="#windows-stemcell-tar">Windows Stemcell v2019.44 is Incompatible with
   winfs2019-release v2.33.1 and Earlier</a> below.</p>
 
-Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix](./stemcells.html#compatibility).
+Before you install the tile, review the [Windows Stemcell Compatibility Matrix](stemcells.html#compatibility).
 
 <hr>
 
@@ -22,13 +22,13 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
 
 <%# DO NOT DELETE THIS LINE - robots use this to add new release notes %>
 
-### <a id='2-11-20'></a> 2.11.20
+### <a id='2-11-20'></a> v2.11.20
 
 **Release Date:** 09/20/2022
 
 * **[Feature Improvement]** Bump golang to 1.18 for diego, routing, cf-networking, and silk
-* **[Breaking Change]** The global log rate limit that measures app log rates in lines per second is deprecated in favor of per-app log rate limits that
-measure app log rates in bytes per second. For more information, see [Global Log Rate Limit is Deprecated](#global-log-rate-limit) below.
+* **[Breaking Change]** If you have configured an app log rate limit that measures app log rates in lines per second, Diego immediately drops app logs that
+exceed the app log rate limit. For more information, see [Diego Drops App Logs That Exceed the App Log Rate Limit](#dropped-app-logs) below.
 * Bump diego to version `2.66.3`
 * Bump envoy-nginx to version `0.10.0`
 * Bump garden-runc to version `1.22.0`
@@ -58,7 +58,7 @@ measure app log rates in bytes per second. For more information, see [Global Log
   </tbody>
 </table>
 
-### <a id='2-11-17'></a> 2.11.17
+### <a id='2-11-17'></a> v2.11.17
 
 **Release Date:** 08/10/2022
 
@@ -87,7 +87,7 @@ measure app log rates in bytes per second. For more information, see [Global Log
   </tbody>
 </table>
 
-### <a id='2-11-16'></a> 2.11.16
+### <a id='2-11-16'></a> v2.11.16
 
 **Release Date:** 07/18/2022
 
@@ -119,7 +119,7 @@ measure app log rates in bytes per second. For more information, see [Global Log
   </tbody>
 </table>
 
-### <a id='2-11-15'></a> 2.11.15
+### <a id='2-11-15'></a> v2.11.15
 
 **Release Date:** 06/23/2022
 
@@ -150,9 +150,7 @@ measure app log rates in bytes per second. For more information, see [Global Log
   </tbody>
 </table>
 
-
-
-### <a id='2-11-14'></a> 2.11.14
+### <a id='2-11-14'></a> v2.11.14
 
 **Release Date:** 06/09/2022
 <p class='note warning'><strong>Warning:</strong> Breaking change. This version contains Diego 2.64.0, which bumps to Go 1.18. Go 1.18 no longer supports TLS 1.0 and 1.1 connections or certificates with a SHA-1 checksum. This is most likely to affect connections with external databases. We stated earlier that we wouldn't bump to Go 1.18 until July 1, 2022. This TAS release with Diego 2.64.0 breaks that promise. We apologize. We are rolling back to Diego 2.62.0.  If you already successfully deployed to this TAS release with Diego 2.64.0, then you are safe to continue using it.</p>
@@ -185,7 +183,7 @@ measure app log rates in bytes per second. For more information, see [Global Log
   </tbody>
 </table>
 
-### <a id='2-11-13'></a> 2.11.13
+### <a id='2-11-13'></a> v2.11.13
 
 **Release Date:** 04/20/2022
 
@@ -240,7 +238,7 @@ measure app log rates in bytes per second. For more information, see [Global Log
   </tbody>
 </table>
 
-### <a id='2-11-12'></a> 2.11.12
+### <a id='2-11-12'></a> v2.11.12
 
 **Release Date:** 03/31/2022
 
@@ -275,7 +273,7 @@ measure app log rates in bytes per second. For more information, see [Global Log
   </tbody>
 </table>
 
-### <a id='2-11-11'></a> 2.11.11
+### <a id='2-11-11'></a> v2.11.11
 
 **Release Date:** 02/28/2022
 
@@ -312,7 +310,7 @@ measure app log rates in bytes per second. For more information, see [Global Log
   </tbody>
 </table>
 
-### <a id='2-11-10'></a> 2.11.10
+### <a id='2-11-10'></a> v2.11.10
 
 **Release Date:** 02/08/2022
 
@@ -350,7 +348,7 @@ measure app log rates in bytes per second. For more information, see [Global Log
   </tbody>
 </table>
 
-### <a id='2-11-9'></a> 2.11.9 - Withdrawn
+### <a id='2-11-9'></a> v2.11.9 - Withdrawn
 
 <p class="note warning"><strong> Warning:</strong> This release has been removed from VMware Tanzu Network due to a regression in Windows FS Injector 0.21.0.</p>
 
@@ -387,7 +385,7 @@ measure app log rates in bytes per second. For more information, see [Global Log
   </tbody>
 </table>
 
-### <a id='2-11-8'></a> 2.11.8
+### <a id='2-11-8'></a> v2.11.8
 
 **Release Date:** 11/23/2021
 
@@ -420,7 +418,7 @@ measure app log rates in bytes per second. For more information, see [Global Log
   </tbody>
 </table>
 
-### <a id='2-11-7'></a> 2.11.7
+### <a id='2-11-7'></a> v2.11.7
 
 **Release Date:** 10/19/2021
 
@@ -451,7 +449,7 @@ measure app log rates in bytes per second. For more information, see [Global Log
   </tbody>
 </table>
 
-### <a id='2-11-6'></a> 2.11.6
+### <a id='2-11-6'></a> v2.11.6
 
 **Release Date:** 09/30/2021
 
@@ -484,7 +482,7 @@ measure app log rates in bytes per second. For more information, see [Global Log
   </tbody>
 </table>
 
-### <a id='2-11-5'></a> 2.11.5
+### <a id='2-11-5'></a> v2.11.5
 
 **Release Date:** 09/17/2021
 
@@ -517,7 +515,7 @@ measure app log rates in bytes per second. For more information, see [Global Log
   </tbody>
 </table>
 
-### <a id='2-11-4'></a> 2.11.4
+### <a id='2-11-4'></a> v2.11.4
 
 **Release Date:** 09/09/2021
 
@@ -551,7 +549,7 @@ measure app log rates in bytes per second. For more information, see [Global Log
   </tbody>
 </table>
 
-### <a id='2-11-3'></a> 2.11.3
+### <a id='2-11-3'></a> v2.11.3
 
 **Release Date:** 07/15/2021
 
@@ -585,7 +583,7 @@ measure app log rates in bytes per second. For more information, see [Global Log
   </tbody>
 </table>
 
-### <a id='2-11-2'></a> 2.11.2
+### <a id='2-11-2'></a> v2.11.2
 
 **Release Date:** 06/22/2021
 
@@ -618,7 +616,7 @@ measure app log rates in bytes per second. For more information, see [Global Log
   </tbody>
 </table>
 
-### <a id='2-11-1'></a> 2.11.1
+### <a id='2-11-1'></a> v2.11.1
 
 **Release Date:** 05/27/2021
 
@@ -656,7 +654,7 @@ measure app log rates in bytes per second. For more information, see [Global Log
   </tbody>
 </table>
 
-### <a id='2-11-0'></a> 2.11.0
+### <a id='2-11-0'></a> v2.11.0
 
 **Release Date:** March 30, 2021
 
@@ -704,16 +702,17 @@ There are no new features in this release of <%= vars.windows_runtime_abbr %>.
 
 <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %> includes the following breaking change:
 
-### <a id='global-log-rate-limit'></a> Global Log Rate Limit is Deprecated
+### <a id='dropped-app-logs'></a> Diego Drops App Logs That Exceed the App Log Rate Limit
 
-The global log rate limit that measures app log rates in lines per second is deprecated in favor of per-app log rate limits that measure app log rates in
-bytes per second.
+As of <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %>.20, if you have configured an app log rate limit that measures app log rates in lines per
+second, Diego immediately drops app logs that exceed the app log rate limit.
 
-If you have configured a global log rate limit in lines per second, <%= vars.company_name %> recommends that you re-configure your apps to use log rate limits
-in bytes per second.
+In <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %>.19 and earlier, Diego buffers and releases approximately 5&nbsp;MB to 10&nbsp;MB of app logs
+that exceed the app log rate limit. This behavior has changed in <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %>.20 because Diego has been
+upgraded to a newer version.
 
-If you still want to use the global log rate limit, logs that exceed the log rate limit are immediately dropped. Previously, logs that exceeded the log rate
-limit were buffered and released at the configured log rate.
+If this change in behavior causes parts of your deployment to fail, <%= vars.company_name %> recommends that you either modify any automated scripts that rely
+on app log output or increase the app log rate limit.
 
 For more information about app log rate limits, see [App Log Rate Limiting](../loggregator/app-log-rate-limits.html).
 
@@ -731,7 +730,7 @@ For more information, see [Failure to create containers when upgrading with shar
 image](https://community.pivotal.io/s/article/knowledge-base-failure-to-create-containers-when-upgrading-with-shared-microsoft-base-image) in the VMware Tanzu
 Knowledge Base.
 
-### <a id='extra-failing-smoke-tests'></a> Smoke Tests Fail when Isolation Segment in Foundation
+### <a id='extra-failing-smoke-tests'></a> Smoke Tests Fail When <%= vars.windows_runtime_abbr %> is deployed with <%= vars.segment_runtime_full %>
 
 The Smoke Test errand runs extra, failing tests when <%= vars.windows_runtime_abbr %> is deployed with <%= vars.segment_runtime_full %>. They are "Compute
 isolation disabled" and "Application Workflow Linux Applications".
@@ -741,6 +740,6 @@ segments](https://community.pivotal.io/s/article/5004y00001iTlFg1635513986409) i
 
 ### <a id='windows-stemcell-tar'></a> Windows Stemcell v2019.44 is Incompatible with winfs2019-release v2.33.1 and Earlier
 
-Windows stemcells v2019.44 and later include a newer version of `tar` that is incompatible with winfs2019-release v2.33.1 and earlier.
-<%= vars.windows_runtime_abbr %> deployments that use Windows stemcells v2019.44 and later cannot untar winfs2019-release v2.33.1 and earlier. Compatible
-Windows stemcells for this winfs2019-release include v2019.0 through v2019.43.
+Windows stemcells v2019.44 and later include a newer version of `tar` that is incompatible with `winfs2019-release` v2.33.1 and earlier.
+<%= vars.windows_runtime_abbr %> deployments that use Windows stemcells v2019.44 and later cannot untar `winfs2019-release` v2.33.1 and earlier. Compatible
+Windows stemcells for `winfs2019-release` v2.33.1 and earlier include v2019.0 through v2019.43.
