@@ -26,6 +26,10 @@ Before you install the tile, review the [Windows Stemcell Compatibility Matrix](
 
 **Release Date:** 09/21/2022
 
+<p class='note warning'><strong>Warning:</strong> Breaking change. Some customers have encountered a VCS stamping failure 
+  when deploying this release. This deployment error occurs when git is not present on the stemcell in the PATH. 
+  This will be fixed in future tile releases.</p>
+
 * **[Feature Improvement]** Bump golang to 1.18 for diego, routing, cf-networking, and silk
 * **[Security Fix]** Bump Cloud Controller Ruby version to 2.7.6 and Go to 1.18.5
 * **[Security Fix]** Update Content-Security-Policy
