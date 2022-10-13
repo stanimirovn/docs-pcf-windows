@@ -218,20 +218,21 @@ following options:
 
 1. Click **Save**.
 
-#### <a id='custom-cell-overlay'></a>Custom Windows Diego Cell Overlay Subnet
+#### <a id='custom-cell-overlay'></a> Custom Windows Diego Cell Overlay Subnet
 
-By default, Windows Diego Cells use the `172.30.0.0/22` address space for container networking.
-If this conflicts with any internal IP addresses in use at your organization, you can customize
-this subnet. Unlike in TAS on Linux Diego Cells, this subnet is per-cell. When overriding this,
-ensure that the new subnet CIDR does not conflict with any resources apps may need to communicate
-with, and that the subnet is large enough to handle the number of apps you expect to have running
-on each cell.
+By default, Windows Diego Cells use the `172.30.0.0/22` IP address space for container networking. If this conflicts with any internal IP addresses that your
+organization uses, you can customize this subnet. Unlike in <%= vars.windows_runtime_abbr %> deployments using Linux Diego Cells, you configure this subnet
+per Diego Cell. When you configure a custom subnet for a Windows Diego Cell, ensure the following:
 
-To configure a custom Windows Diego Cell Overlay Subnet:
+* The CIDR range of your custom subnet does not conflict with any resources that your apps may need to use.
 
-1. Select **Advanced Features**.
+* The subnet is large enough to accommodate the number of apps you expect to have running on each Diego Cell.
 
-1. Enter the new subnet desired into **Diego Cell Overlay Subnet**.
+To configure a custom Windows Diego Cell overlay subnet:
+
+1. In the <%= vars.windows_runtime_abbr %> tile, select **Advanced Features**.
+
+1. For **Diego Cell Overlay Subnet**, enter the subnet you want to configure for your Diego Cell.
 
 1. Click **Save**.
 
