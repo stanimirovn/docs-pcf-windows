@@ -20,7 +20,9 @@ Before you install the tile, review the [Windows Stemcell Compatibility Matrix](
 
 ## <a id='releases'></a> Releases
 
-### <a id='2.12.13'></a> 2.12.13
+<%# DO NOT DELETE THIS LINE - robots use this to add new release notes %>
+
+### <a id='2-12-13'></a> v2.12.13
 
 **Release Date:** 10/19/2022
 
@@ -58,25 +60,20 @@ Before you install the tile, review the [Windows Stemcell Compatibility Matrix](
   </tbody>
 </table>
 
-
-
-<%# DO NOT DELETE THIS LINE - robots use this to add new release notes %>
-
 ### <a id='2-12-12'></a> v2.12.12
 
 **Release Date:** 09/21/2022
 
-<p class='note warning'><strong>Warning:</strong> Breaking change. Some customers have encountered a VCS stamping failure 
-  when deploying this release. This deployment error occurs when git is not present on the stemcell in the PATH. 
-  This will be fixed in future tile releases.</p>
-
-* **[Feature Improvement]** Bump golang to 1.18 for diego, routing, cf-networking, and silk
 * **[Security Fix]** Bump Cloud Controller Ruby version to 2.7.6 and Go to 1.18.5
 * **[Security Fix]** Update Content-Security-Policy
-* **[Feature]** Enables TLS for all internal MySQL galera and monitoring components
 * **[Breaking Change]** If you have configured an app log rate limit that measures app log rates in lines per second, Diego immediately drops app logs that
 exceed the app log rate limit. For more information, see [Diego Drops App Logs That Exceed the App Log Rate Limit](#dropped-app-logs) below.
 * Bump diego to version `2.66.3`
+* **[Feature]** Enables TLS for all internal MySQL galera and monitoring components
+* **[Feature Improvement]** Bump golang to 1.18 for diego, routing, cf-networking, and silk
+* **[Known Issue]** If Git is not installed in the `PATH` environment variable for your Windows stemcell when you deploy <%= vars.windows_runtime_abbr %>, you
+may encounter a version control system (VCS) stamping failure. For more information, see [Windows Stemcells Without Git Installed Cause VSC Stamping
+Failures](#vsc-stamping-failure) below.
 * Bump envoy-nginx to version `0.11.0`
 * Bump garden-runc to version `1.22.2`
 * Bump hwc-offline-buildpack to version `3.1.25`
@@ -604,3 +601,18 @@ segments](https://community.pivotal.io/s/article/5004y00001iTlFg1635513986409) i
 Windows stemcells v2019.44 and later include a newer version of `tar` that is incompatible with `winfs2019-release` v2.33.1 and earlier.
 <%= vars.windows_runtime_abbr %> deployments that use Windows stemcells v2019.44 and later cannot untar `winfs2019-release` v2.33.1 and earlier. Compatible
 Windows stemcells for `winfs2019-release` v2.33.1 and earlier include v2019.0 through v2019.43.
+
+### <a id='vsc-stamping-failure'></a> Windows Stemcells Without Git Installed Cause VSC Stamping Failures
+
+If Git is not installed either on your Windows stemcell or in the `PATH` environment variable for your Windows stemcell when you deploy
+<%= vars.windows_runtime_abbr %> <%= vars.v_major_version %>.12, you may see the following error:
+
+<pre class='terminal'>Stderr: 	Use -buildvcs=false to disable VCS stamping.</pre>
+
+This occurs because some <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %>.12 use Go v1.18, which embeds VSC information in binaries. As a result,
+releases that contain `.git` files require that Git is installed either on your Windows stemcell or in the `PATH` for your Windows stemcell. If you do not
+have Git installed in either location and have not set the `buildvcs` property to `false`, Go v1.18 fails to build the release.
+
+<%= vars.windows_runtime_abbr %> <%= vars.v_major_version %>.12 contains `windows2019fs-release`. Because `windows2019fs-release` contains `.git` files,
+deployments of <%= vars.windows_runtime_abbr %> <%= vars.v_major_version %>.12 using Windows stemcells that do not have Git installed on them or in their
+`PATH` fail with the VSC stamping error above.
