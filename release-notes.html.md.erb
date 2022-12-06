@@ -16,6 +16,62 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
 
 ## <a id='releases'></a> Releases
 
+### <a id='2.13.10'></a> 2.13.10
+
+**Release Date:** 12/06/2022
+
+* Bump diego to version `2.70.0`
+* Bump hwc-offline-buildpack to version `3.1.27`
+
+<table border="1" class="nice">
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Version</th>
+      <th>Release Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>windows2019 stemcell</td><td>2019.44</td><td></td></tr>
+    <tr><td>diego</td><td>2.70.0</td><td></td></tr>
+    <tr><td>envoy-nginx</td><td>0.13.0</td><td></td></tr>
+    <tr><td>event-log</td><td>0.9.0</td><td></td></tr>
+    <tr><td>garden-runc</td><td>1.22.5</td><td></td></tr>
+    <tr><td>windows-syslog</td><td>1.1.11</td><td></td></tr>
+    <tr><td>hwc-offline-buildpack</td><td>3.1.27</td>
+      <td>
+        <details>
+          <summary>3.1.27</summary>
+          <pre style="max-width: 30em">
+  * Add hwc 21.0.0, remove hwc 20.0.0
+  for stack(s) windows2016, windows
+  (https://www.pivotaltracker.com/story/show/183726731)
+  * Bumps default version to match new HWC version
+  * Bumps go.mod go version to 1.19
+  Packaged binaries:
+  | name | version | cf_stacks |
+  |-|-|-|
+  | hwc | 21.0.0 | windows, windows2016 |
+  Default binary versions:
+  | name | version |
+  |-|-|
+  | hwc | 21.0.0 |
+  * Uncached buildpack SHA256: ae83488a72f50d1725fb37fc35e819133ed07af82d872b9fe7fb34e9de18b92e
+  * Uncached buildpack SHA256: 2e2e474d7677112021cc892627eddef0768e28835b6ad98117a260ea022e4463
+          </pre>
+        </details>
+      </td>
+    </tr>
+    <tr><td>loggregator-agent</td><td>6.5.4</td><td></td></tr>
+    <tr><td>metrics-discovery</td><td>3.2.3</td><td></td></tr>
+    <tr><td>smoke-tests</td><td>4.8.1</td><td></td></tr>
+    <tr><td>winc</td><td>2.8.0</td><td></td></tr>
+    <tr><td>windows-utilities</td><td>0.14.0</td><td></td></tr>
+  </tbody>
+</table>
+
+
+
 ### <a id='2.13.9'></a> 2.13.9
 
 **Release Date:** 12/02/2022
