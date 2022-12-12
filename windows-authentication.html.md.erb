@@ -1,0 +1,55 @@
+---
+title: Windows authentication for .Net apps
+owner: Windows
+---
+
+This topic describes how to integrate Windows Diego Cells with an existing Active Directory domain in order to enable support for apps using Windows Authentication.
+
+
+## <a id='overview'></a> Overview
+
+Windows Authentication allows users accessing a Windows app on <%= vars.windows_runtime_abbr %> to transparently authenticate using their domain credentials.
+
+
+## <a id='prerequisites'></a> Prerequisites
+
+Before you configure the <%= vars.windows_runtime_abbr %> tile for Windows Authentication, ensure that you meet the requirements:
+
+* Your Active Directory instance is configured with a GMSA and a regular user that has been granted access to the GMSA credentials (see the [Microsoft docs](https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/manage-serviceaccounts) for specifics).
+* Your Windows Diego cells have the appropriate [firewall rules](https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/gmsa-troubleshooting#check-the-firewall-configuration) to access the Active Directory instance.
+* [Application Security Groups](../concepts/asg.html) must be configured to allow traffic from app containers to the Active Directory instance.
+* [TCP Routing](../operating/configure-pas.html#networking) must be enabled and configured.
+<p class="note"><strong>Note:</strong> Using Windows Authentication via the gorouter is strongly discouraged and can result in authentication sessions for one user being returned to a different user.  Windows Authentication apps should only be accessed via TCP routes.</p>
+* The **The Gorouter and apps use mutual TLS to verify each other’s identity** under [Advanced Features](installing.html#config-advanced-features) must not be selected, as this disables TCP routing.
+* Depending on your IaaS, you may need to configure BOSH DNS handlers so that your app containers can resolve domain resources via the Active Directory instance. See the <a class="external-link" href="https://docs.pivotal.io/ops-manager/install"><strong>Ops Manager Documentation</strong></a> for IaaS-specific instructions.
+* Apps pushed intending to use Windows Authentication must use the HWC buildpack
+
+<p class="note"><strong>Note:</strong> We strongly recommend using an isolation segment for Windows Authentication, as all apps in the <%= vars.windows_runtime_abbr %> installation will have access to the GMSA credentials.  To associate a <%= vars.windows_runtime_abbr %> tile with an isolation segment, so that its Diego Cells run in that segment, see <a href="./isolation.html">Windows Diego Cells in Isolation Segments</a>.</p>
+
+
+## <a id='limitations'></a> Limitations
+
+* Authenticating via the cf cli with Windows Authentication is not supported
+* Every app in the in the <%= vars.windows_runtime_abbr %> installation will have access to the GMSA credentials.  There is no way to configure it on an app-by-app-basis
+* Windows Authentication delegation from App to Service is not supported
+
+
+## <a id='configure-tile'></a> Configure the tile
+
+First follow the steps in the [Microsoft docs](https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/manage-serviceaccounts#create-a-credential-spec) to create the appropriate values, then select **Windows Authentication** and follow this procedure:
+
+1. Under **Windows Authentication**  select **Enable**.
+1. For the **Fully-qualified Active Directory domain name** field, enter the domain name of the Active Directory instance to integrate with.
+1. For the **Standard username** field, enter a user which has been granted access to retrieve the GMSA password.
+1. For the **Standard user password** field, enter the password for that user.
+1. For the **Container credential spec** field, enter the JSON credential spec generated from the [Microsoft docs](https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/manage-serviceaccounts#create-a-credential-spec).
+
+1. Click **Save**.
+
+## <a id='rotating'></a> Rotating the standard user
+1. Create a new user account
+1. Add the user to the security group that guards access to the GMSA service account
+1. Update the **Standard username** and **Standard user password** fields with the new user information
+1. Click **Save**.
+1. Click the Installation Dashboard link to return to the Ops Manager Installation Dashboard.
+1. Click Review Pending Changes, then Apply Changes
