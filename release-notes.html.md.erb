@@ -18,10 +18,15 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
 
 ### <a id='2.13.10'></a> 2.13.10
 
-**Release Date:** 12/06/2022
+**Release Date:** 12/15/2022
 
+* **[Security Fix]** Fix CVE-2022-31733: Unsecured Application Port
 * Bump diego to version `2.70.0`
+* Bump envoy-nginx to version `0.14.0`
 * Bump hwc-offline-buildpack to version `3.1.27`
+* Bump loggregator-agent to version `6.5.5`
+* Bump metrics-discovery to version `3.2.4`
+* Bump winc to version `2.9.0`
 
 <table border="1" class="nice">
   <thead>
@@ -34,7 +39,7 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
   <tbody>
     <tr><td>windows2019 stemcell</td><td>2019.44</td><td></td></tr>
     <tr><td>diego</td><td>2.70.0</td><td></td></tr>
-    <tr><td>envoy-nginx</td><td>0.13.0</td><td></td></tr>
+    <tr><td>envoy-nginx</td><td>0.14.0</td><td></td></tr>
     <tr><td>event-log</td><td>0.9.0</td><td></td></tr>
     <tr><td>garden-runc</td><td>1.22.5</td><td></td></tr>
     <tr><td>windows-syslog</td><td>1.1.11</td><td></td></tr>
@@ -62,10 +67,40 @@ Before you install the tile, refer to the [Windows Stemcell Compatibility Matrix
         </details>
       </td>
     </tr>
-    <tr><td>loggregator-agent</td><td>6.5.4</td><td></td></tr>
-    <tr><td>metrics-discovery</td><td>3.2.3</td><td></td></tr>
+    <tr><td>loggregator-agent</td><td>6.5.5</td>
+      <td>
+        <details>
+          <summary>v6.5.5</summary>
+          <pre style="max-width: 30em">
+  - bump-golang to v0.114.0 for golang 1.19.4
+  - Bump google.golang.org/grpc from 1.50.1 to 1.51.0 in /src
+  - Bump github.com/valyala/fasthttp from 1.41.0 to 1.43.0 in /src
+  - Bump github.com/onsi/ginkgo/v2 from 2.5.0 to 2.5.1 in /src
+  - Bump github.com/onsi/gomega from 1.24.0 to 1.24.1 in /src
+  - Bump github.com/prometheus/client_model from 0.2.0 to 0.3.0 in /src
+  - Bump golangci/golangci-lint-action from 3.3.0 to 3.3.1
+          </pre>
+        </details>
+      </td>
+    </tr>
+    <tr><td>metrics-discovery</td><td>3.2.4</td>
+      <td>
+        <details>
+          <summary>v3.2.4</summary>
+          <pre style="max-width: 30em">
+  - bump-golang to v0.114.0 for golang 1.19.4
+  - Bump github.com/nats-io/nats.go from 1.19.0 to 1.21.0 in /src
+  - Bump google.golang.org/grpc from 1.50.1 to 1.51.0 in /src
+  - Bump github.com/onsi/ginkgo/v2 from 2.5.0 to 2.5.1 in /src
+  - Bump github.com/prometheus/client_golang from 1.13.1 to 1.14.0 in /src
+  - Bump github.com/onsi/gomega from 1.24.0 to 1.24.1 in /src
+  - Bump golangci/golangci-lint-action from 3.3.0 to 3.3.1
+          </pre>
+        </details>
+      </td>
+    </tr>
     <tr><td>smoke-tests</td><td>4.8.1</td><td></td></tr>
-    <tr><td>winc</td><td>2.8.0</td><td></td></tr>
+    <tr><td>winc</td><td>2.9.0</td><td></td></tr>
     <tr><td>windows-utilities</td><td>0.14.0</td><td></td></tr>
   </tbody>
 </table>
