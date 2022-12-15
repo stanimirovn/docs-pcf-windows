@@ -16,6 +16,199 @@ Before you install the tile, review the [Windows Stemcell Compatibility Matrix](
 
 ## <a id='releases'></a> Releases
 
+### <a id='3.0.3'></a> 3.0.3
+
+**Release Date:** 12/15/2022
+
+* **[Security Fix]** Fix CVE-2022-31733: Unsecured Application Port
+* Bump diego to version `2.70.0`
+* Bump envoy-nginx to version `0.14.0`
+* Bump loggregator-agent to version `6.5.5`
+* Bump metrics-discovery to version `3.2.4`
+* Bump smoke-tests to version `4.8.1`
+* Bump winc to version `2.9.0`
+* Bump windows-syslog to version `1.1.11`
+
+<table border="1" class="nice">
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Version</th>
+      <th>Release Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>windows2019 stemcell</td><td>2019.44</td><td></td></tr>
+    <tr><td>diego</td><td>2.70.0</td><td></td></tr>
+    <tr><td>envoy-nginx</td><td>0.14.0</td><td></td></tr>
+    <tr><td>garden-runc</td><td>1.22.5</td><td></td></tr>
+    <tr><td>hwc-offline-buildpack</td><td>3.1.26</td><td></td></tr>
+    <tr><td>loggregator-agent</td><td>6.5.5</td>
+      <td>
+        <details>
+          <summary>v6.5.5</summary>
+          <pre style="max-width: 30em">
+  - bump-golang to v0.114.0 for golang 1.19.4
+  - Bump google.golang.org/grpc from 1.50.1 to 1.51.0 in /src
+  - Bump github.com/valyala/fasthttp from 1.41.0 to 1.43.0 in /src
+  - Bump github.com/onsi/ginkgo/v2 from 2.5.0 to 2.5.1 in /src
+  - Bump github.com/onsi/gomega from 1.24.0 to 1.24.1 in /src
+  - Bump github.com/prometheus/client_model from 0.2.0 to 0.3.0 in /src
+  - Bump golangci/golangci-lint-action from 3.3.0 to 3.3.1
+          </pre>
+        </details>
+        <details>
+          <summary>v6.5.4</summary>
+          <pre style="max-width: 30em">
+  ## What's Changed
+  - Bump to go1.19.3
+  - Bump dependencies
+  **Full Changelog**: https://github.com/cloudfoundry/loggregator-agent-release/compare/v6.5.3...v6.5.4
+          </pre>
+        </details>
+        <details>
+          <summary>v6.5.3</summary>
+          <pre style="max-width: 30em">
+  ## What's Changed
+  * Fix logs for forwarder agent drops by @rroberts2222 in https://github.com/cloudfoundry/loggregator-agent-release/pull/156
+  **Full Changelog**: https://github.com/cloudfoundry/loggregator-agent-release/compare/v6.5.2...v6.5.3
+          </pre>
+        </details>
+        <details>
+          <summary>v6.5.2</summary>
+          <pre style="max-width: 30em">
+  ## What's Changed
+  * Bump golang to 1.19.2
+  **Full Changelog**: https://github.com/cloudfoundry/loggregator-agent-release/compare/v6.5.1...v6.5.2
+          </pre>
+        </details>
+        <details>
+          <summary>v6.5.1</summary>
+          <pre style="max-width: 30em">
+  ## What's Changed
+  * remove the use of sha1 by @duanemay in https://github.com/cloudfoundry/loggregator-agent-release/pull/133
+  * Bump github.com/valyala/fasthttp from 1.39.0 to 1.40.0 in /src by @dependabot in https://github.com/cloudfoundry/loggregator-agent-release/pull/129
+  * Upgrade ginkgo to v2 by @ctlong in https://github.com/cloudfoundry/loggregator-agent-release/pull/135
+  * Golang 1.19.1 by @rroberts2222 in https://github.com/cloudfoundry/loggregator-agent-release/pull/138
+  ## New Contributors
+  * @duanemay made their first contribution in https://github.com/cloudfoundry/loggregator-agent-release/pull/133
+  * @rroberts2222 made their first contribution in https://github.com/cloudfoundry/loggregator-agent-release/pull/138
+  **Full Changelog**: https://github.com/cloudfoundry/loggregator-agent-release/compare/v6.5.0...v6.5.1
+          </pre>
+        </details>
+      </td>
+    </tr>
+    <tr><td>metrics-discovery</td><td>3.2.4</td>
+      <td>
+        <details>
+          <summary>v3.2.4</summary>
+          <pre style="max-width: 30em">
+  - bump-golang to v0.114.0 for golang 1.19.4
+  - Bump github.com/nats-io/nats.go from 1.19.0 to 1.21.0 in /src
+  - Bump google.golang.org/grpc from 1.50.1 to 1.51.0 in /src
+  - Bump github.com/onsi/ginkgo/v2 from 2.5.0 to 2.5.1 in /src
+  - Bump github.com/prometheus/client_golang from 1.13.1 to 1.14.0 in /src
+  - Bump github.com/onsi/gomega from 1.24.0 to 1.24.1 in /src
+  - Bump golangci/golangci-lint-action from 3.3.0 to 3.3.1
+          </pre>
+        </details>
+        <details>
+          <summary>v3.2.3</summary>
+          <pre style="max-width: 30em">
+  ## What's Changed
+  * Bump to go1.19.3
+  * Bump dependencies
+  **Full Changelog**: https://github.com/cloudfoundry/metrics-discovery-release/compare/v3.2.2...v3.2.3
+          </pre>
+        </details>
+        <details>
+          <summary>v3.2.2</summary>
+          <pre style="max-width: 30em">
+  ## What's Changed
+  * update golang to 1.19.2
+  **Full Changelog**: https://github.com/cloudfoundry/metrics-discovery-release/compare/v3.2.1...v3.2.2
+          </pre>
+        </details>
+        <details>
+          <summary>v3.2.1</summary>
+          <pre style="max-width: 30em">
+  ## What's Changed
+  * Bump github.com/onsi/ginkgo/v2 from 2.1.6 to 2.2.0 in /src by @dependabot in https://github.com/cloudfoundry/metrics-discovery-release/pull/51
+  * Bump github.com/nats-io/nats.go from 1.16.0 to 1.17.0 in /src by @dependabot in https://github.com/cloudfoundry/metrics-discovery-release/pull/50
+  * Replace `ioutil` use with `io` and `os` by @ctlong in https://github.com/cloudfoundry/metrics-discovery-release/pull/52
+  * Bump to golang 1.19.1 by @Benjamintf1 in https://github.com/cloudfoundry/metrics-discovery-release/pull/54
+  ## New Contributors
+  * @rroberts2222 made their first contribution in https://github.com/cloudfoundry/metrics-discovery-release/pull/55
+  **Full Changelog**: https://github.com/cloudfoundry/metrics-discovery-release/compare/v3.2.0...v3.2.1
+          </pre>
+        </details>
+      </td>
+    </tr>
+    <tr><td>smoke-tests</td><td>4.8.1</td>
+      <td>
+        <details>
+          <summary>4.8.1</summary>
+          <pre style="max-width: 30em">
+  Create bosh final release 4.8.1
+          </pre>
+        </details>
+        <details>
+          <summary>4.8.0</summary>
+          <pre style="max-width: 30em">
+  Create bosh final release 4.8.0
+          </pre>
+        </details>
+        <details>
+          <summary>4.7.0</summary>
+          <pre style="max-width: 30em">
+  Create bosh final release 4.7.0
+          </pre>
+        </details>
+      </td>
+    </tr>
+    <tr><td>winc</td><td>2.9.0</td><td></td></tr>
+    <tr><td>windows-syslog</td><td>1.1.11</td>
+      <td>
+        <details>
+          <summary>v1.1.11</summary>
+          <pre style="max-width: 30em">
+  * update golang to 1.19.3
+          </pre>
+        </details>
+        <details>
+          <summary>v1.1.10</summary>
+          <pre style="max-width: 30em">
+  ## What's Changed
+  * Bump to golang 1.19.2
+  ## New Contributors
+  * @ctlong made their first contribution in https://github.com/cloudfoundry/windows-syslog-release/pull/14
+  * @rroberts2222 made their first contribution in https://github.com/cloudfoundry/windows-syslog-release/pull/15
+  **Full Changelog**: https://github.com/cloudfoundry/windows-syslog-release/compare/v1.1.9...v1.1.10
+          </pre>
+        </details>
+        <details>
+          <summary>v1.1.9</summary>
+          <pre style="max-width: 30em">
+  * Bump to golang 1.18.6
+  **Full Changelog**: https://github.com/cloudfoundry/windows-syslog-release/compare/v1.1.8...v1.1.9
+          </pre>
+        </details>
+        <details>
+          <summary>v1.1.8</summary>
+          <pre style="max-width: 30em">
+  ## What's Changed
+  * Bump golang to 1.18.5
+  **Full Changelog**: https://github.com/cloudfoundry/windows-syslog-release/compare/v1.1.7...v1.1.8
+          </pre>
+        </details>
+      </td>
+    </tr>
+    <tr><td>windows-utilities</td><td>0.17.0</td><td></td></tr>
+  </tbody>
+</table>
+
+
+
 ### <a id='3.0.2'></a> 3.0.2
 
 **Release Date:** 12/02/2022
