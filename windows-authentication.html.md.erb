@@ -9,6 +9,15 @@ This topic describes how to integrate Windows Diego Cells with an existing Activ
 
 Windows Authentication allows users accessing a Windows app on <%= vars.windows_runtime_abbr %> to transparently authenticate using their domain credentials.
 
+## <a id='security'></a> Security considerations
+
+It is imperative that HTTP routing via the gorouter not be used for apps that use Windows Authentication.  Windows Authentication sessions are cached by source IP and port.  The gorouter [maintains](../concepts/http-routing.html#back-end) TCP connections to app containers and re-uses them for subsequent inbound HTTP requests.  This implies that a given gorouter uses the same port to talk to an app for multiple users.  User authentication sessions end up being shared among multiple users making HTTP requests to the Windows Authentication app, which is a serious security hazard.
+
+To avoid this risk, use TCP routing.  The TCP router does not maintain connections to app containers in the same fashion as the gorouter.  Therefore, user authentication sessions are not shared among multiple users.  To enable TCP routing, see [Configure Networking](../operating/configure-pas.html#networking) for the <%= vars.app_runtime_abbr %> tile.
+
+Apps using Windows Authentication should be use the `--no-route` flag to `cf push`, or specify a `routes` stanza in their manifest with solely a TCP route.
+
+
 ## <a id='prerequisites'></a> Prerequisites
 
 Before you configure the <%= vars.windows_runtime_abbr %> tile for Windows Authentication, ensure that you meet the requirements:
@@ -36,6 +45,7 @@ Before you configure the <%= vars.windows_runtime_abbr %> tile for Windows Authe
 First follow the steps in the [Microsoft docs](https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/manage-serviceaccounts#create-a-credential-spec) to create the appropriate values, then select **Windows Authentication** and follow this procedure:
 
 1. Under **Windows Authentication**  select **Enable**.
+1. For the **Type X to acknowledge...** field, enter `X`.  See [Security considerations](#security) above for more details.
 1. For the **Fully-qualified Active Directory domain name** field, enter the domain name of the Active Directory instance to integrate with.
 1. For the **Standard user name** field, enter a user which has been granted access to retrieve the GMSA password.
 1. For the **Standard user password** field, enter the password for that user.
