@@ -265,6 +265,12 @@ To configure errands:
 
 To deploy your <%= vars.windows_runtime_abbr %> app workloads to an isolation segment, select **App Containers** and follow the procedure in [Assign a Tile to an Isolation Segment](./isolation.html#assign-isolation) in _Windows Diego Cells in Isolation Segments_.
 
+### <a id='config-windows-authentication'></a> (Optional) Configure Windows Authentication
+
+To configure Windows Diego Cells to allow app containers to perform Windows Authentication, select **Windows Authentication** and follow the procedure in [Configuring the tile for Windows Authentication](./windows-authentication.html#configure-tile) in _Windows Authentication for .Net apps_.
+
+<p class="note"><strong>Note:</strong> We strongly recommend using an isolation segment for Windows Authentication, as all apps in the <%= vars.windows_runtime_abbr %> installation will have access to the GMSA credentials.</p>
+
 ### <a id='config-system-logging'></a> (Optional) Configure System Logging
 
 To configure Windows Diego Cells to send VM logs to an external syslog server, select **System Logging** and follow the procedure in [Forwarding Logs to a Syslog Server](troubleshooting.html#syslog) in _Troubleshooting Windows Diego Cells_.
