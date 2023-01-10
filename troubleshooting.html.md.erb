@@ -118,7 +118,7 @@ When upgrading between versions of Windows rootfs that have a shared Microsoft b
 
 **Solution**
 
-For available workarounds, see 
+For available workarounds, see
 [Failure to create containers when upgrading with shared Microsoft base
 image](https://community.pivotal.io/s/article/knowledge-base-failure-to-create-containers-when-upgrading-with-shared-microsoft-base-image) in the Knowledge Base.
 
@@ -185,8 +185,8 @@ To download Windows Diego Cell logs:
 
 ## <a id='compilation_vms'></a> Troubleshoot Windows Compilation VMs
 
-BOSH automatically deletes a compilation VM after the compilation VM fails. 
-In a vSphere environment, use one of the procedures below to troubleshoot your 
+BOSH automatically deletes a compilation VM after the compilation VM fails.
+In a vSphere environment, use one of the procedures below to troubleshoot your
 Windows stemcell v2019.7 and later compilation VM issues:
 
 * [Troubleshoot a Slowly-Deleted Windows Compilation VM](#compilation-vms-slow)
@@ -194,21 +194,21 @@ Windows stemcell v2019.7 and later compilation VM issues:
 
 ### <a name='compilation-vms-slow'></a> Troubleshoot a Slowly-Deleted Windows Compilation VM
 
-The easiest method to troubleshoot a Windows compilation VM is to SSH into the VM before BOSH deletes it. 
+The easiest method to troubleshoot a Windows compilation VM is to SSH into the VM before BOSH deletes it.
 
 To troubleshoot a compilation VM from an `ssh` session:
 
-1. Open the vSphere UI.  
+1. Open the vSphere UI.
 
-1. Open two different BOSH CLI terminal sessions.  
-1. Open <%= vars.ops_manager %>.  
+1. Open two different BOSH CLI terminal sessions.
+1. Open <%= vars.ops_manager %>.
 1. Enable the two following settings in <%= vars.ops_manager %>:
-    * Select **Keep Unreachable Director VMs** from 
-    **BOSH Director** tile > **Director config**. 
-    * Select **Enable BOSH-native SSH support on all VMs** from 
-    **<%= vars.windows_runtime_abbr %>** tile > **VM options**. 
+    * Select **Keep Unreachable Director VMs** from
+    **BOSH Director** tile > **Director config**.
+    * Select **Enable BOSH-native SSH support on all VMs** from
+    **<%= vars.windows_runtime_abbr %>** tile > **VM options**.
 1. Click **Apply Changes** against the <%= vars.windows_runtime_abbr %> tile.
-1. From the first BOSH CLI terminal, monitor the BOSH task:  
+1. From the first BOSH CLI terminal, monitor the BOSH task:
 
     ```
     watch -n 5 "bosh -d TAS-WINDOWS-DEPLOYMENT is --details | grep compilation"
@@ -225,17 +225,17 @@ To troubleshoot a compilation VM from an `ssh` session:
     ```
     Where:
     * `TAS-WINDOWS-DEPLOYMENT` is the name of your <%= vars.windows_runtime_abbr %> deployment.
-    * `COMPILATION-NAME` is the name of your  Windows compilation VM.  
+    * `COMPILATION-NAME` is the name of your  Windows compilation VM.
 
-1. To prevent BOSH from deleting the compilation VM after the compilation VM fails, 
-search for the compilation VM CID in the vSphere UI and rename it. You can now troubleshoot within this session.  
+1. To prevent BOSH from deleting the compilation VM after the compilation VM fails,
+search for the compilation VM CID in the vSphere UI and rename it. You can now troubleshoot within this session.
 
-1. After troubleshooting, delete the VM manually.  
+1. After troubleshooting, delete the VM manually.
 
 ### <a name='compilation-vms-quick'></a> Troubleshoot a Quickly-Deleted Windows Compilation VM
 
-In some situations, the Windows compilation VM might be deleted very quickly, 
-making it impossible to SSH into the VM before BOSH deletes it. 
+In some situations, the Windows compilation VM might be deleted very quickly,
+making it impossible to SSH into the VM before BOSH deletes it.
 
 To troubleshoot a quickly-deleted compilation VM:
 
@@ -243,18 +243,18 @@ To troubleshoot a quickly-deleted compilation VM:
 
 1. Upload the Ubuntu desktop image into your vSphere datastore.
 
-1. Open the vSphere UI.  
+1. Open the vSphere UI.
 
-1. Open a BOSH CLI terminal session.  
-1. Open <%= vars.ops_manager %>.  
+1. Open a BOSH CLI terminal session.
+1. Open <%= vars.ops_manager %>.
 1. Enable the two following settings in <%= vars.ops_manager %>:
-    * Select **Keep Unreachable Director VMs** from 
-    **BOSH Director** tile > **Director config**. 
-    * Select **enable BOSH-native SSH support on all VMs** from 
-    **<%= vars.windows_runtime_abbr %>** tile > **VM options**. 
+    * Select **Keep Unreachable Director VMs** from
+    **BOSH Director** tile > **Director config**.
+    * Select **enable BOSH-native SSH support on all VMs** from
+    **<%= vars.windows_runtime_abbr %>** tile > **VM options**.
 1. Click **Apply Changes** in <%= vars.ops_manager %>.
 
-1. From the BOSH CLI terminal, monitor the BOSH task:  
+1. From the BOSH CLI terminal, monitor the BOSH task:
 
     ```
     watch -n 5 "bosh -d TAS-WINDOWS-DEPLOYMENT is --details | grep compilation"
@@ -265,19 +265,19 @@ To troubleshoot a quickly-deleted compilation VM:
 1. Wait until the compilation VM CID is up.
 
 1. From the vSphere UI:
-    1. Locate the compilation VM CID in the vSphere UI.  
-    1. To prevent BOSH from deleting the compilation VM after the compilation VM fails, 
+    1. Locate the compilation VM CID in the vSphere UI.
+    1. To prevent BOSH from deleting the compilation VM after the compilation VM fails,
     rename the compilation VM.
-    1. On the Windows compilation VM, go to **Edit settings** > **add a device CD/DVD drive** > 
+    1. On the Windows compilation VM, go to **Edit settings** > **add a device CD/DVD drive** >
     **browse Datastore ISO file**, and select the Ubuntu desktop iso -> select **Connect at Power ON**.
     1. Go to **Edit settings** -> **VM options** tab -> **Boot Options**.
     1. Increase the **Boot Delay** to `10000 milliseconds`.
     1. Select **Force BIOS Setup**.
-    1. Select **Start/Restart** to restart the VM. 
+    1. Select **Start/Restart** to restart the VM.
 
 1. On the BIOS setup screen, boot with the CD-ROM Drive.
 
-1. After Ubuntu desktop starts, select **try Ubuntu** and launch a terminal. 
+1. After Ubuntu desktop starts, select **try Ubuntu** and launch a terminal.
 
 1. In the terminal, run:
 
@@ -293,9 +293,9 @@ To troubleshoot a quickly-deleted compilation VM:
 
 ## <a id='windows-authentication'></a> Windows Authentication
 
-The [Microsoft troubleshooting docs](https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/gmsa-troubleshooting#non-domain-joined-hosts-make-sure-the-host-is-configured-to-retrieve-the-gmsa-account) are a great place to start.
+<p class="note"><strong>Note:</strong> For the basics, start with the [Microsoft troubleshooting docs](https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/gmsa-troubleshooting#non-domain-joined-hosts-make-sure-the-host-is-configured-to-retrieve-the-gmsa-account).</p>
 
-The Windows Authentication feature uses the Windows event log system.  To access a log from the Windows Diego Cell, first `ssh` onto the cell, then enter `powershell`.  To get the events in an event log, use the command [`Get-WinEvent`](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent):
+The Windows Authentication feature uses the Windows event log system. To access a log from the Windows Diego Cell, `ssh` onto the cell, then enter `powershell`. To get the events in an event log, use the command [`Get-WinEvent`](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent):
 
 ```
 > bosh ssh -d TAS-WINDOWS-DEPLOYMENT windows_diego_cell/INDEX
@@ -303,11 +303,11 @@ The Windows Authentication feature uses the Windows event log system.  To access
 PS> Get-WinEvent -LogName LOG-NAME
 ```
 
-Where `TAS-WINDOWS-DEPLOYMENT` is the name of your <%= vars.windows_runtime_abbr %> deployment, `INDEX` is the particular vm you want to access, and `LOG-NAME` is the name of the log whose events you want to see.
+Where `TAS-WINDOWS-DEPLOYMENT` is the name of your <%= vars.windows_runtime_abbr %> deployment, `INDEX` is the VM you want to access, and `LOG-NAME` is the name of the log for which you want to view events.
 
 ### <a id='tas-gmsa-plugin-logs'></a> TAS gMSA plugin logs
 
-TAS [gMSA plugin](https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/manage-serviceaccounts#gmsa-architecture-and-improvements) logs are in the event log `Cloudfoundry-CCG-Plugin`. They will tell you if the plugin is successfully invoked, and if the input to the plugin is correct.  Successful logs may look like:
+TAS [gMSA plugin](https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/manage-serviceaccounts#gmsa-architecture-and-improvements) logs are in the event log `Cloudfoundry-CCG-Plugin`. They will tell you if the plugin is successfully invoked, and if the input to the plugin is correct. Successful logs look similar to the following example:
 
 ```
 PS>  Get-WinEvent -LogName Cloudfoundry-CCG-Plugin
@@ -315,14 +315,14 @@ PS>  Get-WinEvent -LogName Cloudfoundry-CCG-Plugin
 
 TimeCreated                     Id LevelDisplayName Message
 -----------                     -- ---------------- -------
-10/28/2022 6:06:58 PM            0 Information      Sucessfully got password credentials
+10/28/2022 6:06:58 PM            0 Information      Successfully got password credentials
 10/28/2022 6:06:58 PM            0 Information      Plugin invoked
 10/28/2022 6:06:58 PM            0 Information      Plugin instantiated
 ```
 
 ### <a id='windows-compute-service-logs'></a> Windows compute service logs
 
-If Windows containers aren't starting, you can check the logs for the Host Compute Service, which is the Windows component that administers Windows containers.  Succesful logs may look like:
+If Windows containers aren't starting, you can check the logs for the Host Compute Service, which is the Windows component that administers Windows containers. Successful logs may look like:
 
 ```
 PS> Get-WinEvent -LogName Microsoft-Windows-Hyper-V-Compute-Admin
@@ -336,7 +336,7 @@ TimeCreated                     Id LevelDisplayName Message
 
 ### <a id='windows-container-credential-guard-logs'></a> Windows Container Credential Guard logs
 
-In the event that Windows containers aren't starting, or Windows Authentication isn't working via an app, you can check the logs for the [CCG.exe](https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/manage-serviceaccounts#gmsa-architecture-and-improvements) process, which invokes the TAS plugin and establishes connectivity to Active Directory.  Successful logs may look like:
+In the event that Windows containers aren't starting, or Windows Authentication isn't working through an app, you can check the logs for the [CCG.exe](https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/manage-serviceaccounts#gmsa-architecture-and-improvements) process, which invokes the TAS plugin and establishes connectivity to Active Directory. Successful logs look similar to the following:
 
 ```
 PS>  Get-WinEvent -LogName Microsoft-Windows-Containers-CCG/Admin
@@ -351,13 +351,13 @@ TimeCreated                     Id LevelDisplayName Message
 
 Where `GMSA$` is the name of your GMSA service account.
 
-There is a list of possible `Microsoft-Windows-Containers-CCG` events in the [Microsoft Troubleshooting docs](https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/gmsa-troubleshooting#events-and-descriptions).
+For a list of possible `Microsoft-Windows-Containers-CCG` events, see the [Microsoft Troubleshooting docs](https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/gmsa-troubleshooting#events-and-descriptions).
 
-<p class="note"><strong>Note:</strong> You may need to follow <a href="https://github.com/microsoft/Windows-Containers/issues/221#issuecomment-1320336855">additional steps</a> to have events show up in the <code>Microsoft-Windows-Containers-CCG</code> log.  Please contact support with any questions.</p>
+<p class="note"><strong>Note:</strong> You may need to follow <a href="https://github.com/microsoft/Windows-Containers/issues/221#issuecomment-1320336855">additional steps</a> to have events show up in the <code>Microsoft-Windows-Containers-CCG</code> log. If you have additional questions, you can contact Support.</p>
 
 ### <a id='connectivity'></a> Testing connectivity to Active Directory
 
-Both the Windows Diego Cell and the app container must have network connectivity to the Active Directory instance.  Ensure that [firewall rules](https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/gmsa-troubleshooting#check-the-firewall-configuration) are setup appropriately.  If you have connectivity from the Windows Diego Cell but not the app container, make sure that there are no [App Security Groups](../concepts/asg.html) preventing access from app containers.
+Both the Windows Diego Cell and the app container must have network connectivity to the Active Directory instance. Ensure that [firewall rules](https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/gmsa-troubleshooting#check-the-firewall-configuration) are set up appropriately. If you have connectivity from the Windows Diego Cell but not from the app container, make sure that there are no [App Security Groups](../concepts/asg.html) preventing access from app containers.
 
 From inside an app container, the following commands should complete successfully if the network connectivity is set up properly:
 
